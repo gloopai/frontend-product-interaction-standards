@@ -1,6 +1,6 @@
 interface:
   display_name: "前端产品交互规范"
-  short_description: "在前端设计、开发、评审和测试中执行个人交互规范"
+  short_description: "在前端设计、开发、评审与测试中严格执行统一的产品交互标准"
   default_prompt: "使用 $frontend-product-interaction-standards 检查并完成当前前端交互任务。"
 
 policy:
