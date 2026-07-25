@@ -9,7 +9,7 @@
 - Codex 本地 Skill：`/Users/evanqi/.codex/skills/frontend-product-interaction-standards`
 - GitHub 仓库：`https://github.com/gloopai/frontend-product-interaction-standards`
 - 默认分支：`main`
-- 当前交接版本：`e27e44db88b7d1708adec567ccf3662ed43d7b3c`
+- 当前交接版本：`e8cd5451fc3cc7d6c528c99773708a27192f63fb`
 
 新建 Codex Project 时，请直接选择本地 Skill 目录，不要选择原业务项目 `/Users/evanqi/code/fex-admin`。
 
@@ -20,6 +20,9 @@ frontend-product-interaction-standards/
 ├── SKILL.md
 ├── README.md
 ├── agents/openai.yaml
+├── docs/
+│   └── audits/
+│       └── 2026-07-25-existing-standards-hardening.md
 └── references/
     ├── dialogs.md
     ├── drawers.md
@@ -38,12 +41,14 @@ frontend-product-interaction-standards/
 - 外框不得滚动，仅内容区域滚动；标题、关闭按钮和操作区保持可见。
 - 普通可退出 Dialog 必须保留右上角关闭按钮。
 - 已定义打开/关闭动画、焦点管理、Escape、焦点陷阱、多层弹窗、异步状态、错误反馈、清理和 reduced motion。
+- 普通关闭固定遵循“退出完成 → DOM 移除 → 本实例保护释放 → 恰好一次焦点恢复”；路由变化或卸载走立即 disposal。
 
 ### Drawer
 
 - 支持上、下、左、右四个方向。
 - 已定义遮罩、关闭路径、滚动区域、焦点、层级、动画、异步状态和响应式规则。
 - PC 与移动端核心能力保持一致；低频能力可以折叠，但不能彻底删除。
+- 从 Drawer 转为非模态形态时，Drawer 专属模态基础设施必须释放；进入 Drawer 时必须由其取得，并且每项只处理一次。
 
 ### PC 与移动端兼容
 
@@ -59,6 +64,13 @@ frontend-product-interaction-standards/
 - PC 可以使用行内输入或非模态面板；受限空间和移动端场景可以使用 Drawer。
 - `none` 仅使用 Select-only Combobox，不再允许 button + Listbox 的替代模型。
 - 已定义草稿查询与已提交值、失效值、异步搜索、状态播报、焦点、Tab、Space/Enter、Home/End 和 ARIA 所有权。
+- `resolvedPlacement` 转换保留逻辑 ID；目标焦点和 ARIA 必须在焦点移动前或同一 committed render 更新，来源专属属性随之移除，且转换不提交值或草稿。
+
+### 响应式 closing
+
+- 进入 closing 后冻结当前渲染形态，忽略后续断点转换；只能执行一次专项退出动画、卸载和清理，并持续保持保护直到该流程完成。
+
+详细的 F-01 至 F-07 加固账本、交叉矩阵、静态场景重放和验证边界见 [现有规范加固最终审计账本](docs/audits/2026-07-25-existing-standards-hardening.md)。本交接仅摘要已完成保证，不复制该账本。
 
 ## 已确认的设计原则
 
@@ -106,6 +118,7 @@ frontend-product-interaction-standards/
 
 ## 当前验证状态
 
-- Skill 本地 `HEAD` 与 GitHub `main` 已核对一致。
-- 当前版本已通过文档范围检查和独立规范复审。
+- 已通过官方 Skill 验证、Markdown 相对链接检查、占位符扫描和 `git diff --check`。
+- 已完成 Base→Head 完整差异审查、独立 RED/GREEN 应用检查及最终复审；静态修订、账本和证据边界见上述审计链接。
+- 本次交接更新已核对本地 `HEAD` 与 GitHub `main` 的版本一致性，并且只更新 `HANDOFF.md`。
 - 本轮属于规范文档工作，没有执行浏览器、屏幕阅读器、触控设备或真实业务组件测试；这些验证应在具体组件实现时完成。
