@@ -1,0 +1,88 @@
+# 前端产品交互规范
+
+为前端设计、开发、评审与测试提供可执行的统一产品交互标准。
+
+## 当前规范
+
+本 Skill 当前包含以下 Dialog 核心要求：
+
+1. 点击遮罩不会关闭 Dialog，关闭必须来自明确的弹窗内操作。
+2. Dialog 外框保持非滚动；内容过长时仅内容区域可纵向滚动。
+3. 遮罩以正确层级覆盖整个视口，不受局部容器限制。
+
+完整规则、验收标准与完成前检查见 [Dialog 交互规范](references/dialogs.md)。
+
+## 系统要求
+
+需要已安装 Git、可使用 Codex，并且 `~/.codex/skills/` 目录具有写入权限。
+
+## 安装
+
+先确认目标目录不存在，再通过 HTTPS 克隆：
+
+```sh
+test ! -e ~/.codex/skills/frontend-product-interaction-standards
+git clone https://github.com/gloopai/frontend-product-interaction-standards.git ~/.codex/skills/frontend-product-interaction-standards
+```
+
+## 使用
+
+`SKILL.md` 的描述将此 Skill 定义为前端产品交互任务的适用规范，而 `agents/openai.yaml` 中的 `allow_implicit_invocation: true` 允许 Codex 在匹配的前端页面、组件、布局、Dialog、表单和交互任务中自动加载它。
+
+也可以显式提出：`使用 $frontend-product-interaction-standards 检查这个 Dialog`。
+
+## 更新
+
+```sh
+git -C ~/.codex/skills/frontend-product-interaction-standards pull --ff-only
+```
+
+## 卸载
+
+先确认目标目录存在：
+
+```sh
+test -d ~/.codex/skills/frontend-product-interaction-standards
+```
+
+删除该目录不可恢复。确认不再需要后，请由你自行删除 `~/.codex/skills/frontend-product-interaction-standards`；本文不提供删除命令。
+
+## 目录结构
+
+```text
+frontend-product-interaction-standards/
+├── README.md
+├── LICENSE
+├── CONTRIBUTING.md
+├── CODE_OF_CONDUCT.md
+├── SECURITY.md
+├── SKILL.md
+├── agents/
+│   └── openai.yaml
+└── references/
+    └── dialogs.md
+```
+
+## 扩展规范
+
+新增或调整规范时，请遵循 [贡献指南](CONTRIBUTING.md) 中的分类、路由与验证要求。
+
+## 适用范围
+
+已在 Codex 中验证安装和使用流程。其他 Agent Skills 工具尚未验证，使用前请自行确认其兼容性。
+
+## 贡献
+
+贡献流程见 [CONTRIBUTING.md](CONTRIBUTING.md)。
+
+## 行为准则
+
+社区参与规范见 [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)。
+
+## 安全
+
+安全问题的私密报告方式见 [SECURITY.md](SECURITY.md)。
+
+## 许可证
+
+本项目采用 [MIT License](LICENSE)。
