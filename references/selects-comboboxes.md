@@ -85,7 +85,16 @@ PC `inline` 弹层锚定主 Combobox，`panel` 锚定 disclosure button，`none`
 
 ## 验收与报告
 
-至少验证：五种 placement 的显式配置、`auto` 决策顺序/理由/会话冻结与允许转换；任一 `inline`、`panel`、`drawer`、`none` 来源到任一不同目标的转换，在 `query`、active、loading、error、orphaned invalid 与远程请求存在时均只发生一次焦点移动，保留关闭返回目标，不触发值变化回调或重复请求，且 `aria-controls` 当前有效、`aria-activedescendant` 仅引用已渲染 active option；inline 的可打印/Backspace/Delete/paste/cut 草稿进入、displayText 与非提交恢复；panel/drawer 内层 `aria-autocomplete="list"`、outer/inner ID、ARIA、焦点和动画后返回；select-only `none` 的 Space/Enter 均提交、type-ahead/Tab；唯一 `aria-selected` 和 active 对账；校验归属；本地即时过滤与 Loading/结果数量/空/错误播报；PC composite Tab/重试与 Drawer 焦点陷阱；可编辑 caret 键优先级；none 查询暂停/恢复；orphaned invalid；disabled/read-only/disabled option；远程竞态、虚拟列表、Portal、缩放、虚拟键盘、断点和 reduced motion。未实际检查必须报告为**未验证**并写明所需检查。
+至少验证：五种 placement 的显式配置、`auto` 决策顺序/理由/会话冻结与允许转换；inline 的可打印/Backspace/Delete/paste/cut 草稿进入、displayText 与非提交恢复；panel/drawer 内层 `aria-autocomplete="list"`、outer/inner ID、ARIA、焦点和动画后返回；select-only `none` 的 Space/Enter 均提交、type-ahead/Tab；唯一 `aria-selected` 和 active 对账；校验归属；本地即时过滤与 Loading/结果数量/空/错误播报；PC composite Tab/重试与 Drawer 焦点陷阱；可编辑 caret 键优先级；none 查询暂停/恢复；orphaned invalid；disabled/read-only/disabled option；远程竞态、虚拟列表、Portal、缩放、虚拟键盘、断点和 reduced motion。
+
+任一 `inline`、`panel`、`drawer`、`none` 来源到任一不同目标的转换，都必须在 `query`、active、loading、error、orphaned invalid 与远程请求存在时执行以下集中验收检查：
+
+1. 逐项比较转换前后 `selectedValue` 与会话 `query`，两者必须保持；`activeOption` 也必须保持，唯目标为 `none` 时按「选择、ARIA option 与 active 对账」的完整未过滤集合规则对账。确认没有值变化回调或重复请求，且关闭返回目标保持。
+2. 记录焦点与 `focus`/`blur` 事件：精确焦点节点仍存活时不得有 blur/refocus；否则只能向目标等价控制器发生一次焦点移动。
+3. 对仍延续的逻辑节点比较转换前后 popup、Listbox 与 option ID，必须相同；同时确认 `aria-controls` 当前存在，`aria-activedescendant` 只引用已渲染 active option。
+4. 在焦点移动前或同一 committed render 检查目的 DOM：`aria-expanded`、`aria-haspopup`、`aria-controls` 与 `aria-activedescendant` 均与目标控制器和节点一致；控制器角色改变时，来源专属 ARIA 属性已经移除。
+
+未实际检查必须报告为**未验证**并写明所需检查。
 
 ## 参考资料
 

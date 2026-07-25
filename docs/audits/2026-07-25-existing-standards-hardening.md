@@ -116,9 +116,9 @@
 
 | 场景 | 静态重放结果与修订规则 | 运行时状态 |
 | --- | --- | --- |
-| S-02：可搜索 Select 从 PC 浮层转为 Drawer，带 query、active、loading 或 error | repaired-static：目标 `drawer` 的内层搜索 Combobox 获得一次焦点移动（存活精确节点例外），保留 query、active、请求和关闭返回目标；逻辑 ID 与 ARIA 在同一已提交渲染同步。 | 未验证；需要具体 PC 浮层与 Drawer、请求中和错误态的焦点、DOM 与读屏验证。 |
+| S-02：可搜索 Select 从 PC 浮层转为 Drawer，带 query、active、loading 或 error | repaired-static：按 Select「验收与报告」的集中转换检查逐项比较 `selectedValue`、query、active、焦点事件、逻辑 ID 和目的 DOM ARIA；目标 `drawer` 的内层搜索 Combobox 获得一次焦点移动（存活精确节点例外），并保留请求和关闭返回目标。 | 未验证；需要具体 PC 浮层与 Drawer、请求中和错误态的焦点、DOM 与读屏验证。 |
 | S-05：虚拟键盘、低高度、200% 缩放、四向安全区域与 reduced motion | repaired-static：若这些约束触发 placement 转换，响应式规范只保留存活节点或一次到 Select 专项等价控制器的移动；无第二实例、请求、回调或 ARIA 失效引用。 | 未验证；需要目标视口、缩放、虚拟键盘、安全区域和 reduced-motion 环境验证。 |
-| S-06：已提交 option orphaned invalid、远程搜索竞态与会话进入/离开 `none` | repaired-static：目标 `none` 聚焦 Select-only Combobox，query 保留但不应用，active 按完整未过滤集合对账；转换不提交值、不发值变化回调或重复请求，且 active 描述符仅指向已渲染 option。 | 未验证；需要 orphaned invalid、远程竞态和 `none` 往返的浏览器、读屏验证。 |
+| S-06：已提交 option orphaned invalid、远程搜索竞态与会话进入/离开 `none` | repaired-static：按 Select「验收与报告」的集中转换检查逐项比较 `selectedValue`、query、焦点事件、逻辑 ID 和目的 DOM ARIA；目标 `none` 聚焦 Select-only Combobox，query 保留但不应用，active 按完整未过滤集合对账，且 active 描述符仅指向已渲染 option。 | 未验证；需要 orphaned invalid、远程竞态和 `none` 往返的浏览器、读屏验证。 |
 
 ## 后续验证状态
 
