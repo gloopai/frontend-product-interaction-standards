@@ -30,7 +30,7 @@
 
 ### `inline`
 
-主输入框是 Editable Combobox，适合频繁搜索。关闭时输入 `displayText`；打开时将会话 `query` 初始化为空草稿，首次可打印编辑替换显示的已提交标签而不是追加到标签；后续编辑只修改 `query`。明确选择或 `Enter` 提交后更新 `selectedValue`、缓存标签与 `displayText` 并关闭。外部关闭、`Escape`、`Tab` 离开、模式转换导致的非提交关闭或允许的 Drawer 关闭都丢弃草稿和 active，恢复 `displayText`，且不得触发值变化。
+主输入框是 Editable Combobox，适合频繁搜索。关闭时可见输入值为 `displayText`；打开时将会话 `query` 初始化为空草稿。任何编辑意图——可打印输入、`Backspace`、`Delete`、paste 或 cut——都必须先把可见输入切换为 draft `query`；首次编辑替换已提交标签而不是追加，之后只更新 `query`。编辑期间 `selectedValue` 与 `displayText` 仍是 committed 值；只有明确选择或 `Enter` 才更新它们并关闭。外部关闭、`Escape`、`Tab` 离开、模式转换导致的非提交关闭或允许的 Drawer 关闭都丢弃草稿和 active，恢复 `displayText`，且不得触发值变化。
 
 主输入有可见字段标签（`<label>` 或 `aria-labelledby`）、`role="combobox"`、`aria-expanded`、`aria-controls`（稳定 Listbox ID）、`aria-autocomplete="list"`；仅 active 已渲染时设置 `aria-activedescendant`。主 Combobox 承担业务校验：必填时 `aria-required="true"`，失效时 `aria-invalid="true"` 并关联选择错误文本。
 
@@ -38,11 +38,11 @@
 
 外层为 disclosure button，展示场景化字段名、当前已提交值与动作名；它具有 `aria-expanded`，`aria-controls` 指向稳定的 panel container ID。除非它实际控制的弹出节点就是 Listbox，否则不得声明 `aria-haspopup="listbox"`。外层字段包装/触发器承担字段标签、已提交值、必填提示与折叠态选择错误；它不是 Editable Combobox。
 
-panel 打开后焦点进入顶部的内层搜索 Combobox。内层仅过滤 Listbox：有场景化名称、`role="combobox"`、列表可见时 `aria-expanded="true"`、`aria-controls` 指向稳定 Listbox ID，并仅在 active option 已渲染时设置 `aria-activedescendant`。内层搜索只关联搜索请求错误，不得承载业务“必须选择”错误。关闭动画结束后外层才设 `aria-expanded="false"` 并恢复焦点。
+panel 打开后焦点进入顶部的内层搜索 Combobox。内层仅过滤 Listbox：有场景化名称、`role="combobox"`、`aria-autocomplete="list"`、列表可见时 `aria-expanded="true"`、`aria-controls` 指向稳定 Listbox ID，并仅在 active option 已渲染时设置 `aria-activedescendant`。内层搜索只关联搜索请求错误，不得承载业务“必须选择”错误。关闭动画结束后外层才设 `aria-expanded="false"` 并恢复焦点。
 
 ### `drawer`
 
-外层为 disclosure button，展示场景化字段名、当前已提交值与动作名，并具有 `aria-haspopup="dialog"`、`aria-controls` 指向稳定 Drawer dialog ID、`aria-expanded`。显式或自动解析为 `drawer` 时，任何视口都使用 Drawer。打开后焦点进入固定标题区下方、带此选择任务场景化名称的内层搜索 Combobox；该内层的 Combobox/ID/active 契约与 `panel` 相同。外层字段包装/触发器承担选择 required/invalid，内层只承担搜索错误。关闭动画结束后外层设 `aria-expanded="false"` 并恢复焦点。
+外层为 disclosure button，展示场景化字段名、当前已提交值与动作名，并具有 `aria-haspopup="dialog"`、`aria-controls` 指向稳定 Drawer dialog ID、`aria-expanded`。显式或自动解析为 `drawer` 时，任何视口都使用 Drawer。打开后焦点进入固定标题区下方、带此选择任务场景化名称的内层搜索 Combobox；该内层明确使用 `aria-autocomplete="list"`，其余 Combobox/ID/active 契约与 `panel` 相同。外层字段包装/触发器承担选择 required/invalid，内层只承担搜索错误。关闭动画结束后外层设 `aria-expanded="false"` 并恢复焦点。
 
 Drawer 的遮罩、固定框架、关闭按钮、背景隔离、焦点陷阱、滚动与动画必须遵循 Drawer 规范。搜索区固定可见，仅 options 区滚动；遮罩或拖拽不关闭。`Tab`/`Shift+Tab` 必须留在 Drawer 焦点环内，绝不因 Tab 关闭 Drawer。
 
@@ -50,7 +50,7 @@ Drawer 的遮罩、固定框架、关闭按钮、背景隔离、焦点陷阱、�
 
 `none` **只**采用 WAI-ARIA Select-only Combobox：带可见字段标签/已提交值的主控件使用 `role="combobox"`、`aria-expanded`、`aria-controls`（稳定 Listbox ID），隐含 `aria-haspopup="listbox"`（可显式写为 `listbox`）；必填时 `aria-required="true"`，失效时 `aria-invalid="true"` 并关联选择错误文本。它不渲染搜索输入，也不得使用 button + Listbox 替代模型。
 
-DOM 焦点始终保留在主 Combobox；打开时仅 active 已渲染才设置 `aria-activedescendant`。`Space` 或 `Enter` 在关闭时打开；打开时 `Enter` 提交 active，`Space` 仅在已定义为同等激活动作时才提交，否则保持打开。可打印字符执行 type-ahead，只移动 active；`ArrowUp`/`ArrowDown` 与 `Home`/`End` 导航启用 options；`Escape` 放弃草稿并关闭；`Tab` 关闭并继续页面 Tab 顺序；关闭后焦点保留/返回主 Combobox。
+DOM 焦点始终保留在主 Combobox；打开时仅 active 已渲染才设置 `aria-activedescendant`。`Space` 或 `Enter` 在关闭时打开；打开时 `Space` 与 `Enter` 都提交 active 并关闭。可打印字符执行 type-ahead，只移动 active；`ArrowUp`/`ArrowDown` 与 `Home`/`End` 导航启用 options；`Escape` 放弃草稿并关闭；`Tab` 关闭并继续页面 Tab 顺序；关闭后焦点保留/返回主 Combobox。
 
 ## 选择、ARIA option 与 active 对账
 
@@ -64,7 +64,7 @@ Listbox 使用 `role="listbox"`；每项有稳定 ID、`role="option"` 和 `aria
 
 PC `inline` 在无其他 popup 控件时 Tab 关闭并继续页面。`inline` 的搜索错误重试必须是输入后相邻、键盘可达的 popup-composite 按钮，出现时 Tab 可进入；离开整个复合区才关闭。`panel` 的 Tab 可在内层搜索、状态和重试间移动；只有离开整个复合区域才关闭。重试不得放在 option 内。外部关闭、`Escape` 与允许的 Drawer 关闭按钮都放弃未提交 query/active、保留已提交值；Drawer 的 Escape 例外以 Drawer 规范为准。
 
-优先使用原生 `disabled`/`readonly`。无法使用原生元素时，自绘 trigger/Combobox 必须使用 `aria-disabled="true"`/`aria-readonly="true"` 并阻止交互；Disabled 不可聚焦或打开，read-only 可读取已提交值但不可搜索、清空或选择。搜索错误保持当前复合控件打开并提供文本错误与重试；请求约 `250ms` 防抖，取消旧请求或忽略过期结果。请求/刷新不得清除提交值、随机重排或自动提交新第一项。
+优先使用原生 `disabled`/`readonly`。无法使用原生元素时，自绘 trigger/Combobox 必须使用 `aria-disabled="true"`/`aria-readonly="true"` 并阻止交互；Disabled 不可聚焦或打开，read-only 可读取已提交值但不可搜索、清空或选择。本地搜索必须随 `query` 立即过滤并在清空时恢复完整结果；Loading、结果数量、空结果和错误必须以可访问状态消息播报。搜索错误保持当前复合控件打开并提供文本错误与重试；请求约 `250ms` 防抖，取消旧请求或忽略过期结果。请求/刷新不得清除提交值、随机重排或自动提交新第一项。
 
 ## 布局、性能与动画
 
@@ -74,7 +74,7 @@ PC `inline` 弹层锚定主 Combobox，`panel` 锚定 disclosure button，`none`
 
 ## 验收与报告
 
-至少验证：五种 placement 的显式配置、`auto` 决策顺序/理由/会话冻结与允许转换；inline displayText/首次编辑/非提交恢复；panel/drawer 外层与内层 ID、ARIA、焦点、动画后返回；select-only `none` 的 Space/Enter/type-ahead/Tab；唯一 `aria-selected` 和 active 对账；校验归属；PC composite Tab/重试与 Drawer 焦点陷阱；可编辑 caret 键优先级；none 查询暂停/恢复；orphaned invalid；disabled/read-only/disabled option；本地/远程搜索、竞态、错误、虚拟列表、Portal、缩放、虚拟键盘、断点和 reduced motion。未实际检查必须报告为**未验证**并写明所需检查。
+至少验证：五种 placement 的显式配置、`auto` 决策顺序/理由/会话冻结与允许转换；inline 的可打印/Backspace/Delete/paste/cut 草稿进入、displayText 与非提交恢复；panel/drawer 内层 `aria-autocomplete="list"`、outer/inner ID、ARIA、焦点和动画后返回；select-only `none` 的 Space/Enter 均提交、type-ahead/Tab；唯一 `aria-selected` 和 active 对账；校验归属；本地即时过滤与 Loading/结果数量/空/错误播报；PC composite Tab/重试与 Drawer 焦点陷阱；可编辑 caret 键优先级；none 查询暂停/恢复；orphaned invalid；disabled/read-only/disabled option；远程竞态、虚拟列表、Portal、缩放、虚拟键盘、断点和 reduced motion。未实际检查必须报告为**未验证**并写明所需检查。
 
 ## 参考资料
 
