@@ -4,7 +4,9 @@
 
 ## 当前规范
 
-本 Skill 当前包含以下 Dialog 与四向抽屉核心要求：
+本 Skill 当前包含以下 Dialog、四向抽屉与跨端适配核心要求：
+
+- PC、平板和移动端保持核心能力一致；低频能力可以折叠或收纳，但不能删除，且必须保持可发现、可访问。
 
 - 遮罩点击不会关闭 Dialog；外框保持非滚动、仅内容区域滚动，且遮罩以正确层级覆盖整个视口。
 - 打开和关闭动画防止重复操作并遵循 reduced-motion 偏好；焦点进入合理元素、在当前 Dialog 内循环，并在关闭后恢复。
@@ -14,7 +16,7 @@
 - 上、下、左、右抽屉按来源边缘进入与退出；遮罩点击、拖拽和滑动均不会关闭抽屉，外框保持非滚动且仅内容区域滚动。
 - 普通可退出抽屉在固定标题区右上角保留关闭按钮，并遵循全视口遮罩、焦点管理、背景隔离、安全区域、多层叠加、异步错误与状态清理规则。
 
-完整规则、验收标准与完成前检查见 [Dialog 交互规范](references/dialogs.md) 和 [Drawer 交互规范](references/drawers.md)。
+完整规则、验收标准与完成前检查见 [Dialog 交互规范](references/dialogs.md)、[Drawer 交互规范](references/drawers.md) 和 [响应式与自适应交互规范](references/responsive-adaptive.md)。
 
 ## 系统要求
 
@@ -65,7 +67,8 @@ frontend-product-interaction-standards/
 │   └── openai.yaml
 └── references/
     ├── dialogs.md
-    └── drawers.md
+    ├── drawers.md
+    └── responsive-adaptive.md
 ```
 
 ## 扩展规范

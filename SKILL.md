@@ -21,6 +21,7 @@ description: 用于创建、修改、重构、评审或测试前端页面、组�
 
 - 涉及 Dialog、Modal、弹窗或对话框时，必须完整读取 `references/dialogs.md`。
 - 涉及 Drawer、Sheet、抽屉、侧滑面板或上下滑出面板时，必须完整读取 `references/drawers.md`。
+- 涉及响应式、移动端、PC、桌面端、平板、断点、横竖屏、触摸、虚拟键盘或跨端适配时，必须完整读取 `references/responsive-adaptive.md`。
 - 用户增加新类别规范时，创建职责单一的 `references/<category>.md`，并在此增加路由。
 
 ## 与项目规则的关系
