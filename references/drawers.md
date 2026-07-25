@@ -4,6 +4,8 @@
 
 涉及跨端形态或视口适配时，还必须执行 [响应式与自适应交互规范](responsive-adaptive.md)。兼容规则全部执行；一方更严格且不冲突时，执行更严格规则。Dialog/Drawer 的形态专属动画、边缘和几何规则不以“更严格”裁定：初次打开采用当前视口最终渲染形态的专项动画，已打开实例实时转换时保持单实例并进行无入场/退场的布局转换，具体执行 `responsive-adaptive.md` 的跨端形态规则。
 
+自绘可搜索单选 Select / Combobox 转为移动端 Drawer 时，还必须完整执行 [可搜索单选 Select / Combobox 交互规范](selects-comboboxes.md)。关闭路径、遮罩、滚动、焦点、背景隔离、固定关闭按钮、层级和清理适用本文件的 Drawer 硬性规则；`selectedValue`、`query`、`activeOption`、选择提交、搜索与高亮状态适用 Select 状态规则。两类规则兼容时同时执行，不得用 Drawer 的关闭或动画实现改变已选值、查询或高亮的提交边界。
+
 ## 模态边界、遮罩与关闭
 
 1. 模态抽屉的遮罩必须覆盖完整浏览器视口；将其挂载到应用根节点或等效不受局部容器、定位上下文及 `transform` 裁切的位置，并使用 `position: fixed; inset: 0` 与统一层级体系。
