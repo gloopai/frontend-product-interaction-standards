@@ -37,6 +37,14 @@
 
 若当前精确焦点节点在 Portal 或布局移动后仍存活，必须保持该节点焦点，不得产生 blur/refocus 周期；否则只能一次性移动到上述目标形态的等价控制器。对应逻辑节点跨转换继续存在时，必须保留该会话的逻辑 popup、Listbox 与 option ID。移动焦点前或与其同一已提交渲染中，必须以目标 DOM 同步更新 `aria-controls`、`aria-expanded`、`aria-haspopup` 与 `aria-activedescendant`；不得让已聚焦控制器指向已移除的 Listbox 或 option。目标控制器角色不同，必须移除仅属于来源角色的 ARIA 属性，不得携带到目标。
 
+### Drawer 模态基础设施转换
+
+- 任一非 `drawer` 来源进入 `drawer` 时，必须在焦点进入 Drawer 内层搜索 Combobox 之前，以同一次不可分割的转换为当前 Select 实例取得 Drawer 遮罩、背景隔离、页面滚动锁和焦点陷阱，四项取得均恰好一次，并使 Drawer dialog DOM、名称与 ARIA 映射同时有效。转换后的最终状态只能有一套上述基础设施，页面背景不可交互；不得出现焦点已进入 Drawer 而保护尚未建立的可观察中间状态。
+- 离开 `drawer` 并进入 `inline`、`panel` 或 `none` 时，必须在同一次不可分割的转换中释放当前 Select 实例持有的 Drawer 专属遮罩、背景隔离、页面滚动锁和焦点陷阱，四项释放均恰好一次。这不是关闭、取消或非提交关闭，不能触发对应回调，不能丢弃 `query`/`activeOption`，也不能改变 `selectedValue`、其他草稿或异步状态。目标 DOM/ARIA、焦点接管、Drawer DOM 移除和专属基础设施释放之间不得暴露“旧 Drawer 仍可见但背景已可交互”的中间状态。
+- 焦点/ARIA 映射与模态基础设施转换必须作为同一个可观察事务结束：目标为 `drawer` 时，最终有且仅有一套有效遮罩、背景隔离、滚动锁、焦点陷阱和 Dialog ARIA；目标为 `inline`、`panel` 或 `none` 时，最终不得残留 Drawer 遮罩、`inert`、滚动锁、焦点陷阱、Drawer dialog DOM 或仅属于 Dialog 的 ARIA，且目标 placement 的 popup/Combobox ARIA 已有效。任何方向都不得重复执行进入/退出动画；单实例与动画所有权分别以 [响应式与自适应交互规范](responsive-adaptive.md) 和 [Drawer 交互规范](drawers.md) 为准。
+
+路由变化或拥有 Select 的组件卸载时，立即执行响应式规范第 9 条的 disposal。Select 负责取消或失效自己的 query 请求、重试/防抖工作、结果/选择/值变化回调，并拆除自己的 popup、Listbox、option 引用与 ARIA 所有权；旧结果或回调不得改变新实例的 `query`、`activeOption`、`selectedValue` 或触发值变化，也不得清除其他实例持有的 Drawer 模态基础设施。此路径不向将被移除的旧 trigger 恢复焦点。
+
 ## 模式与精确语义
 
 ### `inline`
@@ -93,6 +101,9 @@ PC `inline` 弹层锚定主 Combobox，`panel` 锚定 disclosure button，`none`
 2. 记录焦点与 `focus`/`blur` 事件：精确焦点节点仍存活时不得有 blur/refocus；否则只能向目标等价控制器发生一次焦点移动。
 3. 对仍延续的逻辑节点比较转换前后 popup、Listbox 与 option ID，必须相同；同时确认 `aria-controls` 当前存在，`aria-activedescendant` 只引用已渲染 active option。
 4. 在焦点移动前或同一 committed render 检查目的 DOM：`aria-expanded`、`aria-haspopup`、`aria-controls` 与 `aria-activedescendant` 均与目标控制器和节点一致；控制器角色改变时，来源专属 ARIA 属性已经移除。
+5. 对每个非 `drawer` 来源进入 `drawer`，分别记录遮罩、背景隔离、页面滚动锁和焦点陷阱的取得计数及 Drawer 内层搜索 Combobox 的 `focus` 事件；四项计数都必须从 0 变为 1 且先于焦点进入，最终背景不可交互、只有一套 Drawer 模态基础设施和有效 Dialog ARIA。
+6. 从 `drawer` 分别转换到 `inline`、`panel`、`none`，记录四项 Drawer 专属基础设施的释放计数、关闭/取消/值变化回调和每一帧的背景/模态状态；每项只能释放一次，三个关闭类回调均不得触发，业务与草稿状态保持，且最终没有残留遮罩、`inert`、滚动锁、焦点陷阱、Drawer DOM 或 Dialog 专属 ARIA。全过程不得出现旧 Drawer 仍可见但背景可交互的状态，目标 placement 的焦点与 ARIA 必须有效。
+7. 在 query 请求、重试/防抖和结果/选择回调待处理时触发路由变化及拥有组件卸载；确认这些工作全部取消或失效，旧回调不能改变新实例或触发值变化，Select 自己的 popup/Listbox/option 与 ARIA 引用全部拆除，只释放自己持有的基础设施，且焦点不返回将被移除的旧 trigger。
 
 未实际检查必须报告为**未验证**并写明所需检查。
 

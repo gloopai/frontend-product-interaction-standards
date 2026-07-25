@@ -1,53 +1,75 @@
 # 现有规范加固：最终审计账本
 
-**审计日期：** 2026-07-25  
-**结论：** F-01 至 F-07 均已以静态规则修订处置；S-01 至 S-07 均为 `determined-static`。这不是具体组件的运行时验收。
+**审计日期：** 2026-07-25
+**分支基线：** `3ce6579e137fc84aa497df90447f133164fa247e`
+**结论：** F-01 至 F-07 均已由 owner 规则作 `repaired-static` 处置；S-01 至 S-07 均为 `determined-static`。这不是具体组件的运行时验收。
 
 ## 范围、事实来源与路由决定
 
-本账本消费批准设计 `docs/superpowers/specs/2026-07-25-existing-standards-hardening-design.md`，并以 Dialog、Drawer、Select / Combobox、响应式四份 owner 规范为唯一规则证据。专项几何、动画和模态行为分别仍由 `references/dialogs.md` 与 `references/drawers.md` 持有；提交值、草稿、active、placement 和 ARIA 由 `references/selects-comboboxes.md` 持有；跨断点单实例与形态阶段由 `references/responsive-adaptive.md` 持有。
+本账本消费批准设计 `docs/superpowers/specs/2026-07-25-existing-standards-hardening-design.md`，并以 Dialog、Drawer、Select / Combobox、响应式四份规范为唯一规则证据。专项几何、动画和模态行为分别由 `references/dialogs.md` 与 `references/drawers.md` 持有；提交值、草稿、active、placement、Select 请求/回调和 ARIA 由 `references/selects-comboboxes.md` 持有；跨断点单实例、形态阶段和 route/unmount disposal 由 `references/responsive-adaptive.md` 持有。
 
-`SKILL.md` **no-change**：其四条路由已分别指向 Dialog、Drawer、Select / Combobox 与响应式 owner 文件，且本轮没有新增全局红线或组件类别。`README.md` **no-change**：已有四份完整规则链接和对生命周期/转换的用户摘要；本轮只是消除 owner 文件内已有主题的歧义，复制完整规则会违反职责边界。
+`SKILL.md` **no-change**：四条路由仍分别指向四个 owner 文件，本轮没有新增全局红线或组件类别。`README.md` **no-change**：已有四份完整规则链接与生命周期/转换摘要；复制本轮完整修订会违反 owner 边界。
 
-## 发现处置
+## F-01 至 F-07 耐久发现账本
 
-| ID | 处置 | 精确静态证据 | 结论 |
-| --- | --- | --- | --- |
-| F-01 | `repaired-static` | `references/dialogs.md`「语义与背景隔离」第 12 条 | 模态活动开始时当前 Dialog 实例取得并持有页面滚动锁，且与背景隔离同属该实例。 |
-| F-02 | `repaired-static` | `references/dialogs.md`「动画」第 6 条；「响应式与清理」第 27 条 | 普通关闭从请求到动画完成、DOM 移除前持续保护；其后才统一清理。路由变化/卸载是立即、幂等的例外。 |
-| F-03 | `repaired-static` | `references/responsive-adaptive.md`「跨端形态与状态延续」第 2–3 条 | 初次打开采用最终形态专项入场；随后关闭只采用关闭开始时当前渲染形态的专项退出。 |
-| F-04 | `repaired-static` | `references/responsive-adaptive.md`「跨端形态与状态延续」第 8 条 | `closing` 后形态冻结；后续断点不得转换、重建、启动第二动画或额外清理。 |
-| F-05 | `repaired-static` | `references/selects-comboboxes.md`「`resolvedPlacement` 转换的焦点、ID 与 ARIA」 | 每一目标 placement 都有唯一等价焦点；精确节点存活时保留，否则只移动一次，且不提交会话状态。 |
-| F-06 | `repaired-static` | `references/selects-comboboxes.md`「`resolvedPlacement` 转换的焦点、ID 与 ARIA」 | 逻辑 popup/Listbox/option ID 延续；在焦点移动前或同一 committed render 同步目标 ARIA，并删除来源专属属性。 |
-| F-07 | `repaired-static` | `references/selects-comboboxes.md`「验收与报告」第 1–4 项 | 所有不同 placement 的转换都有状态/请求、焦点、ID/引用和目标 ARIA 的集中验收，且明确要求报告未执行检查。 |
+“基线”均指分支基线提交 `3ce6579e137fc84aa497df90447f133164fa247e` 中的规则；Git 历史不是下表的替代品。
 
-没有 `no-change` finding：七项已记录的缺口均需要上述最小 owner 修订。没有新增组件类别或重复维护一份专项完整规则。
+| ID | 基线证据 | 基线失败结果 | 合理实现为何会分歧 | Owner | 最小修复 | 最终处置 |
+| --- | --- | --- | --- | --- | --- | --- |
+| F-01 | 基线 Dialog「语义与背景隔离」第 12 条只要求背景不可交互；「响应式与清理」第 27 条却在关闭时提到清理滚动锁。 | `baseline-failing`：打开时没有规范性取得/持有页面滚动锁的责任方。 | 一种实现由 Dialog 实例取得锁，另一种依赖未定义外层或只在 cleanup 中尝试解锁；二者资源所有权不同。 | `references/dialogs.md` | 在模态活动开始时由当前实例取得并持有滚动锁，并为普通关闭/销毁给出 owner 清理。 | `repaired-static`：Dialog「语义与背景隔离」第 12 条定义取得方；「响应式与清理」第 27 条限定每实例只释放自己的保护。运行时计数未执行。 |
+| F-02 | 基线 Dialog「动画」第 5–6 条只说动画后卸载和关闭结束前保持部分保护；第 27 条把“关闭、路由变化或卸载”合为同一清理时点。 | `baseline-failing`：普通关闭可能在退出开始、退出完成或 DOM 移除后释放保护并恢复焦点。 | 一种实现先解除焦点陷阱再卸载，另一种先卸载再解除；多个完成回调还可能重复恢复焦点。 | `references/dialogs.md` | 为普通关闭规定唯一顺序，并把 route/unmount 作为立即 disposal 例外。 | `repaired-static`：Dialog「焦点与键盘」第 10 条规定“退出完成 → DOM 移除 → 本实例保护释放 → 恰好一次焦点恢复”；第 27 条定义 disposal 例外。 |
+| F-03 | 基线响应式「跨端形态与状态延续」第 2 条只定义初次入场动画，第 3 条只定义打开态转换无入/退场动画。 | `baseline-failing`：实时转换后的 later close 没有唯一专项退出动画 owner。 | 实现者可分别选初始形态、目标形态或同时播放两形态退出，均不直接违反旧文。 | `references/responsive-adaptive.md` | 关闭只使用关闭开始时当前渲染形态的专项退出动画。 | `repaired-static`：响应式「跨端形态与状态延续」第 3 条确定退出 owner；「验收与报告」要求关闭前/关闭中两次断点复放。 |
+| F-04 | 基线响应式第 8 条只要求打开浮层转换保持单实例，没有 closing 期间断点输入的处置。 | `baseline-failing`：closing 时断点变化可启动转换、第二退出动画、重建或重复 cleanup。 | 一种实现冻结 closing 形态，另一种继续响应断点并重新解析；副作用与动画计数不同。 | `references/responsive-adaptive.md` | closing 后冻结渲染形态，保持保护到唯一卸载/清理，忽略后续形态转换。 | `repaired-static`：响应式第 8 条禁止 closing 后转换、第二动画、重建或额外清理；集中验收观察一次动画、卸载和清理。 |
+| F-05 | 基线 Select「确定性搜索位置决策」只要求业务状态和 ID 保持；各 mode 只写各自打开焦点，没有完整转换焦点表。 | `baseline-failing`：`inline`、`panel`、`drawer`、`none` 互转时目标焦点及存活节点处理不唯一。 | 实现者可保留即将移除节点的焦点、回到外层 trigger，或进入目标内层控制器；都能声称“保持焦点”。 | `references/selects-comboboxes.md` | 以目标 placement 定义唯一等价控制器；存活节点保持，否则只移动一次且不提交状态。 | `repaired-static`：Select「`resolvedPlacement` 转换的焦点、ID 与 ARIA」给出四目标映射；集中验收第 1–4 项记录状态、焦点和 ARIA。 |
+| F-06 | 基线 Select 第 27 条只说模式转换中 ID 稳定，没有规定焦点接管时目标控制器的 ARIA 提交边界。 | `baseline-failing`：焦点可能短暂指向已移除 Listbox/option，或带着来源角色的 ARIA 进入目标。 | 一种实现先移动焦点后补 ARIA，另一种在同一提交更新；辅助技术可观察结果不同。 | `references/selects-comboboxes.md` | 延续逻辑 ID，在焦点移动前或同一 committed render 更新目标 ARIA并移除来源专属属性。 | `repaired-static`：Select 同一转换章节和集中验收第 2–4 项只支持焦点/ID/ARIA 结论；动画与模态基础设施计数分别由响应式单实例规则、Select「Drawer 模态基础设施转换」和 Drawer 生命周期支持。 |
+| F-07 | 基线四份「完成前检查/验收与报告」没有命名复放 closing-time conversion 与完整 Select focus mapping。 | `baseline-failing`：规则即使局部存在，也没有可重复执行的跨文档验收把它们收束起来。 | 一位验证者可能只测打开态断点，另一位只测单个 Select 方向；二者都可报告“验证了响应式”。 | 本账本；验收步骤由各 owner 持有 | 增加 closing 前/后断点复放、四 placement 焦点/ARIA 复放及双向 Drawer 基础设施计数。 | `repaired-static`：响应式「验收与报告」明确 closing-time conversion；Select「验收与报告」第 1–7 项明确 focus mapping、ARIA、双向模态基础设施与 disposal。运行时仍为 `unperformed-runtime`。 |
+
+七项 finding 都要求最小 owner 修订，因此没有 `no-change` finding；`no-change` 仅适用于上面的路由/摘要文件与下方矩阵中明确不属于某类别的形态细节。
+
+## 11 维 × 4 参考规范交叉矩阵
+
+缩写：D = `references/dialogs.md`，Dr = `references/drawers.md`，S = `references/selects-comboboxes.md`，R = `references/responsive-adaptive.md`。每个单元格引用现有规则；`no-change` 表示该维度的专项细节由另一个明确 owner 持有，而不是遗漏。
+
+| 维度 | Dialog（D） | Drawer（Dr） | Select / Combobox（S） | 响应式（R） |
+| --- | --- | --- | --- | --- |
+| 生命周期 | D「动画」4–7、「异步、错误与重复操作」20–23、「响应式与清理」27–28：打开、失败、普通关闭、disposal、重开。 | Dr「动画与减少动态效果」11–13、「异步状态、错误与清理」20–22：打开、失败、普通关闭、disposal、重开。 | S「状态、不变量与会话」、「模式与精确语义」、Drawer 转换后的 disposal 段：会话、提交、失败、关闭、卸载。 | R「跨端形态与状态延续」2–3、8–9：初开、转换、closing、disposal。 |
+| 关闭路径 | D「遮罩与滚动」1、「焦点与键盘」10–11、「语义与背景隔离」15–16：遮罩不关、内部动作/Escape、普通关闭顺序。 | Dr「模态边界、遮罩与关闭」2–5、「焦点、键盘…」15–16：遮罩/手势不关、内部动作/Escape、普通关闭顺序。 | S 各 placement 段与「键盘、关闭、错误与元素状态」：Escape、Tab、外部/Drawer 关闭的提交边界；Drawer 转换明确不是关闭。 | R 第 3、8–9 条：转换后的 close owner、closing 冻结与 disposal 例外；专项按钮/手势 `no-change`，由 D/Dr/S 持有。 |
+| 焦点与键盘 | D「焦点与键盘」8–11、「多层 Dialog」17–18。 | Dr「焦点、键盘、语义与背景隔离」14–19。 | S「`resolvedPlacement` 转换的焦点、ID 与 ARIA」、各 placement 键盘语义与集中验收 1–4。 | R 第 8–9 条：存活节点/等价控制器、旧 trigger 例外和新路由焦点策略；placement 目标 `no-change`，由 S 持有。 |
+| 模态边界 | D「语义与背景隔离」12–19：遮罩、隔离、锁、最上层。 | Dr「模态边界、遮罩与关闭」1–5、「焦点、键盘…」17–19。 | S「Drawer 模态基础设施转换」与 `drawer` mode：进入取得、离开释放；非模态 PC popup 见「布局、性能与动画」。 | R 第 3、8–9 条：转换/closing/disposal 中单实例保护所有权；形态专项几何 `no-change`，由 D/Dr 持有。 |
+| 布局与滚动 | D「遮罩与滚动」2–3、「响应式与清理」24–26。 | Dr「布局、滚动和四个方向」6–10。 | S 各 mode 固定搜索/选项滚动与「布局、性能与动画」。 | R「布局、视口与输入」1–5：缩放、虚拟键盘、安全区域、主滚动。 |
+| 动画 | D「动画」4–7；关闭顺序见第 10 条。 | Dr「动画与减少动态效果」11–13；关闭顺序见第 16 条。 | S「布局、性能与动画」定义非模态 popup；Drawer 转换动画 owner 引用 R/Dr。 | R 第 2–3、8 条与「验收与报告」：初开、实时转换、later close、closing 断点。 |
+| 业务状态 | D「异步、错误与重复操作」20–23：提交、loading、失败、不可中断。 | Dr「异步状态、错误与清理」20–22。 | S「状态、不变量与会话」、「选择、ARIA option 与 active 对账」、「键盘、关闭、错误与元素状态」：committed/draft/orphaned/request。 | R「核心原则」1、3 与第 7–9 条：跨端语义、未提交状态和异步工作连续性。 |
+| 跨端转换 | D 开头 owner 边界链接 R；形态专项动画仍由 D「动画」持有。 | Dr 开头 owner 边界链接 R；方向/几何仍由 Dr 7–13 持有。 | S「确定性搜索位置决策」、转换焦点/ARIA、Drawer 模态基础设施转换。 | R「跨端形态与状态延续」1–9：跨形态单实例、状态、动画和 disposal 的 owner。 |
+| 无障碍 | D「焦点与键盘」8–11、「语义与背景隔离」12–16。 | Dr「焦点、键盘、语义与背景隔离」14–19。 | S 各 placement 角色、ARIA、Listbox/option/active 对账及状态播报。 | R「核心原则」1–4、「布局、视口与输入」2–5、「内容与国际化」1–2。 |
+| 清理与恢复 | D「响应式与清理」27–28：实例资源、disposal、重开旧回调；第 10 条焦点恢复。 | Dr「异步状态、错误与清理」22；第 16 条焦点恢复。 | S Drawer 转换后的 disposal 段：请求/回调/popup/ARIA；转换章节清理 Drawer 专属设施。 | R 第 8–9 条：closing 唯一 cleanup 与 route/unmount 共享 disposal、新路由焦点。 |
+| 验收与报告 | D「完成前检查」：遮罩、滚动、关闭顺序/计数、栈、disposal、旧回调重开。 | Dr「完成前检查」：四方向、关闭顺序/计数、栈、disposal、旧回调。 | S「验收与报告」1–7：状态、焦点、ARIA、双向基础设施和 disposal。 | R「验收与报告」：视口、closing-time conversion、route/unmount disposal 和未验证声明。 |
 
 ## 静态场景重放（S-01 至 S-07）
 
-每个场景都按批准设计的五个维度推演。下表中的五列均给出 owner 章节引用，因此状态为 `determined-static`；这表示规则文本能得出唯一预期，不表示浏览器已经执行过该行为。
+每行按批准设计的五个断言重放；`determined-static` 表示规则文本给出唯一结果，不表示浏览器已执行。
 
 | 场景 | 业务状态 | 单一活动实例/基础设施 | 关闭边界 | 焦点、背景与滚动连续性 | 动画、卸载与一次清理 |
 | --- | --- | --- | --- | --- | --- |
-| S-01：打开 Dialog 在宽屏与 Drawer 间往返 | `determined-static`：响应式「跨端形态与状态延续」第 1、3、7 条保持业务语义与未提交状态。 | `determined-static`：响应式第 8 条只保留一个实例、遮罩、请求、回调、焦点陷阱和滚动锁。 | `determined-static`：响应式第 3 条关闭使用开始时当前形态；Dialog「动画」第 6 条、Drawer「动画」第 11–12 条给出关闭边界。 | `determined-static`：响应式第 3、8 条保持焦点、隔离和锁；Dialog「语义与背景隔离」第 12 条与 Drawer「焦点、键盘、语义与背景隔离」第 18 条定义模态保护。 | `determined-static`：响应式第 3、8 条禁止叠加动画并冻结 closing；Dialog「响应式与清理」第 27 条及 Drawer「异步状态、错误与清理」第 22 条规定一次幂等清理。 |
-| S-02：Select PC 浮层转 Drawer，含 query、active、loading/error | `determined-static`：Select「状态、不变量与会话」及「`resolvedPlacement` 转换的焦点、ID 与 ARIA」保持提交值、草稿与回调边界。 | `determined-static`：Select「确定性搜索位置决策」与响应式第 8 条禁止重复请求、遮罩、陷阱、锁和动画。 | `determined-static`：Select「模式与精确语义」的 `drawer` 与 Drawer「动画」第 11–12 条规定明确关闭、动画完成后卸载。 | `determined-static`：Select「`resolvedPlacement` 转换的焦点、ID 与 ARIA」指定 Drawer 内层搜索焦点和返回目标；Drawer「焦点、键盘、语义与背景隔离」第 14、18 条保证陷阱与隔离。 | `determined-static`：Select 同一转换章节的稳定 ID/同步 ARIA，加上「验收与报告」第 1–4 项及 Drawer「异步状态、错误与清理」第 22 条，限定一次转换与清理。 |
-| S-03：多层 Dialog、Drawer 或混合叠加并逐层关闭 | `determined-static`：Dialog「多层 Dialog」第 17–18 条及 Drawer「焦点、键盘、语义与背景隔离」第 19 条只处理最上层；失败保持当前层由 Dialog 第 20–23 条、Drawer 第 20–21 条规定。 | `determined-static`：Dialog 第 17–19 条和 Drawer 第 19 条要求最上层唯一可交互、下层与页面隔离、共享层级。 | `determined-static`：Dialog「动画」第 6 条、Drawer「动画」第 11–12 条规定显式关闭且保护延续到动画完成。 | `determined-static`：Dialog 第 18 条与 Drawer 第 19 条规定逐层返回焦点；Dialog 第 12 条、Drawer 第 18 条连续保持隔离和滚动锁。 | `determined-static`：Dialog「响应式与清理」第 27 条和 Drawer「异步状态、错误与清理」第 22 条让每个实例只释放自身、幂等清理。 |
-| S-04：异步提交时 Escape、内部关闭、断点、路由变化或卸载 | `determined-static`：Dialog「异步、错误与重复操作」第 20–23 条、Drawer「异步状态、错误与清理」第 20–21 条防重复并保持错误；响应式第 8 条不中断工作。 | `determined-static`：Dialog「语义与背景隔离」第 12 条、Drawer 第 18 条、响应式第 8 条分别规定实例持有保护且不重复。 | `determined-static`：Dialog「焦点与键盘」第 11 条、Drawer第 15 条规定 Escape 例外；Dialog「响应式与清理」第 27 条和 Drawer 第 22 条把路由/卸载规定为立即幂等 teardown。 | `determined-static`：Dialog「动画」第 6 条、Drawer第 12 条在普通关闭期间保持焦点/背景/锁；路由卸载按 Dialog第 27 条、Drawer第 22 条释放所属保护。 | `determined-static`：响应式第 8 条禁止 closing 时额外动画或清理；Dialog第 27 条、Drawer第 22 条定义一次清理边界。 |
-| S-05：虚拟键盘、低高度、200% 缩放、安全区域与 reduced motion | `determined-static`：响应式「核心原则」第 1–3 条及「布局、视口与输入」第 1–3 条保持语义与可达性。 | `determined-static`：响应式「跨端形态与状态延续」第 8 条在约束触发转换时仍为单实例。 | `determined-static`：Dialog「动画」第 5–7 条、Drawer「动画」第 11–13 条和响应式「验收与报告」规定专项关闭及 reduced-motion 边界。 | `determined-static`：Dialog「响应式与清理」第 24–26 条、Drawer「布局、滚动和四个方向」第 6、9–10 条、响应式「布局、视口与输入」第 1–4 条确保焦点、操作和安全区。 | `determined-static`：响应式第 3、8 条与「验收与报告」规定无叠加动画、冻结 closing、一次卸载/清理。 |
-| S-06：orphaned invalid、远程竞态与进入/离开 `none` | `determined-static`：Select「状态、不变量与会话」保留 orphaned invalid；「选择、ARIA option 与 active 对账」规定 `none` 暂停 query 过滤和唯一 active 对账；「键盘、关闭、错误与元素状态」规定远程竞态。 | `determined-static`：Select「确定性搜索位置决策」与「`resolvedPlacement` 转换的焦点、ID 与 ARIA」禁止转换重复请求、回调及模态基础设施。 | `determined-static`：Select「模式与精确语义」的 `none` 和「键盘、关闭、错误与元素状态」规定 Escape/Tab 的非提交关闭。 | `determined-static`：Select「`resolvedPlacement` 转换的焦点、ID 与 ARIA」将 `none` 焦点唯一映射到 Select-only Combobox；「选择、ARIA option 与 active 对账」限定有效的 active 描述符。 | `determined-static`：Select 同一转换章节的稳定 ID/ARIA 同步，以及「验收与报告」第 1–4 项，禁止多次回调、请求和清理。 |
-| S-07：关闭动画期间重复关闭、重新打开或形态变化 | `determined-static`：Dialog「动画」第 6 条和 Drawer第 12 条拒绝重复操作；响应式第 8 条保持异步状态。 | `determined-static`：响应式第 8 条冻结 closing 实例并禁止重建/额外基础设施。 | `determined-static`：响应式第 3、8 条锁定 closing 时形态；Dialog第 6 条和 Drawer第 11–12 条保留唯一关闭流程。 | `determined-static`：Dialog第 6 条、Drawer第 12 条和响应式第 8 条规定完成前持续遮罩、隔离、锁与焦点约束。 | `determined-static`：响应式第 8 条禁止第二退出动画或额外清理；Dialog第 27 条和 Drawer第 22 条规定 DOM 移除后的唯一幂等 teardown。 |
+| S-01：打开 Dialog 在宽屏与 Drawer 间往返 | `determined-static`：R 第 1、3、7 条保持业务语义与未提交状态。 | `determined-static`：R 第 8 条只保留一个实例和一套副作用。 | `determined-static`：R 第 3、8 条使用 closing 开始时形态并冻结。 | `determined-static`：R 第 3、8 条持续保护；D 第 12 条、Dr 第 18 条定义形态内保护。 | `determined-static`：R 第 8 条只允许一个退出、卸载和 cleanup。 |
+| S-02：Select PC popup 转 Drawer，含 query、active、loading/error | `determined-static`：S「状态、不变量与会话」及转换焦点章节不提交值或草稿。 | `determined-static`：R 第 8 条保持单实例；S「Drawer 模态基础设施转换」要求取得计数各 1，Dr 第 18 条定义最终保护。 | `determined-static`：转换本身不是关闭；之后普通关闭采用 Dr 第 11–12、16 条。 | `determined-static`：F-06 只由 S 转换章节/验收 2–4 支持焦点、ID、ARIA；背景连续性由 S Drawer 转换和 Dr 第 18 条支持。 | `determined-static`：动画/基础设施清理由 R 第 3、8 条、Dr 第 11–12、22 条及 S 验收 5–6 支持，不以 F-06 作为证据。 |
+| S-03：多层 Dialog/Drawer 混合逐层关闭 | `determined-static`：D 20–23、Dr 20–21 保持最上层失败/工作状态。 | `determined-static`：D 17–19、Dr 19 只让最上层交互。 | `determined-static`：D 第 10 条、Dr 第 16 条给出相同普通关闭顺序。 | `determined-static`：焦点恰好一次回到存活下层 trigger；页面/下层保护持续。 | `determined-static`：D 27、Dr 22 每实例只释放自己资源一次。 |
+| S-04：异步提交时 Escape、内部关闭、断点、路由或卸载 | `determined-static`：D 20–23、Dr 20–21 保持业务状态；R 第 9 条拒绝 disposal 后新工作。 | `determined-static`：R 第 8 条限制转换/closing 单实例，第 9 条限制每实例资源 owner。 | `determined-static`：普通关闭走 D 10/Dr 16；route/unmount 立即进入 R 第 9 条 disposal。 | `determined-static`：disposal 不回旧 trigger；新路由提交后由其焦点策略移动一次。 | `determined-static`：旧请求、重试/防抖、动画完成处理器、监听器和过期回调被取消/失效；每项自有资源只释放一次。 |
+| S-05：虚拟键盘、低高度、200% 缩放、安全区域与 reduced motion | `determined-static`：R「核心原则」1–3 保持语义。 | `determined-static`：R 第 8 条在约束触发转换时仍为单实例。 | `determined-static`：D 4–7、Dr 11–13 与 R 验收定义专项关闭/reduced motion。 | `determined-static`：D 24–26、Dr 6/9–10、R「布局、视口与输入」保持可达。 | `determined-static`：R 第 3、8 条禁止叠加动画并要求一次卸载/清理。 |
+| S-06：orphaned invalid、远程竞态与进入/离开 `none` | `determined-static`：S 状态/active 对账保留 invalid 和 query 提交边界。 | `determined-static`：S 决策规则与 R 第 8 条禁止重复请求/回调/设施。 | `determined-static`：S `none` 与键盘章节定义 Escape/Tab 非提交关闭。 | `determined-static`：S 转换章节将焦点映射到 Select-only Combobox 并保证有效 active 引用。 | `determined-static`：S 验收 1–4 检查稳定 ID/ARIA 和无重复请求/值回调。 |
+| S-07：关闭动画期间重复关闭、重开或形态变化 | `determined-static`：D 第 6 条、Dr 第 12 条拒绝重复；R 第 8 条保持异步状态。 | `determined-static`：R 第 8 条冻结 closing 并禁止重建/额外设施。 | `determined-static`：R 第 3、8 条锁定退出 owner；D 10/Dr 16 锁定完成顺序。 | `determined-static`：保护持续至 DOM 移除；D 重开验收显式让旧延迟清理在新实例激活后到达并确认不能破坏新实例。 | `determined-static`：R closing-time 验收验证一次退出/卸载/清理；S focus mapping 验收 1–4 继续覆盖 Select 转换，合并满足 F-07。 |
 
 ## 验证记录
 
-| 验证类别 | 结果 | 证据/边界 |
+| 验证类别 | 结果 | 命令与证据边界 |
 | --- | --- | --- |
-| 官方 Skill 验证 | `passed-static` | 使用带 PyYAML 的隔离环境执行 `quick_validate.py .`；输出为 `Skill is valid!`。 |
-| Markdown 相对链接 | `passed-static` | 仓库本地 Ruby 检查无输出且退出为 0。 |
-| 占位符扫描 | `passed-static` | 对 `SKILL.md`、`README.md`、`references`、`docs/audits` 的指定 `rg` 模式无匹配。 |
-| diff 检查与最终差异审查 | `passed-static` | `git diff --check` 退出为 0；`HEAD~3` 审查只包含 F-01 至 F-07 的 owner 规则与本账本，没有新组件类别或运行时通过声明。 |
-| 静态场景重放 | `passed-static` | 上表 S-01 至 S-07 的五项断言均具 owner 章节引用。三份新鲜 GREEN 代理输出仅作为独立交叉检查：Select 转换、嵌套栈/路由卸载、以及 closing 期间断点变化均与修订契约一致；不复制其长文。 |
+| focused RED | `observed-red` | 修复前 9 个集中断言均输出 `EXPECTED-FAIL`，汇总 `focused-red failures=9 expected=9`，命令退出 1。 |
+| focused GREEN | `passed-static` | 同一 9 个集中断言全部输出 `PASS`，汇总 `focused-green failures=0 expected=0`，命令退出 0。 |
+| Markdown 相对链接 | `passed-static` | 实施计划中的仓库本地 Ruby 检查退出 0、无输出。 |
+| 官方 Skill 验证 | `passed-static` | `/tmp/frontend-standards-validation-venv/bin/python /Users/evanqi/.codex/skills/.system/skill-creator/scripts/quick_validate.py .` 退出 0，输出 `Skill is valid!`。 |
+| 占位符与 diff 检查 | `passed-static` | 指定 placeholder scan 输出 `placeholder scan: no matches` 并退出 0；`git diff --check` 退出 0、无输出。 |
+| Base→Head 完整差异审查 | `passed-static` | 以修复后新 HEAD 执行 `git diff 3ce6579e137fc84aa497df90447f133164fa247e..HEAD -- SKILL.md README.md references docs/audits`；完整范围只含本账本和四份 owner reference，所有规范变化映射到 F-01–F-07，没有新类别、没有 `SKILL.md`/`README.md` 变化，也没有运行时通过声明。不再以 `HEAD~3` 冒充完整范围。 |
 | 浏览器、屏幕阅读器、触摸设备与真实视口 | `unperformed-runtime` | **未验证。** 仍需在具体组件中实际点击/拖拽、切换断点与缩放、打开虚拟键盘、检查 DOM/ARIA、记录焦点与请求，并以读屏和触摸设备复测。 |
 
 ## 最终边界
 
-本轮完成的是规范文本、交叉引用和静态推演。不得把上表的 `passed-static` 或 `determined-static` 写成浏览器、屏幕阅读器、触摸设备或真实视口已经通过；这些运行时检查保持 `unperformed-runtime`，直到具备具体实现和目标环境。
+本轮完成的是规范文本、交叉引用和静态推演。不得把 `passed-static`、`repaired-static` 或 `determined-static` 写成浏览器、屏幕阅读器、触摸设备或真实视口已经通过；这些运行时检查保持 `unperformed-runtime`，直到具备具体实现和目标环境。
