@@ -13,10 +13,10 @@
 
 | ID | 状态 | 证据位置与短引 | 两种合理实现为何会分歧 | Owner | 最小预期修订 |
 | --- | --- | --- | --- | --- | --- |
-| F-01 | baseline-failing | `references/dialogs.md`「响应式与清理」第 27 条仅写“完整清理滚动锁定”；「动画」第 6 条只在关闭前要求“保持…滚动锁定”。 | 实现 A 在打开时取得并持有本实例的锁；实现 B 只在关闭前避免释放一个假定已存在的锁，或把锁的取得委托给未定义的外层。两者都能逐字满足现有句子，却会使 modal-open 的背景滚动结果不同。 | `references/dialogs.md` | 在 Dialog 规范性生命周期规则中明确：当前打开实例取得并持续持有页面滚动锁；只在关闭动画完成、路由变化或卸载时释放。 |
-| F-02 | baseline-failing | `references/dialogs.md`「响应式与清理」第 27 条的“关闭、路由变化或组件卸载时，完整清理”；对照「动画」第 5–6 条的“动画完成后”与“关闭结束前”。 | 实现 A 将“关闭”解释为关闭请求，立即释放保护；实现 B 将其解释为退出动画完成。前者会在仍可见的 Dialog 下恢复背景或焦点，后者不会。 | `references/dialogs.md` | 将普通关闭清理边界明确为“关闭动画完成后”；保留路由变化/组件卸载的立即、幂等例外。 |
-| F-03 | baseline-failing | `references/responsive-adaptive.md`「跨端形态与状态延续」第 2–3 条规定初次打开和**已打开**实时转换的动画。 | 正在关闭的实例既不是初次打开，也不再是“已打开”。实现 A 按新断点换为新形态的退出动画；实现 B 保留启动关闭时的形态。两者均未被规则排除。 | `references/responsive-adaptive.md` | 指定 later close 的动画所有者（以关闭开始时的已解析形态为准），并说明不能叠加另一形态动画。 |
-| F-04 | baseline-failing | `references/responsive-adaptive.md`「跨端形态与状态延续」第 3、8 条只约束“已打开实例”转换与单实例副作用。 | 若断点在 close 已开始后到达，实现 A 继续容器转换，可能附带第二个退出/cleanup；实现 B 冻结 closing 形态。现有文字没有 closing-phase 的处置，无法裁定。 | `references/responsive-adaptive.md` | 明确 `closing` 期间忽略/冻结形态转换：不改变动画所有者、实例、层级、副作用持有者或清理时点。 |
+| F-01 | repaired-static | 已修订 `references/dialogs.md`「焦点与键盘」第 12 条：模态活动开始时当前活动实例取得页面滚动锁定，并与背景隔离同属该实例。 | 先前的打开锁取得方已不再开放解释；接受断言：Dialog acquires page scroll lock when modal activity begins. | `references/dialogs.md` | 已修订：当前打开实例取得并持续持有页面滚动锁。真实运行时滚动行为仍需具体组件验证。 |
+| F-02 | repaired-static | 已修订 `references/dialogs.md`「动画」第 6 条及「响应式与清理」第 27 条：普通关闭的保护持续到关闭动画完成且 DOM 移除，随后统一清理；路由变化/卸载为立即、幂等例外。 | 关闭请求不再等同于清理时点；接受断言：Modal protections remain until close animation completion and DOM removal. | `references/dialogs.md` | 已修订：普通关闭只在动画完成和 DOM 移除后清理。真实运行时清理顺序仍需具体组件验证。 |
+| F-03 | repaired-static | 已修订 `references/responsive-adaptive.md`「跨端形态与状态延续」第 2–3 条：初次打开采用最终形态的入场动画，随后关闭采用关闭开始时当前渲染形态的专项退出动画。 | 退出动画所有者已唯一；接受断言：Closing uses the currently rendered shape’s exit animation. | `references/responsive-adaptive.md` | 已修订：later close 以关闭开始时的已解析形态为准，不能叠加另一形态退出动画。真实动画仍需具体组件验证。 |
+| F-04 | repaired-static | 已修订 `references/responsive-adaptive.md`「跨端形态与状态延续」第 8 条：关闭开始后冻结 closing 实例形态，后续断点不得转换、重建、启动第二动画或额外清理。 | closing-phase 的断点处置已唯一；接受断言：Once closing begins, the rendered shape is frozen and later breakpoint changes cannot start conversion. | `references/responsive-adaptive.md` | 已修订：closing 期间保持同一实例和副作用持有者，动画完成后仅一次清理。真实断点切换仍需具体组件验证。 |
 | F-05 | baseline-failing | `references/selects-comboboxes.md`「状态模型与硬性不变量」的 `resolvedPlacement`，以及 placement `inline`、`panel`、`drawer` 段分别规定初始/关闭焦点；第 27 条要求保留业务状态。 | 外层 trigger、inline 主 Combobox、panel 内层 Combobox 与 Drawer 搜索 Combobox 都是合理焦点目标。实施者可保留旧焦点、移动至新输入或回到 trigger；现有规则未给转换时的确定映射。 | `references/selects-comboboxes.md` | 为每个 placement 对写出确定的焦点映射及失效回退，且不改变 `selectedValue`、`query`、`activeOption` 或请求会话。 |
 | F-06 | baseline-failing | `references/selects-comboboxes.md` 第 27 条要求 Portal/转换中 ID “稳定”，第 35、39、41、45 条分别定义 `aria-controls`。 | 实现 A 先转移焦点后再替换 listbox/ARIA 所有权，短暂留下失效或重复 ID；实现 B 原子替换并立即更新同一逻辑 popup ID。两者都可能声称未“重复基础设施”，但辅助技术可见性不同。 | `references/selects-comboboxes.md` | 明确在焦点映射完成的同一可观察边界，逻辑 popup ID、`aria-controls` 和相关 ARIA 所有权必须唯一、存在且有效。 |
 | F-07 | baseline-failing | `references/dialogs.md:63-71`「完成前检查」只列“打开/关闭动画、快速连续操作”；`references/drawers.md:46-54`只列“快速连续操作…关闭、路由变化、卸载”；`references/selects-comboboxes.md:75-77`只笼统列“焦点和动画后返回”与“断点”；`references/responsive-adaptive.md:36-40`只笼统列“断点切换期间的…打开浮层”。四者均未命名 closing-time conversion 或 placement focus mapping 的重放。 | 实现 A 只检查静态打开转换和正常关闭；实现 B 另行重放关闭中断点切换与四个焦点端点。两者都能完成现有清单，覆盖强度却不同。 | 本审计账本（跨文件）；四份参考文件各自完成前检查 | 把 S-02 的 placement 焦点/ARIA 映射及 S-07 的 closing-time conversion 纳入命名、可操作的跨文件完成前检查。 |
@@ -103,8 +103,17 @@
 | 焦点/背景连续性 | underdetermined：Dialog 的滚动锁取得/持有未作规范性明确要求，且关闭清理时点有歧义。 | F-01、F-02 |
 | 动画/卸载/清理恰好一次 | underdetermined：closing 断点变化未禁止重复动画或 cleanup，也未列为命名复放检查。 | F-04、F-07 |
 
+## Task 2 静态规则重放
+
+| 场景 | 静态重放结果与修订规则 | 运行时状态 |
+| --- | --- | --- |
+| S-01：打开的 Dialog 在宽屏与 Drawer 间往返 | repaired-static：`responsive-adaptive.md`「跨端形态与状态延续」第 3 条规定打开期间的单实例、无入/退场转换，并指定随后关闭使用关闭开始时的当前渲染形态；第 8 条规定 closing 后冻结形态并保持保护直到一次清理。 | 未验证；需要具体组件在宽窄断点间往返后关闭。 |
+| S-03：多层 Dialog、Drawer 或混合叠加，逐层关闭 | repaired-static：`dialogs.md`「动画」第 6 条和「响应式与清理」第 27 条将顶层普通关闭的保护与清理统一到动画完成及 DOM 移除后；第 12 条规定活动实例持有滚动锁和背景隔离。 | 未验证；需要具体叠层、焦点返回和滚动锁计数验证。 |
+| S-04：异步提交时触发 Escape、内部关闭、断点、路由变化或卸载 | repaired-static：`dialogs.md`第 6、12、27 条规定关闭期间保护、锁的取得和路由/卸载的立即幂等 teardown；`responsive-adaptive.md`第 8 条规定 closing 中保持异步状态且不得额外 cleanup。 | 未验证；需要具体异步请求、路由和卸载环境验证。 |
+| S-07：关闭动画未结束时重复关闭、重新打开或形态变化 | repaired-static：`responsive-adaptive.md`第 3 条将退出动画归属到关闭开始时的当前形态，第 8 条冻结 closing 形态并禁止第二个退出动画、重建或额外清理；`dialogs.md`第 6、27 条保持保护至一次 finalize。 | 未验证；需要在关闭动画期间触发重复操作和断点变化。 |
+
 ## 后续验证状态
 
-- 文档 RED 证据：已记录；修订前不得将 F-01 至 F-07 标为通过。
-- 静态重放：待后续任务在修订后按 S-01 至 S-07 逐项复核。
+- 文档 RED 证据：已记录；F-01 至 F-04 已完成本任务的静态修订，F-05 至 F-07 仍为 baseline-failing。
+- 静态重放：S-01、S-03、S-04、S-07 已按修订规则重放为 repaired-static；其余场景待对应任务复核。
 - 真实交互验证：未验证；需要具体组件、浏览器、读屏、触摸设备与目标视口环境。
