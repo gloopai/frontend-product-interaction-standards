@@ -17,9 +17,9 @@
 | F-02 | repaired-static | 已修订 `references/dialogs.md`「动画」第 6 条及「响应式与清理」第 27 条：普通关闭的保护持续到关闭动画完成且 DOM 移除，随后统一清理；路由变化/卸载为立即、幂等例外。 | 关闭请求不再等同于清理时点；接受断言：Modal protections remain until close animation completion and DOM removal. | `references/dialogs.md` | 已修订：普通关闭只在动画完成和 DOM 移除后清理。真实运行时清理顺序仍需具体组件验证。 |
 | F-03 | repaired-static | 已修订 `references/responsive-adaptive.md`「跨端形态与状态延续」第 2–3 条：初次打开采用最终形态的入场动画，随后关闭采用关闭开始时当前渲染形态的专项退出动画。 | 退出动画所有者已唯一；接受断言：Closing uses the currently rendered shape’s exit animation. | `references/responsive-adaptive.md` | 已修订：later close 以关闭开始时的已解析形态为准，不能叠加另一形态退出动画。真实动画仍需具体组件验证。 |
 | F-04 | repaired-static | 已修订 `references/responsive-adaptive.md`「跨端形态与状态延续」第 8 条：关闭开始后冻结 closing 实例形态，后续断点不得转换、重建、启动第二动画或额外清理。 | closing-phase 的断点处置已唯一；接受断言：Once closing begins, the rendered shape is frozen and later breakpoint changes cannot start conversion. | `references/responsive-adaptive.md` | 已修订：closing 期间保持同一实例和副作用持有者，动画完成后仅一次清理。真实断点切换仍需具体组件验证。 |
-| F-05 | baseline-failing | `references/selects-comboboxes.md`「状态模型与硬性不变量」的 `resolvedPlacement`，以及 placement `inline`、`panel`、`drawer` 段分别规定初始/关闭焦点；第 27 条要求保留业务状态。 | 外层 trigger、inline 主 Combobox、panel 内层 Combobox 与 Drawer 搜索 Combobox 都是合理焦点目标。实施者可保留旧焦点、移动至新输入或回到 trigger；现有规则未给转换时的确定映射。 | `references/selects-comboboxes.md` | 为每个 placement 对写出确定的焦点映射及失效回退，且不改变 `selectedValue`、`query`、`activeOption` 或请求会话。 |
-| F-06 | baseline-failing | `references/selects-comboboxes.md` 第 27 条要求 Portal/转换中 ID “稳定”，第 35、39、41、45 条分别定义 `aria-controls`。 | 实现 A 先转移焦点后再替换 listbox/ARIA 所有权，短暂留下失效或重复 ID；实现 B 原子替换并立即更新同一逻辑 popup ID。两者都可能声称未“重复基础设施”，但辅助技术可见性不同。 | `references/selects-comboboxes.md` | 明确在焦点映射完成的同一可观察边界，逻辑 popup ID、`aria-controls` 和相关 ARIA 所有权必须唯一、存在且有效。 |
-| F-07 | baseline-failing | `references/dialogs.md:63-71`「完成前检查」只列“打开/关闭动画、快速连续操作”；`references/drawers.md:46-54`只列“快速连续操作…关闭、路由变化、卸载”；`references/selects-comboboxes.md:75-77`只笼统列“焦点和动画后返回”与“断点”；`references/responsive-adaptive.md:36-40`只笼统列“断点切换期间的…打开浮层”。四者均未命名 closing-time conversion 或 placement focus mapping 的重放。 | 实现 A 只检查静态打开转换和正常关闭；实现 B 另行重放关闭中断点切换与四个焦点端点。两者都能完成现有清单，覆盖强度却不同。 | 本审计账本（跨文件）；四份参考文件各自完成前检查 | 把 S-02 的 placement 焦点/ARIA 映射及 S-07 的 closing-time conversion 纳入命名、可操作的跨文件完成前检查。 |
+| F-05 | repaired-static | 已修订 `references/selects-comboboxes.md`「`resolvedPlacement` 转换的焦点、ID 与 ARIA」：任一来源 placement 按目标 `inline`、`panel`、`drawer`、`none` 取得唯一焦点，并规定存活节点保留和一次性回退。 | 转换焦点端点与失效回退已唯一；接受断言：Conversion focuses the destination-equivalent controller once without committing session state. | `references/selects-comboboxes.md` | 已修订：转换不改变 `selectedValue`、`query`、`activeOption` 或值变化回调。真实运行时焦点顺序仍需具体组件验证。 |
+| F-06 | repaired-static | 已修订 `references/selects-comboboxes.md`「`resolvedPlacement` 转换的焦点、ID 与 ARIA」：逻辑 popup/Listbox/option ID 保留；与焦点移动同一已提交渲染同步更新 ARIA，并移除来源专属属性。 | ARIA/ID 的可观察边界已唯一；接受断言：A focused controller never references a removed Listbox or option. | `references/selects-comboboxes.md` | 已修订：当前 `aria-controls`、`aria-expanded`、`aria-haspopup` 与已渲染 active 的 `aria-activedescendant` 同步有效。真实读屏与 DOM 时序仍需具体组件验证。 |
+| F-07 | repaired-static | 已修订 `references/selects-comboboxes.md`「验收与报告」：明确重放四个 placement 间转换，并覆盖 query、active、loading、error、orphaned invalid、远程请求、焦点、ARIA、回调与关闭返回目标。 | Select 转换覆盖已可操作；接受断言：Each conversion replay verifies one focus movement, current ARIA references, no value callback or duplicate request, and preserved close-return target. | 本审计账本与 `references/selects-comboboxes.md` | 已修订：S-02、S-05、S-06 静态重放；真实浏览器、读屏、触摸和视口行为仍需具体组件验证。 |
 
 ## 外部 RED 佐证摘要
 
@@ -50,8 +50,8 @@
 | 业务状态 | already-determined：`selectedValue` 不隐式更新，转换保留草稿、搜索、错误和请求语义。 | Select 第 13、27 条；响应式第 4 条 |
 | 一个活动实例/基础设施集合 | already-determined：不得重复请求、回调、遮罩、焦点陷阱、滚动锁或动画。 | Select 第 27 条 |
 | 关闭边界 | already-determined：Drawer 关闭动画完成后才卸载并返回焦点。 | Drawer 第 11–12、16 条 |
-| 焦点/背景连续性 | underdetermined：四个合理焦点端点间没有确定转换映射。 | F-05 |
-| 动画/卸载/清理恰好一次 | underdetermined：转换后焦点边界与同一逻辑 popup 的 ARIA/ID 有效性未被原子化规定。 | F-06、F-07 |
+| 焦点/背景连续性 | repaired-static：任一来源 placement 按目标 `panel` 或 `drawer` 的内层搜索 Combobox 映射；存活节点保留，否则只移动一次。 | Select「`resolvedPlacement` 转换的焦点、ID 与 ARIA」；F-05 |
+| 动画/卸载/清理恰好一次 | repaired-static：逻辑 popup/Listbox/option ID 持续，且与焦点移动同一渲染同步更新 ARIA；不重复请求、回调、遮罩、焦点陷阱、滚动锁或动画。 | Select「`resolvedPlacement` 转换的焦点、ID 与 ARIA」；F-06、F-07 |
 
 ### S-03：多层 Dialog、Drawer 或混合叠加，逐层关闭
 
@@ -80,8 +80,8 @@
 | 业务状态 | already-determined：形态适配不得改变业务语义、提交结果或默认值。 | 响应式第 3 条 |
 | 一个活动实例/基础设施集合 | already-determined：实时转换只保留一个活动实例。 | 响应式第 8 条 |
 | 关闭边界 | already-determined：关闭动画完成后才卸载。 | Dialog 第 5 条；Drawer 第 11 条 |
-| 焦点/背景连续性 | already-determined：焦点不被固定区或键盘完全遮挡，背景仍隔离。 | Dialog 第 24–25 条；Drawer 第 10、18 条 |
-| 动画/卸载/清理恰好一次 | already-determined：reduced motion 的专项动画限制仍适用。 | Dialog 第 7 条；Drawer 第 13 条；响应式第 3 条 |
+| 焦点/背景连续性 | repaired-static：在虚拟键盘、低高度、缩放和安全区域导致 placement 转换时，存活精确节点保留焦点，否则只移动一次到 Select 规范定义的等价控制器。 | 响应式第 8 条；Select「`resolvedPlacement` 转换的焦点、ID 与 ARIA」；F-05 |
+| 动画/卸载/清理恰好一次 | repaired-static：转换仍只保留一个活动实例；当前 ARIA 引用与焦点同一渲染更新，且 reduced motion 的专项限制继续适用。 | 响应式第 3、8 条；Select 转换验收；F-06、F-07 |
 
 ### S-06：已提交 option orphaned invalid、远程搜索竞态与会话进入/离开 `none`
 
@@ -90,8 +90,8 @@
 | 业务状态 | already-determined：搜索、active、结果刷新或模式切换不隐式更新 `selectedValue`。 | Select 第 13 条 |
 | 一个活动实例/基础设施集合 | already-determined：模式转换不得重复请求、回调、遮罩、陷阱、滚动锁或动画。 | Select 第 27 条 |
 | 关闭边界 | already-determined：`none` 的 Escape/Tab 关闭语义已列出。 | Select 第 53 条 |
-| 焦点/背景连续性 | underdetermined：placement 变换后，旧/新 Combobox 与触发器的确定焦点映射缺失。 | F-05 |
-| 动画/卸载/清理恰好一次 | underdetermined：焦点映射后同一逻辑 popup ID 与 `aria-controls` 的立即有效性未规定。 | F-06 |
+| 焦点/背景连续性 | repaired-static：进入 `none` 时焦点移至 Select-only Combobox，保留但不应用 query，并按完整未过滤集合对账 active；离开时遵循目标 placement 的唯一映射。 | Select「`resolvedPlacement` 转换的焦点、ID 与 ARIA」；F-05 |
+| 动画/卸载/清理恰好一次 | repaired-static：转换保留逻辑 ID，并在焦点移动同一渲染更新 ARIA；不提交值、不触发值变化回调、不重复请求。 | Select「`resolvedPlacement` 转换的焦点、ID 与 ARIA」；F-06、F-07 |
 
 ### S-07：关闭动画未结束时重复关闭、重新打开或形态变化
 
@@ -112,8 +112,16 @@
 | S-04：异步提交时触发 Escape、内部关闭、断点、路由变化或卸载 | repaired-static：`dialogs.md`第 6、12、27 条规定关闭期间保护、锁的取得和路由/卸载的立即幂等 teardown；`responsive-adaptive.md`第 8 条规定 closing 中保持异步状态且不得额外 cleanup。 | 未验证；需要具体异步请求、路由和卸载环境验证。 |
 | S-07：关闭动画未结束时重复关闭、重新打开或形态变化 | repaired-static：`responsive-adaptive.md`第 3 条将退出动画归属到关闭开始时的当前形态，第 8 条冻结 closing 形态并禁止第二个退出动画、重建或额外清理；`dialogs.md`第 6、27 条保持保护至一次 finalize。 | 未验证；需要在关闭动画期间触发重复操作和断点变化。 |
 
+## Task 3 静态规则重放
+
+| 场景 | 静态重放结果与修订规则 | 运行时状态 |
+| --- | --- | --- |
+| S-02：可搜索 Select 从 PC 浮层转为 Drawer，带 query、active、loading 或 error | repaired-static：目标 `drawer` 的内层搜索 Combobox 获得一次焦点移动（存活精确节点例外），保留 query、active、请求和关闭返回目标；逻辑 ID 与 ARIA 在同一已提交渲染同步。 | 未验证；需要具体 PC 浮层与 Drawer、请求中和错误态的焦点、DOM 与读屏验证。 |
+| S-05：虚拟键盘、低高度、200% 缩放、四向安全区域与 reduced motion | repaired-static：若这些约束触发 placement 转换，响应式规范只保留存活节点或一次到 Select 专项等价控制器的移动；无第二实例、请求、回调或 ARIA 失效引用。 | 未验证；需要目标视口、缩放、虚拟键盘、安全区域和 reduced-motion 环境验证。 |
+| S-06：已提交 option orphaned invalid、远程搜索竞态与会话进入/离开 `none` | repaired-static：目标 `none` 聚焦 Select-only Combobox，query 保留但不应用，active 按完整未过滤集合对账；转换不提交值、不发值变化回调或重复请求，且 active 描述符仅指向已渲染 option。 | 未验证；需要 orphaned invalid、远程竞态和 `none` 往返的浏览器、读屏验证。 |
+
 ## 后续验证状态
 
-- 文档 RED 证据：已记录；F-01 至 F-04 已完成本任务的静态修订，F-05 至 F-07 仍为 baseline-failing。
-- 静态重放：S-01、S-03、S-04、S-07 已按修订规则重放为 repaired-static；其余场景待对应任务复核。
+- 文档 RED 证据：已记录；F-01 至 F-07 已完成本任务的静态修订。
+- 静态重放：S-01 至 S-07 已按相应修订规则重放为 repaired-static。
 - 真实交互验证：未验证；需要具体组件、浏览器、读屏、触摸设备与目标视口环境。

@@ -26,6 +26,17 @@
 
 解析模式、命中的条件和理由必须可记录、可测试。一个打开会话内冻结 `resolvedPlacement`；只有已声明的视口空间、输入能力或虚拟键盘变化可以触发转换。转换不得重复请求、回调、遮罩、焦点陷阱、滚动锁或动画；保留业务状态。Portal 与模式转换中，面板、Drawer、Listbox 与 option 的 ID 必须稳定。
 
+### `resolvedPlacement` 转换的焦点、ID 与 ARIA
+
+以下映射适用于任一来源 `resolvedPlacement`（`inline`、`panel`、`drawer` 或 `none`）转换到另一最终 placement；它是跨形态焦点的唯一事实来源。转换绝不提交 `query` 或 `activeOption`，绝不改变 `selectedValue`，也绝不触发值变化回调。
+
+- 目标为 `inline`：焦点移至主 Editable Combobox，并依 `inline` 的草稿编辑契约暴露保留的会话 `query`。
+- 目标为 `panel`：复合控件保持打开时，焦点移至其内层搜索 Combobox；若一个另行定义的外部动作同时导致关闭，则在关闭动画完成后将焦点返回该 panel 的外层 disclosure trigger。
+- 目标为 `drawer`：焦点移至活动焦点陷阱内的内层搜索 Combobox；外层 trigger 保留为该会话最终关闭时的返回焦点目标。
+- 目标为 `none`：焦点移至 Select-only Combobox，保留会话 `query` 但不应用它，按完整、未过滤 option 集合对账 `activeOption`，且仅在 active option 已渲染时暴露 `aria-activedescendant`。
+
+若当前精确焦点节点在 Portal 或布局移动后仍存活，必须保持该节点焦点，不得产生 blur/refocus 周期；否则只能一次性移动到上述目标形态的等价控制器。对应逻辑节点跨转换继续存在时，必须保留该会话的逻辑 popup、Listbox 与 option ID。移动焦点前或与其同一已提交渲染中，必须以目标 DOM 同步更新 `aria-controls`、`aria-expanded`、`aria-haspopup` 与 `aria-activedescendant`；不得让已聚焦控制器指向已移除的 Listbox 或 option。目标控制器角色不同，必须移除仅属于来源角色的 ARIA 属性，不得携带到目标。
+
 ## 模式与精确语义
 
 ### `inline`
@@ -74,7 +85,7 @@ PC `inline` 弹层锚定主 Combobox，`panel` 锚定 disclosure button，`none`
 
 ## 验收与报告
 
-至少验证：五种 placement 的显式配置、`auto` 决策顺序/理由/会话冻结与允许转换；inline 的可打印/Backspace/Delete/paste/cut 草稿进入、displayText 与非提交恢复；panel/drawer 内层 `aria-autocomplete="list"`、outer/inner ID、ARIA、焦点和动画后返回；select-only `none` 的 Space/Enter 均提交、type-ahead/Tab；唯一 `aria-selected` 和 active 对账；校验归属；本地即时过滤与 Loading/结果数量/空/错误播报；PC composite Tab/重试与 Drawer 焦点陷阱；可编辑 caret 键优先级；none 查询暂停/恢复；orphaned invalid；disabled/read-only/disabled option；远程竞态、虚拟列表、Portal、缩放、虚拟键盘、断点和 reduced motion。未实际检查必须报告为**未验证**并写明所需检查。
+至少验证：五种 placement 的显式配置、`auto` 决策顺序/理由/会话冻结与允许转换；任一 `inline`、`panel`、`drawer`、`none` 来源到任一不同目标的转换，在 `query`、active、loading、error、orphaned invalid 与远程请求存在时均只发生一次焦点移动，保留关闭返回目标，不触发值变化回调或重复请求，且 `aria-controls` 当前有效、`aria-activedescendant` 仅引用已渲染 active option；inline 的可打印/Backspace/Delete/paste/cut 草稿进入、displayText 与非提交恢复；panel/drawer 内层 `aria-autocomplete="list"`、outer/inner ID、ARIA、焦点和动画后返回；select-only `none` 的 Space/Enter 均提交、type-ahead/Tab；唯一 `aria-selected` 和 active 对账；校验归属；本地即时过滤与 Loading/结果数量/空/错误播报；PC composite Tab/重试与 Drawer 焦点陷阱；可编辑 caret 键优先级；none 查询暂停/恢复；orphaned invalid；disabled/read-only/disabled option；远程竞态、虚拟列表、Portal、缩放、虚拟键盘、断点和 reduced motion。未实际检查必须报告为**未验证**并写明所需检查。
 
 ## 参考资料
 
