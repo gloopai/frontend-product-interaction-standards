@@ -1,6 +1,8 @@
 # Attempt 6 最终 GREEN 派发与完整性回执
 
-状态：`PASS_WITH_RUNTIME_UNVERIFIED`
+状态：`PROVENANCE_PASS_APPLICATION_RECLASSIFIED_FAIL`
+
+> Fix Round 4 纠正：本回执保存的派发、completion 与 RAW hash 仍有效，但原 `PASS_WITH_RUNTIME_UNVERIFIED` 只反映旧审计裁决。Attempt 6 已因 DT-SEL-06 语义门禁缺失重新判为失败；下文列出的审计器/账本/mutation hash 是当时冻结的历史版本，不是当前修正审计器 hash。见 [attempt-6-selection-generation-red-mutation.md](attempt-6-selection-generation-red-mutation.md) 与 [attempt-7-summary.md](attempt-7-summary.md)。
 
 ## 调度事实
 

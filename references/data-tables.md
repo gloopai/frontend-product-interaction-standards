@@ -105,7 +105,7 @@
 | `DT-SEL-03` | `[a]` “全部筛选结果”只能由产品显式启用；`[b]` 用户先完成当前页选择后，界面才可提供独立的二次范围操作；`[c]` 二次操作必须明确显示将选择的全部筛选结果数量与筛选范围；`[d]` 用户确认后建立不可变 `selectionSnapshot`，冻结来源 `querySnapshot`、范围键、已应用筛选、权限范围、数据版本、可选总数，并把 `excludedIds` 作为该快照内部字段初始化为空集合；不得把排除项另存为可独立漂移的 sibling 状态；`[e]` 界面持续显示模式、范围、已选数量与排除数量；`[f]` 单一 `allSelected=true` 或只保存数量不能代表该模式。 | `A24`、`A34` |
 | `DT-SEL-04` | `[a]` 全部筛选结果模式中取消某记录时，创建新的不可变后继 `selectionSnapshot`，把其稳定 ID 加入 `selectionSnapshot.excludedIds`；重新选择时同样创建后继快照并只移除该 ID，先前快照保持不变；`[b]` 可见已选数量等于当前 `selectionSnapshot.eligibleTotal` 减去其中仍有效的 `excludedIds` 数量；`[c]` 普通翻页只有在范围键、权限范围和数据版本均未变化时才保留该模式和当前选择快照身份；`[d]` 任一页面的表头复选框仍只按该页可选记录和当前 `selectionSnapshot.excludedIds` 计算三态。 | `A24` |
 | `DT-SEL-05` | `[a]` `page` 模式在应用/移除/重置筛选、提交排序、翻页、改变页大小、权限范围变化或数据集版本变化提交时清除；`[b]` 全部筛选结果模式可跨普通翻页保留，但不得跨范围键、权限范围或数据版本变化静默保留；`[c]` 已应用筛选、权限范围或数据集版本变化时，旧全部范围立即失效、阻止操作并清除；`[d]` 仅排序变化时，旧全部范围进入待重新确认态，用户确认新范围和数量并绑定新查询快照前不得操作，取消确认则清除；`[e]` 同范围内记录资格变化时只移除失效 ID、更新数量并由选择 owner 简短公告一次。 | `A25`、`A34` |
-| `DT-SEL-06` | `[a]` 每个被接受的选择意图严格递增 `selectionGeneration`，先前快照保持不可变；意图改变全部筛选结果范围、排除项或可选总数时必须创建新的不可变后继 `selectionSnapshot`，不得原地修改当前快照；`[b]` 异步选择协调回调只有 owner live、`ownerId` 与 `selectionGeneration` 同时匹配时才能提交；`[c]` 旧查询、旧操作或迟到协调结果不得覆盖更新选择，只记录 `selection-result-discarded`；`[d]` 操作结果只有捕获的选择代次仍为当前代次时才可调整当前选择，否则只写自己的操作结果 owner。 | `A24`、`A25`、`A26` |
+| `DT-SEL-06` | `[a]` 每个被接受的选择意图和每次被接受的同范围资格变化都必须使 `selectionGeneration` 恰好加一，先前快照保持不可变；转换改变全部筛选结果范围、排除项或可选总数时必须创建新的不可变后继 `selectionSnapshot`，不得原地修改当前快照；`[b]` 异步选择协调回调只有 owner live、`ownerId`、`lifecycleToken` 与 `selectionGeneration` 四项同时匹配时才能提交，不得用只检查部分字段或仅记录字段的实现冒充门禁；`[c]` 旧查询、旧操作或迟到协调结果不得覆盖更新选择，只记录 `selection-result-discarded` 且选择写入为 0；`[d]` 任何操作结果调整当前选择前都必须先证明其捕获的 `selectionGeneration` 等于当前代次；不匹配时只写自己的操作结果 owner，选择写入为 0。 | `A24`、`A25`、`A26` |
 
 ## 批量操作快照、终态与恢复
 
@@ -200,7 +200,7 @@ disposal 是终止生命周期，不是视觉退出动画。每个实例以稳�
 | `DT-REPORT-02` | `[a]` 使用本 owner 定义或评审具体数据表格时，答复先声明 `capabilityTier`、权限解析后的 `resolvedTier`、筛选和排序是否启用、唯一分页模式，以及选择、全部筛选结果、单行/批量操作、列显示/固定/调宽和响应式形态是否启用；`[b]` 答复包含完成前应用检查清单，并严格使用 `DT-REPORT-05` 的原子行与二值结论；不适用项给出能力或配置的可观察依据；`[c]` 每个适用规则族都在正文中落实 owner 声明的状态归属、快照字段、事件转换、失败恢复、DOM/ARIA、键盘、焦点、公告与生命周期约束，不能因用户提示未逐字点名而省略；`[d]` 不适用只表示对应可选能力未启用，live 表格共同需要的查询提交门禁、数据状态、语义、焦点、响应式可达性、公告边界、disposal、实例隔离和验证边界不得标为不适用；`[e]` owner 未定义的局部枚举、状态或策略必须明确标为产品配置或实现细节，并证明不替代、不放宽任何 owner 规则；无法证明时列为待裁决，不得写成共享规范。 | `A37` |
 | `DT-REPORT-03` | `[a]` 应用检查清单必须把查询、筛选、排序、分页和数据状态拆成五个独立判定行，不得用一个合并行掩盖其中任一族的适用义务；`[b]` 筛选适用时，正文必须分别定位草稿与已应用值、提交模式、默认重置、分页复位、持续摘要/移除、URL 安全和字段错误 owner；只有筛选 DOM、状态、handler 与请求入口均不存在时才能标为不适用；`[c]` 排序适用时，正文必须声明固定或交互式能力，并给出当前实际采用的业务键/方向、空值位置、大小写、locale/自然排序和唯一不可变稳定键；只写“需要配置完整稳定排序”不算落实；同时定位查询转换、分页复位及适用的 DOM/ARIA/键盘/焦点，即使没有交互按钮也不能省略固定稳定比较值；`[d]` 分页适用时，正文必须单独声明唯一模式和页大小；numbered 模式分别落实可靠总数、当前/总页与范围、直接页码、具标签且校验的跳页、边界原生禁用、页大小控件、查询回第 1 页和失效页单次恢复；cursor 模式分别落实不透明双向游标、只提供接口支持的上一页/下一页、缺失方向原生禁用、禁止总页/随机跳转/加载更多/无限滚动、回初始游标和失效游标单次恢复；两者都定位 DOM/键盘与单次焦点策略；`[e]` 上述任一适用项缺少定位即为应用失败，不能由合并的“查询规则已覆盖”、待配置占位或其他族内容抵消。 | `A38` |
 | `DT-REPORT-04` | `[a]` 能力声明必须逐项写出本实例当前值：`filteringEnabled`、`sortingEnabled`、`paginationMode`、`pageSize`、`pageSelectionEnabled`、`allFilteredSelectionEnabled`、`rowOperationEnabled`、`bulkOperationEnabled`、`columnVisibilityEnabled`、`columnPinningEnabled`、`columnResizeEnabled` 和 `responsivePresentation`；开关使用明确的 `enabled/disabled`、`true/false` 或等价当前值，只写启用条件、未来可能性或配置项名称不算声明；`[b]` 答复必须按 `queryState`、`viewState`、`interactionState`、`operationState` 四个固定名称逐组声明当前结构，不能增删、合并、改名或用 selection/lifecycle 等第五组替代；可选能力未启用时也保留对应组名并明确“未实例化”及 DOM、状态槽、handler/事件、请求入口的 absence contract；`[c]` `queryState` 必须定位本 owner 状态表的全部查询最少字段，`viewState` 始终定位 `visibleColumnIds`、`pinnedColumnIds`、`columnWidths`、`density`、当前结果行与结果摘要，`interactionState` 始终定位焦点字段并对菜单/选择等可选字段给出结构或 absence contract，`operationState` 对单行/批量操作给出结构或 absence contract；关闭列控件或操作能力不能删除这些报告义务；`[d]` 生命周期必须作为四组之外的独立 `lifecycleGuard` / owner guard 声明，至少定位 `ownerId`、`lifecycleToken`、`live/disposed` 和 owned resources；名为 `lifecycleState` 的第五组或把 lifecycle 计作四组之一均失败；`[e]` 应用检查清单必须有独立的“运行时验证边界”判定行，标记适用性/状态并定位实际未验证环境；清单外的未验证章节不能替代该行。 | `A37`、`A38`、`A39` |
-| `DT-REPORT-05` | `[a]` 应用检查清单必须逐行使用以下原子规则族：能力与状态、查询、筛选、排序、分页、数据状态、选择、单行操作、批量操作、基础列状态、可选列控制、Table 语义、ARIA Grid 语义、键盘、焦点、响应式、ARIA 与公告、disposal、实例隔离、运行时验证边界；每行恰好出现一次；`[b]` 每行适用性单元格只能精确为“适用”或“不适用”，验证状态另列；“部分适用”“条件适用”“适用/不适用”、一格多个判断或附加当前未验证等修饰均失败；`[c]` 不得把选择/单行操作/批量操作、基础列状态/可选列控制、Table/ARIA Grid、disposal/实例隔离等重新合并；每个适用原子行定位正文位置，每个不适用原子行给出该能力 DOM、状态槽、handler/事件和请求入口的零值证据。 | `A37` |
+| `DT-REPORT-05` | `[a]` 应用检查清单必须逐行使用以下原子规则族：能力与状态、查询、筛选、排序、分页、数据状态、选择、单行操作、批量操作、基础列状态、可选列控制、Table 语义、ARIA Grid 语义、键盘、焦点、响应式、ARIA 与公告、disposal、实例隔离、运行时验证边界；每行恰好出现一次；`[b]` 每行适用性单元格只能精确为“适用”或“不适用”，验证状态另列；“部分适用”“条件适用”“适用/不适用”、一格多个判断或附加当前未验证等修饰均失败；`[c]` 不得把选择/单行操作/批量操作、基础列状态/可选列控制、Table/ARIA Grid、disposal/实例隔离等重新合并；每个适用原子行定位正文位置，每个不适用原子行给出该能力 DOM、状态槽、handler/事件和请求入口的零值证据；`[d]` 当“选择”适用且启用全部筛选结果时，正文必须包含唯一“选择代次契约”表，固定使用“路径 / `generationEffect` / `snapshotEffect` / `commitGuard` / `mismatchEffect`”五列，并分别记录“资格变化”“异步选择协调回调”“操作结果调整当前选择”三行：资格变化必须是 `selectionGeneration +1`、创建新的不可变后继 `selectionSnapshot` 且旧快照写入为 0；异步回调的提交门禁必须精确包含 `live + ownerId + lifecycleToken + selectionGeneration`，任一失配只产生 `selection-result-discarded` 且选择写入为 0；操作结果必须在捕获代次等于当前代次后才允许选择写入，不匹配时只写 operation result owner 且选择写入为 0。审计按各列关系和值解析；仅在其他段落提到字段名、代次数值或验收编号不能替代该表，表内正确但正文另有原地修改、部分门禁或失配后仍写选择等相反语义时同样失败。 | `A37`、`A39` |
 
 ## 验收映射
 
@@ -233,10 +233,10 @@ Task 2 的[分句覆盖清单](../docs/testing/data-tables/task2-clause-coverage
 | `DT-SEL-05.c` | `A25` | 筛选、权限或版本变化立即令旧范围 invalid，操作请求增量为 0。 |
 | `DT-SEL-05.d` | `A25` | 排序变化后状态为 pending-reconfirmation，确认前操作请求为 0，确认后绑定新快照。 |
 | `DT-SEL-05.e` | `A25` | 同范围资格失效只移除失效 ID，数量更新且公告恰好 1。 |
-| `DT-SEL-06.a` | `A24` | 每个被接受选择意图令 selectionGeneration 恰好加一；改变全部范围、排除项或可选总数时创建后继 selectionSnapshot 且旧快照不变。 |
-| `DT-SEL-06.b` | `A25` | 只有 live、ownerId 和 selectionGeneration 全匹配的协调结果提交。 |
-| `DT-SEL-06.c` | `A26` | 旧查询/操作回调记录 selection-result-discarded 且选择写入为 0。 |
-| `DT-SEL-06.d` | `A26` | 操作捕获代次不匹配时当前选择不变而操作结果仍归原 operationId。 |
+| `DT-SEL-06.a` | `A25` | 每个被接受选择意图和同范围资格变化令 selectionGeneration 恰好加一；改变全部范围、排除项或可选总数时创建后继 selectionSnapshot 且旧快照不变。 |
+| `DT-SEL-06.b` | `A25` | 只有 live、ownerId、lifecycleToken 和 selectionGeneration 四项全匹配的协调结果提交；只记录而不参与比较也失败。 |
+| `DT-SEL-06.c` | `A26` | 旧查询/操作/协调回调只记录 selection-result-discarded 且选择写入为 0。 |
+| `DT-SEL-06.d` | `A26` | 每个可能调整选择的操作结果都先比较捕获与当前选择代次；不匹配时当前选择不变而操作结果仍归原 operationId。 |
 | `DT-OP-01.a` | `A26` | 空、失效或待重确认选择的批量意图请求数均为 0。 |
 | `DT-OP-01.b` | `A26` | 操作快照包含规则列出的 owner、操作、选择、范围、数量、权限和版本字段。 |
 | `DT-OP-01.c` | `A26` | 确认后改变界面选择不会改变已保存操作快照字节或语义。 |
@@ -366,6 +366,7 @@ Task 2 的[分句覆盖清单](../docs/testing/data-tables/task2-clause-coverage
 | `DT-REPORT-05.a` | `A37` | 三份清单都恰好具有二十个指定原子行，逐行唯一且无缺失。 |
 | `DT-REPORT-05.b` | `A37` | 所有适用性单元格都精确等于“适用”或“不适用”，验证状态在独立列；混合或修饰值计为失败。 |
 | `DT-REPORT-05.c` | `A37` | 四组易混族分别拆行；适用行有正文位置，不适用行有 DOM/state/handler/request 四类零值证据。 |
+| `DT-REPORT-05.d` | `A39` | 选择适用且启用全部范围的答复具有三行选择代次契约；审计逐列证明资格变化、协调回调和操作结果选择写入的语义关系，只有数字或字段引用不能通过。 |
 
 ## 可执行验收
 
@@ -565,19 +566,19 @@ Task 2 的[分句覆盖清单](../docs/testing/data-tables/task2-clause-coverage
 
 ### `A25` 选择失效、重新确认与迟到协调
 
-- **初始状态**：分别建立 page 与 all-filtered 选择，保存范围键 K1、权限 P1、版本 V1、排序 S1 和选择代次 G1；准备可控迟到协调回调。
-- **事件序列**：对 page 逐项提交应用筛选、移除筛选、重置筛选、排序、翻页、页大小、权限和版本变化；对 all-filtered 先普通翻页，再分别提交筛选、P2、V2 和仅排序 S2；在 S2 待确认时尝试操作、确认新范围；最后让同范围一条记录失去资格，并在新意图 G3 后交付 G1 回调。
-- **预期状态**：page 每项变化都清除；all-filtered 仅普通翻页保留，筛选/P2/V2 立即失效清除，S2 进入待确认且确认前不能操作，确认后绑定新快照；资格变化创建新的不可变后继 `selectionSnapshot`，在其内部总数/排除项中只反映该稳定 ID 的失效，旧快照保持不变；G1 不能覆盖 G3。
+- **初始状态**：分别建立 page 与 all-filtered 选择，保存范围键 K1、权限 P1、版本 V1、排序 S1、owner O1、lifecycle token T1 和选择代次 G1；准备资格变化回调，以及四个只让 live、ownerId、lifecycleToken、selectionGeneration 之一失配而其余三项匹配的协调回调和一个四项全匹配正例。
+- **事件序列**：对 page 逐项提交应用筛选、移除筛选、重置筛选、排序、翻页、页大小、权限和版本变化；对 all-filtered 先普通翻页，再分别提交筛选、P2、V2 和仅排序 S2；在 S2 待确认时尝试操作、确认新范围；最后让同范围一条记录失去资格，记录变化前代次与快照，在新意图 G3 后依次交付四个单项失配回调和全匹配回调。
+- **预期状态**：page 每项变化都清除；all-filtered 仅普通翻页保留，筛选/P2/V2 立即失效清除，S2 进入待确认且确认前不能操作，确认后绑定新快照；资格变化使 `selectionGeneration` 恰好加一并创建新的不可变后继 `selectionSnapshot`，在其内部总数/排除项中只反映该稳定 ID 的失效，旧快照写入为 0；只有 live、O1、T1、当前 selectionGeneration 四项全匹配的回调提交，任一失配均不能覆盖当前选择。
 - **DOM / ARIA**：失效与待确认具有可见原因和重新确认/清除入口；资格变化后的范围摘要数量正确且只公告一次；待确认时批量提交不可用且说明原因。
-- **事件日志**：各场景精确记录 `selection-cleared`、`selection-invalidated` 或 `selection-reconfirmation-required`；确认前 operation-requested=0；G1 为 `selection-result-discarded=1` 且选择写入为 0。
+- **事件日志**：各场景精确记录 `selection-cleared`、`selection-invalidated` 或 `selection-reconfirmation-required`；确认前 operation-requested=0；资格变化 `selectionGeneration` 增量=1、新 `selectionSnapshotId`=1、旧快照写入=0；四个单项失配回调各为 `selection-result-discarded=1`、选择写入=0、公告=0，全匹配正例 accepted=1。
 
 ### `A26` 操作快照、确认、重复提交与新选择保护
 
 - **初始状态**：选择快照 S1 含 12 条、2 个排除项和 1 个不可操作项，`operationSnapshot.recordIds={R01…R12}`、`expectedCount=12`、权限 P1、版本 V1；准备破坏性普通操作、高影响操作；另从相同数据夹具建立六个隔离场景 C1–C6，每次重新创建各自新的 ownerId 和 operationId，只让 `live`、`ownerId`、`lifecycleToken`、`operationId`、`operationGeneration`、`operationSnapshotId` 之一失配而其余五项匹配，并建立第七个 live owner C7 作为全匹配正例。
-- **事件序列**：从空/失效/待确认选择尝试提交；从 S1 打开确认并提交，在 in-flight 期间用点击、Enter、Space 和事件重放重复；依次交付 `adjudicatedCount=11` 的少量结果、`adjudicatedCount=13` 的超量结果、集合重叠结果，以及计数仍匹配但 `successIds={R01…R06}`、`failedIds={R07…R11,X99}`、`adjudicatedCount=12` 的集合缺项结果（外部 X99 占位且遗漏 R12）。随后独立运行门禁矩阵：C1 的 live=false 且其余五项匹配，响应后保持 disposed、不恢复为 live；C2–C6 分别只失配 ownerId、lifecycleToken、operationId、operationGeneration、operationSnapshotId；最后在 C7 建立更新选择 S2 后，交付六项全匹配、`adjudicatedCount=12` 且裁决身份集合精确等于 `{R01…R12}` 的完整结果。
-- **预期状态**：只有有效 S1 创建不可变操作快照且请求一次，高影响操作未完成强确认时不请求；少量、超量、重叠和“计数相等但集合缺项”都进入 `outcome-unknown, terminal=false`，保留快照、S1 和已有失败 owner，五类业务终态提交均为 0，完整结果前终态副作用均为 0；C1–C6 各自只丢弃本场景响应且场景间无状态复用，C1 不尝试恢复；第七个 live owner C7 的全匹配完整结果只提交其原操作 owner 且不能改 S2。
+- **事件序列**：从空/失效/待确认选择尝试提交；从 S1 打开确认并提交，在 in-flight 期间用点击、Enter、Space 和事件重放重复；依次交付 `adjudicatedCount=11` 的少量结果、`adjudicatedCount=13` 的超量结果、集合重叠结果，以及计数仍匹配但 `successIds={R01…R06}`、`failedIds={R07…R11,X99}`、`adjudicatedCount=12` 的集合缺项结果（外部 X99 占位且遗漏 R12）。随后独立运行门禁矩阵：C1 的 live=false 且其余五项匹配，响应后保持 disposed、不恢复为 live；C2–C6 分别只失配 ownerId、lifecycleToken、operationId、operationGeneration、operationSnapshotId；最后在 C7 建立更新选择 S2 后，分别交付可能清除选择、移除成功项、移除越权项或使旧范围失效的六项全匹配完整结果；每次在选择写入前比较操作快照捕获代次与当前代次。
+- **预期状态**：只有有效 S1 创建不可变操作快照且请求一次，高影响操作未完成强确认时不请求；少量、超量、重叠和“计数相等但集合缺项”都进入 `outcome-unknown, terminal=false`，保留快照、S1 和已有失败 owner，五类业务终态提交均为 0，完整结果前终态副作用均为 0；C1–C6 各自只丢弃本场景响应且场景间无状态复用，C1 不尝试恢复；第七个 live owner C7 的完整结果可以提交原操作 owner，但其捕获选择代次与 S2 不匹配，所以所有可能的当前选择调整都被拒绝，S2 不变。
 - **DOM / ARIA**：确认面显示类型、预计数、筛选范围、排除数、不可操作数和风险；in-flight 控件/结果区暴露 busy 且不可重复提交。`outcome-unknown` 显示有名称的结果核对/恢复入口；原焦点目标仍存在时焦点不变，目标移除场景恰好一次到结果核对入口，且不落到 body/root/removed。
-- **事件日志**：主提交流程唯一有效尝试 `operation-requested=1`，空/失效/待确认选择分别为 0，重复触发分别 `operation-submit-ignored=1`；四类未知结果各 `outcome-unknown=1`、需要反馈公告=1、五类业务终态提交均为 0、选择清理/成功重整/冲突恢复=0，其中集合缺项反例记录 missingIds={R12}、externalIds={X99}；C1–C6 每个隔离日志都记录本场景 `operation-requested=1`、其余五项 matched=true、唯一失配项、`operation-result-discarded=1`、提交写入=0，C1 另有 live-restored=0；C7 记录 `operation-requested=1`、六项 matched=true、accepted=1、新选择写入=0；焦点存活/消失场景分别 focus=0/1。
+- **事件日志**：主提交流程唯一有效尝试 `operation-requested=1`，空/失效/待确认选择分别为 0，重复触发分别 `operation-submit-ignored=1`；四类未知结果各 `outcome-unknown=1`、需要反馈公告=1、五类业务终态提交均为 0、选择清理/成功重整/冲突恢复=0，其中集合缺项反例记录 missingIds={R12}、externalIds={X99}；C1–C6 每个隔离日志都记录本场景 `operation-requested=1`、其余五项 matched=true、唯一失配项、`operation-result-discarded=1`、提交写入=0，C1 另有 live-restored=0；C7 每个终态路径记录 `operation-requested=1`、六项 matched=true、operation result owner accepted=1、captured selectionGeneration mismatch=1、选择写入=0；焦点存活/消失场景分别 focus=0/1。
 
 ### `A27` 批量全部成功
 
@@ -662,10 +663,10 @@ Task 2 的[分句覆盖清单](../docs/testing/data-tables/task2-clause-coverage
 ### `A37` 具体场景应用完整性
 
 - **初始状态**：在不附带覆盖提示、诊断结论或期望答案的条件下，分别以真实用户需求启动三个全新隔离会话：只读报表、单行操作列表、批量操作表格；每个会话只获得本 owner、skill 入口和对应场景需求，不继承其他会话上下文。
-- **事件序列**：保存每次派发的实际参数、工具返回的 canonical task identity 和原始完成 payload；对三份答复逐项解析能力声明当前值、固定四组状态、独立 lifecycle guard 与应用检查清单；检查二十个原子行逐行唯一、适用性值精确二选一、验证状态分列，把每个适用原子行映射到正文位置并核对每个“不适用”的四类零值谓词；解析批量场景的状态结构与转换；以 UTF-8 保存 raw payload，并按审计报告声明的换行归一化和边界提取协议重算 SHA-256。
-- **预期状态**：三份答复都声明 `capabilityTier`、`resolvedTier`、十二个能力字段的当前值、唯一分页模式和页大小；都按 query/view/interaction/operation 固定四组列出最少字段或明确的未实例化 absence contract，并把 lifecycle 作为独立 owner guard；二十个原子清单行各出现一次且适用性只为“适用”或“不适用”，不出现部分/条件/混合判断；验证状态单列，运行时验证边界行定位未验证环境；适用原子行正文位置非空，不适用只用于确实未启用的可选能力并具有 DOM/state/handler/request 四类零值证据，共同规则族全为适用。批量答复把 `excludedIds` 冻结在 `selectionSnapshot` 内部、初始为空，并以不可变后继快照表达增加/移除排除项；sibling `excludedIds`、原地修改或翻页重建快照均令检查失败。局部枚举/策略只作为产品配置或实现细节且不与 owner 行为冲突；没有封闭枚举本身不构成失败。
+- **事件序列**：保存每次派发的实际参数、工具返回的 canonical task identity 和原始完成 payload；对三份答复逐项解析能力声明当前值、固定四组状态、独立 lifecycle guard 与应用检查清单；检查二十个原子行逐行唯一、适用性值精确二选一、验证状态分列，把每个适用原子行映射到正文位置并核对每个“不适用”的四类零值谓词；对选择适用且启用全部范围的批量场景，逐列解析唯一“选择代次契约”表并反查正文是否有相反转换；以 UTF-8 保存 raw payload，并按审计报告声明的换行归一化和边界提取协议重算 SHA-256。
+- **预期状态**：三份答复都声明 `capabilityTier`、`resolvedTier`、十二个能力字段的当前值、唯一分页模式和页大小；都按 query/view/interaction/operation 固定四组列出最少字段或明确的未实例化 absence contract，并把 lifecycle 作为独立 owner guard；二十个原子清单行各出现一次且适用性只为“适用”或“不适用”，不出现部分/条件/混合判断；验证状态单列，运行时验证边界行定位未验证环境；适用原子行正文位置非空，不适用只用于确实未启用的可选能力并具有 DOM/state/handler/request 四类零值证据，共同规则族全为适用。批量答复把 `excludedIds` 冻结在 `selectionSnapshot` 内部、初始为空，并以不可变后继快照表达增加/移除排除项；另以三行结构化语义分别证明资格变化代次加一和快照后继、异步协调四项全匹配门禁/失配丢弃，以及任何操作结果选择写入前的捕获代次匹配；sibling `excludedIds`、原地修改、翻页重建快照、仅引用字段/数字、部分门禁或失配后仍写选择均令检查失败。局部枚举/策略只作为产品配置或实现细节且不与 owner 行为冲突；没有封闭枚举本身不构成失败。
 - **DOM / ARIA**：三份答复对其适用能力明确给出语义、键盘、焦点、响应式可达性、ARIA/公告、disposal 与实例隔离约束；只有场景确无对应可选能力且 DOM、状态和事件入口均不存在时才允许不适用。
-- **事件日志**：审计记录实际 spawn 参数、返回的 canonical identity、原始 completion envelope/payload 证据和可重复 SHA-256 命令；能力字段缺当前值、固定组/最少字段缺失、lifecycle 替代固定组、原子行缺失/重复/合并、非二值适用性或清单缺运行时验证行的计数均为 0；三份答复每个适用维度均为 pass，不适用维度均有四类零值谓词，适用未映射数为 0。浏览器、辅助技术、键盘、触摸、真实竞态或组件运行时未执行时仍为“未验证”，不得计入 pass。
+- **事件日志**：审计记录实际 spawn 参数、返回的 canonical identity、原始 completion envelope/payload 证据和可重复 SHA-256 命令；能力字段缺当前值、固定组/最少字段缺失、lifecycle 替代固定组、原子行缺失/重复/合并、非二值适用性、清单缺运行时验证行或选择代次三行任一语义关系错误的计数均为 0；三份答复每个适用维度均为 pass，不适用维度均有四类零值谓词，适用未映射数为 0。浏览器、辅助技术、键盘、触摸、真实竞态或组件运行时未执行时仍为“未验证”，不得计入 pass。
 
 ### `A38` 查询相邻规则族不得合并省略
 
@@ -675,13 +676,13 @@ Task 2 的[分句覆盖清单](../docs/testing/data-tables/task2-clause-coverage
 - **DOM / ARIA**：交互筛选、排序和分页分别具有自身的名称、状态、键盘和焦点约束；固定排序无伪交互按钮；不适用能力不遗留空控制器或隐藏 handler。
 - **事件日志**：每个子项记录 `outputLocation`；适用未定位数必须为 0，不适用但存在入口数必须为 0；任一非零都使对应场景失败，不能由其他规则族通过抵消。
 
-### `A39` 当前能力值、固定状态组与独立 lifecycle guard
+### `A39` 当前能力值、固定状态组、lifecycle guard 与选择代次语义
 
-- **初始状态**：复用 `A37` 的三份 fresh 答复，为十二个能力字段、四个固定状态组、各组最少字段、独立 lifecycle guard 和运行时验证清单行建立字段级审计记录；准备原答复副本及逐项破坏副本。
-- **事件序列**：先审计原答复；再依次删除 `bulkOperationEnabled`，把 `allFilteredSelectionEnabled` 当前布尔值替换成仅有条件的文字，删除 row 的 `viewState`，删除 bulk 的 `interactionState`，从 bulk `viewState` 删除四个列字段，以 `lifecycleState` 替代任一固定组，并删除清单中的独立运行时验证边界行。每个破坏副本单独重跑审计。
-- **预期状态**：原答复只有在每个能力字段有当前值、固定四组及其最少字段/absence contract 完整、lifecycle 独立且清单行存在时通过；上述每个单缺口副本都失败。条件文字、正文中的 disposal/未验证章节、第五组 selection/lifecycle 或其他族的丰富内容都不能抵消缺失字段。
+- **初始状态**：复用 `A37` 的三份 fresh 答复，为十二个能力字段、四个固定状态组、各组最少字段、独立 lifecycle guard、运行时验证清单行和批量场景三行选择代次契约建立字段级与语义级审计记录；准备原答复副本及逐项破坏副本。
+- **事件序列**：先审计原答复；再依次删除 `bulkOperationEnabled`，把 `allFilteredSelectionEnabled` 当前布尔值替换成仅有条件的文字，删除 row 的 `viewState`，删除 bulk 的 `interactionState`，从 bulk `viewState` 删除四个列字段，以 `lifecycleState` 替代任一固定组，并删除清单中的独立运行时验证边界行。随后单独破坏选择代次契约：让资格变化保持代次或原地改快照；从异步回调门禁删除任一字段或只记录不比较；把失配结果改为可提交；让操作结果在捕获代次不匹配时仍写当前选择。每个破坏副本单独重跑审计，破坏文本保留相同字段名和代次数值以证明检查的不是引用计数。
+- **预期状态**：原答复只有在每个能力字段有当前值、固定四组及其最少字段/absence contract 完整、lifecycle 独立、清单行存在且三行选择转换的列间语义全部正确时通过；上述每个单缺口副本都失败。条件文字、正文中的 disposal/未验证章节、第五组 selection/lifecycle、其他族的丰富内容或散落的 `selectionGeneration` 数字都不能抵消缺失或相反语义。
 - **DOM / ARIA**：能力为 disabled/N/A 时，报告仍能定位对应 DOM、状态槽、handler/事件和请求入口的零值证据；live 表格的焦点字段、列展示字段、生命周期门禁与运行时验证边界不得标为不适用。
-- **事件日志**：逐场景记录十二个 `capabilityKey/currentValue`、四个 `stateGroup`、每个 `minimumField`、`lifecycleRole=guard` 和 `checklistRow=runtime-verification-boundary`；任一缺失、替代或仅条件值使该场景 `application-complete=false`，且全套三场景不得进入 GREEN。
+- **事件日志**：逐场景记录十二个 `capabilityKey/currentValue`、四个 `stateGroup`、每个 `minimumField`、`lifecycleRole=guard` 和 `checklistRow=runtime-verification-boundary`；批量另记录三个 `selectionContractPath` 及其 `generationEffect`、`snapshotEffect`、`commitGuard`、`mismatchEffect`。任一缺失、替代、仅条件值或语义关系错误都使该场景 `application-complete=false`，且全套三场景不得进入 GREEN。
 
 ## 参考资料
 

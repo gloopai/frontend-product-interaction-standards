@@ -1,6 +1,8 @@
-# Attempt 6 数据表格规范最终 GREEN 汇总
+# Attempt 6 数据表格规范汇总（已作废）
 
-状态：`PASS_WITH_RUNTIME_UNVERIFIED`
+状态：`RECLASSIFIED_FAIL`
+
+> Fix Round 4 纠正：本文件以下原始 GREEN 判断建立在旧审计器上。旧审计器只验证字段、标题、清单与粗粒度位置，未验证 DT-SEL-06 的资格变化代次/快照、四项协调门禁及操作结果写选择前的捕获代次关系。保留的 Attempt 6 RAW OUTPUT 缺少修正契约要求的唯一三行选择代次语义表；修正审计 exit `1`，因此 Attempt 6 只能作为失败历史。以下旧计数与结论均为当时记录，不再代表当前裁决；RED 与后续裁决分别见 [attempt-6-selection-generation-red-mutation.md](attempt-6-selection-generation-red-mutation.md) 和 [attempt-7-summary.md](attempt-7-summary.md)。
 
 三份最终样本来自原子二值完成契约修复后的全新 `fork_turns=none` 代理。门禁采用全有或全无：任一当前能力值、固定状态组、最少字段、独立 lifecycle guard、原子清单行、二值适用性、独立验证状态或适用正文位置缺失，整个场景失败；其他段落不能抵消。
 
