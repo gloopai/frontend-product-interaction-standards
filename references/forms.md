@@ -13,7 +13,8 @@
 表单 owner 维护以下正交状态，不能用一个笼统的 `loading` 或 `invalid` 代替：
 
 - `pristine`：所有字段相对各自显式 `initialValue` 都不 dirty；`dirty`：至少一个字段 dirty。它们是聚合派生值，不是可被直接置位的历史标志。
-- `validating`：存在当前适用的同步或异步校验；`submitting`：当前 `submitId` 的提交请求在途。
+- `submitPhase`：当前提交意图的阶段，只能是 `idle`、`awaiting-validation`、`validation-aborted`、`request-in-flight`、`request-succeeded` 或 `request-failed`。`validation-aborted` 是尚未发送请求的意图终态，不得伪装成请求失败；新一次显式提交使用新的 `submitId`。
+- `validating`：存在当前适用的同步或异步校验；`submitting` 仅在 `submitPhase: request-in-flight` 时为 true，不能把等待校验也表示成请求在途。
 - `submitError`：当前提交的表单级失败仍适用；`submitSucceeded`：当前提交成功且结果仍对应此会话。新的编辑、reset 或新提交会按产品流程撤销成功态，不能把旧成功态覆盖新草稿。
 - `hasSubmitted`（首次提交尝试）记录验证可见性门槛；它不是 `dirty`、`touched` 或提交成功的同义词。
 
@@ -45,15 +46,19 @@
 3. 首次提交将 `hasSubmitted` 设为 true，并运行完整字段校验与表单/跨字段校验；有错误时不发送请求，显示可导航错误摘要并聚焦摘要或第一个适用错误目标。
 4. 首次提交后，已暴露且仍 invalid 的字段在编辑时立即重新校验（同步），并按字段策略启动异步校验；尚未暴露且未 touched 的字段仍按上述门槛处理。
 5. 适用异步校验必须先防抖，再取消旧请求或将旧请求失效；每项结果携带 live form session、field id、`validationGeneration` 与被校验值。只有四者均匹配时才可更新 `asyncErrors` 或 `validating`。
-6. 提交先冻结 `submitSnapshot` 与 `submitId`，等待当前适用校验完成；绝不发送已知 invalid 的快照。若校验产生错误，取消本次提交并按第 3 条处理；提交端点仍是最终服务端权威。
+6. 提交先冻结 `submitSnapshot` 与 `submitId` 并进入 `awaiting-validation`，等待该候选快照的当前适用校验完成；绝不发送已知 invalid 的快照。校验确认候选仍适用且有效后才进入 `request-in-flight`；若校验产生错误、不可用、可恢复检查失败、超时或候选失配，本次意图进入 `validation-aborted` 并按第 3 条处理，提交端点仍是最终服务端权威。
 
 取消只节省资源，不能作为正确性条件：迟到的结果、重试、防抖回调、提交结果和排队焦点任务都必须先验证 live session、当前路由/owner 与相应 generation、`submitId` 或快照。route/unmount disposal 时取消或失效它们，并不得向已移除字段恢复焦点。
 
+产品必须记录 `awaiting-validation` 阶段的编辑策略。默认且推荐允许编辑，但任何会改变候选字段、generation 或版本令牌的材料性 user input、programmatic assignment、accepted server refill 或 reset，都必须立即把该 `submitId` 一次性终结为 `validation-aborted`；新草稿照常校验，旧候选的结果不能自动提交旧值或新值，用户必须对当前草稿再次显式提交。若产品选择在等待期锁定编辑，控件必须以可访问方式说明原因并提供适用的显式取消路径，取消同样进入 `validation-aborted`。两种策略都必须为校验失败、检查不可用、超时与取消定义有限终止路径，不能让提交意图永久停在 `awaiting-validation`；route/unmount 则直接服从 disposal，不在已失效 owner 中公告提交结果。
+
 ## 提交、响应与恢复生命周期
 
-每次提交尝试先创建不可变的 `submitSnapshot`（完整业务字段值、会话 epoch 与必要的版本/并发令牌）和唯一 `submitId`；之后的编辑、prefill 或程序写值均不得改变该 payload。完整字段及跨字段校验对该快照完成并确认适用前，不得发送请求；已知 invalid 快照的请求数必须为 0。对同一 `submitId`，请求发送及终态回调各恰好一次，且终态分支互斥：成功时成功动作恰好一次、失败处理/归档为 0；失败时失败处理/归档恰好一次、成功动作为 0。开始公告与对应终态公告各恰好一次；重复点击、键盘重复触发、重放事件或迟到回调均不得增加任何计数。
+每次提交意图先创建不可变的 `submitSnapshot`（完整业务字段值、会话 epoch 与必要的版本/并发令牌）和唯一 `submitId`；之后的编辑、prefill 或程序写值均不得改变该 payload。同一意图处于 `awaiting-validation` 时，重复点击、键盘重复触发或重放事件只能复用该 `submitId`，不得新增校验或候选。完整字段及跨字段校验对该快照完成并确认适用前，不得发送请求；已知 invalid 快照的请求数必须为 0。只有进入 `request-in-flight` 的 `submitId` 才适用请求 exactly-once：请求发送与开始公告各恰好一次；收到适用终态后，终态回调与终态公告各恰好一次，且成功/失败分支互斥，成功时成功动作恰好一次、失败处理/归档为 0，失败时失败处理/归档恰好一次、成功动作为 0。重复事件、重试投递或迟到回调均不得增加这些计数。
 
-产品必须明确选择提交中的编辑策略：禁止编辑时，受影响控件以可访问的禁用/只读状态表达原因，仍保留可读值和必要的恢复信息；允许编辑时，形成下一份草稿并按通常规则递增 generation。允许编辑并不使旧响应适用于新草稿：响应只有 live session、`submitId`、不可变快照及适用的版本/并发令牌均匹配时才可处理该次终态；它不得覆盖较新的值、字段错误、表单错误、dirty/touched 或成功状态。该次成功可将其快照更新为新的 initial baseline，但若当前值已是较新的 `S′`，必须保留 `S′`、以成功快照 `S` 重算 dirty，并继续把离开会话视为未保存变更。新提交取代旧提交时，旧 `submitId` 立即失去写回资格。
+仍处于 live session、但未进入请求阶段的 `validation-aborted` 不是请求终态：该 `submitId` 的请求发送、请求终态回调、成功动作与失败处理/归档计数都必须为 0；`validation-aborted` 终态事件、候选意图清理与由唯一状态 owner 发出的简短结果公告各为 1。清理必须一次取消/失效仅归该候选的校验工作与等待句柄，清除活动候选引用并令 `submitting: false`，但 `validating` 仍按新草稿的当前适用校验重算；只读终态日志保留 `submitId`/快照哈希，供迟到回调拒绝写回。invalid 时完整错误仍只由字段、字段组或表单 primary owner 呈现，摘要只公告汇总/导航；因编辑取消时只说明旧提交已取消并要求重新提交当前内容，不得同时播报请求失败。route/unmount disposal 的清理与静默失效按 owner 资源验收计数，不产生 `validation-aborted` 的 UI 公告。
+
+进入 `request-in-flight` 后，产品必须明确选择提交中的编辑策略：禁止编辑时，受影响控件以可访问的禁用/只读状态表达原因，仍保留可读值和必要的恢复信息；允许编辑时，形成下一份草稿并按通常规则递增 generation。允许编辑并不使旧响应适用于新草稿：响应只有 live session、`submitId`、不可变快照及适用的版本/并发令牌均匹配时才可处理该次终态；它不得覆盖较新的值、字段错误、表单错误、dirty/touched 或成功状态。该次成功可将其快照更新为新的 initial baseline，但若当前值已是较新的 `S′`，必须保留 `S′`、以成功快照 `S` 重算 dirty，并继续把离开会话视为未保存变更。新提交取代旧提交时，旧 `submitId` 立即失去写回资格。
 
 失败必须保留用户值、`dirty`、`touched`、可见错误及任务上下文，不得以 reset、关闭容器或路由跳转作为默认恢复。恢复路径必须与失败类别相符：网络失败提供保留草稿的重试/稍后处理；认证失败引导重新认证后安全重试；权限失败说明不可执行的原因并保留可读上下文；冲突失败说明版本冲突并提供重新加载、比较或明确的解决路径；服务端校验失败按其适用 owner 呈现且允许修复后重新提交。所有路径都不得把失败伪装为成功或静默丢弃草稿。
 
@@ -90,16 +95,17 @@
 2. **程序写值、reset 与 server-refill**：programmatic replace 从 `X` 写 `Y` 时断言 `source: programmatic-assignment`、`initialValue: X`、`value: Y`、`touched` 不被伪造、dirty 重算、旧 errors/async 对新值不适用且 generation 因语义变化加一；programmatic rebuild 会把 `value` 和 `initialValue` 都设为 `Y`、清空 touched/errors/async、令 dirty 为 false，并开始新 epoch。reset（即使已是 `X`）断言 `{source: reset, value: X, initialValue: X, touched: false, dirty: false}`、三类 errors 清空、异步取消、generation 加一。无 dirty 的 server-refill `Z` 断言原子得到 `{source: server-refill, value: Z, initialValue: Z, dirty: false}`、touched 保持、旧 errors/async 失效且开始新 epoch；dirty 时断言事件为 `server-refill-rejected`，`value`、`initialValue`、`source`、errors、async 和 generation 均未被 refill 覆盖。
 3. **改回初始值与未提交复合草稿**：prefill 后编辑字段、blur、再改回 `initialValue`；断言字段和聚合表单为 `pristine`，且 `touched` 仍为 true。对 Select / Combobox 只改变 `query` 和 `activeOption`，断言表单 `value`、dirty、generation、字段校验和提交 payload 均不变；明确提交 `selectedValue` 后才断言这些表单状态按该值变化。
 4. **默认时机**：首次提交前只输入不 blur 无可见错误；blur 后仅该 touched 字段显示错误；首次提交后所有 invalid 字段进入摘要；再编辑已暴露 invalid 字段时同步错误立即更新且异步校验按防抖开始。
-5. **异步顺序、提交快照与重复提交**：对同一字段先发 generation N、再改值发 N+1，并让 N 最后返回；断言只有 N+1 的同值结果可改变 `asyncErrors`、`validating` 或可见错误。点击、Enter 和重放提交事件在当前适用校验完成前都不得发送，已知 invalid 时发送计数为 0。发送时记录不可变 `{submitId, submitSnapshot}`；对同一 `submitId` 断言请求发送、终态回调与开始公告各为 1。构造成功和失败两次独立尝试：成功分支断言成功动作与终态公告各为 1、失败处理/归档为 0；失败分支断言失败处理/归档与终态公告各为 1、成功动作为 0。随后允许的下一草稿或程序赋值不得改变 payload；迟到结果只有在同一 live session、`submitId` 与快照及版本令牌匹配时才可写回，绝不覆盖新草稿、errors 或状态。成功后断言 `submitSucceeded: true`；任何新编辑、reset 或新提交都必须撤销它，旧成功结果不得重新置回 true。
-6. **关联、摘要导航与错误 owner**：制造字段错误，断言可见 label 以原生 label 或 `aria-labelledby` 给出正确 accessible name，help/unit/error 仅通过 `aria-describedby`/等价描述关联，且所有描述 ID 均指向存活节点；字段具有 `aria-invalid="true"` 及有效错误文本关联。聚焦错误摘要并激活字段链接，断言焦点仅移动到目标字段。分别注入网络、认证、权限和 optimistic-lock 错误：断言它们的 primary owner 为 `submitError`，唯明确单字段权限限制归该字段；摘要/字段/live region 事件日志中同一完整消息只能出现一次。
-7. **无重复公告与服务端错误 stale**：记录辅助技术公告通道；一个字段错误产生一次完整字段消息，错误摘要只产生汇总/导航文本，网络或冲突错误只在其 primary owner 公告，不能同时在字段与摘要重复完整文本。以提交快照返回字段错误，断言它绑定 submitted value；编辑该字段后断言该错误立即不再显示且不会在改回旧值时复活。与此同时断言其他字段错误和表单级 `submitError` 仍保留，焦点仍留在正在修复的字段。
-8. **提交中编辑、失败恢复与成功基线**：分别执行产品已声明的提交中禁止编辑和允许编辑策略；禁止时断言控件原因可感知且值/恢复路径仍可读，允许时编辑形成新草稿并使旧响应失去覆盖资格。对网络、认证、权限、冲突和服务端校验失败逐项断言值、dirty、touched、可见错误和上下文保留，且只呈现匹配的重试、认证、权限说明、冲突解决或字段修复路径；不得关闭或 reset。成功时断言可见/可访问反馈及成功动作各一次，且产品定义的 reset、stay、close 或 navigate 行为被明确执行；若提交快照为 `S` 而当前值已为 `S′`，断言 baseline 更新为 `S`、当前值仍为 `S′`、dirty 重算为 true，且导航仍确认。
-9. **未保存导航、处置与容器转换**：dirty 时分别触发路由导航、浏览器返回、Dialog/Drawer 关闭，断言先确认；只有成功后相对最新 baseline 已 pristine、明确 discard 或改回该 baseline 后断言不再提示。然后让表单 A 与存活表单 B（或 B 所在容器）各自持有可区分的资源；在 A 的防抖、异步校验、提交/错误/动画回调和排队焦点任务待处理时触发 route/unmount，记录 disposal、取消/失效、每项 owned-resource release 与焦点事件。断言 A 的每项资源恰好释放一次，B/容器资源与状态不变；随后交付 A 的全部迟到回调，断言它们不改 A 的已处置状态、DOM 或焦点，也不影响 B，新路由仅按自己的策略聚焦一次。保持同一表单会话切换 Dialog/Drawer 或断点形态：精确焦点节点仍存活时断言零次 `blur`/重新 focus；节点不存活时仅一次 focus 到等价字段或错误摘要；`initialValue`、当前值、dirty、touched、可见 errors、generation、快照、`submitId` 与请求均保持，且无重复校验或提交。仅 loading 时断言关闭路径不变。
-10. **复合字段边界、关联和状态公告**：只改变 Select / Combobox 的 `query`、active option 或未提交 popup 草稿，断言字段值、validity、dirty、generation、payload、请求与提交计数均不变；明确提交 `selectedValue` 后才断言该字段的值和适用 validity 更新。检查可见 label 产生的 accessible name、help/unit/error 的描述关联及全部引用 ID 的存活性、`aria-invalid`、键盘顺序和错误摘要导航；对每次提交分别断言开始公告一次，互斥成功或失败终态公告一次，完整错误或状态消息只由一个 owner 播报，焦点不会被迟到回调抢走。
-11. **缩放、移动与运行时报告**：在 200% 缩放、字体放大、长文本、低高度、动态 viewport、虚拟键盘、四向 safe area 与移动单列重排中，断言字段、关联文本、错误、摘要、提交及所有恢复/放弃动作仍可达，当前焦点、错误与主操作不被固定区域或键盘完全遮挡，且没有字段或恢复动作因重排而删除。上述运行时、辅助技术和真实视口检查未实际执行时，报告必须逐项标为**未验证**，并写明所需浏览器、设备/viewport、输入方式及辅助技术环境；不得将静态文档检查写成运行时通过。
+5. **异步顺序与 preflight 终止**：对同一字段先发 generation N、再改值发 N+1，并让 N 最后返回；断言只有 N+1 的同值结果可改变 `asyncErrors`、`validating` 或可见错误。以点击创建 `{submitId, submitSnapshot, submitPhase: awaiting-validation}`，再用 Enter 和重放事件触发同一意图；断言仍只有一个候选和一组适用校验。按默认允许编辑策略材料性修改候选字段，断言状态恰好一次变为 `validation-aborted`，该 `submitId` 的请求、请求终态回调、成功动作与失败处理计数均为 0，候选清理为 1、取消结果公告为 1，`submitting: false` 且 `validating` 按新草稿重算；随后交付旧校验成功结果，断言它既不提交旧值也不自动提交新值，只有再次显式提交才创建新 `submitId`。另以 invalid、unavailable、check-failed、超时及锁定策略的显式取消逐项重复，断言均在有限终止路径进入 `validation-aborted`，不会悬挂在 `awaiting-validation`。
+6. **请求阶段 exactly-once、快照与重复提交**：让匹配校验成功的候选进入 `request-in-flight`，记录不可变 `{submitId, submitSnapshot}`；对同一 `submitId` 断言请求发送与开始公告各为 1。构造成功和失败两次独立请求尝试：成功分支断言请求终态回调、成功动作与终态公告各为 1、失败处理/归档为 0；失败分支断言请求终态回调、失败处理/归档与终态公告各为 1、成功动作为 0。重复点击、Enter、重放与重复响应不得增加计数。随后允许的下一草稿或程序赋值不得改变 payload；迟到结果只有在同一 live session、`submitId` 与快照及版本令牌匹配时才可写回，绝不覆盖新草稿、errors 或状态。成功后断言 `submitSucceeded: true`；任何新编辑、reset 或新提交都必须撤销它，旧成功结果不得重新置回 true。
+7. **关联、摘要导航与错误 owner**：制造字段错误，断言可见 label 以原生 label 或 `aria-labelledby` 给出正确 accessible name，help/unit/error 仅通过 `aria-describedby`/等价描述关联，且所有描述 ID 均指向存活节点；字段具有 `aria-invalid="true"` 及有效错误文本关联。聚焦错误摘要并激活字段链接，断言焦点仅移动到目标字段。分别注入网络、认证、权限和 optimistic-lock 错误：断言它们的 primary owner 为 `submitError`，唯明确单字段权限限制归该字段；摘要/字段/live region 事件日志中同一完整消息只能出现一次。再制造一个同时涉及字段 A/B 的跨字段冲突，记录 `{errorId, groupOwnerId, announcementOwnerId, summaryTargetId, fieldMessageIds}`：断言 `groupOwnerId` 只有一个且指向明确字段组或 form owner，`announcementOwnerId` 与其一致并只完整公告一次，摘要对该错误只有一个 `summaryTargetId` 且指向第一个可修复字段，A/B 的 `fieldMessageIds` 均不复制完整冲突文本。
+8. **无重复公告与服务端错误 stale**：记录辅助技术公告通道；一个字段错误产生一次完整字段消息，错误摘要只产生汇总/导航文本，网络或冲突错误只在其 primary owner 公告，不能同时在字段与摘要重复完整文本。以提交快照返回字段错误，断言它绑定 submitted value；编辑该字段后断言该错误立即不再显示且不会在改回旧值时复活。与此同时断言其他字段错误和表单级 `submitError` 仍保留，焦点仍留在正在修复的字段。
+9. **请求中编辑、失败恢复与成功基线**：分别执行产品已声明的 `request-in-flight` 中禁止编辑和允许编辑策略；禁止时断言控件原因可感知且值/恢复路径仍可读，允许时编辑形成新草稿并使旧响应失去覆盖资格。对网络、认证、权限、冲突和服务端校验失败逐项断言值、dirty、touched、可见错误和上下文保留，且只呈现匹配的重试、认证、权限说明、冲突解决或字段修复路径；不得关闭或 reset。成功时断言可见/可访问反馈及成功动作各一次，且产品定义的 reset、stay、close 或 navigate 行为被明确执行；若提交快照为 `S` 而当前值已为 `S′`，断言 baseline 更新为 `S`、当前值仍为 `S′`、dirty 重算为 true，且导航仍确认。
+10. **未保存导航、处置与容器转换**：dirty 时分别触发路由导航、浏览器返回、Dialog/Drawer 关闭，断言先确认；只有成功后相对最新 baseline 已 pristine、明确 discard 或改回该 baseline 后断言不再提示。然后让表单 A 与存活表单 B（或 B 所在容器）各自持有可区分的资源；在 A 的防抖、异步校验、提交/错误/动画回调和排队焦点任务待处理时触发 route/unmount，记录 disposal、取消/失效、每项 owned-resource release 与焦点事件。断言 A 的每项资源恰好释放一次，B/容器资源与状态不变；随后交付 A 的全部迟到回调，断言它们不改 A 的已处置状态、DOM 或焦点，也不影响 B，新路由仅按自己的策略聚焦一次。保持同一表单会话切换 Dialog/Drawer 或断点形态：精确焦点节点仍存活时断言零次 `blur`/重新 focus；节点不存活时仅一次 focus 到等价字段或错误摘要；`initialValue`、当前值、dirty、touched、可见 errors、generation、快照、`submitId` 与请求均保持，且无重复校验或提交。仅 loading 时断言关闭路径不变。
+11. **复合字段边界、关联和状态公告**：只改变 Select / Combobox 的 `query`、active option 或未提交 popup 草稿，断言字段值、validity、dirty、generation、payload、请求与提交计数均不变；明确提交 `selectedValue` 后才断言该字段的值和适用 validity 更新。检查可见 label 产生的 accessible name、help/unit/error 的描述关联及全部引用 ID 的存活性、`aria-invalid`、键盘顺序和错误摘要导航；对每次进入请求的提交分别断言开始公告一次，互斥成功或失败终态公告一次，完整错误或状态消息只由一个 owner 播报，焦点不会被迟到回调抢走。
+12. **缩放、移动与运行时报告**：在 200% 缩放、字体放大、长文本、低高度、动态 viewport、虚拟键盘、四向 safe area 与移动单列重排中，断言字段、关联文本、错误、摘要、提交及所有恢复/放弃动作仍可达，当前焦点、错误与主操作不被固定区域或键盘完全遮挡，且没有字段或恢复动作因重排而删除。上述运行时、辅助技术和真实视口检查未实际执行时，报告必须逐项标为**未验证**，并写明所需浏览器、设备/viewport、输入方式及辅助技术环境；不得将静态文档检查写成运行时通过。
 
 ## 参考资料
 
 - [WCAG 2.2: Error Identification](https://www.w3.org/WAI/WCAG22/Understanding/error-identification.html)
 - [WCAG 2.2: Error Suggestion](https://www.w3.org/WAI/WCAG22/Understanding/error-suggestion.html)
-- [WAI-ARIA APG: Form Validation](https://www.w3.org/WAI/ARIA/apg/practices/landmark-regions/)
+- [WAI Forms Tutorial: Validating Input](https://www.w3.org/WAI/tutorials/forms/validation/)
