@@ -6,14 +6,14 @@
 
 ## 范围与首版排除项
 
-本规范覆盖单一编辑会话中的字段值、校验、提交、错误与焦点。首版不定义多步骤向导的跨页草稿持久化、离线队列/自动重试、协同编辑合并、文件上传进度或产品特有的离开确认文案；这些能力接入时仍不得绕过本文件的值版本、错误归属和 live-session 判断。
+本规范覆盖单一编辑会话中的字段值、校验、提交、错误与焦点。首版不定义详细上传、富文本、日期、树/级联、多步骤向导、业务特定复合字段、跨页草稿持久化、离线队列/自动重试、协同编辑合并或产品特有的离开确认文案；这些控件只保留向表单提交**已提交业务值**的一般值提交边界，内部草稿、呈现与专属交互由各自 owner 定义。它们接入时仍不得绕过本文件的值版本、错误归属和 live-session 判断。
 
 ## 表单与字段 owner 状态
 
 表单 owner 维护以下正交状态，不能用一个笼统的 `loading` 或 `invalid` 代替：
 
 - `pristine`：所有字段相对各自显式 `initialValue` 都不 dirty；`dirty`：至少一个字段 dirty。它们是聚合派生值，不是可被直接置位的历史标志。
-- `validating`：存在当前适用的同步后续异步校验；`submitting`：当前 `submitId` 的提交请求在途。
+- `validating`：存在当前适用的同步或异步校验；`submitting`：当前 `submitId` 的提交请求在途。
 - `submitError`：当前提交的表单级失败仍适用；`submitSucceeded`：当前提交成功且结果仍对应此会话。新的编辑、reset 或新提交会按产品流程撤销成功态，不能把旧成功态覆盖新草稿。
 - `hasSubmitted`（首次提交尝试）记录验证可见性门槛；它不是 `dirty`、`touched` 或提交成功的同义词。
 
@@ -26,9 +26,9 @@
 | `touched` / `dirty` | `touched` 表示用户曾实际离开过该字段的编辑焦点；`dirty` 是 `value` 与 `initialValue` 的派生比较。两者独立。 |
 | `syncErrors` / `asyncErrors` / `serverErrors` | 已知错误的来源集合及其适用键；错误存在不等于当前应显示。 |
 | `errorVisible` | 根据可见性门槛计算的展示状态；不得从错误是否存在反推。 |
-| `validationGeneration` | 每次会改变校验意义的值变化递增的代次；异步结果必须带同一代次和值才能写回。 |
+| `validationGeneration` | 值发生语义变化时递增；显式会话或校验 epoch 失效（reset、重建会话、接受 server-refill）也递增，即使值未变。focus/blur 不递增。异步结果必须带同一代次和值才能写回。 |
 
-`user-input` 改变值并递增校验代次；`focus` 本身不改值或 touched；`blur` 把字段设为 `touched` 并触发该字段校验。`prefill` 仅在会话建立前设定 `initialValue` 与 `value`，结果为 pristine、untouched。`programmatic-assignment` 必须声明它是替换当前值还是重建会话；前者照常重新计算 dirty 和校验代次，后者同时明确替换 `initialValue`。`reset` 把值还原为显式 initial 值、清除 touched 和本会话错误/异步工作，并建立新的校验代次。`server-refill` 必须显式选择：只刷新初始快照（无未保存编辑时）或作为程序赋值；它不得静默吞掉用户 dirty 草稿。
+`user-input` 改变值并递增校验代次；`focus` 本身不改值或 touched；`blur` 把字段设为 `touched` 并触发该字段校验，二者都不递增代次。`prefill` 仅在会话建立前设定 `initialValue` 与 `value`，结果为 pristine、untouched。`programmatic-assignment` 必须声明它是替换当前值还是重建会话；前者照常重新计算 dirty 并在值语义变化时递增代次，后者同时替换 `initialValue`、清除会话状态并开始新 epoch。`reset` 把值还原为显式 initial 值、清除 touched 和本会话错误/异步工作，并开始新 epoch，因此即使值本来相同也递增代次。`server-refill` 在字段不 dirty 时原子更新 `value` 与 `initialValue`、保持 pristine、保留 touched 历史、取消旧异步工作并开始新的服务端校验 epoch；字段 dirty 时记录被拒绝的 refill 事件但不得覆盖草稿、初始值或来源。只有被实际接受的 refill 才将 `source` 设为 `server-refill`。
 
 ## 值、dirty 与复合控件
 
@@ -66,13 +66,14 @@
 
 下列检查以可观察状态、DOM 属性和事件日志断言；未实际执行时必须报告为**未验证**及所需环境。
 
-1. **状态来源转换**：依次执行 prefill、focus、`user-input`、blur、`programmatic-assignment`、reset、server-refill；记录每次 `source`、`value`、`initialValue`、`touched`、`dirty` 与 `validationGeneration`，并断言只有值语义变化递增代次。
-2. **改回初始值**：prefill 后编辑字段、blur、再改回 `initialValue`；断言字段和聚合表单为 `pristine`，且 `touched` 仍为 true。
-3. **默认时机**：首次提交前只输入不 blur 无可见错误；blur 后仅该 touched 字段显示错误；首次提交后所有 invalid 字段进入摘要；再编辑已暴露 invalid 字段时同步错误立即更新且异步校验按防抖开始。
-4. **异步顺序**：对同一字段先发 generation N、再改值发 N+1，并让 N 最后返回；断言只有 N+1 的同值结果可改变 `asyncErrors`、`validating` 或可见错误。提交在当前适用校验完成前不得发送，已知 invalid 时发送计数为 0。
-5. **关联与摘要导航**：制造字段错误，断言可见错误相邻、字段具有 `aria-invalid="true"` 及有效错误文本关联；聚焦错误摘要并激活字段链接，断言焦点仅移动到目标字段。
-6. **无重复公告**：记录辅助技术公告通道；一个字段错误产生一次完整字段消息，错误摘要只产生汇总/导航文本，网络或冲突错误只在其 primary owner 公告，不能同时在字段与摘要重复完整文本。
-7. **服务端错误 stale**：以提交快照返回字段错误，断言它绑定 submitted value；编辑该字段后断言该错误立即不再显示且不会在改回旧值时复活。与此同时断言其他字段错误和表单级 `submitError` 仍保留，焦点仍留在正在修复的字段。
+1. **状态来源转换**：记录 `{source, value, initialValue, touched, dirty, syncErrors, asyncErrors, serverErrors, validating, validationGeneration}` 的事件日志。prefill `X` 后断言 `{source: prefill, value: X, initialValue: X, touched: false, dirty: false}`、三类 errors 为空、无异步请求且为新会话 epoch；focus 后仅 `source` 变为 `focus`，其余状态、errors、异步状态和 generation 均不变；blur 后 `source: blur`、`touched: true`，值/dirty/generation 不变，且只记录本字段校验启动。user-input `Y` 后断言 `source: user-input`、`value: Y`、dirty 按比较重算、旧 async 失效且 generation 加一。
+2. **程序写值、reset 与 server-refill**：programmatic replace 从 `X` 写 `Y` 时断言 `source: programmatic-assignment`、`initialValue: X`、`value: Y`、`touched` 不被伪造、dirty 重算、旧 errors/async 对新值不适用且 generation 因语义变化加一；programmatic rebuild 会把 `value` 和 `initialValue` 都设为 `Y`、清空 touched/errors/async、令 dirty 为 false，并开始新 epoch。reset（即使已是 `X`）断言 `{source: reset, value: X, initialValue: X, touched: false, dirty: false}`、三类 errors 清空、异步取消、generation 加一。无 dirty 的 server-refill `Z` 断言原子得到 `{source: server-refill, value: Z, initialValue: Z, dirty: false}`、touched 保持、旧 errors/async 失效且开始新 epoch；dirty 时断言事件为 `server-refill-rejected`，`value`、`initialValue`、`source`、errors、async 和 generation 均未被 refill 覆盖。
+3. **改回初始值与未提交复合草稿**：prefill 后编辑字段、blur、再改回 `initialValue`；断言字段和聚合表单为 `pristine`，且 `touched` 仍为 true。对 Select / Combobox 只改变 `query` 和 `activeOption`，断言表单 `value`、dirty、generation、字段校验和提交 payload 均不变；明确提交 `selectedValue` 后才断言这些表单状态按该值变化。
+4. **默认时机**：首次提交前只输入不 blur 无可见错误；blur 后仅该 touched 字段显示错误；首次提交后所有 invalid 字段进入摘要；再编辑已暴露 invalid 字段时同步错误立即更新且异步校验按防抖开始。
+5. **异步顺序、提交快照与成功撤销**：对同一字段先发 generation N、再改值发 N+1，并让 N 最后返回；断言只有 N+1 的同值结果可改变 `asyncErrors`、`validating` 或可见错误。提交在当前适用校验完成前不得发送，已知 invalid 时发送计数为 0。发送时记录 `{submitId, submitSnapshot}`；随后允许的下一草稿或程序赋值不得改变 payload，迟到结果只有在同一 live session、`submitId` 与快照匹配时才可写回，绝不覆盖新草稿。成功后断言 `submitSucceeded: true`；任何新编辑、reset 或新提交都必须撤销它，旧成功结果不得重新置回 true。
+6. **关联、摘要导航与错误 owner**：制造字段错误，断言可见错误相邻、字段具有 `aria-invalid="true"` 及有效错误文本关联；聚焦错误摘要并激活字段链接，断言焦点仅移动到目标字段。分别注入网络、认证、权限和 optimistic-lock 错误：断言它们的 primary owner 为 `submitError`，唯明确单字段权限限制归该字段；摘要/字段/live region 事件日志中同一完整消息只能出现一次。
+7. **无重复公告与服务端错误 stale**：记录辅助技术公告通道；一个字段错误产生一次完整字段消息，错误摘要只产生汇总/导航文本，网络或冲突错误只在其 primary owner 公告，不能同时在字段与摘要重复完整文本。以提交快照返回字段错误，断言它绑定 submitted value；编辑该字段后断言该错误立即不再显示且不会在改回旧值时复活。与此同时断言其他字段错误和表单级 `submitError` 仍保留，焦点仍留在正在修复的字段。
+8. **处置与响应式焦点**：在防抖、异步校验、提交回调和排队焦点任务待处理时触发 route/unmount；记录 disposal、取消/失效和焦点事件，随后交付全部迟到回调，断言它们不改状态、DOM 或焦点。保持同一表单会话切换 Dialog/Drawer 或断点形态：精确焦点节点仍存活时断言零次 `blur`/重新 focus；节点不存活时仅一次 focus 到等价字段或错误摘要，值、errors、generation 与 `submitId` 均保持，且无旧会话抢焦点。
 
 ## 参考资料
 
