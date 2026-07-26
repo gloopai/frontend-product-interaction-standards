@@ -67,7 +67,7 @@
 | `DT-REQ-05.a` | `A05` | intentKey 记录已应用筛选、排序、分页、页大小、权限、数据版本和刷新原因。 |
 | `DT-REQ-05.b` | `A05` | K1 在途时重复触发 K1 只记录一次 query-intent-merged。 |
 | `DT-REQ-05.c` | `A05` | 合并的同键触发对快照、代次、请求和开始公告的增量均为 0。 |
-| `DT-REQ-05.d` | `A05` | K1 仍在途时触发 K2 的快照、代次、请求、开始公告增量均为 1 且合并为 0；K2 终结后的同键刷新也各增加 1。 |
+| `DT-REQ-05.d` | `A05` | P1→P2 后 K1 仍在途时触发 K2：快照与请求参数均为 P2，四项开始增量各为 1、合并为 0；K1 的 R-P1/S-P1 被丢弃，最终 DOM/摘要只含 K2 的 R-P2/S-P2，且 K2 终结后的同键刷新也各增加 1。 |
 | `DT-FIL-01.a` | `A06` | filterDraft 与 appliedFilters 分别记录且编辑草稿不改变已应用值。 |
 | `DT-FIL-01.b` | `A06` | filterDraft 只接收筛选字段已提交的业务值。 |
 | `DT-FIL-01.c` | `A06` | Select 的 query、active option 和 popup 状态不会进入表格筛选状态。 |

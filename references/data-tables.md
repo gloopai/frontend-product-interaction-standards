@@ -174,11 +174,11 @@
 
 ### `A05` 查询事件矩阵
 
-- **初始状态**：记录当前快照、generation、页码 4（另跑一次游标中段）、筛选草稿和已应用条件；显式刷新前记下 `intentKey=K1`。
-- **事件序列**：编辑草稿、改变焦点、开关详情、调整列；再依次应用筛选、提交排序、翻页、改变页大小；双击显式刷新并在 `K1` 仍 in-flight 时再用键盘触发同一刷新；保持 `K1` 在途，改变参与意图键的权限范围得到 `intentKey=K2`，立即再次触发显式刷新；依次交付 `K1` 迟到响应和 `K2` 响应；触发失效页恢复；待 `K2` 终结后再次显式刷新。
-- **预期状态**：前四项 generation 与请求数不变；应用筛选、排序、翻页、页大小、第一次 `K1` 刷新、在途期间的 `K2` 刷新、失效页恢复和 `K2` 终结后的刷新各建立一个不可变快照并使 generation 恰好加一。in-flight 的第二次同键 `K1` 刷新在创建快照前合并，`snapshotId`、generation、请求和开始公告均保持第一次刷新后的值；`K2 != K1` 时即使 `K1` 仍 in-flight 也接受 `K2`，不得被全局合并。`K1` 迟到响应因门禁不匹配丢弃，只有 `K2` 可提交。筛选/排序/页大小按规则回到起点，普通翻页使用目标位置。
-- **DOM / ARIA**：草稿编辑不改变结果摘要；提交事件后摘要标识新条件正在加载，不能把旧行标成已匹配新条件。
-- **事件日志**：非查询事件 `request-started=0`；每个被接受的查询意图 `snapshot-created=1`、`request-started=1`。第二次同键 `K1` 刷新只记录 `query-intent-merged=1`，并断言 `snapshot-created=0`、generation 增量 0、`request-started=0`、开始公告 0。旧刷新仍 in-flight 时，`K2` 触发区间精确断言 `snapshot-created=1`、generation 增量 `+1`、`request-started=1`、由结果 owner 发出的 `query-start-announcement=1`，且 `query-intent-merged=0`；`K1` 迟到响应记录 `response-discarded=1`，`K2` 记录 `response-accepted=1`。
+- **初始状态**：记录当前快照、generation、页码 4（另跑一次游标中段）、筛选草稿和已应用条件；权限范围为 `P1`，显式刷新前记下 `intentKey=K1`。
+- **事件序列**：编辑草稿、改变焦点、开关详情、调整列；再依次应用筛选、提交排序、翻页、改变页大小；双击显式刷新并在 `K1` 仍 in-flight 时再用键盘触发同一刷新；保持 `K1` 在途，把权限范围从 `P1` 更新为 `P2`，得到 `intentKey=K2` 并立即再次触发显式刷新。让 `K1` 返回 `rows=[R-P1]`、`summary="S-P1"`，让 `K2` 返回可区分的 `rows=[R-P2]`、`summary="S-P2"`，依次交付 `K1` 迟到响应和 `K2` 响应；触发失效页恢复；待 `K2` 终结后再次显式刷新。
+- **预期状态**：前四项 generation 与请求数不变；应用筛选、排序、翻页、页大小、第一次 `K1` 刷新、在途期间的 `K2` 刷新、失效页恢复和 `K2` 终结后的刷新各建立一个不可变快照并使 generation 恰好加一。in-flight 的第二次同键 `K1` 刷新在创建快照前合并，`snapshotId`、generation、请求和开始公告均保持第一次刷新后的值；`K2 != K1` 时即使 `K1` 仍 in-flight 也接受 `K2`，不得被全局合并。新建的 `K2 querySnapshot.permissionScope` 等于 `P2`，`K2` 实际请求参数中的 `permissionScope` 也等于 `P2`，二者均不沿用 `P1`。`K1` 迟到响应因门禁不匹配丢弃，只有 `K2` 可提交。筛选/排序/页大小按规则回到起点，普通翻页使用目标位置。
+- **DOM / ARIA**：草稿编辑不改变结果摘要；提交事件后摘要标识新条件正在加载，不能把旧行标成已匹配新条件。两个响应交付后，最终结果 DOM 只包含 `R-P2` 且不包含 `R-P1`，最终可见摘要为 `S-P2` 且不是 `S-P1`，证明可见结果只来自 `K2`。
+- **事件日志**：非查询事件 `request-started=0`；每个被接受的查询意图 `snapshot-created=1`、`request-started=1`。第二次同键 `K1` 刷新只记录 `query-intent-merged=1`，并断言 `snapshot-created=0`、generation 增量 0、`request-started=0`、开始公告 0。旧刷新仍 in-flight 时，`K2` 触发区间精确断言 `snapshot-created=1`、generation 增量 `+1`、`request-started=1`、由结果 owner 发出的 `query-start-announcement=1`，且 `query-intent-merged=0`；`K2` 的 `snapshot-created` 与 `request-started` 日志分别保存 `permissionScope=P2`。`K1` 迟到响应记录 `response-discarded=1` 且行/摘要提交计数为 0，`K2` 记录 `response-accepted=1` 且行/摘要提交各 1。
 
 ### `A06` 筛选草稿、应用、重置与 URL
 
