@@ -201,6 +201,7 @@ disposal 是终止生命周期，不是视觉退出动画。每个实例以稳�
 | `DT-REPORT-03` | `[a]` 应用检查清单必须把查询、筛选、排序、分页和数据状态拆成五个独立判定行，不得用一个合并行掩盖其中任一族的适用义务；`[b]` 筛选适用时，正文必须分别定位草稿与已应用值、提交模式、默认重置、分页复位、持续摘要/移除、URL 安全和字段错误 owner；只有筛选 DOM、状态、handler 与请求入口均不存在时才能标为不适用；`[c]` 排序适用时，正文必须声明固定或交互式能力，并给出当前实际采用的业务键/方向、空值位置、大小写、locale/自然排序和唯一不可变稳定键；只写“需要配置完整稳定排序”不算落实；同时定位查询转换、分页复位及适用的 DOM/ARIA/键盘/焦点，即使没有交互按钮也不能省略固定稳定比较值；`[d]` 分页适用时，正文必须单独声明唯一模式和页大小；numbered 模式分别落实可靠总数、当前/总页与范围、直接页码、具标签且校验的跳页、边界原生禁用、页大小控件、查询回第 1 页和失效页单次恢复；cursor 模式分别落实不透明双向游标、只提供接口支持的上一页/下一页、缺失方向原生禁用、禁止总页/随机跳转/加载更多/无限滚动、回初始游标和失效游标单次恢复；两者都定位 DOM/键盘与单次焦点策略；`[e]` 上述任一适用项缺少定位即为应用失败，不能由合并的“查询规则已覆盖”、待配置占位或其他族内容抵消。 | `A38` |
 | `DT-REPORT-04` | `[a]` 能力声明必须逐项写出本实例当前值：`filteringEnabled`、`sortingEnabled`、`paginationMode`、`pageSize`、`pageSelectionEnabled`、`allFilteredSelectionEnabled`、`rowOperationEnabled`、`bulkOperationEnabled`、`columnVisibilityEnabled`、`columnPinningEnabled`、`columnResizeEnabled` 和 `responsivePresentation`；开关使用明确的 `enabled/disabled`、`true/false` 或等价当前值，只写启用条件、未来可能性或配置项名称不算声明；`[b]` 答复必须按 `queryState`、`viewState`、`interactionState`、`operationState` 四个固定名称逐组声明当前结构，不能增删、合并、改名或用 selection/lifecycle 等第五组替代；可选能力未启用时也保留对应组名并明确“未实例化”及 DOM、状态槽、handler/事件、请求入口的 absence contract；`[c]` `queryState` 必须定位本 owner 状态表的全部查询最少字段，`viewState` 始终定位 `visibleColumnIds`、`pinnedColumnIds`、`columnWidths`、`density`、当前结果行与结果摘要，`interactionState` 始终定位焦点字段并对菜单/选择等可选字段给出结构或 absence contract，`operationState` 对单行/批量操作给出结构或 absence contract；关闭列控件或操作能力不能删除这些报告义务；`[d]` 生命周期必须作为四组之外的独立 `lifecycleGuard` / owner guard 声明，至少定位 `ownerId`、`lifecycleToken`、`live/disposed` 和 owned resources；名为 `lifecycleState` 的第五组或把 lifecycle 计作四组之一均失败；`[e]` 应用检查清单必须有独立的“运行时验证边界”判定行，标记适用性/状态并定位实际未验证环境；清单外的未验证章节不能替代该行。 | `A37`、`A38`、`A39` |
 | `DT-REPORT-05` | `[a]` 应用检查清单必须逐行使用以下原子规则族：能力与状态、查询、筛选、排序、分页、数据状态、选择、单行操作、批量操作、基础列状态、可选列控制、Table 语义、ARIA Grid 语义、键盘、焦点、响应式、ARIA 与公告、disposal、实例隔离、运行时验证边界；每行恰好出现一次；`[b]` 每行适用性单元格只能精确为“适用”或“不适用”，验证状态另列；“部分适用”“条件适用”“适用/不适用”、一格多个判断或附加当前未验证等修饰均失败；`[c]` 不得把选择/单行操作/批量操作、基础列状态/可选列控制、Table/ARIA Grid、disposal/实例隔离等重新合并；每个适用原子行定位正文位置，每个不适用原子行给出该能力 DOM、状态槽、handler/事件和请求入口的零值证据；`[d]` 当“选择”适用且启用全部筛选结果时，正文必须包含唯一“选择代次契约”表，固定使用“路径 / `generationEffect` / `snapshotEffect` / `commitGuard` / `mismatchEffect`”五列，并分别记录“资格变化”“异步选择协调回调”“操作结果调整当前选择”三行：资格变化必须是 `selectionGeneration +1`、创建新的不可变后继 `selectionSnapshot` 且旧快照写入为 0；异步回调的提交门禁必须精确包含 `live + ownerId + lifecycleToken + selectionGeneration`，任一失配只产生 `selection-result-discarded` 且选择写入为 0；操作结果必须在捕获代次等于当前代次后才允许选择写入，不匹配时只写 operation result owner 且选择写入为 0。审计按各列关系和值解析；仅在其他段落提到字段名、代次数值或验收编号不能替代该表，表内正确但正文另有原地修改、部分门禁或失配后仍写选择等相反语义时同样失败。 | `A37`、`A39` |
+| `DT-REPORT-06` | `[a]` 二十行应用检查清单必须固定使用 `原子规则族 / 适用性 / DOM / state / handler/event / request / 正文定位 / 验证状态` 八列；每格独立填写，不得把四类入口合并成一句；不适用行的 DOM、state、handler/event、request 四格必须各自精确为 `0`，适用行必须提供具体正文定位和独立验证状态；`[b]` `operationState` 内必须另有唯一操作子槽表，固定使用 `operationKind / currentValue / stateSlot / DOM / handler/event / request` 六列和 `row`、`bulk` 两行；启用的操作填写当前状态结构，关闭的操作必须填写 `currentValue=not-instantiated` 且后四格各为 `0`，不能由另一种操作、能力表或清单行代替；`[c]` 答复必须另有唯一“原子应用义务”表，固定使用 `ruleFamily / obligationKey / applicability / currentValueOrZeroEvidence / outputLocation / verificationStatus` 六列；每个义务一行，`currentValueOrZeroEvidence` 必须写本实例的具体值、转换、语义或精确四类零值，单独的“见第 N 节”、验收编号、族级“已定义”或空值不算完成；`[d]` 原子义务表固定包含筛选七项 `draft-applied-separation`、`declared-apply-mode`、`default-reset`、`visible-removable-applied-values`、`url-safety`、`field-error-owner`、`pagination-reset`，排序十一项 `actual-key-direction`、`null-order`、`case-rule`、`locale-rule`、`natural-order-rule`、`unique-stable-key`、`interactive-dom`、`interactive-aria`、`interactive-keyboard`、`interactive-focus`、`reset-to-origin`，并按当前唯一分页模式包含 numbered 九项 `reliable-total-and-range`、`direct-pages`、`validated-jump`、`native-boundaries`、`page-size-control`、`reset-to-first`、`single-invalid-page-recovery`、`input-semantics`、`single-focus-transition`，或 cursor 六项 `opaque-bidirectional-cursors`、`missing-direction-disabled`、`forbidden-numbered-and-stream-entries`、`origin-and-single-recovery`、`input-semantics`、`single-focus-transition`；筛选关闭时七项仍逐行写“不适用”和 `DOM=0;state=0;handler/event=0;request=0`，固定排序仍逐行填写六个实际比较值，交互排序关闭时五个交互项逐行写同一精确四类零值；`[e]` 三张固定表中任一表头变化、行缺失/重复/合并、非二值适用性、粗粒度引用、字段移位或零值缺列都使场景 `application-complete=false`；其他段落、同族其他义务或更丰富的自由文本不能抵消。 | `A37`、`A38`、`A39`、`A40` |
 
 ## 验收映射
 
@@ -367,6 +368,11 @@ Task 2 的[分句覆盖清单](../docs/testing/data-tables/task2-clause-coverage
 | `DT-REPORT-05.b` | `A37` | 所有适用性单元格都精确等于“适用”或“不适用”，验证状态在独立列；混合或修饰值计为失败。 |
 | `DT-REPORT-05.c` | `A37` | 四组易混族分别拆行；适用行有正文位置，不适用行有 DOM/state/handler/request 四类零值证据。 |
 | `DT-REPORT-05.d` | `A39` | 选择适用且启用全部范围的答复具有三行选择代次契约；审计逐列证明资格变化、协调回调和操作结果选择写入的语义关系，只有数字或字段引用不能通过。 |
+| `DT-REPORT-06.a` | `A40` | 三份清单都使用固定八列表头；二十行各唯一，不适用行的四个零值字段逐格等于 0。 |
+| `DT-REPORT-06.b` | `A40` | 三份 `operationState` 各有唯一 row/bulk 子槽；关闭项是 not-instantiated 且 state/DOM/handler/request 四格分别为 0。 |
+| `DT-REPORT-06.c` | `A40` | 三份答复各有唯一六列原子应用义务表，每个 obligationKey 一行并填写具体当前值/零值、正文位置和验证状态。 |
+| `DT-REPORT-06.d` | `A40` | 筛选七项、排序十一项和当前分页模式的九项或六项逐项完整；关闭筛选/交互排序仍逐行保存精确四类零值。 |
+| `DT-REPORT-06.e` | `A40` | 删除、重复、合并、粗粒度引用、字段移位与任一零值缺列的单缺口 mutation 全部失败，其他内容不能抵消。 |
 
 ## 可执行验收
 
@@ -542,7 +548,7 @@ Task 2 的[分句覆盖清单](../docs/testing/data-tables/task2-clause-coverage
 
 ### `A22` 验收覆盖与运行时报告
 
-- **初始状态**：收集本文件全部 `DT-*` 规则、Task 2 的独立[分句覆盖清单](../docs/testing/data-tables/task2-clause-coverage.md)、本文件 Task 3 及后续 GREEN 修复分句表和 `A01` 至 `A39` 的执行清单。
+- **初始状态**：收集本文件全部 `DT-*` 规则、Task 2 的独立[分句覆盖清单](../docs/testing/data-tables/task2-clause-coverage.md)、本文件 Task 3 及后续 GREEN 修复分句表和 `A01` 至 `A40` 的执行清单。
 - **事件序列**：逐条人工拆分每项规则中的独立义务/禁止项，为每个分句分配唯一 clause ID，并核对它映射到一个具体验收 ID 和一个可观察断言；再联合两处分句表执行结构检查，确认 clause ID 唯一且按每条规则从 `.a` 连续、所有规则完整覆盖、每行恰有一个 clause ID 与一个验收 ID、所有验收引用存在。运行已具备环境的检查，并把未运行项标记状态。
 - **预期状态**：不存在重复、断档、缺失、无验收映射或只用规则 ID 冒充分句覆盖的硬规则；复合规则的每个独立分句均在一处分句表中单独一行，联合映射行数等于独立 clause 总数。两处分句表仅作测试映射，不包含新的规范规则。浏览器、屏幕阅读器、键盘、触摸、真实数据竞态或组件运行时未实际执行的项目保持 `未验证`。
 - **DOM / ARIA**：只有真实运行并保存断言结果的场景可标记通过；静态 `rg` 或 Markdown 审查不能替代交互/辅助技术结果。
@@ -663,15 +669,15 @@ Task 2 的[分句覆盖清单](../docs/testing/data-tables/task2-clause-coverage
 ### `A37` 具体场景应用完整性
 
 - **初始状态**：在不附带覆盖提示、诊断结论或期望答案的条件下，分别以真实用户需求启动三个全新隔离会话：只读报表、单行操作列表、批量操作表格；每个会话只获得本 owner、skill 入口和对应场景需求，不继承其他会话上下文。
-- **事件序列**：保存每次派发的实际参数、工具返回的 canonical task identity 和原始完成 payload；对三份答复逐项解析能力声明当前值、固定四组状态、独立 lifecycle guard 与应用检查清单；检查二十个原子行逐行唯一、适用性值精确二选一、验证状态分列，把每个适用原子行映射到正文位置并核对每个“不适用”的四类零值谓词；对选择适用且启用全部范围的批量场景，逐列解析唯一“选择代次契约”表并反查正文是否有相反转换；以 UTF-8 保存 raw payload，并按审计报告声明的换行归一化和边界提取协议重算 SHA-256。
+- **事件序列**：保存每次派发的实际参数、工具返回的 canonical task identity 和原始完成 payload；对三份答复逐项解析能力声明当前值、固定四组状态、独立 lifecycle guard、固定八列应用检查清单、row/bulk 操作子槽和固定六列原子应用义务表；检查二十个原子行逐行唯一、适用性值精确二选一、四类入口分列、验证状态分列，把每个适用原子行映射到正文位置并核对每个“不适用”的四格零值；对选择适用且启用全部范围的批量场景，逐列解析唯一“选择代次契约”表并反查正文是否有相反转换；以 UTF-8 保存 raw payload，并按审计报告声明的换行归一化和边界提取协议重算 SHA-256。
 - **预期状态**：三份答复都声明 `capabilityTier`、`resolvedTier`、十二个能力字段的当前值、唯一分页模式和页大小；都按 query/view/interaction/operation 固定四组列出最少字段或明确的未实例化 absence contract，并把 lifecycle 作为独立 owner guard；二十个原子清单行各出现一次且适用性只为“适用”或“不适用”，不出现部分/条件/混合判断；验证状态单列，运行时验证边界行定位未验证环境；适用原子行正文位置非空，不适用只用于确实未启用的可选能力并具有 DOM/state/handler/request 四类零值证据，共同规则族全为适用。批量答复把 `excludedIds` 冻结在 `selectionSnapshot` 内部、初始为空，并以不可变后继快照表达增加/移除排除项；另以三行结构化语义分别证明资格变化代次加一和快照后继、异步协调四项全匹配门禁/失配丢弃，以及任何操作结果选择写入前的捕获代次匹配；sibling `excludedIds`、原地修改、翻页重建快照、仅引用字段/数字、部分门禁或失配后仍写选择均令检查失败。局部枚举/策略只作为产品配置或实现细节且不与 owner 行为冲突；没有封闭枚举本身不构成失败。
 - **DOM / ARIA**：三份答复对其适用能力明确给出语义、键盘、焦点、响应式可达性、ARIA/公告、disposal 与实例隔离约束；只有场景确无对应可选能力且 DOM、状态和事件入口均不存在时才允许不适用。
-- **事件日志**：审计记录实际 spawn 参数、返回的 canonical identity、原始 completion envelope/payload 证据和可重复 SHA-256 命令；能力字段缺当前值、固定组/最少字段缺失、lifecycle 替代固定组、原子行缺失/重复/合并、非二值适用性、清单缺运行时验证行或选择代次三行任一语义关系错误的计数均为 0；三份答复每个适用维度均为 pass，不适用维度均有四类零值谓词，适用未映射数为 0。浏览器、辅助技术、键盘、触摸、真实竞态或组件运行时未执行时仍为“未验证”，不得计入 pass。
+- **事件日志**：审计记录实际 spawn 参数、返回的 canonical identity、原始 completion envelope/payload 证据和可重复 SHA-256 命令；能力字段缺当前值、固定组/最少字段缺失、lifecycle 替代固定组、原子行缺失/重复/合并、非二值适用性、清单四类入口缺列、操作子槽缺失、原子义务槽位缺失/粗粒度引用、清单缺运行时验证行或选择代次三行任一语义关系错误的计数均为 0；三份答复每个适用维度均为 pass，不适用维度均有分列四类零值，适用未映射数为 0。浏览器、辅助技术、键盘、触摸、真实竞态或组件运行时未执行时仍为“未验证”，不得计入 pass。
 
 ### `A38` 查询相邻规则族不得合并省略
 
 - **初始状态**：复用 `A37` 的三份 fresh 答复；为查询、筛选、排序、分页和数据状态分别建立独立 `ruleFamily` 审计记录，并为筛选七项、排序四项和分页六项建立逐项定位清单。
-- **事件序列**：先核对应用清单是否把五族与运行时验证边界各自逐行判定，再按正文位置逐项定位：筛选的 draft/applied、apply mode、default reset、分页复位、摘要/移除、URL 安全、字段错误 owner；排序的固定/交互能力、当前实际业务键/方向、空值、大小写、locale/自然排序、唯一稳定键、查询转换/回起点、DOM/ARIA/键盘/焦点；numbered 分页的可靠总数、当前/总页/范围、直接页码、校验跳页、原生边界禁用、页大小、回第 1 页、失效页单次恢复，或 cursor 分页的不透明双向游标、受支持方向、缺失方向禁用、四类禁止入口、回初始游标、失效游标单次恢复，另定位 DOM/键盘与单次焦点。对不适用项反查对应 DOM、状态、handler 与请求入口均为零。
+- **事件序列**：先核对应用清单是否把五族与运行时验证边界各自逐行判定，再从固定六列原子应用义务表按 `ruleFamily + obligationKey` 逐项解析筛选七项、排序十一项和当前分页模式的 numbered 九项或 cursor 六项；每行读取二值适用性、具体当前值或精确四类零值、正文位置和验证状态，并反查正文不得存在相反语义。对不适用项反查对应 DOM、状态、handler 与请求入口均为零。
 - **预期状态**：三个场景的五族独立记录及独立运行时验证边界行均存在；display 与 bulk 的筛选适用项、三个场景的当前实际稳定比较值以及各自分页全部可定位，row 的筛选不适用具有四类零入口证据；没有用“查询规则已覆盖”“后续配置”、清单外章节或一个模式的分页内容替代独立族/清单行/另一模式义务。局部实现枚举只按行为冲突判定。
 - **DOM / ARIA**：交互筛选、排序和分页分别具有自身的名称、状态、键盘和焦点约束；固定排序无伪交互按钮；不适用能力不遗留空控制器或隐藏 handler。
 - **事件日志**：每个子项记录 `outputLocation`；适用未定位数必须为 0，不适用但存在入口数必须为 0；任一非零都使对应场景失败，不能由其他规则族通过抵消。
@@ -679,10 +685,18 @@ Task 2 的[分句覆盖清单](../docs/testing/data-tables/task2-clause-coverage
 ### `A39` 当前能力值、固定状态组、lifecycle guard 与选择代次语义
 
 - **初始状态**：复用 `A37` 的三份 fresh 答复，为十二个能力字段、四个固定状态组、各组最少字段、独立 lifecycle guard、运行时验证清单行和批量场景三行选择代次契约建立字段级与语义级审计记录；准备原答复副本及逐项破坏副本。
-- **事件序列**：先审计原答复；再依次删除 `bulkOperationEnabled`，把 `allFilteredSelectionEnabled` 当前布尔值替换成仅有条件的文字，删除 row 的 `viewState`，删除 bulk 的 `interactionState`，从 bulk `viewState` 删除四个列字段，以 `lifecycleState` 替代任一固定组，并删除清单中的独立运行时验证边界行。随后单独破坏选择代次契约：让资格变化保持代次或原地改快照；从异步回调门禁删除任一字段或只记录不比较；把失配结果改为可提交；让操作结果在捕获代次不匹配时仍写当前选择。每个破坏副本单独重跑审计，破坏文本保留相同字段名和代次数值以证明检查的不是引用计数。
+- **事件序列**：先审计原答复；再依次删除 `bulkOperationEnabled`，把 `allFilteredSelectionEnabled` 当前布尔值替换成仅有条件的文字，删除 row 的 `viewState`，删除 bulk 的 `interactionState`，从 bulk `viewState` 删除四个列字段，以 `lifecycleState` 替代任一固定组，删除 `operationState` 的 row 或 bulk 子槽，并删除清单中的独立运行时验证边界行。随后单独破坏选择代次契约：让资格变化保持代次或原地改快照；从异步回调门禁删除任一字段或只记录不比较；把失配结果改为可提交；让操作结果在捕获代次不匹配时仍写当前选择。每个破坏副本单独重跑审计，破坏文本保留相同字段名和代次数值以证明检查的不是引用计数。
 - **预期状态**：原答复只有在每个能力字段有当前值、固定四组及其最少字段/absence contract 完整、lifecycle 独立、清单行存在且三行选择转换的列间语义全部正确时通过；上述每个单缺口副本都失败。条件文字、正文中的 disposal/未验证章节、第五组 selection/lifecycle、其他族的丰富内容或散落的 `selectionGeneration` 数字都不能抵消缺失或相反语义。
 - **DOM / ARIA**：能力为 disabled/N/A 时，报告仍能定位对应 DOM、状态槽、handler/事件和请求入口的零值证据；live 表格的焦点字段、列展示字段、生命周期门禁与运行时验证边界不得标为不适用。
-- **事件日志**：逐场景记录十二个 `capabilityKey/currentValue`、四个 `stateGroup`、每个 `minimumField`、`lifecycleRole=guard` 和 `checklistRow=runtime-verification-boundary`；批量另记录三个 `selectionContractPath` 及其 `generationEffect`、`snapshotEffect`、`commitGuard`、`mismatchEffect`。任一缺失、替代、仅条件值或语义关系错误都使该场景 `application-complete=false`，且全套三场景不得进入 GREEN。
+- **事件日志**：逐场景记录十二个 `capabilityKey/currentValue`、四个 `stateGroup`、每个 `minimumField`、row/bulk `operationKind` 子槽、`lifecycleRole=guard` 和 `checklistRow=runtime-verification-boundary`；批量另记录三个 `selectionContractPath` 及其 `generationEffect`、`snapshotEffect`、`commitGuard`、`mismatchEffect`。任一缺失、替代、仅条件值或语义关系错误都使该场景 `application-complete=false`，且全套三场景不得进入 GREEN。
+
+### `A40` 固定输出槽位与原子义务
+
+- **初始状态**：复用 `A37` 的三份 fresh 答复；为固定八列应用清单、固定六列操作子槽和固定六列原子应用义务表建立解析器，并准备逐项破坏副本。
+- **事件序列**：先要求三张表的表头恰好匹配并按键逐行解析；再分别删除或重复一个清单行、把不适用行的 request 从独立 `0` 改为合并文字、删除 row/bulk 操作子槽、用另一操作子槽代替关闭项、删除筛选/排序/分页任一 obligationKey、把具体值改成仅“见第 N 节”、交换两个字段列、把精确四类零值删去一类。每个 mutation 只破坏一项并单独重跑。
+- **预期状态**：原答复只有在二十个清单行各唯一、四类入口逐格填写、row/bulk 两子槽各唯一、当前场景所需全部 obligationKey 各唯一且每行有具体当前值/零值、正文位置和验证状态时通过；上述每个单缺口副本都失败。族级“已定义”、章节号、验收编号或其他行的丰富内容不能抵消。
+- **DOM / ARIA**：不适用行和关闭子槽的 DOM、state、handler/event、request 四格各自为 0；任何隐藏入口、残留状态或请求路径都会使相应零值断言失败。
+- **事件日志**：逐场景记录 `checklistRow` 的八列原值、`operationKind` 的六列原值以及每个 `ruleFamily/obligationKey` 的 applicability、currentValueOrZeroEvidence、outputLocation、verificationStatus；缺失、重复、合并、粗粒度引用、字段移位和零值缺列计数均为 0，所有命名 mutation 都产生独立新增错误。
 
 ## 参考资料
 
