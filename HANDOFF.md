@@ -26,6 +26,7 @@ frontend-product-interaction-standards/
 └── references/
     ├── dialogs.md
     ├── drawers.md
+    ├── forms.md
     ├── responsive-adaptive.md
     └── selects-comboboxes.md
 ```
@@ -67,6 +68,11 @@ frontend-product-interaction-standards/
 - 已定义草稿查询与已提交值、失效值、异步搜索、状态播报、焦点、Tab、Space/Enter、Home/End 和 ARIA 所有权。
 - `resolvedPlacement` 转换保留逻辑 ID；目标焦点和 ARIA 必须在焦点移动前或同一 committed render 更新，来源专属属性随之移除，且转换不提交值或草稿。
 
+### 表单
+
+- 已定义字段与表单的状态、校验时机、提交快照、错误归属、失败恢复、未保存更改确认及可访问错误反馈。
+- 详细规则和可执行验收仅维护在 [表单状态、校验与错误交互规范](references/forms.md)，本交接不重复其状态模型或检查项。
+
 ### 响应式 closing
 
 - 进入 closing 后冻结当前渲染形态，忽略后续断点转换；只能执行一次专项退出动画、卸载和清理，并持续保持保护直到该流程完成。
@@ -95,12 +101,11 @@ frontend-product-interaction-standards/
 
 建议按优先级继续增加：
 
-1. 表单字段、校验、提交与错误恢复。
-2. 表格、分页、筛选、排序和批量操作。
-3. Toast、Alert、Notification、Popover 与 Tooltip。
-4. 导航、面包屑、Tabs 和页面离开确认。
-5. 上传、下载、进度与失败重试。
-6. 空状态、加载骨架、权限不足和数据异常。
+1. 表格、分页、筛选、排序和批量操作。
+2. Toast、Alert、Notification、Popover 与 Tooltip。
+3. 导航、面包屑、Tabs 和页面离开确认。
+4. 上传、下载、进度与失败重试。
+5. 空状态、加载骨架、权限不足和数据异常。
 
 每次新增规范时，应同步检查：
 
@@ -119,7 +124,7 @@ frontend-product-interaction-standards/
 
 ## 当前验证状态
 
-- 已通过官方 Skill 验证、Markdown 相对链接检查、占位符扫描和 `git diff --check`。
+- 已通过官方 Skill 验证、Markdown 相对链接检查、占位符扫描和 `git diff --check` 等文档静态检查。
 - 已完成 Base→Head 完整差异审查、独立 RED/GREEN 应用检查及最终复审；静态修订、账本和证据边界见上述审计链接。
 - 本次交接更新已核对本地 `HEAD` 与 GitHub `main` 的版本一致性，并且只更新 `HANDOFF.md`。
-- 本轮属于规范文档工作，没有执行浏览器、屏幕阅读器、触控设备或真实业务组件测试；这些验证应在具体组件实现时完成。
+- 本轮属于规范文档工作；浏览器、屏幕阅读器、触控设备和真实业务组件测试均未执行，需在具体组件实现时完成。

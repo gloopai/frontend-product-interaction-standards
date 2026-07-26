@@ -4,7 +4,7 @@
 
 ## 当前规范
 
-本 Skill 当前包含以下 Dialog、四向抽屉、可搜索单选 Select 与跨端适配核心要求：
+本 Skill 当前包含以下 Dialog、四向抽屉、可搜索单选 Select、表单与跨端适配核心要求：
 
 - PC、平板和移动端保持核心能力一致；低频能力可以折叠或收纳，但不能删除，且必须保持可发现、可访问。
 
@@ -16,8 +16,9 @@
 - 上、下、左、右抽屉按来源边缘进入与退出；遮罩点击、拖拽和滑动均不会关闭抽屉，外框保持非滚动且仅内容区域滚动。
 - 普通可退出抽屉在固定标题区右上角保留关闭按钮，并遵循全视口遮罩、焦点管理、背景隔离、安全区域、多层叠加、异步错误与状态清理规则。
 - 自绘可搜索单选 Select 的值只能来自已有选项，支持完整键盘和 ARIA；`auto` 按稳定声明条件确定性解析为 `inline`、`panel`、`drawer` 或 Select-only `none`，PC 使用非模态浮层，移动端在需要时转换为移动端 Drawer。
+- 表单以明确的字段状态、校验与提交生命周期管理错误、恢复、未保存更改和可访问错误反馈。
 
-完整规则、验收标准与完成前检查见 [Dialog 交互规范](references/dialogs.md)、[Drawer 交互规范](references/drawers.md)、[可搜索单选 Select / Combobox 交互规范](references/selects-comboboxes.md) 和 [响应式与自适应交互规范](references/responsive-adaptive.md)。
+完整规则、验收标准与完成前检查见 [Dialog 交互规范](references/dialogs.md)、[Drawer 交互规范](references/drawers.md)、[可搜索单选 Select / Combobox 交互规范](references/selects-comboboxes.md)、[表单状态、校验与错误交互规范](references/forms.md) 和 [响应式与自适应交互规范](references/responsive-adaptive.md)。
 
 ## 系统要求
 
@@ -69,6 +70,7 @@ frontend-product-interaction-standards/
 └── references/
     ├── dialogs.md
     ├── drawers.md
+    ├── forms.md
     ├── selects-comboboxes.md
     └── responsive-adaptive.md
 ```
