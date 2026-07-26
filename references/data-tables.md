@@ -122,7 +122,7 @@
 | `DT-OP-07` | `[a]` 通过 `DT-OP-10` 的完整裁决门禁后，权限变化和数据版本冲突才可以成为可区分的冲突终态，不得伪装成普通全部失败；`[b]` 权限变化先重新解析可操作范围，移除越权项并要求用户确认新数量，不能自动重试越权项；`[c]` 数据版本冲突立即使旧操作快照失效，刷新受影响数据并要求重新选择或重新确认范围；`[d]` 任一冲突都不得自动复用旧幂等键继续执行。 | `A30`、`A34` |
 | `DT-OP-08` | `[a]` 重试只从可重试失败项建立新的操作 ID、操作代次、不可变快照与幂等键；`[b]` 已成功项和不可重试项的重试请求计数必须为 0；`[c]` 单一完整操作提交门禁要求 `live + ownerId + lifecycleToken + operationId + operationGeneration + operationSnapshotId` 六项同时匹配，缺少或放宽任一项都不得提交；`[d]` 迟到结果只记录 `operation-result-discarded`，不得覆盖新选择、新操作或已更新的失败集合。 | `A26`、`A28`、`A30`、`A35`、`A36` |
 | `DT-OP-09` | `[a]` 单行操作错误归受影响行或其操作面，批量错误归操作结果摘要及对应失败项；`[b]` 每个 `errorId` 只有一个完整错误 primary owner 和一条完整公告路径；`[c]` 每个已接受且需要反馈的批量开始、非终态异常状态或业务终态都必须恰好一次简洁公告，不得逐行朗读完整内容；`[d]` 全部成功、部分成功、全部失败、冲突和 `outcome-unknown` 分别使用规则声明的结果摘要、失败项、重试、重新确认或结果核对焦点目标。 | `A26`、`A27`、`A28`、`A29`、`A30`、`A34` |
-| `DT-OP-10` | `[a]` 全部成功、部分成功、全部失败、权限冲突和数据版本冲突五类业务终态都要求响应满足 `adjudicatedCount === operationSnapshot.expectedCount`；`[b]` 裁决数小于或大于预计数量、集合重叠或缺项时必须进入明确的 `outcome-unknown`，且它是非终态；`[c]` `outcome-unknown` 保留不可变操作快照、当前选择和已有失败 owner，显示结果核对/恢复入口，并作为已接受且需要反馈的状态恰好公告一次；`[d]` 在后续完整结果通过六项操作门禁前，不得执行终态选择清理、成功子集重整、终态重试分区或冲突恢复。 | `A26`、`A34` |
+| `DT-OP-10` | `[a]` 全部成功、部分成功、全部失败、权限冲突和数据版本冲突五类业务终态都要求响应满足 `adjudicatedCount === operationSnapshot.expectedCount`，且裁决身份集合精确等于操作快照目标集合；`[b]` 裁决数小于或大于预计数量，或 `successIds ∪ failedIds` 与操作快照目标集合不相等（包括重叠、重复、外部 ID 或缺项）时，即使裁决数等于预计数量也必须进入明确的 `outcome-unknown`，且它是非终态；`[c]` `outcome-unknown` 保留不可变操作快照、当前选择和已有失败 owner，显示结果核对/恢复入口，并作为已接受且需要反馈的状态恰好公告一次；`[d]` 在后续完整结果通过六项操作门禁前，不得执行终态选择清理、成功子集重整、终态重试分区或冲突恢复。 | `A26`、`A34` |
 | `DT-OP-11` | `[a]` 完整裁决的部分成功必须用新查询快照刷新成功子集，或在记录 ID 与数据版本可证明一致时执行确定性本地重整；`[b]` 刷新后失败项、失败原因、可重试性、重试 owner 和操作结果摘要必须保留；`[c]` 刷新后失败焦点目标仍存活时焦点不变，目标消失时执行 `DT-OP-12` 的一次等价迁移；`[d]` 迟到或不匹配的重整响应只按查询/操作门禁丢弃，不能清除失败项或恢复入口。 | `A28`、`A34` |
 | `DT-OP-12` | `[a]` 操作结果提交前记录当前焦点目标和该终态声明的等价目标；`[b]` 当前焦点目标提交后仍存活、可聚焦且语义未变时焦点不变，最终 focus 事件计数为 0；`[c]` 当前目标消失时恰好一次移动到结果摘要、批量工具栏、失败项、重试、重新确认或结果核对中的指定等价目标；`[d]` 最终目标必须存活、可聚焦且有名称，不能是 `document.body`、文档 root 或 removed 节点，后续刷新不得产生第二次迁移。 | `A26`、`A27`、`A28`、`A29`、`A30`、`A34` |
 
@@ -164,7 +164,7 @@
 
 | ID | 规则 | 验收 |
 | --- | --- | --- |
-| `DT-RSP-01` | `[a]` 桌面、平板和移动端必须提供同一能力档位的核心查询、导航、选择与操作能力；`[b]` 跨端权限判断、数据结果、危险操作确认与错误恢复必须等价；`[c]` 空间不足只能改变布局、收纳层级或交互形态，不能删除已启用能力；`[d]` 同一批量操作在三类视口及显式卡片形态中必须得到语义相同的操作快照、确认等级、单次请求、业务终态和恢复路径。 | `A31`、`A32` |
+| `DT-RSP-01` | `[a]` 桌面、平板和移动端必须提供同一能力档位的核心查询、导航、选择与操作能力；`[b]` 跨端权限判断、数据结果、危险操作确认与错误恢复必须等价；`[c]` 空间不足只能改变布局、收纳层级或交互形态，不能删除已启用能力；`[d]` 同一 `operationCaseId` 与 `selectionSnapshotFixtureId` 的批量操作在桌面、平板横屏、平板竖屏和窄屏四个视口中必须分别实际执行，并得到语义相同的操作快照、确认等级、单次请求、业务终态和恢复路径；`[e]` 显式卡片形态必须复用前一分句的同一 `operationCaseId` 与 `selectionSnapshotFixtureId`，并与表格形态逐项比较相同的快照、确认、请求数、终态和恢复证据。 | `A31`、`A32` |
 | `DT-RSP-02` | `[a]` 记录身份、主要状态和主要操作对应的关键列必须直接可定位；`[b]` 次要列可以进入具可访问名称的行详情或列控制；`[c]` 行详情必须保留字段标签、记录归属和确定顺序；`[d]` 仍需访问的字段或操作不得只用 `display:none`、截断或无名称图标隐藏。 | `A31`、`A34` |
 | `DT-RSP-03` | `[a]` 必要的横向滚动只能发生在表格容器，页面根不得产生横向溢出；`[b]` 容器必须让首末边界、当前滚动位置和仍可滚动方向可感知；`[c]` 键盘和触摸都能到达关键身份、当前焦点与行操作；`[d]` 固定列在滚动、缩放和长文本下继续执行 `DT-COL-04`，不得遮挡焦点或边界。 | `A31`、`A33` |
 | `DT-RSP-04` | `[a]` 表格转换为卡片必须由显式 `responsivePresentation` 配置和经过评审的字段映射启用；`[b]` 每张卡片必须具有记录级可访问名称，字段值必须与标签关联；`[c]` 卡片必须保留该能力档位的选择、详情和行操作语义；`[d]` 未提供完整等价映射时必须保留表格或受控横向滚动，不能临时猜测卡片布局；`[e]` Table / Grid 与卡片模式不能同时作为两个活动实例存在。 | `A32`、`A34` |
@@ -187,7 +187,7 @@ disposal 是终止生命周期，不是视觉退出动画。每个实例以稳�
 | --- | --- | --- |
 | `DT-LIFE-01` | `[a]` 路由提交离开或拥有表格的 owner 卸载时，实例立即进入 `disposed`；`[b]` disposal 不等待菜单关闭动画、请求完成或操作结果；`[c]` 进入后不得接受查询、分页、菜单、选择、焦点、操作或公告新工作；`[d]` disposal 必须幂等，同一实例重复触发只保留一次进入记录。 | `A35` |
 | `DT-LIFE-02` | `[a]` disposal 必须取消或失效旧查询、分页恢复、重试与防抖；`[b]` disposal 必须关闭并失效行菜单、popup 和其定位回调；`[c]` disposal 必须失效待执行焦点、选择协调、操作结果和公告回调；`[d]` disposal 必须注销该实例的监听器、计时器、观察器和订阅；`[e]` 资源取消只节省工作，所有迟到回调仍必须经过提交门禁。 | `A35` |
-| `DT-LIFE-03` | `[a]` 查询迟到响应必须同时校验 live、`ownerId`、`lifecycleToken`、请求代次和查询快照；`[b]` 操作迟到响应必须执行 `DT-OP-08` 的单一完整六项门禁，不得另建较短或不同的生命周期门禁；`[c]` 任一门禁失败只记录对应 discarded 事件，DOM、状态、焦点和 live region 写入均为 0；`[d]` 已卸载实例不得清除或改写新路由及其他实例的错误、选择或操作结果。 | `A35`、`A36` |
+| `DT-LIFE-03` | `[a]` 查询迟到响应必须同时校验 live、`ownerId`、`lifecycleToken`、请求代次和查询快照；`[b]` 操作迟到响应必须执行 `DT-OP-08` 的单一完整六项门禁，不得另建较短或不同的生命周期门禁；`[c]` 任一门禁失败只记录对应 discarded 事件，DOM、状态、焦点和 live region 写入均为 0；`[d]` 已卸载实例不得清除或改写新路由及其他实例的错误、选择或操作结果。 | `A26`、`A35`、`A36` |
 | `DT-LIFE-04` | `[a]` 每项资源都记录持有它的 `ownerId`，实例只释放自己的资源一次；`[b]` disposal 移除该实例 DOM、popup 与 ARIA 引用，不移除其他实例节点；`[c]` 即将移除的旧触发器不得接收返回焦点；`[d]` 新路由提交后只能由新路由焦点策略移动一次到主标题、主内容或主要操作。 | `A35`、`A36` |
 | `DT-LIFE-05` | `[a]` 同页两个表格只要求 `ownerId`、`lifecycleToken` 和 `announcementOwnerId` 分别唯一；`[b]` 两实例的 request / selection / operation generation 标量可以相同，但必须在 `ownerId + lifecycleToken` 命名空间内解释；`[c]` 一个实例查询、菜单、选择、操作或 disposal 不得改变另一实例对应状态；`[d]` 两实例交错迟到响应只能提交到仍 live 且所有门禁匹配的来源实例；`[e]` 焦点恢复与资源释放日志必须携带实例 ID，不能落到另一表格的同名控件。 | `A36` |
 | `DT-LIFE-06` | `[a]` 返回页面是否恢复查询与滚动位置必须由产品显式声明；`[b]` 恢复前必须重新校验权限范围、数据版本和可用分页位置；`[c]` 旧选择、排除项、权限结果、打开菜单和操作快照不得回放；`[d]` 恢复实例必须使用新的 `ownerId` 和 `lifecycleToken`；首个请求代次只需在新命名空间内有效，数值可以与旧实例相同。 | `A36` |
@@ -262,14 +262,14 @@ Task 2 的[分句覆盖清单](../docs/testing/data-tables/task2-clause-coverage
 | `DT-OP-07.d` | `A30` | 两类冲突后旧 idempotencyKey 的请求增量均为 0。 |
 | `DT-OP-08.a` | `A28` | 重试生成新 operationId、代次、快照和幂等键且目标等于 retryableFailedIds。 |
 | `DT-OP-08.b` | `A28` | successIds 与 nonRetryableIds 的重试请求计数均为 0。 |
-| `DT-OP-08.c` | `A36` | 只有 live、ownerId、lifecycleToken、operationId、operationGeneration、operationSnapshotId 六项全匹配的响应能提交。 |
+| `DT-OP-08.c` | `A26` | C1–C6 六个隔离 owner/operation 场景各只失配一项且其余五项匹配时均丢弃；第七个 live owner C7 六项全匹配时提交。 |
 | `DT-OP-08.d` | `A30` | 迟到结果只记录 operation-result-discarded，三个新状态写入均为 0。 |
 | `DT-OP-09.a` | `A34` | 单行错误只出现在行 owner，批量错误只出现在批量结果 owner/失败项。 |
 | `DT-OP-09.b` | `A34` | 每个 errorId 的 primaryOwnerId 和完整公告计数均为 1。 |
 | `DT-OP-09.c` | `A34` | 每个已接受且需要反馈的开始、异常状态或终态公告恰好 1，且不含完整行串联文本。 |
 | `DT-OP-09.d` | `A34` | 各终态与 outcome-unknown 分别使用声明的摘要、失败项、重试、重确认或核对目标。 |
-| `DT-OP-10.a` | `A26` | 五类业务终态都只在 adjudicatedCount===operationSnapshot.expectedCount 时提交。 |
-| `DT-OP-10.b` | `A26` | 不完整、超量、重叠或缺项裁决进入 outcome-unknown 且 terminal=false。 |
+| `DT-OP-10.a` | `A26` | 五类业务终态只在 adjudicatedCount===operationSnapshot.expectedCount 且裁决身份集合精确等于快照目标集合时提交。 |
+| `DT-OP-10.b` | `A26` | 少量、超量、重叠、重复、外部 ID 或缺项裁决均进入 outcome-unknown；计数相等但 successIds∪failedIds 不等于快照目标集合也必须 terminal=false。 |
 | `DT-OP-10.c` | `A26` | outcome-unknown 保留快照/选择/失败 owner，显示核对入口并公告恰好 1。 |
 | `DT-OP-10.d` | `A26` | 完整结果通过六项门禁前四类终态副作用计数均为 0。 |
 | `DT-OP-11.a` | `A28` | 部分成功的成功子集产生一个新查询快照刷新，或记录通过 ID/版本证明的确定性本地重整。 |
@@ -283,7 +283,8 @@ Task 2 的[分句覆盖清单](../docs/testing/data-tables/task2-clause-coverage
 | `DT-RSP-01.a` | `A31` | 三类视口下核心查询、导航、选择和操作入口集合相同。 |
 | `DT-RSP-01.b` | `A31` | 同一用户/数据在三类视口得到相同权限、结果、确认等级和恢复结果。 |
 | `DT-RSP-01.c` | `A31` | 断点前后已启用能力数不减少，变化只发生在布局/收纳表现。 |
-| `DT-RSP-01.d` | `A31` | 三类视口与卡片执行同一批量操作后的规范化快照、确认等级、请求数、终态和恢复均相同。 |
+| `DT-RSP-01.d` | `A31` | V1–V4 四个视口使用相同 operationCaseId / selectionSnapshotFixtureId，各请求一次且规范化快照、确认等级、终态和恢复相同。 |
+| `DT-RSP-01.e` | `A32` | Table 与卡片复用 A31 的 operationCaseId / selectionSnapshotFixtureId，各请求一次并逐项比较快照、确认、终态和恢复证据。 |
 | `DT-RSP-02.a` | `A31` | 每条记录的身份、主要状态和主要操作在窄屏仍可直接定位。 |
 | `DT-RSP-02.b` | `A31` | 每个收纳次要列都可经有名称的详情或列控制访问。 |
 | `DT-RSP-02.c` | `A34` | 行详情可访问性树保留字段标签、recordId 归属和确定顺序。 |
@@ -327,7 +328,7 @@ Task 2 的[分句覆盖清单](../docs/testing/data-tables/task2-clause-coverage
 | `DT-LIFE-02.d` | `A35` | 监听器、计时器、观察器和订阅的当前实例残留数均为 0。 |
 | `DT-LIFE-02.e` | `A35` | 模拟取消失败后迟到回调仍被门禁丢弃且提交写入为 0。 |
 | `DT-LIFE-03.a` | `A35` | 查询只有五项生命周期/请求门禁全匹配时提交。 |
-| `DT-LIFE-03.b` | `A35` | 操作复用同一六项完整门禁，逐项失配且其余五项匹配时都不提交。 |
+| `DT-LIFE-03.b` | `A26` | 六项操作门禁使用 C1–C6 隔离矩阵验证，live=false 场景不恢复；C7 全匹配正例复用同一门禁。 |
 | `DT-LIFE-03.c` | `A35` | 任一门禁失败后的 DOM/state/focus/live-region 写入均为 0。 |
 | `DT-LIFE-03.d` | `A36` | 旧实例回调对新路由和另一实例的三类状态写入均为 0。 |
 | `DT-LIFE-04.a` | `A35` | 每项释放日志 ownerId 等于持有者且 releaseCount=1。 |
@@ -346,7 +347,7 @@ Task 2 的[分句覆盖清单](../docs/testing/data-tables/task2-clause-coverage
 
 ## 可执行验收
 
-每个检查记录 `{ownerId, lifecycleToken, snapshotId, requestGeneration, selectionSnapshotId, selectionGeneration, operationSnapshotId, operationId, operationGeneration, expectedCount, adjudicatedCount, announcementOwnerId, event, sourceId, targetId, recordId, columnId, phase, accepted, reason}`。异步检查要能手动控制查询、选择协调与操作响应顺序；DOM 检查使用真实可聚焦元素与可访问性树。以下断言是静态文档之外的可执行契约。
+每个检查记录 `{ownerId, lifecycleToken, snapshotId, requestGeneration, selectionSnapshotId, selectionGeneration, operationCaseId, selectionSnapshotFixtureId, viewportCaseId, presentation, operationSnapshotId, operationId, operationGeneration, expectedCount, adjudicatedCount, successIds, failedIds, adjudicatedIds, announcementOwnerId, event, sourceId, targetId, recordId, columnId, phase, accepted, reason}`。异步检查要能手动控制查询、选择协调与操作响应顺序；DOM 检查使用真实可聚焦元素与可访问性树。以下断言是静态文档之外的可执行契约。
 
 ### `A01` 能力档位与范围
 
@@ -550,11 +551,11 @@ Task 2 的[分句覆盖清单](../docs/testing/data-tables/task2-clause-coverage
 
 ### `A26` 操作快照、确认、重复提交与新选择保护
 
-- **初始状态**：选择快照 S1 含 12 条、2 个排除项和 1 个不可操作项，操作快照 `expectedCount=12`、权限 P1、版本 V1；准备破坏性普通操作、高影响操作，以及六个每次只让 `live`、`ownerId`、`lifecycleToken`、`operationId`、`operationGeneration`、`operationSnapshotId` 之一失配而其余五项匹配的响应。
-- **事件序列**：从空/失效/待确认选择尝试提交；从 S1 打开确认并提交，在 in-flight 期间用点击、Enter、Space 和事件重放重复；先交付 `adjudicatedCount=11` 的不完整结果，再交付超量/集合重叠反例；依次交付六个单项失配响应；建立更新选择 S2 后，最后交付六项全匹配且 `adjudicatedCount=12` 的完整结果。
-- **预期状态**：只有有效 S1 创建不可变操作快照且请求一次，高影响操作未完成强确认时不请求；不完整、超量和重叠裁决都进入 `outcome-unknown, terminal=false`，保留快照、S1 和已有失败 owner，完整结果前终态副作用均为 0；六个单项失配响应全部丢弃；全匹配完整结果只提交原操作 owner 且不能改 S2。
+- **初始状态**：选择快照 S1 含 12 条、2 个排除项和 1 个不可操作项，`operationSnapshot.recordIds={R01…R12}`、`expectedCount=12`、权限 P1、版本 V1；准备破坏性普通操作、高影响操作；另从相同数据夹具建立六个隔离场景 C1–C6，每次重新创建各自新的 ownerId 和 operationId，只让 `live`、`ownerId`、`lifecycleToken`、`operationId`、`operationGeneration`、`operationSnapshotId` 之一失配而其余五项匹配，并建立第七个 live owner C7 作为全匹配正例。
+- **事件序列**：从空/失效/待确认选择尝试提交；从 S1 打开确认并提交，在 in-flight 期间用点击、Enter、Space 和事件重放重复；依次交付 `adjudicatedCount=11` 的少量结果、`adjudicatedCount=13` 的超量结果、集合重叠结果，以及计数仍匹配但 `successIds={R01…R06}`、`failedIds={R07…R11,X99}`、`adjudicatedCount=12` 的集合缺项结果（外部 X99 占位且遗漏 R12）。随后独立运行门禁矩阵：C1 的 live=false 且其余五项匹配，响应后保持 disposed、不恢复为 live；C2–C6 分别只失配 ownerId、lifecycleToken、operationId、operationGeneration、operationSnapshotId；最后在 C7 建立更新选择 S2 后，交付六项全匹配、`adjudicatedCount=12` 且裁决身份集合精确等于 `{R01…R12}` 的完整结果。
+- **预期状态**：只有有效 S1 创建不可变操作快照且请求一次，高影响操作未完成强确认时不请求；少量、超量、重叠和“计数相等但集合缺项”都进入 `outcome-unknown, terminal=false`，保留快照、S1 和已有失败 owner，五类业务终态提交均为 0，完整结果前终态副作用均为 0；C1–C6 各自只丢弃本场景响应且场景间无状态复用，C1 不尝试恢复；第七个 live owner C7 的全匹配完整结果只提交其原操作 owner 且不能改 S2。
 - **DOM / ARIA**：确认面显示类型、预计数、筛选范围、排除数、不可操作数和风险；in-flight 控件/结果区暴露 busy 且不可重复提交。`outcome-unknown` 显示有名称的结果核对/恢复入口；原焦点目标仍存在时焦点不变，目标移除场景恰好一次到结果核对入口，且不落到 body/root/removed。
-- **事件日志**：唯一有效尝试 `operation-requested=1`，空/失效/待确认选择分别为 0，重复触发分别 `operation-submit-ignored=1`；三类未知结果各 `outcome-unknown=1`、需要反馈公告=1、终态公告/选择清理/成功重整/冲突恢复=0；六个单项失配各 `operation-result-discarded=1` 且提交写入为 0；完整结果 accepted=1，新选择写入为 0；焦点存活/消失场景分别 focus=0/1。
+- **事件日志**：主提交流程唯一有效尝试 `operation-requested=1`，空/失效/待确认选择分别为 0，重复触发分别 `operation-submit-ignored=1`；四类未知结果各 `outcome-unknown=1`、需要反馈公告=1、五类业务终态提交均为 0、选择清理/成功重整/冲突恢复=0，其中集合缺项反例记录 missingIds={R12}、externalIds={X99}；C1–C6 每个隔离日志都记录本场景 `operation-requested=1`、其余五项 matched=true、唯一失配项、`operation-result-discarded=1`、提交写入=0，C1 另有 live-restored=0；C7 记录 `operation-requested=1`、六项 matched=true、accepted=1、新选择写入=0；焦点存活/消失场景分别 focus=0/1。
 
 ### `A27` 批量全部成功
 
@@ -590,19 +591,19 @@ Task 2 的[分句覆盖清单](../docs/testing/data-tables/task2-clause-coverage
 
 ### `A31` 跨端能力、次要列与横向滚动
 
-- **初始状态**：同一 bulk-action 数据、权限、6 条选择和破坏性操作分别在 1440×900、平板横竖屏和窄屏渲染；含关键身份/状态/操作列和三列次要信息。
-- **事件序列**：逐视口完成筛选、翻页、选择、范围确认、行操作和错误恢复；在每个视口实际执行同一批量操作并交付相同部分成功结果；打开行详情/列控制；键盘与触摸滚动宽表到首尾；关闭 Hover 后重复发现任务。
-- **预期状态**：各端核心能力、权限、结果和恢复一致；三次操作的规范化快照（忽略 owner/attempt 唯一值）、确认等级、请求数 1、部分成功终态与失败项恢复入口逐项相同；关键列直接可定位，次要列从有名称入口访问；没有能力被静默删除。
+- **初始状态**：建立共享批量夹具 `operationCaseId=OC-01`、`selectionSnapshotFixtureId=SSF-01`，固定同一 bulk-action 数据、权限、6 条选择和破坏性操作；分别在 `V1=1440×900` 桌面、`V2=1024×768` 平板横屏、`V3=768×1024` 平板竖屏、`V4=390×844` 窄屏四个视口渲染，含关键身份/状态/操作列和三列次要信息。
+- **事件序列**：逐视口完成筛选、翻页、选择、范围确认、行操作和错误恢复；在 V1–V4 每个视口分别实际执行 OC-01/SSF-01 的同一批量操作并交付相同部分成功结果；打开行详情/列控制；键盘与触摸滚动宽表到首尾；关闭 Hover 后重复发现任务。
+- **预期状态**：各端核心能力、权限、结果和恢复一致；四次操作的规范化快照（忽略 owner/attempt 唯一值）、确认等级、请求数 1、部分成功终态与失败项恢复入口逐项相同；关键列直接可定位，次要列从有名称入口访问；没有能力被静默删除。
 - **DOM / ARIA**：页面根无横向溢出，横向滚动只在表格容器且边界可感知；详情保留字段标签/recordId；必需字段的无入口隐藏、无名图标和纯 Hover 入口计数均为 0。
-- **事件日志**：断点切换自身请求/操作增量为 0；三视口分别 operation-requested=1，规范化 operationSnapshot、confirmationLevel、terminalPhase、retryableFailedIds 完全相等；键盘与触摸均记录到达关键身份和操作。
+- **事件日志**：断点切换自身请求/操作增量为 0；V1–V4 都记录 `operationCaseId=OC-01`、`selectionSnapshotFixtureId=SSF-01`，四视口分别 operation-requested=1、operation-requested 总数=4，规范化 operationSnapshot、confirmationLevel、terminalPhase、retryableFailedIds 完全相等；键盘与触摸均记录到达关键身份和操作。
 
 ### `A32` 表格与卡片等价转换
 
-- **初始状态**：显式配置完整卡片字段映射，owner O1 已有查询、分页、选择/排除、展开、焦点意图、打开菜单和 in-flight 操作；另准备表格与卡片各自从相同 6 条选择开始的同一批量操作，以及缺失映射实例。
-- **事件序列**：先在 Table 与卡片分别实际确认、提交同一批量操作并交付相同部分成功结果；再在 O1 的 Table/Grid 与卡片间往返切换断点；分别保留/移除精确焦点目标；让菜单锚点有/无等价目标；在缺失映射实例触发窄屏。
+- **初始状态**：显式配置完整卡片字段映射，owner O1 已有查询、分页、选择/排除、展开、焦点意图、打开菜单和 in-flight 操作；Table 与卡片的操作验收与 A31 共用 `operationCaseId=OC-01`、`selectionSnapshotFixtureId=SSF-01`、相同 6 条选择、权限和破坏性操作配置，另准备缺失映射实例。
+- **事件序列**：先在 Table 与卡片分别实际确认、提交 OC-01/SSF-01 的同一批量操作并交付相同部分成功结果；再在 O1 的 Table/Grid 与卡片间往返切换断点；分别保留/移除精确焦点目标；让菜单锚点有/无等价目标；在缺失映射实例触发窄屏。
 - **预期状态**：表格/卡片两次操作的规范化快照、确认等级、请求数 1、终态和失败恢复逐项相同；O1 转换前后 owner 和七类状态保持且查询/操作不重放；无锚点菜单关闭一次；缺失映射实例保持表格/受控滚动。
 - **DOM / ARIA**：任一时刻只有一个活动数据根；卡片有记录名称、字段标签和等价选择/详情/操作；精确目标存活时 activeElement 不变，目标消失时恰好一次到有名称的等价控制器；body/root/removed 和悬空 popup/ARIA 引用计数均为 0。
-- **事件日志**：表格/卡片各 operation-requested=1 且规范化 operationSnapshot、confirmationLevel、terminalPhase、retryableFailedIds 相等；转换自身 owner change/request/operation/operationGeneration 增量为 0；目标存活/消失 focus=0/1、menu-closed≤1。
+- **事件日志**：表格/卡片都记录与 A31 共用的 `operationCaseId=OC-01`、`selectionSnapshotFixtureId=SSF-01`，各 operation-requested=1 且规范化 operationSnapshot、confirmationLevel、terminalPhase、retryableFailedIds 相等；转换自身 owner change/request/operation/operationGeneration 增量为 0；目标存活/消失 focus=0/1、menu-closed≤1。
 
 ### `A33` 缩放、长文本、触摸、虚拟键盘与安全区域
 
@@ -623,10 +624,10 @@ Task 2 的[分句覆盖清单](../docs/testing/data-tables/task2-clause-coverage
 ### `A35` Route/unmount disposal
 
 - **初始状态**：owner O1 同时挂起查询、分页恢复、重试、防抖、菜单定位、焦点、选择、操作、公告、计时器、观察器、订阅和动画回调，并记录每项资源 ownerId。
-- **事件序列**：分别触发路由提交和 owner 卸载，重复调用 disposal；模拟取消失败并按任意顺序交付全部旧回调；对操作回调逐项让六项门禁之一失配且其余五项匹配；随后提交新路由并执行其焦点策略。
+- **事件序列**：分别触发路由提交和 owner 卸载，重复调用 disposal；模拟取消失败并按任意顺序交付全部旧回调，其中操作回调只验证 disposal 造成的 live=false 且其余五项匹配；随后提交新路由并执行其焦点策略。
 - **预期状态**：O1 同步且仅一次进入 disposed，不等待任何回调；七类新工作拒绝；全部旧工作取消或失效，迟到回调不能提交；新路由只由自身策略聚焦一次。
 - **DOM / ARIA**：O1 的表格、popup 和引用移除；旧 trigger 不接收焦点；DOM、状态、焦点、live region 的迟到写入均为 0；未把本地离开宣称为服务端取消成功。
-- **事件日志**：`disposal-entered=1`；每类资源 releaseCount=1 且 ownerId=O1；六个单项门禁失败及其余迟到回调逐条 discarded，DOM/state/focus/live-region 写入=0；disposal 后到达与静默失效公告=0；新路由 final focus=1。
+- **事件日志**：`disposal-entered=1`；每类资源 releaseCount=1 且 ownerId=O1；操作回调记录 live=false、其余五项 matched=true、discarded=1、live-restored=0，其余迟到回调逐条 discarded，DOM/state/focus/live-region 写入=0；disposal 后到达与静默失效公告=0；新路由 final focus=1。
 
 ### `A36` 两实例隔离、交错结果与返回恢复
 
