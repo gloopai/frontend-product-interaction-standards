@@ -1,50 +1,35 @@
-# 数据表格规范 GREEN 前向测试汇总
+# 数据表格规范最终 GREEN 汇总
+
+状态：`PASS_WITH_RUNTIME_UNVERIFIED`
+
+三份最终样本来自 owner 最终修复后的全新 `fork_turns=none` 代理。严格规则是：适用项正文位置非空才通过；未启用的可选能力同时证明 DOM、状态、handler/事件与请求入口不存在才为合理不适用；一个适用遗漏使整个场景失败。局部 `responsivePresentation`、阶段或菜单枚举只按行为冲突判断，没有因 owner 未定义封闭枚举而误判。
+
+## 独立规则族矩阵
+
+| 规则族 / 可观察维度 | 展示型 | 单行操作 | 批量操作 | 证据与判断 |
+| --- | --- | --- | --- | --- |
+| 能力、`resolvedTier` 与状态 owner | 通过 | 通过 | 通过 | 三份 §1/§2 显式声明档位、权限解析、启用能力和独立状态归属。 |
+| 查询快照、代次、意图合并与迟到门禁 | 通过 | 通过 | 通过 | display §6、row §3、bulk §2/§3；均为不可变快照与 live/owner/token/generation/snapshot 门禁，取消不替代门禁。 |
+| 筛选 | 通过 | 合理不适用 | 通过 | display §3、bulk §1/§3 覆盖 draft/applied、显式提交、实际 default、回第 1 页、摘要/移除、URL 安全和字段错误 owner；row §1/§12 证明无 DOM、草稿、handler 或请求入口。 |
+| 排序 | 通过 | 通过 | 通过 | display §4、row §1/§3、bulk §1/§3 均给出当前业务键/方向、空值、大小写/locale/自然排序的实际值或字段不适用依据、唯一稳定键及回起点转换；交互场景另有按钮、ARIA、键盘和焦点。 |
+| 分页 | 通过 | 通过 | 通过 | display §5 与 bulk §1/§3 为 numbered：可靠总数、范围/当前/总页、直接页码、具标签校验跳页、原生边界禁用、页大小、回第 1 页与单次恢复；row §3 为 cursor：不透明双向游标、缺失方向禁用、禁止虚构页码/跳页/加载更多/无限滚动、回初始游标与单次恢复。 |
+| 数据加载、刷新、过期、错误与空状态 | 通过 | 通过 | 通过 | display §6/§7、row §4、bulk §4 区分首次与刷新，保留旧结果，分离筛选无匹配/数据源空与错误 owner。 |
+| 当前页三态与全部筛选结果 | 合理不适用 | 合理不适用 | 通过 | display/row 明确零选择入口。bulk §5 把初始空 `excludedIds` 放在 `selectionSnapshot` 内，禁止布尔替代；排除变化创建后继、旧快照不变；同范围普通翻页保持同一快照身份。`selectionState` 没有可独立漂移的 sibling `excludedIds`。 |
+| 操作快照、重复提交、完整裁决与恢复 | 合理不适用 | 通过 | 通过 | display 无操作；row §6 覆盖单行快照、幂等、六项门禁与冲突；bulk §6 覆盖确认、幂等、身份集合裁决、五类终态、unknown、部分成功和只重试可重试失败项。 |
+| 原生 Table / ARIA Grid 与键盘 | 通过 | 通过 | 通过 | 三者选择原生 Table 且不接管 Grid 键；Grid 因无二维单元格导航而不适用，静态单元格不进入 Tab。 |
+| 列能力与长内容 | 通过 | 合理不适用 | 合理不适用 | display §2 实现稳定列和长内容；三者未启用的显示/固定/调宽/换序具有零状态/控件/handler 依据。 |
+| 焦点 | 通过 | 通过 | 通过 | display §8、row §8、bulk §7：稳定 record/column/control ID，目标存活不移动，消失单次等价迁移，翻页恢复不二次抢焦点，不落 body/root/removed/另一实例。 |
+| 响应式与极端视口 | 通过 | 通过 | 通过 | display §10、row §10、bulk §8 保持同 owner、同能力、单活动数据根、零额外请求；覆盖受控横向滚动/等价卡片、200% 缩放、长文本、触摸、虚拟键盘和安全区域。 |
+| ARIA、错误与公告 owner | 通过 | 通过 | 通过 | display §9、row §9、bulk §7：名称/header 关联、busy/stale/三态、错误单 owner、已接受反馈一次、merged/discarded/disposed 静默。 |
+| disposal 与多实例隔离 | 通过 | 通过 | 通过 | display §11、row §11、bulk §9：同步幂等 disposal、逐资源释放、迟到零写入、新路由焦点、同页实例 owner/token/资源隔离和安全返回恢复。 |
+| 局部产品/实现决定 | 通过 | 通过 | 通过 | 实际字段、断点、排序比较、菜单阶段、确认形态均被标为本实例配置/实现，并未替代或放宽 owner。局部响应式值没有双实例、能力丢失、额外请求或焦点冲突。 |
+| 运行时验证边界 | 适用、未验证 | 适用、未验证 | 适用、未验证 | display §13、row §13、bulk §11 明确列出浏览器、AT、键盘/触摸、真实竞态、后端与 disposal 运行时环境；没有把静态检查写成运行时通过。 |
 
 ## 结论
 
-状态：`DONE_WITH_CONCERNS`
+- display：所有适用维度通过；选择、操作、Grid 和可选列控制合理不适用。
+- row-action：所有适用维度通过；筛选、选择/批量、Grid 和可选列控制合理不适用。
+- bulk-action：所有适用维度通过；Grid 和可选列控制合理不适用。`selectionSnapshot.excludedIds` 的嵌套归属、初始空值、不可变后继与跨页身份全部通过。
+- 适用未定位数：`0`；不适用但存在被禁止入口数：`0`。
 
-三名 `fork_turns=none` 新鲜代理都实际读取并应用了当前 Skill，且相较 [RED 汇总](red-summary.md) 明显收敛到共享 owner：三份输出都使用显式能力档位、不可变查询快照、请求代次、稳定标识焦点、原生 Table 优先、响应式等价、迟到响应门禁和运行时未验证边界；row-action 输出也消除了 RED 的“加载下一段”，改为只有上一页/下一页的游标分页。
-
-严格逐项检查并非三份全通过。展示型输出对 disposal/实例隔离展开不足；row-action 与 bulk-action 对筛选 owner 的硬规则覆盖不完整；三份都没有完整复述列显示/固定/键盘调宽契约；另有少量 owner 未定义的局部枚举或策略。它们是本轮要求先记录的真实应用失败，不是 owner 缺口。
-
-## RED → GREEN
-
-| 场景 | RED 的主要问题 | GREEN 的收敛 | 尚存应用失败 |
-| --- | --- | --- | --- |
-| 只读展示型报表 | 没有共享档位和生命周期门禁，规则来自场景局部推导 | 显式 `display`；没有选择/批量结构；查询快照、稳定排序、页码边界、筛选草稿/应用/默认重置、首次/刷新失败、Table、卡片等价、焦点和公告均与 owner 对齐 | 没有说明 `resolvedTier`；disposal 只写失效请求/公告/焦点，遗漏幂等释放、资源注销、返回恢复与两实例隔离；列显示/固定/调宽规则未覆盖；使用 owner 未枚举的 `responsivePresentation: table-card` 字面值 |
-| 单行操作管理列表 | 使用“加载下一段”与 `appending`，直接违反只支持前后游标分页的范围 | 显式 `row-action`/`cursor`；只提供上一页/下一页；无选择；含查询五项门禁、同键刷新合并、权限降级、操作六项门禁、完整 disposal、焦点/ARIA/公告及运行时边界 | 未定义 `filterDraft`、`applyMode`、`defaultFilters`、已应用条件摘要和 URL 安全；列显示/键盘调宽规则未覆盖；两实例隔离只列为待验证；新增 owner 未定义的菜单 phase、`stalePolicy` 和 `responsivePresentation: card` 局部枚举 |
-| 批量操作数据表格 | 选择与操作只靠场景内 `queryKey/queryToken`，没有共享档位、查询/选择/操作快照和完整裁决门禁 | 显式 `bulk-action`；当前页三态、全部筛选结果、排除项、选择失效/重确认、不可变操作快照、重复提交、完整裁决、unknown/五类终态、失败项重试、响应式等价和 disposal 均显著收敛 | 实例没有选定 `numbered` 或 `cursor` 分页模式；筛选只覆盖 draft/applied 分离，遗漏 applyMode、默认重置、持续可见条件和 URL 安全；稳定排序遗漏空值/大小写/区域规则；列隐藏/键盘调宽未覆盖；两实例隔离未形成正向契约；“资格或总数变化时创建新选择快照”不是 owner 声明的转换 |
-
-## Task 5 硬规则矩阵
-
-`通过` 表示场景所需能力完整对齐；`不适用` 只用于能力档位明确禁止的结构；`部分` 或 `失败` 均已在上表记录，不能被三份输出的其他优点抵消。
-
-| 核对项 | 展示型 | 单行操作 | 批量操作 | 依据与判断 |
-| --- | --- | --- | --- | --- |
-| 能力档位与选择能力显式启用 | 部分 | 通过 | 通过 | 三者声明 `display/row-action/bulk-action`；展示型没有写权限解析后的 `resolvedTier`。 |
-| 查询快照、代次与迟到响应 | 通过 | 通过 | 通过 | 三者都建立不可变快照/代次并使用 live、owner、token、generation、snapshot 门禁；取消不替代门禁。 |
-| 筛选草稿、已应用条件与默认重置 | 通过 | 失败 | 部分 | 展示型覆盖完整；row-action 未建立草稿/应用模型；bulk-action 未覆盖 applyMode、默认值和 URL/摘要全部规则。 |
-| 稳定排序与分页重置 | 通过 | 通过 | 部分 | bulk-action 只有唯一稳定键，遗漏 owner 要求的空值、大小写和区域/自然排序规则。 |
-| 页码/游标边界、首次失败、刷新失败、过期与零结果 | 通过 | 通过 | 部分 | display/row 各自完整选择分页模式；bulk 未为实例选择唯一分页模式，虽覆盖两类失效恢复和数据状态。 |
-| 当前页三态与全部筛选结果范围 | 不适用且正确禁止 | 不适用且正确禁止 | 通过 | bulk 覆盖三态、零可选、二次提升、完整快照、排除项、数量和选择代次。 |
-| 操作快照、重复提交、部分成功与恢复 | 不适用 | 通过 | 通过 | row/bulk 均使用六项门禁和幂等；bulk 另覆盖完整裁决、unknown、五类业务终态及失败重试。 |
-| 原生 Table/Grid 选择与键盘 | 通过 | 通过 | 通过 | 三者优先原生 Table；bulk 明确只有二维需求才用 Grid，并列出完整键盘模型。 |
-| 列隐藏/固定/宽度、响应式等价与横向滚动 | 部分 | 部分 | 部分 | 三者覆盖响应式/横向滚动/固定遮挡的相关子集，但没有任何一份覆盖 owner 的完整隐藏依赖和键盘调宽契约。 |
-| disposal、实例隔离、焦点、ARIA、公告与运行时边界 | 部分 | 部分 | 部分 | 焦点/ARIA/公告/未验证边界三者均强；展示型 disposal 不完整，row/bulk 未把同页两 live 实例隔离写成正向契约。 |
-
-## owner 未定义内容的处理
-
-先记录而不吸收以下内容：
-
-- 展示型的 `responsivePresentation: table-card`，以及 row-action 的 `responsivePresentation: card`：owner 要求显式配置和完整字段映射，但没有定义这两个枚举字面值。
-- row-action 的 `closed/opening/open/closing/disposed` 菜单 phase、`permissionRevision` 与 `stalePolicy: server-revalidate | block`：它们是代理选择的局部实现模型，不是现有四组表格状态或已声明转换。
-- bulk-action 在同范围资格/总数变化时“创建新的选择快照”：owner 当前只声明移除失效 ID、更新数量并公告，不允许由代理自行提升为新的规范转换。
-
-这些新增内容没有暴露 Task 5 目标中的真实 normative gap：相关硬要求已经分别由 `DT-CAP-*`、`DT-REQ-*`、`DT-FIL-*`、`DT-SORT-*`、`DT-PAG-*`、`DT-DATA-*`、`DT-SEL-*`、`DT-OP-*`、`DT-COL-*`、`DT-SEM-*`、`DT-FOC-*`、`DT-RSP-*`、`DT-A11Y-*`、`DT-LIFE-*` 和 `DT-REPORT-01` 定义，并有 `A01`–`A36` 验收。遗漏项都能直接指向已有 owner 规则；新增项则是具体产品/实现选择，不能仅因一次代理输出就成为共享硬规则。因此本轮没有修改 `references/data-tables.md`、`SKILL.md`、`README.md` 或 `HANDOFF.md`，也不新增验收。
-
-## 证据与验证边界
-
-- 三份完整 prompt、原始输出、canonical identity、派发参数、DONE receipt 和可复算 SHA-256 见 [展示型](green-display-report.md)、[单行操作](green-row-action-list.md)、[批量操作](green-bulk-action-table.md)及[派发回执](dispatch-receipts.md)。
-- GREEN 代理执行的是静态设计应用，不是浏览器或组件运行时测试。三份输出都明确把浏览器、屏幕阅读器、键盘、触摸、缩放、真实数据竞态、真实后端能力与 disposal 资源计数列为未验证。
-- 本轮仓库验证结果记录于 Task 5 报告；不能把相对链接、Markdown、占位符或 diff 检查写成上述运行时行为已通过。
+本结论只证明 owner 的静态应用完整性和证据可复算性。真实浏览器、辅助技术、键盘/触摸、200% 缩放、组件竞态、后端分页/幂等/裁决和逐资源 disposal 仍为未验证。
