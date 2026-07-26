@@ -9,7 +9,7 @@
 - Codex 本地 Skill：`/Users/evanqi/.codex/skills/frontend-product-interaction-standards`
 - GitHub 仓库：`https://github.com/gloopai/frontend-product-interaction-standards`
 - 默认分支：`main`
-- 当前交接版本：`e8cd5451fc3cc7d6c528c99773708a27192f63fb`
+- 当前状态以本地 `HEAD`、`git status --short` 和与远端的比较为准；本交接不固定记录 SHA。
 
 新建 Codex Project 时，请直接选择本地 Skill 目录，不要选择原业务项目 `/Users/evanqi/code/fex-admin`。
 
@@ -126,5 +126,5 @@ frontend-product-interaction-standards/
 
 - 已通过官方 Skill 验证、Markdown 相对链接检查、占位符扫描和 `git diff --check` 等文档静态检查。
 - 已完成 Base→Head 完整差异审查、独立 RED/GREEN 应用检查及最终复审；静态修订、账本和证据边界见上述审计链接。
-- 本次交接更新已核对本地 `HEAD` 与 GitHub `main` 的版本一致性，并且只更新 `HANDOFF.md`。
+- 本轮表单规范的路由与摘要更新修改了 `SKILL.md`、`README.md` 和 `HANDOFF.md`；提交仍位于本地 `codex/form-interaction-standards` 工作分支，尚未推送。
 - 本轮属于规范文档工作；浏览器、屏幕阅读器、触控设备和真实业务组件测试均未执行，需在具体组件实现时完成。

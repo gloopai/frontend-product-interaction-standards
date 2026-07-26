@@ -22,7 +22,7 @@ description: 用于创建、修改、重构、评审或测试前端页面、组�
 - 涉及 Dialog、Modal、弹窗或对话框时，必须完整读取 `references/dialogs.md`。
 - 涉及 Drawer、Sheet、抽屉、侧滑面板或上下滑出面板时，必须完整读取 `references/drawers.md`。
 - 涉及 Select、Combobox、下拉选择、可搜索选择器、Autocomplete、Dropdown Select、Searchable Select、单选选择器，或 select、combobox、dropdown、autocomplete、searchable select、single-select 时，必须完整读取 `references/selects-comboboxes.md`。
-- 涉及表单、字段、校验、必填/选填、错误摘要、提交、dirty/touched、未保存更改或错误恢复，或 form、field、validation、required/optional、error summary、submit、dirty/touched、unsaved changes、error recovery 时，必须完整读取 `references/forms.md`。
+- 涉及表单、字段、校验、必填/选填、错误摘要、提交、脏状态/已修改状态、已触碰状态、dirty/touched、未保存更改或错误恢复，或 form、field、validation、required/optional、error summary、submit、dirty/touched、unsaved changes、error recovery 时，必须完整读取 `references/forms.md`。
 - 涉及响应式、移动端、手机、PC、桌面端、平板、断点、视口、横竖屏、窄屏、触摸、虚拟键盘、安全区域、缩放或跨端适配，或涉及 responsive、adaptive、desktop、mobile、tablet、breakpoint、viewport、orientation、portrait、landscape、touch、virtual keyboard、safe area、zoom 时，必须完整读取 `references/responsive-adaptive.md`。
 - 用户增加新类别规范时，创建职责单一的 `references/<category>.md`，并在此增加路由。
 
