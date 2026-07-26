@@ -24,6 +24,7 @@ frontend-product-interaction-standards/
 │   └── audits/
 │       └── 2026-07-25-existing-standards-hardening.md
 └── references/
+    ├── data-tables.md
     ├── dialogs.md
     ├── drawers.md
     ├── forms.md
@@ -73,6 +74,11 @@ frontend-product-interaction-standards/
 - 已定义字段与表单的状态、校验时机、提交快照、错误归属、失败恢复、未保存更改确认及可访问错误反馈。
 - 详细规则和可执行验收仅维护在 [表单状态、校验与错误交互规范](references/forms.md)，本交接不重复其状态模型或检查项。
 
+### 数据表格
+
+- 已定义展示、单行操作与批量操作档位下的查询、列、筛选、排序、页码/游标分页、选择、部分成功、响应式、无障碍与生命周期规则。
+- 详细规则和可执行验收仅维护在 [数据表格交互规范](references/data-tables.md)，本交接不重复其状态模型或检查项。
+
 ### 响应式 closing
 
 - 进入 closing 后冻结当前渲染形态，忽略后续断点转换；只能执行一次专项退出动画、卸载和清理，并持续保持保护直到该流程完成。
@@ -101,11 +107,10 @@ frontend-product-interaction-standards/
 
 建议按优先级继续增加：
 
-1. 表格、分页、筛选、排序和批量操作。
-2. Toast、Alert、Notification、Popover 与 Tooltip。
-3. 导航、面包屑、Tabs 和页面离开确认。
-4. 上传、下载、进度与失败重试。
-5. 空状态、加载骨架、权限不足和数据异常。
+1. Toast、Alert、Notification、Popover 与 Tooltip。
+2. 导航、面包屑、Tabs 和页面离开确认。
+3. 上传、下载、进度与失败重试。
+4. 空状态、加载骨架、权限不足和数据异常。
 
 每次新增规范时，应同步检查：
 
@@ -126,5 +131,5 @@ frontend-product-interaction-standards/
 
 - 已通过官方 Skill 验证、Markdown 相对链接检查、占位符扫描和 `git diff --check` 等文档静态检查。
 - 已完成 Base→Head 完整差异审查、独立 RED/GREEN 应用检查及最终复审；静态修订、账本和证据边界见上述审计链接。
-- 本轮表单规范的路由与摘要更新修改了 `SKILL.md`、`README.md` 和 `HANDOFF.md`；提交仍位于本地 `codex/form-interaction-standards` 工作分支，尚未推送。
+- `docs/` 已允许纳入 Git；当前提交与推送状态应以本地 `HEAD`、`git status --short` 及与远端的比较为准。
 - 本轮属于规范文档工作；浏览器、屏幕阅读器、触控设备和真实业务组件测试均未执行，需在具体组件实现时完成。
