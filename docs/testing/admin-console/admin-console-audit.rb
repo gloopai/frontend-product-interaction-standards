@@ -32,7 +32,7 @@ end
 def toast_is_unique_owner?(text)
   text.split(/[。！\n]/).any? do |sentence|
     sentence.match?(
-      /唯一(?:的)?(?:回执|错误|恢复入口).*?(?:由|在|通过|仅).*?Toast|(?:回执|错误|恢复入口)唯一.*?(?:由|在|通过|仅).*?Toast|Toast.*?(?:(?<!不)(?<!能)是|为|作为|提供|显示).*?唯一(?:的)?(?:回执|错误|恢复入口)|(?:回执|错误|恢复入口|结果)(?:仅|只).*?Toast/
+      /唯一(?:的)?(?:回执|错误|恢复入口).*?(?:由|在|通过|仅).*?Toast|(?:回执|错误|恢复入口)唯一(?!\s*(?:不能|不是|不应|不得)(?:由|在|通过|仅)).*?(?:由|在|通过|仅).*?Toast|Toast.*?(?:(?<!不)(?<!能)是|为|作为|提供|显示).*?唯一(?:的)?(?:回执|错误|恢复入口)|(?:回执|错误|恢复入口|结果)(?:仅|只).*?Toast/
     )
   end
 end
@@ -110,6 +110,20 @@ def mutation(name, source, replacement)
   end
 end
 
+def positive_control(name, source, replacement)
+  mutated = File.read(source, encoding: 'UTF-8').sub(replacement.fetch(:from), replacement.fetch(:to))
+  raise "positive control 未命中：#{name}" if mutated == File.read(source, encoding: 'UTF-8')
+
+  failures = output_failures(source, mutated)
+  if failures.empty?
+    puts "EXPECTED_PASS: #{name}"
+    true
+  else
+    puts "UNEXPECTED_FAIL: #{name}"
+    false
+  end
+end
+
 mutations = ARGV.delete('--mutations')
 outputs = ARGV.empty? ? DEFAULT_OUTPUTS : ARGV.map { |path| File.expand_path(path) }
 failures = audit(outputs)
@@ -140,6 +154,11 @@ if mutations
     ['toast-object-first-recovery', permission, { from: 'Toast 仅辅助，Tooltip', to: '恢复入口唯一通过 Toast 提供，Tooltip' }],
     ['runtime-status-first-contradicted', report, { from: '均未执行，DOM/ARIA', to: '均未执行，DOM/ARIA；已对浏览器执行验证' }]
   ]
-  passed = checks.map { |name, source, replacement| mutation(name, source, replacement) }.all?
+  controls = [
+    ['toast-negated-object-first-error', permission, { from: 'Toast 仅辅助，Tooltip', to: '错误唯一不能由 Toast 显示，Tooltip' }],
+    ['toast-negated-object-first-recovery', permission, { from: 'Toast 仅辅助，Tooltip', to: '恢复入口唯一不是通过 Toast 提供，Tooltip' }]
+  ]
+  passed = checks.map { |name, source, replacement| mutation(name, source, replacement) }.all? &&
+           controls.map { |name, source, replacement| positive_control(name, source, replacement) }.all?
   exit(passed ? 0 : 1)
 end
