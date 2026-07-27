@@ -31,12 +31,9 @@ end
 
 def toast_is_unique_owner?(text)
   text.split(/[。！\n]/).any? do |sentence|
-    direct_unique = sentence.match?(/唯一(?:的)?(?:回执|错误|恢复入口).*?(?:由|在|通过|仅).*?Toast/)
-    next true if direct_unique
-
-    next false if sentence.match?(/(?:不是|不能是|不承载)唯一/)
-
-    sentence.match?(/(?:Toast.*?(?:唯一(?:的)?(?:回执|错误|恢复入口)|仅(?:用于|显示|提供).*?(?:回执|错误|恢复入口))|(?:回执|错误|恢复入口|结果)(?:仅|只).*?Toast)/)
+    sentence.match?(
+      /唯一(?:的)?(?:回执|错误|恢复入口).*?(?:由|在|通过|仅).*?Toast|(?:回执|错误|恢复入口)唯一.*?(?:由|在|通过|仅).*?Toast|Toast.*?(?:(?<!不)(?<!能)是|为|作为|提供|显示).*?唯一(?:的)?(?:回执|错误|恢复入口)|(?:回执|错误|恢复入口|结果)(?:仅|只).*?Toast/
+    )
   end
 end
 
@@ -44,7 +41,8 @@ def runtime_boundary_unverified?(text)
   environments = [/浏览器/, /AT(?:（屏幕阅读器）)?/, /touch(?:（触摸设备）)?/, /真实组件运行时/]
   environments.all? do |environment|
     negative = text.match?(/#{environment.source}[^。！\n]{0,100}(?:未执行|未验证)/)
-    positive = text.match?(/#{environment.source}[^。！\n]{0,100}(?:已执行|已验证|已运行)/)
+    positive = text.match?(/#{environment.source}[^。！\n]{0,100}(?:已执行|已验证|已运行|验证已完成)/) ||
+               text.match?(/(?:已对|已|已经)[^。！\n]{0,20}#{environment.source}[^。！\n]{0,40}(?:执行验证|完成验证|验证已完成)/)
     negative && !positive
   end
 end
@@ -137,7 +135,10 @@ if mutations
     ['runtime-boundary-removed', report, { from: '浏览器、AT（屏幕阅读器）、touch（触摸设备）和真实组件运行时均未执行，DOM/ARIA、事件日志、键盘路径和断点行为均标记为未验证；不将上述推断写成运行时事实。', to: '浏览器、AT、touch 与真实组件运行时已全部验证。' }],
     ['risk-zero-evidence-borrowed', report, { from: 'request=0（无风险请求）', to: 'request=1（错误的风险请求）' }],
     ['toast-unique-error', permission, { from: 'Toast 仅辅助，Tooltip', to: '唯一错误由 Toast 显示，Tooltip' }],
-    ['runtime-boundary-contradicted', report, { from: '均未执行，DOM/ARIA', to: '均已执行，DOM/ARIA' }]
+    ['runtime-boundary-contradicted', report, { from: '均未执行，DOM/ARIA', to: '均已执行，DOM/ARIA' }],
+    ['toast-object-first-error', permission, { from: 'Toast 仅辅助，Tooltip', to: '错误唯一由 Toast 显示，Tooltip' }],
+    ['toast-object-first-recovery', permission, { from: 'Toast 仅辅助，Tooltip', to: '恢复入口唯一通过 Toast 提供，Tooltip' }],
+    ['runtime-status-first-contradicted', report, { from: '均未执行，DOM/ARIA', to: '均未执行，DOM/ARIA；已对浏览器执行验证' }]
   ]
   passed = checks.map { |name, source, replacement| mutation(name, source, replacement) }.all?
   exit(passed ? 0 : 1)
