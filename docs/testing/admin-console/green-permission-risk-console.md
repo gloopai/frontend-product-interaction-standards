@@ -117,11 +117,19 @@
 | pagination | input-semantics | 适用 | 有名称真实按钮 | 本节 | 未验证 |
 | pagination | single-focus-transition | 适用 | 单次焦点策略 | 本节 | 未验证 |
 
+## 原子应用义务补充
+
+成员表的原子应用义务不仅在上表声明，还在正文落到 data-table owner：筛选七项分别落实 draft/applied 分离、explicit apply、默认重置、可见可移除条件、urlSafe、字段错误 owner 和分页回初始游标；排序十一项落实 `displayName asc`、null last、Unicode case-fold、`zh-CN`、自然数字比较、`memberId asc` 稳定键、表头 DOM、`aria-sort`、Enter/Space、焦点保留和回初始游标；cursor 分页六项落实 opaque prev/next、缺失方向 disabled、禁止页码/跳页/加载更多/无限滚动、失效游标单次恢复、真实按钮语义和单次焦点策略。
+
 ## 角色详情表单与确认 Dialog
 
-角色详情保留 `initialValue/value/touched/dirty/syncErrors/asyncErrors/serverErrors/validationGeneration`；提交创建不可变 `submitSnapshot + submitId`，预校验未通过请求为 0，重复点击/Enter/重放不创建第二请求。字段错误、跨字段错误和 `submitError` 各有唯一 owner；失败保留草稿、dirty、错误与恢复路径。
+角色详情保留 `initialValue/value/touched/dirty/syncErrors/asyncErrors/serverErrors/validationGeneration`；提交创建不可变 `submitSnapshot + submitId`，预校验未通过请求为 0，重复点击/Enter/重放不创建第二请求。字段错误、跨字段错误、错误摘要和 `submitError` 各有唯一 owner；失败保留草稿、dirty、错误与恢复路径。
+
+角色详情表单执行 forms owner 的完整阶段：`submitPhase` 只能在 `idle`、`awaiting-validation`、`validation-aborted`、`request-in-flight`、`request-succeeded`、`request-failed` 间转换。等待校验期编辑策略为允许编辑但材料性输入立即终结旧候选为 `validation-aborted`；进入 `request-in-flight` 后，响应必须匹配 `live form session`、`submitId`、不可变快照和权限版本。`request-succeeded` 只更新对应成功快照的 baseline；`request-failed` 不关闭详情、不 reset 草稿，保留 `asyncErrors`、`serverErrors`、错误摘要和焦点恢复目标。
 
 删除、批量停用、权限变更分别打开强度匹配的 Dialog：遮罩点击不关闭，右上关闭存在，Escape 只在尚未发请求且策略允许时关闭，焦点陷阱、初始焦点、退出完成后的单次返回和 route/unmount disposal 均按 Dialog owner。外框不滚动，标题/操作区固定，内容区滚动；提交失败不关闭。
+
+每个风险 Dialog 的打开动画为遮罩淡入与 Dialog `scale(0.96)` 到 `scale(1)` 的 `200ms ease-out`，关闭动画为 `150ms ease-in`；`prefers-reduced-motion` 时禁用缩放并压缩过渡。打开即设置 `inert` 背景隔离和页面滚动锁定。普通关闭顺序为退出动画完成 → `DOM 移除` → 释放模态保护（焦点约束、遮罩、背景隔离、页面滚动锁定）→ 焦点返回原行按钮或批量栏；route/unmount disposal 立即移除当前实例并释放自己资源，不等待动画、不恢复到将移除的触发器。
 
 三类操作的 `requestIdentity` 都冻结 `{operationId,idempotencyKey,permissionVersion,targetSnapshot,initiator}`；`resultReceipt` 都区分成功、部分成功、失败、冲突、未知结果与审计回执。权限版本或目标快照 stale 时不执行；页面内回执保留影响数、失败项、冲突/未知恢复与审计位置。关闭确认或离开页面不等于已发请求取消成功。
 
@@ -129,7 +137,7 @@
 
 原生 Table 与卡片映射保留成员身份、状态、角色、选择、删除、批量停用和恢复。选择控件说明成员身份、当前页范围与混合/禁用状态；键盘可完成筛选、分页、行操作、页选择、批量确认和错误恢复。结果页面内回执是 primary owner，Toast 仅辅助；Tooltip/Popover 不承载唯一权限原因、错误或确认后果。
 
-窄屏可收纳次要列和筛选，但租户、用户身份、角色详情、删除、批量停用、权限原因、确认后果、回执和恢复均可达；断点转换不重建正在编辑的表单或打开 Dialog。
+响应式等价覆盖 `1440×900`、`1280×720`、平板横竖屏、窄屏、低高度、200% 缩放、虚拟键盘和四向 safe area。窄屏可收纳次要列和筛选，但租户、用户身份、角色详情、删除、批量停用、权限原因、确认后果、回执和恢复均可达；断点切换保持状态延续，不重建正在编辑的表单、成员表、选择、打开 Dialog 或在途风险请求。
 
 浏览器、AT（屏幕阅读器）、touch（触摸设备）与真实组件运行时未执行；DOM/ARIA、焦点迁移、键盘、事件日志、批量部分成功和窄屏布局均为未验证。
 

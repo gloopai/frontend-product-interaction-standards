@@ -103,6 +103,8 @@
 
 筛选表单把 `filterDraft` 与 `appliedFilters` 分离，时间范围为 `applyMode=explicit`；reset 回产品默认 28 天，只序列化 `urlSafe` 值。字段保留 `initialValue/value/touched/dirty/errors/validationGeneration`，错误紧邻字段并由错误摘要导航；只有已提交合法值生成新查询快照。查询失败保留旧结果、标记 stale 并提供可聚焦重试。
 
+时间范围筛选作为 forms owner 的轻量表单执行完整生命周期：表单维护 `submitPhase`，阶段只允许 `idle`、`awaiting-validation`、`validation-aborted`、`request-in-flight`、`request-succeeded`、`request-failed`；等待校验期编辑策略为允许编辑但任何材料性输入立即把旧 `submitId` 终结为 `validation-aborted`。每次应用筛选先冻结 `submitSnapshot` 和 `submitId`，同步/异步校验均带 `live form session`、字段 id、`validationGeneration` 和候选值；`asyncErrors`、`serverErrors`、字段错误和表单级错误摘要分别有 primary owner。进入 `request-in-flight` 后旧响应只有在 live session、`submitId`、快照和权限版本都匹配时才能写回；`request-succeeded` 更新筛选基线，`request-failed` 保留草稿、dirty、错误摘要、焦点目标和重试路径。
+
 | ruleFamily | obligationKey | applicability | currentValueOrZeroEvidence | outputLocation | verificationStatus |
 | --- | --- | --- | --- | --- | --- |
 | filtering | draft-applied-separation | 适用 | `filterDraft` / `appliedFilters` 分离 | 本节 | 静态已定义 |
@@ -137,11 +139,13 @@
 
 导出入口显式存在。点击后先冻结导出范围、筛选快照、权限版本、敏感字段排除、过期时间和下载身份；敏感范围使用 Dialog 强确认。Dialog 点遮罩不关闭，有右上关闭、Escape 策略、焦点陷阱与发起器返回；外框不滚动，仅内容滚动，提交失败保持打开且聚焦错误摘要。
 
+导出确认 Dialog 按 dialogs owner 展开而非只声明：打开时遮罩淡入、Dialog 从 `scale(0.96)` 到 `scale(1)`，`200ms ease-out`；关闭时 `150ms ease-in`，`prefers-reduced-motion` 下缩放禁用且过渡不超过 50ms。模态开始即取得 `inert` 背景隔离和页面滚动锁定；普通关闭顺序固定为退出动画完成 → `DOM 移除` → 释放模态保护（焦点约束、遮罩、背景隔离、页面滚动锁定）→ 焦点返回导出按钮，且只执行一次。提交中失败保持 Dialog 打开并聚焦错误摘要；route/unmount disposal 不等待退出动画、不焦点返回旧触发器，只清理当前实例资源。
+
 `riskState` 保存 `riskLevel=sensitive`、`impactScope`、`confirmationPolicy=strong`，以及 `{operationId,idempotencyKey,permissionVersion,targetSnapshot,initiator}`。`resultReceipt` 区分成功、部分成功、失败、冲突、未知结果和审计回执。`taskState` 显示排队、生成、成功/失败/未知/过期，下载时重验权限与身份；`auditState` 明示审计可用性、页面内回执位置和失败恢复。
 
 ## 键盘、ARIA、响应式和验证边界
 
-原生 Table 具有可区分名称；表头排序、筛选、页码、导出和 Dialog 全部可键盘到达，同一完整状态只公告一次。窄屏把明细表转成有字段标签的等价卡片或受控横向滚动，保留 KPI 口径、导出、权限、错误恢复和审计回执；200% 缩放、长文本、低高度、虚拟键盘与四向 safe area 不删除能力。
+原生 Table 具有可区分名称；表头排序、筛选、页码、导出和 Dialog 全部可键盘到达，同一完整状态只公告一次。响应式等价覆盖 `1440×900`、`1280×720`、平板横竖屏、窄屏、低高度、200% 缩放、虚拟键盘和四向 safe area；窄屏把明细表转成有字段标签的等价卡片或受控横向滚动，保留 KPI 口径、导出、权限、错误恢复和审计回执。断点切换保持同一 owner、同一筛选草稿、同一 Dialog/导出任务和状态延续，不重建表单、表格、Dialog 或在途请求。
 
 浏览器、AT（屏幕阅读器）、touch（触摸设备）和真实组件运行时均未执行；DOM/ARIA、焦点、键盘、事件日志、下载拒绝与断点行为均为未验证。
 

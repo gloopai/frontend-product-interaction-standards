@@ -19,6 +19,23 @@ STATE_KEYS = %w[navigationState permissionState surfaceState riskState auditStat
 SURFACES = %w[overview-dashboard report record-list record-detail record-editor settings job-center audit-log].freeze
 COMPONENT_OWNERS = %w[admin-console data-tables dialogs forms responsive-adaptive].freeze
 COMPONENT_CONTRACTS = %w[dataTableReport dialogLifecycle formLifecycle responsiveEquivalence].freeze
+COMPONENT_BODY_TERMS = {
+  'dataTableReport' => %w[
+    capabilityTier resolvedTier queryState viewState interactionState operationState lifecycleGuard 原子应用义务 运行时验证边界
+  ],
+  'formLifecycle' => %w[
+    submitPhase awaiting-validation validation-aborted request-in-flight request-succeeded request-failed 等待校验期编辑策略
+    submitSnapshot submitId validationGeneration asyncErrors serverErrors 错误摘要 live\ form\ session
+  ],
+  'dialogLifecycle' => [
+    '200ms ease-out', '150ms ease-in', 'prefers-reduced-motion', 'inert', '页面滚动锁定',
+    '普通关闭顺序', 'DOM 移除', '释放模态保护', '焦点返回', 'route/unmount disposal'
+  ],
+  'responsiveEquivalence' => [
+    '1440×900', '1280×720', '平板横竖屏', '窄屏', '低高度', '200%', '虚拟键盘',
+    'safe area', '断点切换', '不重建', '状态延续'
+  ]
+}.freeze
 IDENTITY_FIELDS = %w[operationId idempotencyKey permissionVersion targetSnapshot initiator].freeze
 RECEIPT_STATES = %w[success partial-success failure conflict unknown].freeze
 AUDIT_STATES = %w[no-data no-permission filter-empty service-error data-delay].freeze
@@ -60,6 +77,13 @@ def contract_failures(path, contract, text)
   STATE_KEYS.each { |key| failures << "#{path}: 缺少状态 owner #{key}" unless Array(contract['stateOwners']).include?(key) }
   COMPONENT_OWNERS.each { |owner| failures << "#{path}: 未应用组件 owner #{owner}" unless contract.dig('componentOwners', owner) == true }
   COMPONENT_CONTRACTS.each { |key| failures << "#{path}: 未应用组件报告契约 #{key}" unless contract.dig('componentContracts', key) == true }
+  COMPONENT_BODY_TERMS.each do |contract_key, terms|
+    next unless contract.dig('componentContracts', contract_key) == true
+
+    terms.each do |term|
+      failures << "#{path}: #{contract_key} 缺少正文应用 #{term}" unless text.include?(term)
+    end
+  end
 
   boundary = contract.fetch('permissionBoundary', {})
   failures << "#{path}: 缺少 tenant 权限边界" unless boundary['tenantScoped'] == true
@@ -239,6 +263,7 @@ if mutations
     ['component-dialog-missing', permission, {}, ->(c) { c['componentContracts']['dialogLifecycle'] = false }],
     ['component-form-missing', job, {}, ->(c) { c['componentContracts']['formLifecycle'] = false }],
     ['component-responsive-missing', report, {}, ->(c) { c['componentContracts']['responsiveEquivalence'] = false }],
+    ['component-lifecycle-body-deleted', permission, {'角色详情表单执行 forms owner 的完整阶段：`submitPhase` 只能在 `idle`、`awaiting-validation`、`validation-aborted`、`request-in-flight`、`request-succeeded`、`request-failed` 间转换。' => '角色详情表单遵循 forms owner。'}, ->(_c) {}],
     ['risk-identity-operation-id', permission, {}, ->(c) { c['riskOperations'][0]['requestIdentity']['operationId'] = false }],
     ['risk-identity-idempotency-key', permission, {}, ->(c) { c['riskOperations'][0]['requestIdentity']['idempotencyKey'] = false }],
     ['risk-identity-permission-version', permission, {}, ->(c) { c['riskOperations'][0]['requestIdentity']['permissionVersion'] = false }],

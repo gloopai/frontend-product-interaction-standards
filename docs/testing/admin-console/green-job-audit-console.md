@@ -85,7 +85,11 @@
 
 导入表单约束 CSV、文件上限、字段映射、预检查与提交。每个映射字段保存 `initialValue/value/touched/dirty/syncErrors/asyncErrors/serverErrors/validationGeneration`；草稿与已提交映射分离。点击“开始导入”先建 `submitSnapshot + submitId`，重复点击/Enter/重放复用候选；预检查失败的执行任务创建数为 0，页面内 Alert 保留错误文件、行号和下一步。
 
+导入表单执行 forms owner 的完整阶段：`submitPhase` 只允许 `idle`、`awaiting-validation`、`validation-aborted`、`request-in-flight`、`request-succeeded`、`request-failed`。等待校验期编辑策略为允许修正映射；任何材料性修改会让旧候选进入 `validation-aborted` 并要求用户重新显式提交。预检查和异步校验结果必须匹配 `live form session`、字段 id、`validationGeneration`、`submitId` 和快照；`asyncErrors`、`serverErrors`、字段错误、错误摘要与表单级错误分属唯一 owner。进入 `request-in-flight` 后不覆盖新草稿；`request-succeeded` 只让对应快照成为可追溯任务，`request-failed` 保留草稿、错误文件、行号和恢复路径。
+
 导入确认、敏感导出、取消和重试都使用风险相称的 Dialog：遮罩不关闭，右上关闭存在，Escape 不伪造服务端取消，外框不滚动、内容区滚动，标题和操作区持续可见。焦点陷阱、初始焦点、失败后保持打开、退出完成后单次恢复和 route/unmount disposal 均按 Dialog owner。
+
+这些 Dialog 打开采用遮罩淡入与 Dialog `scale(0.96)` 到 `scale(1)` 的 `200ms ease-out`；关闭采用 `150ms ease-in`，`prefers-reduced-motion` 时禁用缩放。打开即取得 `inert` 背景隔离、焦点约束和页面滚动锁定。普通关闭顺序固定为退出动画完成 → `DOM 移除` → 释放模态保护（焦点约束、遮罩、背景隔离、页面滚动锁定）→ 焦点返回任务行或导入按钮；route/unmount disposal 立即处置当前实例并取消本实例回调，不把焦点返回将移除的触发器。
 
 `taskState` 对每个导入、导出和后台任务持续绑定快照、创建/执行/查看/下载权限、幂等键、排队/进度、结果和失败恢复。状态明确区分排队、运行中、成功、部分成功、失败、取消中、已取消、未知结果和过期。关闭页面不等于取消任务；取消请求不等于服务端已停止。
 
@@ -135,11 +139,15 @@
 | pagination | input-semantics | 适用 | 有名称真实按钮 | 本节 | 未验证 |
 | pagination | single-focus-transition | 适用 | 单次焦点策略 | 本节 | 未验证 |
 
+## 原子应用义务补充
+
+任务/审计列表的原子应用义务在正文逐项落实：筛选七项包含 draft/applied 分离、explicit apply、产品默认 reset、可见可移除条件、urlSafe、字段错误 owner 和分页回初始游标；排序十一项包含实际键方向、null last、Unicode case-fold、`zh-CN`、自然数字比较、唯一稳定键、表头 DOM、`aria-sort`、Enter/Space、焦点保留和回初始游标；cursor 分页六项包含 opaque prev/next、缺失方向 disabled、禁止页码/跳页/加载更多/无限滚动、失效游标单次恢复、输入语义和单次焦点策略。
+
 ## 审计、公告、响应式与验证
 
 审计日志独立展示无数据、无权限、筛选无结果、审计服务不可用和数据延迟；查询/导出不泄露无权主体、对象或租户名。任务详情和页面内 Alert 承载唯一完整结果/错误/恢复；Notification 用于跨页消息，Toast 仅辅助，Tooltip/Popover 不承载唯一错误或权限原因。
 
-窄屏可用字段标签卡片或受控横向滚动，但任务身份、进度、错误文件、下载、取消、重试、审计筛选、权限原因和恢复入口全部可达。200% 缩放、长文本、低高度、虚拟键盘和 safe area 不删除核心能力。
+响应式等价覆盖 `1440×900`、`1280×720`、平板横竖屏、窄屏、低高度、200% 缩放、虚拟键盘和四向 safe area。窄屏可用字段标签卡片或受控横向滚动，但任务身份、进度、错误文件、下载、取消、重试、审计筛选、权限原因和恢复入口全部可达。断点切换保持状态延续，不重建导入表单、任务列表、审计列表、打开 Dialog、下载身份或在途任务观察。
 
 浏览器、AT（屏幕阅读器）、touch（触摸设备）和真实组件运行时均未执行；任务 DOM/ARIA、键盘/焦点、事件日志、下载重验、取消终态和断点行为均为未验证。
 

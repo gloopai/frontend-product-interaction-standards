@@ -14,7 +14,7 @@
 ruby docs/testing/admin-console/admin-console-audit.rb docs/testing/admin-console/green-report-dashboard.md docs/testing/admin-console/green-permission-risk-console.md docs/testing/admin-console/green-job-audit-console.md --mutations
 ```
 
-当前结果：`PASS`；41 个负向变异均为 `EXPECTED_FAIL`，3 个否定语义正向对照均为 `EXPECTED_PASS`。负向变异包括原始能力被删除、报表误开选择/批量、口径/刷新/延迟缺失、旧权限数据保留、导入预检查误创建任务、下载不重验、页面关闭等于取消、审计状态合并、组件 owner 契约缺失、五个 `requestIdentity` 字段或五类互斥结果/审计回执缺失，以及三个审查指定的同义违规改写。
+当前结果：`PASS`；42 个负向变异均为 `EXPECTED_FAIL`，3 个否定语义正向对照均为 `EXPECTED_PASS`。负向变异包括原始能力被删除、报表误开选择/批量、口径/刷新/延迟缺失、旧权限数据保留、导入预检查误创建任务、下载不重验、页面关闭等于取消、审计状态合并、组件 owner 契约缺失、组件生命周期正文删除、五个 `requestIdentity` 字段或五类互斥结果/审计回执缺失，以及三个审查指定的同义违规改写。
 
 官方 `quick_validate.py` 尚未进入实际 Skill 校验：当前解释器在导入依赖时终止，错误为 `ModuleNotFoundError: No module named 'yaml'`。按任务约束未安装依赖，不得把该项记为通过。
 

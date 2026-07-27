@@ -137,7 +137,7 @@ frontend-product-interaction-standards/
 
 ## 当前验证状态
 
-- Ruby 结构化审计、Markdown 相对链接检查和 `git diff --check` 等本地文档静态检查已通过；当前管理台审计包含 41 个负向变异和 3 个否定语义正向对照。官方 `quick_validate.py` 未完成校验：运行环境缺少 PyYAML，解释器在导入阶段报 `ModuleNotFoundError: No module named 'yaml'`；未安装依赖，不得记为通过。
+- Ruby 结构化审计、Markdown 相对链接检查和 `git diff --check` 等本地文档静态检查已通过；当前管理台审计包含 42 个负向变异和 3 个否定语义正向对照。官方 `quick_validate.py` 未完成校验：运行环境缺少 PyYAML，解释器在导入阶段报 `ModuleNotFoundError: No module named 'yaml'`；未安装依赖，不得记为通过。
 - 已完成 Base→Head 完整差异审查、独立 RED/GREEN 应用检查及最终复审；静态修订、账本和证据边界见上述审计链接。
 - `docs/` 已允许纳入 Git；当前提交与推送状态应以本地 `HEAD`、`git status --short` 及与远端的比较为准。
 - 本轮属于规范文档工作；浏览器、屏幕阅读器、触控设备和真实业务组件测试均未执行，需在具体组件实现时完成。
