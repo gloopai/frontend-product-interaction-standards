@@ -21,8 +21,32 @@ DEFAULT_OUTPUTS = %w[
   docs/testing/admin-console/green-job-audit-console.md
 ].map { |path| File.join(ROOT, path) }.freeze
 
-def zero_evidence?(text)
-  text.match?(/DOM=0/) && text.match?(/state=0/) && text.match?(/handler\/event=0/) && text.match?(/request=0/)
+def zero_evidence_for?(text, label)
+  start = text.index(label)
+  return false unless start
+
+  block = text[start...(text.index("\n", start) || text.length)]
+  block.match?(/DOM=0/) && block.match?(/state=0/) && block.match?(/handler\/event=0/) && block.match?(/request=0/)
+end
+
+def toast_is_unique_owner?(text)
+  text.split(/[。！\n]/).any? do |sentence|
+    direct_unique = sentence.match?(/唯一(?:的)?(?:回执|错误|恢复入口).*?(?:由|在|通过|仅).*?Toast/)
+    next true if direct_unique
+
+    next false if sentence.match?(/(?:不是|不能是|不承载)唯一/)
+
+    sentence.match?(/(?:Toast.*?(?:唯一(?:的)?(?:回执|错误|恢复入口)|仅(?:用于|显示|提供).*?(?:回执|错误|恢复入口))|(?:回执|错误|恢复入口|结果)(?:仅|只).*?Toast)/)
+  end
+end
+
+def runtime_boundary_unverified?(text)
+  environments = [/浏览器/, /AT(?:（屏幕阅读器）)?/, /touch(?:（触摸设备）)?/, /真实组件运行时/]
+  environments.all? do |environment|
+    negative = text.match?(/#{environment.source}[^。！\n]{0,100}(?:未执行|未验证)/)
+    positive = text.match?(/#{environment.source}[^。！\n]{0,100}(?:已执行|已验证|已运行)/)
+    negative && !positive
+  end
 end
 
 def output_failures(path, text)
@@ -30,18 +54,18 @@ def output_failures(path, text)
   failures << "#{path}: 缺少 consoleSurface 声明" unless text.match?(/consoleSurface:\s*(?:overview-dashboard|report|record-list|record-detail|record-editor|settings|job-center|audit-log)/)
   STATE_KEYS.each { |key| failures << "#{path}: 缺少状态 owner #{key}" unless text.include?(key) }
   failures << "#{path}: 缺少权限/租户安全边界" unless text.match?(/permissionState/) && text.match?(/tenant|租户/) && text.match?(/旧.*(?:隐藏|安全占位|不保留)/)
-  failures << "#{path}: 缺少风险声明或四类零值证据" unless text.match?(/riskLevel.*impactScope.*confirmationPolicy.*requestIdentity.*resultReceipt/m) || (text.include?('风险操作零值证据') && zero_evidence?(text))
-  failures << "#{path}: 缺少审计可用性和回执位置或四类零值证据" unless (text.match?(/审计可用性/) && text.match?(/审计.*(?:位置|回执)/)) || (text.include?('审计零值证据') && zero_evidence?(text))
-  failures << "#{path}: 缺少导入/导出/任务能力或四类零值证据" unless text.match?(/导入.*导出.*(?:任务|taskState)/m) || (text.include?('任务零值证据') && zero_evidence?(text))
-  failures << "#{path}: Toast 被当作唯一回执、错误或恢复入口" if text.match?(/结果仅 Toast-only|Toast 是唯一|唯一回执.*Toast/)
+  failures << "#{path}: 缺少风险声明或对应区块的四类零值证据" unless text.match?(/riskLevel.*impactScope.*confirmationPolicy.*requestIdentity.*resultReceipt/m) || zero_evidence_for?(text, '风险操作零值证据')
+  failures << "#{path}: 缺少审计可用性和回执位置或对应区块的四类零值证据" unless (text.match?(/审计可用性/) && text.match?(/审计.*(?:位置|回执)/)) || zero_evidence_for?(text, '审计零值证据')
+  failures << "#{path}: 缺少导入/导出/任务能力或对应区块的四类零值证据" unless text.match?(/导入.*导出.*(?:任务|taskState)/m) || zero_evidence_for?(text, '任务零值证据')
+  failures << "#{path}: Toast 被当作唯一回执、错误或恢复入口" if toast_is_unique_owner?(text)
   failures << "#{path}: Tooltip/Popover 承载唯一必读内容" if text.match?(/唯一.*仅在 (?:Tooltip|Popover)|(?:Tooltip|Popover) 是唯一/)
-  failures << "#{path}: 缺少运行时未验证边界" unless text.include?('未验证') && text.match?(/浏览器/) && text.match?(/AT/) && text.match?(/touch/) && text.match?(/真实组件运行时/)
+  failures << "#{path}: 每个运行时环境均须明确未执行/未验证，且不能与已执行声明矛盾" unless runtime_boundary_unverified?(text)
 
   case File.basename(path)
   when 'green-report-dashboard.md'
     failures << "#{path}: 报表未明确默认只读" unless text.include?('默认只读展示')
     failures << "#{path}: 报表启用了未显式声明的选择/批量" if text.include?('默认启用选择和批量')
-    failures << "#{path}: 报表缺少四类只读零值证据" unless text.include?('只读零值证据') && zero_evidence?(text)
+    failures << "#{path}: 报表缺少对应区块的四类只读零值证据" unless zero_evidence_for?(text, '只读零值证据')
     %w[口径 时间范围 刷新时间 数据延迟 权限范围 过滤条件].each { |term| failures << "#{path}: 报表缺少 #{term}" unless text.include?(term) }
   when 'green-permission-risk-console.md'
     failures << "#{path}: 权限更新仍可能暴露旧数据" unless text.match?(/旧.*(?:隐藏|安全占位|不保留)/)
@@ -110,8 +134,11 @@ if mutations
     ['page-close-is-task-cancel', job, { from: '关闭页面不等于取消', to: '关闭页面等于取消' }],
     ['audit-states-merged', job, { from: '不合并为空态', to: '合并为一个空态' }],
     ['tooltip-only-reason', permission, { from: 'Tooltip/Popover 不承载唯一权限原因、错误或确认后果', to: '唯一权限原因仅在 Tooltip' }],
-    ['runtime-boundary-removed', report, { from: '浏览器、AT（屏幕阅读器）、touch（触摸设备）和真实组件运行时均未执行，DOM/ARIA、事件日志、键盘路径和断点行为均标记为未验证；不将上述推断写成运行时事实。', to: '浏览器、AT、touch 与真实组件运行时已全部验证。' }]
+    ['runtime-boundary-removed', report, { from: '浏览器、AT（屏幕阅读器）、touch（触摸设备）和真实组件运行时均未执行，DOM/ARIA、事件日志、键盘路径和断点行为均标记为未验证；不将上述推断写成运行时事实。', to: '浏览器、AT、touch 与真实组件运行时已全部验证。' }],
+    ['risk-zero-evidence-borrowed', report, { from: 'request=0（无风险请求）', to: 'request=1（错误的风险请求）' }],
+    ['toast-unique-error', permission, { from: 'Toast 仅辅助，Tooltip', to: '唯一错误由 Toast 显示，Tooltip' }],
+    ['runtime-boundary-contradicted', report, { from: '均未执行，DOM/ARIA', to: '均已执行，DOM/ARIA' }]
   ]
-  passed = checks.all? { |name, source, replacement| mutation(name, source, replacement) }
+  passed = checks.map { |name, source, replacement| mutation(name, source, replacement) }.all?
   exit(passed ? 0 : 1)
 end
