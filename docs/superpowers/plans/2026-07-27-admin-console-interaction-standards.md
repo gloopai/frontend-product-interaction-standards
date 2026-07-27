@@ -359,7 +359,7 @@ Update tree to include `references/admin-console.md` and add completed section:
 - 已定义后台、管理台、控制台、SaaS console 和内部工具的跨页面 owner。
 - 报表和仪表盘默认只读展示；选择、行操作、批量、导出和钻取均需显式声明。
 - 权限、租户/工作区、危险操作、审计、导入导出、异步任务、全局反馈和移动端折叠均有页面级约束。
-- 详细规则和可执行验收仅维护在 [管理台完整治理交互规范](references/admin-console.md)，本交接不重复其状态模型或检查项。
+- 详细规则和可执行验收仅维护在 [管理台完整治理交互规范](../../../references/admin-console.md)，本交接不重复其状态模型或检查项。
 ```
 
 Move future priority so Toast/Alert/Notification/Popover/Tooltip is no longer listed as wholly missing; next suggestions should become uploads beyond admin scope, complex editors/builders, charts/visualization authoring, and file/media management.
