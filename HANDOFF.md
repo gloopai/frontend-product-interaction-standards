@@ -24,6 +24,7 @@ frontend-product-interaction-standards/
 │   └── audits/
 │       └── 2026-07-25-existing-standards-hardening.md
 └── references/
+    ├── admin-console.md
     ├── data-tables.md
     ├── dialogs.md
     ├── drawers.md
@@ -79,6 +80,13 @@ frontend-product-interaction-standards/
 - 已定义展示、单行操作与批量操作档位下的查询、列、筛选、排序、页码/游标分页、选择、部分成功、响应式、无障碍与生命周期规则。
 - 详细规则和可执行验收仅维护在 [数据表格交互规范](references/data-tables.md)，本交接不重复其状态模型或检查项。
 
+### 管理台完整治理
+
+- 已定义后台、管理台、控制台、SaaS console 和内部工具的跨页面 owner。
+- 报表和仪表盘默认只读展示；选择、行操作、批量、导出和钻取均需显式声明。
+- 权限、租户/工作区、危险操作、审计、导入导出、异步任务、全局反馈和移动端折叠均有页面级约束。
+- 详细规则和可执行验收仅维护在 [管理台完整治理交互规范](references/admin-console.md)，本交接不重复其状态模型或检查项。
+
 ### 响应式 closing
 
 - 进入 closing 后冻结当前渲染形态，忽略后续断点转换；只能执行一次专项退出动画、卸载和清理，并持续保持保护直到该流程完成。
@@ -107,10 +115,10 @@ frontend-product-interaction-standards/
 
 建议按优先级继续增加：
 
-1. Toast、Alert、Notification、Popover 与 Tooltip。
-2. 导航、面包屑、Tabs 和页面离开确认。
-3. 上传、下载、进度与失败重试。
-4. 空状态、加载骨架、权限不足和数据异常。
+1. 超出管理台范围的上传能力。
+2. 复杂编辑器和构建器。
+3. 图表与可视化创作。
+4. 文件与媒体管理。
 
 每次新增规范时，应同步检查：
 
