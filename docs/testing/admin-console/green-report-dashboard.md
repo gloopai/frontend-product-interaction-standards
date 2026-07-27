@@ -1,24 +1,169 @@
-# GREEN 应用：运营健康报表仪表盘
+# GREEN 应用：SaaS 收入概览与指标明细
 
-## 场景与能力清单
+> 原始任务能力全部保留：KPI 卡片、趋势图、明细表、时间范围筛选、导出入口和移动端查看。产品判断仍为报表默认展示型；显式要求的导出受权限、风险、审计和任务契约约束，不删除。
 
-- `consoleSurface: overview-dashboard`；页面标题为“运营健康”，当前导航为“分析 / 运营健康”，返回路径为“分析”。
-- `navigationState`：记录当前导航、返回路径；无 dirty 表单和不可安全中断任务，离开无需确认。
-- `permissionState`：包含 tenant、workspace、role、permissionVersion 与 `resolvedSurface`；租户、工作区、角色或权限版本变化时，原子重算可见指标、筛选范围和可导出范围。重算完成前旧指标、字段和入口替换为安全占位，不保留旧数据。
-- `surfaceState`：加载、内容、当前权限无数据、筛选无结果、指标尚未产生、服务失败、数据延迟、口径不可用分别建模。
-- `riskState`：本页面未启用风险操作。风险操作零值证据：DOM=0（无删除/停用/权限变更/批量/敏感导出控件）；state=0（无风险确认或结果状态）；handler/event=0（无风险提交处理器）；request=0（无风险请求）。
-- `auditState`：本页没有变更操作，审计写入与回执均不适用。审计零值证据：DOM=0（无审计回执入口）；state=0（无审计写入状态）；handler/event=0（无审计写入事件）；request=0（无审计写入请求）。
-- `taskState`：本页未启用导入、导出、订阅或异步任务。任务零值证据：DOM=0（无导入/导出/订阅/任务入口）；state=0（无任务状态）；handler/event=0（无任务创建或取消事件）；request=0（无任务请求）。
-- `feedbackState`：筛选失败和服务错误由页面内 Alert 作为 primary owner；Toast 只作辅助提示，不是唯一错误、成功回执、审计凭证或恢复入口；Tooltip/Popover 不承载唯一权限原因或唯一错误。
+<!-- admin-console-audit:start -->
+```json
+{
+  "schemaVersion": 2,
+  "scenario": "report-dashboard",
+  "promptCapabilities": {
+    "kpiCards": true,
+    "trendChart": true,
+    "detailTable": true,
+    "timeRangeFilter": true,
+    "export": true,
+    "mobile": true
+  },
+  "componentOwners": {
+    "admin-console": true,
+    "data-tables": true,
+    "dialogs": true,
+    "forms": true,
+    "responsive-adaptive": true
+  },
+  "componentContracts": {"dataTableReport": true, "dialogLifecycle": true, "formLifecycle": true, "responsiveEquivalence": true},
+  "consoleSurfaces": ["overview-dashboard", "report"],
+  "stateOwners": ["navigationState", "permissionState", "surfaceState", "riskState", "auditState", "taskState", "feedbackState"],
+  "permissionBoundary": {
+    "tenantScoped": true,
+    "oldDataDisposition": "hide-before-refresh",
+    "oldMenuDisposition": "hide-before-refresh",
+    "oldDownloadDisposition": "invalidate-before-refresh"
+  },
+  "riskOperations": [
+    {
+      "name": "sensitive-export",
+      "requestIdentity": {
+        "operationId": true,
+        "idempotencyKey": true,
+        "permissionVersion": true,
+        "targetSnapshot": true,
+        "initiator": true
+      },
+      "resultReceipt": {
+        "states": ["success", "partial-success", "failure", "conflict", "unknown"],
+        "auditReceipt": true,
+        "pageInline": true
+      }
+    }
+  ],
+  "audit": {
+    "availabilityDeclared": true,
+    "receiptLocationDeclared": true,
+    "states": ["no-data", "no-permission", "filter-empty", "service-error", "data-delay"]
+  },
+  "report": {
+    "defaultDisplayOnly": true,
+    "selectionEnabled": false,
+    "rowActionsEnabled": false,
+    "bulkEnabled": false,
+    "exportEnabled": true,
+    "metricDefinitionPresent": true,
+    "refreshTimestampPresent": true,
+    "dataLatencyPresent": true,
+    "permissionScopePresent": true,
+    "filterSnapshotShared": true
+  },
+  "dataTable": {
+    "capabilityTier": "display",
+    "resolvedTier": "display",
+    "fixedStateGroups": ["queryState", "viewState", "interactionState", "operationState"],
+    "lifecycleGuard": true,
+    "applicationChecklist": true,
+    "atomicObligations": true
+  },
+  "feedback": {"toastOnly": false, "tooltipOnly": false, "primaryOwnerUnique": true},
+  "runtimeVerification": {"browser": false, "screenReader": false, "touch": false, "realComponent": false}
+}
+```
+<!-- admin-console-audit:end -->
 
-## 只读报表与数据快照
+## 页面、权限与数据状态
 
-本页是默认只读展示：未显式声明选择、行操作、批量、钻取、导出或订阅，因此这些能力入口均为 0。只读零值证据：DOM=0（无 checkbox、行菜单、批量栏、钻取/导出/订阅按钮）；state=0（无 selection、bulk 或 action snapshot）；handler/event=0（无选择、行操作、批量、钻取、导出、订阅处理器）；request=0（无上述请求）。
+- `consoleSurface: overview-dashboard + report`。`navigationState` 稳定标识“收入概览”、“分析 / 收入概览”和返回“分析”；筛选草稿 dirty 时离开前确认。
+- `permissionState` 冻结 tenant、workspace、role、permissionVersion 和 `resolvedSurface`。租户或权限变化先隐藏旧 KPI、明细、菜单和导出下载，再以新范围刷新；禁用控件不泄露无权项目名或数量。
+- `surfaceState` 分开首加载、内容、当前权限无数据、筛选无结果、指标未产生、服务失败、数据延迟和口径不可用。`feedbackState` 以结果区 Alert 为错误 primary owner，Toast 只辅助；唯一错误不能由 Toast 显示，Tooltip/Popover 不承载唯一权限原因或恢复入口。
+- KPI“净收入”口径为已入账总收入减退款与折让；时间范围为用户已提交值；页面明示数据快照生成时间、最大 15 分钟延迟、tenant/workspace 权限范围与过滤条件。KPI、趋势图和明细表共用 `snapshotId + permissionVersion`。
 
-指标“按时完成率”的口径为“在目标截止时间前完成的工单 / 已完成工单”；时间范围为最近 28 天；刷新时间显示为数据快照生成时间；数据延迟显示为最多 15 分钟；权限范围为当前 tenant 与 workspace 的已授权项目；过滤条件为项目、负责人和优先级。指标卡、趋势图和明细列表共享同一份筛选/权限快照 `snapshotId`；任何不同范围都在组件标题中说明。
+## 明细表 owner 契约
 
-权限不足只说明“当前角色无法查看此分析范围，请切换已授权工作区或联系管理员”，不显示敏感项目名、数量或字段。窄屏仅折叠低频筛选和次要导航，口径、权限提示、错误恢复和刷新状态持续可达。
+`capabilityTier: display`，`resolvedTier: display`。`filteringEnabled=true`、`sortingEnabled=true`、`paginationMode=numbered`、`pageSize=25`、`pageSelectionEnabled=false`、`allFilteredSelectionEnabled=false`、`rowOperationEnabled=false`、`bulkOperationEnabled=false`、`columnVisibilityEnabled=true`、`columnPinningEnabled=true`、`columnResizeEnabled=false`、`responsivePresentation=table-or-labeled-cards`。
 
-## 审计与运行时边界
+- `queryState`：`appliedFilters/sortRules/pagination/pageSize/querySnapshot/snapshotId/datasetVersion/requestGeneration/requestPhase/queryError/stale`；只有 live owner + generation + snapshot 门禁全匹配的响应可提交。
+- `viewState`：`visibleColumnIds/pinnedColumnIds/columnWidths/density/rows/resultSummary`。
+- `interactionState`：`focusIntent/recordId/columnId`；选择、展开行和行菜单未实例化。
+- `operationState`：单行与批量均未实例化；导出属页面级 `taskState/riskState`，不伪装成表格行操作。
+- 独立 `lifecycleGuard`：`ownerId/lifecycleToken/live|disposed/ownedResources`。route/unmount 立即 disposal，迟到查询不写 DOM/state/focus/live region，返回时重校验权限和数据版本。
 
-本应用报告是设计与实现约束检查。浏览器、AT（屏幕阅读器）、touch（触摸设备）和真实组件运行时均未执行，DOM/ARIA、事件日志、键盘路径和断点行为均标记为未验证；不将上述推断写成运行时事实。
+| operationKind | currentValue | stateSlot | DOM | handler/event | request |
+| --- | --- | --- | --- | --- | --- |
+| row | not-instantiated | 0 | 0 | 0 | 0 |
+| bulk | not-instantiated | 0 | 0 | 0 | 0 |
+
+筛选表单把 `filterDraft` 与 `appliedFilters` 分离，时间范围为 `applyMode=explicit`；reset 回产品默认 28 天，只序列化 `urlSafe` 值。字段保留 `initialValue/value/touched/dirty/errors/validationGeneration`，错误紧邻字段并由错误摘要导航；只有已提交合法值生成新查询快照。查询失败保留旧结果、标记 stale 并提供可聚焦重试。
+
+| ruleFamily | obligationKey | applicability | currentValueOrZeroEvidence | outputLocation | verificationStatus |
+| --- | --- | --- | --- | --- | --- |
+| filtering | draft-applied-separation | 适用 | `filterDraft` / `appliedFilters` 分离 | 本节 | 静态已定义 |
+| filtering | declared-apply-mode | 适用 | `explicit` | 本节 | 静态已定义 |
+| filtering | default-reset | 适用 | 28 天 | 本节 | 静态已定义 |
+| filtering | visible-removable-applied-values | 适用 | 摘要可见且可单独移除 | 本节 | 未验证 |
+| filtering | url-safety | 适用 | 仅 `urlSafe` | 本节 | 未验证 |
+| filtering | field-error-owner | 适用 | 字段 primary owner | 本节 | 未验证 |
+| filtering | pagination-reset | 适用 | 回第 1 页 | 本节 | 未验证 |
+| sorting | actual-key-direction | 适用 | `periodStart desc` | 本节 | 静态已定义 |
+| sorting | null-order | 适用 | null last | 本节 | 静态已定义 |
+| sorting | case-rule | 适用 | Unicode case-fold | 本节 | 静态已定义 |
+| sorting | locale-rule | 适用 | `zh-CN` | 本节 | 静态已定义 |
+| sorting | natural-order-rule | 适用 | numeric natural order | 本节 | 静态已定义 |
+| sorting | unique-stable-key | 适用 | `revenueRecordId asc` | 本节 | 静态已定义 |
+| sorting | interactive-dom | 适用 | 真实表头按钮 | 本节 | 未验证 |
+| sorting | interactive-aria | 适用 | 主排序 `aria-sort` | 本节 | 未验证 |
+| sorting | interactive-keyboard | 适用 | Enter/Space | 本节 | 未验证 |
+| sorting | interactive-focus | 适用 | 保留表头按钮焦点 | 本节 | 未验证 |
+| sorting | reset-to-origin | 适用 | 新排序回第 1 页 | 本节 | 未验证 |
+| pagination | reliable-total-and-range | 适用 | 可靠总数、当前/总页和范围 | 本节 | 未验证 |
+| pagination | direct-pages | 适用 | 直接页码 | 本节 | 未验证 |
+| pagination | validated-jump | 适用 | 有标签且校验的跳页 | 本节 | 未验证 |
+| pagination | native-boundaries | 适用 | 首末页原生 disabled | 本节 | 未验证 |
+| pagination | page-size-control | 适用 | 25，允许 25/50/100 | 本节 | 未验证 |
+| pagination | reset-to-first | 适用 | 筛选/排序回第 1 页 | 本节 | 未验证 |
+| pagination | single-invalid-page-recovery | 适用 | 最近有效页恢复一次 | 本节 | 未验证 |
+| pagination | input-semantics | 适用 | 真实按钮/输入并有名称 | 本节 | 未验证 |
+| pagination | single-focus-transition | 适用 | 结果提交后一次焦点策略 | 本节 | 未验证 |
+
+## 导出、Dialog、审计与反馈
+
+导出入口显式存在。点击后先冻结导出范围、筛选快照、权限版本、敏感字段排除、过期时间和下载身份；敏感范围使用 Dialog 强确认。Dialog 点遮罩不关闭，有右上关闭、Escape 策略、焦点陷阱与发起器返回；外框不滚动，仅内容滚动，提交失败保持打开且聚焦错误摘要。
+
+`riskState` 保存 `riskLevel=sensitive`、`impactScope`、`confirmationPolicy=strong`，以及 `{operationId,idempotencyKey,permissionVersion,targetSnapshot,initiator}`。`resultReceipt` 区分成功、部分成功、失败、冲突、未知结果和审计回执。`taskState` 显示排队、生成、成功/失败/未知/过期，下载时重验权限与身份；`auditState` 明示审计可用性、页面内回执位置和失败恢复。
+
+## 键盘、ARIA、响应式和验证边界
+
+原生 Table 具有可区分名称；表头排序、筛选、页码、导出和 Dialog 全部可键盘到达，同一完整状态只公告一次。窄屏把明细表转成有字段标签的等价卡片或受控横向滚动，保留 KPI 口径、导出、权限、错误恢复和审计回执；200% 缩放、长文本、低高度、虚拟键盘与四向 safe area 不删除能力。
+
+浏览器、AT（屏幕阅读器）、touch（触摸设备）和真实组件运行时均未执行；DOM/ARIA、焦点、键盘、事件日志、下载拒绝与断点行为均为未验证。
+
+| 原子规则族 | 适用性 | DOM | state | handler/event | request | 正文定位 | 验证状态 |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 能力与状态 | 适用 | 明细表 | 四组 | tier resolve | query | “明细表 owner 契约” | 静态已定义 |
+| 查询 | 适用 | 结果区 | queryState | snapshot/generation | query | “明细表 owner 契约” | 未验证 |
+| 筛选 | 适用 | 时间表单 | draft/applied | apply/reset | query | “明细表 owner 契约” | 未验证 |
+| 排序 | 适用 | 表头按钮 | sortRules | sort commit | query | “原子应用义务” | 未验证 |
+| 分页 | 适用 | 页码 | pagination | page change | query | “原子应用义务” | 未验证 |
+| 数据状态 | 适用 | busy/error/empty | requestPhase | retry | query | “页面、权限与数据状态” | 未验证 |
+| 选择 | 不适用 | 0 | 0 | 0 | 0 | `display` 档位 | 静态零值 |
+| 单行操作 | 不适用 | 0 | 0 | 0 | 0 | operation 子槽 | 静态零值 |
+| 批量操作 | 不适用 | 0 | 0 | 0 | 0 | operation 子槽 | 静态零值 |
+| 基础列状态 | 适用 | columns | viewState | render | 0 | “明细表 owner 契约” | 未验证 |
+| 可选列控制 | 适用 | visibility/pin | viewState | column events | 0 | “明细表 owner 契约” | 未验证 |
+| Table 语义 | 适用 | table | viewState | keyboard | 0 | “键盘、ARIA” | 未验证 |
+| ARIA Grid 语义 | 不适用 | 0 | 0 | 0 | 0 | 采用原生 Table | 静态零值 |
+| 键盘 | 适用 | controls | focusIntent | keyboard events | query/export | “键盘、ARIA” | 未验证 |
+| 焦点 | 适用 | live targets | interactionState | focus policy | 0 | “键盘、ARIA” | 未验证 |
+| 响应式 | 适用 | table/cards | owner 不变 | breakpoint | 0 | “键盘、ARIA” | 未验证 |
+| ARIA 与公告 | 适用 | named/status | announcement owner | announce | 0 | “键盘、ARIA” | 未验证 |
+| disposal | 适用 | remove owned DOM | disposed | dispose | cancel only | `lifecycleGuard` | 未验证 |
+| 实例隔离 | 适用 | owner DOM | owner/token | guarded callback | query | `lifecycleGuard` | 未验证 |
+| 运行时验证边界 | 适用 | 未验证 | 未验证 | 未验证 | 未验证 | “验证边界” | 未验证 |

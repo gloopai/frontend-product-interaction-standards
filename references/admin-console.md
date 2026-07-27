@@ -46,7 +46,7 @@
 
 | 规则 ID | 规则 |
 | --- | --- |
-| AC-RISK-01 | 风险操作必须声明 `riskLevel`、`impactScope`、`confirmationPolicy`、`requestIdentity`、`resultReceipt`。 |
+| AC-RISK-01 | 风险操作必须声明 `riskLevel`、`impactScope`、`confirmationPolicy`、`requestIdentity`、`resultReceipt`；`requestIdentity` 至少包含操作 ID、幂等键、权限版本、目标快照和发起者，`resultReceipt` 至少区分成功、部分成功、失败、冲突、未知结果和审计回执。 |
 | AC-RISK-02 | 删除、停用、权限变更、批量修改、敏感导出、重跑、取消、清空和不可逆配置变更默认是风险操作。 |
 | AC-RISK-03 | 风险操作结果不能只靠 Toast，必须有页面内回执或可恢复状态。 |
 | AC-RISK-04 | 未知结果不得伪装成成功或失败，必须提供检查最新状态或进入任务中心路径。 |
@@ -157,11 +157,11 @@
 
 ### AC-A5：风险操作页面内回执
 
-- 初始状态：已声明风险操作的风险级别、影响范围、确认策略和请求身份。
+- 初始状态：已声明风险操作的风险级别、影响范围、确认策略；`requestIdentity` 具有 `{operationId, idempotencyKey, permissionVersion, targetSnapshot, initiator}`，`resultReceipt` 具有 `{success, partial-success, failure, conflict, unknown, auditReceipt}` 六类状态。
 - 事件序列：确认删除、停用、权限变更、批量修改或敏感导出。
-- 预期状态：提交后出现页面内回执或可恢复状态，并可定位审计或任务；Toast 仅可辅助提示。
+- 预期状态：请求发送前冻结上述五个请求身份字段，重放只能使用同一幂等语义；权限版本或目标快照过期进入冲突/重确认，不得继续执行。结果必须落入成功、部分成功、失败、冲突或未知结果之一，并独立记录审计回执可用性；页面内回执或可恢复状态可定位审计或任务，Toast 仅可辅助提示。
 - DOM/ARIA：确认与回执符合对应组件 owner；运行时未验证则标注未验证。
-- 事件日志：记录确认、请求身份、提交、结果和审计回执位置。
+- 事件日志：逐次记录确认、五字段请求身份、提交、五类互斥结果、审计回执和回执位置；断言幂等重放请求数不增加、旧权限版本/旧目标快照的执行写入为 0。
 
 ### AC-A6：未知与取消边界
 
