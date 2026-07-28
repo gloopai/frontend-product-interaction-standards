@@ -4,7 +4,7 @@
 
 ## 当前规范
 
-本 Skill 当前包含以下 Dialog、四向抽屉、可搜索单选 Select、表单、数据表格、记录新增/编辑承载面、按钮、上传与导入、跨端适配和管理台治理核心要求：
+本 Skill 当前包含以下 Dialog、四向抽屉、可搜索单选 Select、表单、数据表格、查询条件与筛选、记录新增/编辑承载面、按钮、上传与导入、跨端适配和管理台治理核心要求：
 
 - PC、平板和移动端保持核心能力一致；低频能力可以折叠或收纳，但不能删除，且必须保持可发现、可访问。
 
@@ -18,12 +18,13 @@
 - 自绘可搜索单选 Select 的值只能来自已有选项，支持完整键盘和 ARIA；`auto` 按稳定声明条件确定性解析为 `inline`、`panel`、`drawer` 或 Select-only `none`，PC 使用非模态浮层，移动端在需要时转换为移动端 Drawer。
 - 表单以明确的字段状态、校验与提交生命周期管理错误、恢复、未保存更改和可访问错误反馈。
 - 数据表格以显式能力档位覆盖展示、单行与批量场景，并约束筛选、排序、页码/游标分页、列与固定列、选择、批量操作和部分成功的交互。
+- 查询条件与筛选规范约束草稿/已应用分离、应用模式、默认值、重置/清空、已应用摘要、URL 安全同步、权限收敛和移动端筛选可达性。
 - 记录新增/编辑承载面禁止列表内嵌表单、常驻可编辑列表、单元格编辑、行内保存按钮和 spreadsheet-like 编辑矩阵；新增、编辑、复制创建和批量配置必须按场景进入 Dialog、Drawer 或独立页。
 - 按钮规范首版聚焦管理台和业务操作按钮，约束按钮语义、文案、主次层级、禁用、loading、防重复、危险操作、图标按钮、按钮组和响应式可达性。
 - 上传与导入规范覆盖文件选择、拖拽、本地校验、上传队列、进度、取消、重试、表单内文件字段、导入预检、字段映射、部分成功、错误明细和下载权限复核。
 - 管理台完整治理覆盖导航、权限/租户、危险操作、审计、导入导出、异步任务、报表口径和全局反馈，并规定报表默认只读、能力显式声明、Toast 不得作为唯一回执。
 
-完整规则、验收标准与完成前检查见 [Dialog 交互规范](references/dialogs.md)、[Drawer 交互规范](references/drawers.md)、[可搜索单选 Select / Combobox 交互规范](references/selects-comboboxes.md)、[表单状态、校验与错误交互规范](references/forms.md)、[数据表格交互规范](references/data-tables.md)、[记录新增/编辑承载面交互规范](references/record-editing-surfaces.md)、[按钮交互规范](references/buttons.md)、[上传与导入交互规范](references/uploads-imports.md)、[响应式与自适应交互规范](references/responsive-adaptive.md) 和 [管理台完整治理交互规范](references/admin-console.md)。
+完整规则、验收标准与完成前检查见 [Dialog 交互规范](references/dialogs.md)、[Drawer 交互规范](references/drawers.md)、[可搜索单选 Select / Combobox 交互规范](references/selects-comboboxes.md)、[表单状态、校验与错误交互规范](references/forms.md)、[数据表格交互规范](references/data-tables.md)、[查询条件与筛选交互规范](references/query-filters.md)、[记录新增/编辑承载面交互规范](references/record-editing-surfaces.md)、[按钮交互规范](references/buttons.md)、[上传与导入交互规范](references/uploads-imports.md)、[响应式与自适应交互规范](references/responsive-adaptive.md) 和 [管理台完整治理交互规范](references/admin-console.md)。
 
 ## 系统要求
 
@@ -89,6 +90,7 @@ frontend-product-interaction-standards/
     ├── dialogs.md
     ├── drawers.md
     ├── forms.md
+    ├── query-filters.md
     ├── record-editing-surfaces.md
     ├── selects-comboboxes.md
     ├── uploads-imports.md

@@ -30,6 +30,7 @@ frontend-product-interaction-standards/
     ├── dialogs.md
     ├── drawers.md
     ├── forms.md
+    ├── query-filters.md
     ├── record-editing-surfaces.md
     ├── responsive-adaptive.md
     ├── selects-comboboxes.md
@@ -82,6 +83,13 @@ frontend-product-interaction-standards/
 
 - 已定义展示、单行操作与批量操作档位下的查询、列、筛选、排序、页码/游标分页、选择、部分成功、响应式、无障碍与生命周期规则。
 - 详细规则和可执行验收仅维护在 [数据表格交互规范](references/data-tables.md)，本交接不重复其状态模型或检查项。
+
+### 查询条件与筛选
+
+- 已定义列表、报表、审计日志、任务中心和管理台记录页的查询条件区 owner。
+- `filterDraft` 与 `appliedFilters` 必须分离；字段内部草稿、Select query 和 active option 不得进入结果、URL 或已应用摘要。
+- 重置恢复 `defaultFilters`，清空只移除可清空条件；敏感条件不得进入 URL；移动端不得删除筛选、应用、重置/清空、已应用摘要或错误恢复能力。
+- 详细规则和可执行验收仅维护在 [查询条件与筛选交互规范](references/query-filters.md)，本交接不重复其状态模型或检查项。
 
 ### 记录新增/编辑承载面
 
