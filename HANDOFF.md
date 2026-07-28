@@ -31,6 +31,7 @@ frontend-product-interaction-standards/
     ├── drawers.md
     ├── feedback-states.md
     ├── forms.md
+    ├── global-feedback.md
     ├── query-filters.md
     ├── record-editing-surfaces.md
     ├── responsive-adaptive.md
@@ -119,6 +120,13 @@ frontend-product-interaction-standards/
 - 反馈状态不得只散落在 `loading`、`error`、`empty` 三个布尔值里；首次加载与刷新失败必须区分，刷新失败保留旧内容并标记 stale。
 - 空状态不能用“暂无数据”糊住所有情况；Toast 不能作为唯一错误或结果回执；无权状态不得泄露对象名称、数量、字段、文件名、筛选值或错误明细。
 - 详细规则和可执行验收仅维护在 [反馈状态与状态承载规范](references/feedback-states.md)，本交接不重复其状态模型或检查项。
+
+### 全局反馈与通知
+
+- 已定义 Toast、Snackbar、Message、Alert、Banner、Notification 和 Inline Feedback 的首版 owner。
+- 全局反馈不得降级为 `showToast(text)`；每条业务结果消息必须有 `feedbackMessageState`、`sourceOwner`、`resultBinding`、去重键、敏感边界和恢复策略。
+- 危险操作、部分成功、未知结果、权限失败、导入导出任务、长耗时任务和需要恢复的错误不能只用 Toast 作为唯一回执。
+- 详细规则和可执行验收仅维护在 [全局反馈与通知交互规范](references/global-feedback.md)，本交接不重复其状态模型或检查项。
 
 ### 管理台完整治理
 

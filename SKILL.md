@@ -29,8 +29,9 @@ description: 用于创建、修改、重构、评审或测试前端页面、组�
 - 涉及按钮、主按钮、次按钮、图标按钮、保存按钮、提交按钮、取消按钮、确认按钮、删除按钮、导出按钮、批量按钮、行操作按钮、危险按钮、禁用按钮、loading 按钮、按钮组、工具栏按钮，或 button、primary button、secondary button、icon button、submit button、save button、cancel button、confirm button、delete button、export button、bulk action button、row action button、danger button、disabled button、loading button、button group、toolbar action 时，必须完整读取 `references/buttons.md`。
 - 涉及上传、文件上传、附件、拖拽上传、导入、批量导入、模板下载、导入预检、字段映射、错误明细、上传进度、取消上传、重试上传，或 upload、file upload、attachment、drag upload、dropzone、import、bulk import、template download、preflight import、field mapping、error report、upload progress、cancel upload、retry upload 时，必须完整读取 `references/uploads-imports.md`。
 - 涉及空状态、空态、暂无数据、无结果、筛选无结果、加载、加载中、骨架屏、placeholder、错误状态、刷新失败、加载失败、重试、过期数据、部分结果、无权限状态、只读状态，或 empty state、zero results、no data、loading state、skeleton、placeholder、error state、refresh error、load error、retry state、stale data、partial result、permission denied state、read-only state 时，必须完整读取 `references/feedback-states.md`。
+- 涉及 Toast、提示、全局提示、消息提示、通知、Notification、Alert、Banner、Snackbar、操作回执、结果回执、成功提示、错误提示、警告提示，或 toast、snackbar、message、notification、alert、banner、global feedback、operation receipt、result receipt、success message、error message、warning message 时，必须完整读取 `references/global-feedback.md`。
 - 涉及响应式、移动端、手机、PC、桌面端、平板、断点、视口、横竖屏、窄屏、触摸、虚拟键盘、安全区域、缩放或跨端适配，或涉及 responsive、adaptive、desktop、mobile、tablet、breakpoint、viewport、orientation、portrait、landscape、touch、virtual keyboard、safe area、zoom 时，必须完整读取 `references/responsive-adaptive.md`。
-- 涉及后台、管理台、控制台、运营后台、内部工具、SaaS console、RBAC、权限降级、租户/工作区切换、危险操作、审计日志、导入、导出、异步任务、任务中心、报表仪表盘或全局反馈，或 admin、console、dashboard、RBAC、tenant、workspace、audit log、import、export、async job、job center 时，必须完整读取 `references/admin-console.md`。`notification`、`toast`、`alert`、`popover`、`tooltip` 等反馈词只有与上述管理台上下文同时出现时才触发本 owner；单独出现时不触发。
+- 涉及后台、管理台、控制台、运营后台、内部工具、SaaS console、RBAC、权限降级、租户/工作区切换、危险操作、审计日志、导入、导出、异步任务、任务中心、报表仪表盘或全局反馈，或 admin、console、dashboard、RBAC、tenant、workspace、audit log、import、export、async job、job center 时，必须完整读取 `references/admin-console.md`。
 - 用户增加新类别规范时，创建职责单一的 `references/<category>.md`，并在此增加路由。
 
 ## 与项目规则的关系
