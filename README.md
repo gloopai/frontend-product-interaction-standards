@@ -43,6 +43,12 @@ git clone https://github.com/gloopai/frontend-product-interaction-standards.git 
 
 也可以显式提出：`使用 $frontend-product-interaction-standards 检查这个 Dialog`。
 
+## 项目接入
+
+仅依赖隐式触发不足以保证业务项目强制执行本 Skill。需要在业务项目的 `AGENTS.md` 中加入最小接入片段，见 [项目 AGENTS.md 接入片段](docs/adoption/project-agents-snippet.md)；接入完成后可用 [项目接入检查清单](docs/adoption/checklist.md) 复核。
+
+业务项目不要复制完整 `references/*.md` 作为长期事实来源；应强制读取本 Skill，并把项目例外留在业务项目内。
+
 ## 更新
 
 ```sh
@@ -71,6 +77,10 @@ frontend-product-interaction-standards/
 ├── SKILL.md
 ├── agents/
 │   └── openai.yaml
+├── docs/
+│   └── adoption/
+│       ├── checklist.md
+│       └── project-agents-snippet.md
 └── references/
     ├── admin-console.md
     ├── buttons.md

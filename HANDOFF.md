@@ -127,6 +127,13 @@ frontend-product-interaction-standards/
 - 业务实现修改在具体业务仓库完成。
 - 只有确实需要离线兜底的关键约束才同步到业务项目的 `AGENTS.md`，避免两份完整规范长期漂移。
 
+业务项目强制接入应使用通用接入材料：
+
+- [项目 AGENTS.md 接入片段](docs/adoption/project-agents-snippet.md)
+- [项目接入检查清单](docs/adoption/checklist.md)
+
+这些文档只提供项目级加载门禁；具体业务项目的技术栈、目录、运行命令和例外仍留在各自业务仓库，不反向写入通用 Skill。
+
 ## 后续建议
 
 建议按优先级继续增加：
@@ -142,6 +149,7 @@ frontend-product-interaction-standards/
 - 详细规则是否只保存在对应 `references/*.md`，避免与 README 重复。
 - `README.md` 是否只保留面向使用者的摘要、安装和贡献说明。
 - `agents/openai.yaml` 是否仍与 Skill 定位一致。
+- `docs/adoption/` 是否仍保持项目无关，并且没有复制业务项目专属例外。
 - 新规则是否有明确的状态模型、键盘交互、ARIA、跨端行为和验收清单。
 - 修改是否已提交并推送到公开仓库，Codex 本地 Skill 是否与 `origin/main` 一致。
 
