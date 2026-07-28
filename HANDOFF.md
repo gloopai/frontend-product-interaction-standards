@@ -32,6 +32,7 @@ frontend-product-interaction-standards/
     ├── feedback-states.md
     ├── forms.md
     ├── global-feedback.md
+    ├── navigation-routing.md
     ├── query-filters.md
     ├── record-editing-surfaces.md
     ├── responsive-adaptive.md
@@ -92,6 +93,13 @@ frontend-product-interaction-standards/
 - `filterDraft` 与 `appliedFilters` 必须分离；字段内部草稿、Select query 和 active option 不得进入结果、URL 或已应用摘要。
 - 重置恢复 `defaultFilters`，清空只移除可清空条件；敏感条件不得进入 URL；移动端不得删除筛选、应用、重置/清空、已应用摘要或错误恢复能力。
 - 详细规则和可执行验收仅维护在 [查询条件与筛选交互规范](references/query-filters.md)，本交接不重复其状态模型或检查项。
+
+### 导航与路由
+
+- 已定义导航入口、返回、面包屑、Tabs、浏览器历史和路由离开保护的首版 owner。
+- 返回不得直接等同于 `history.back()`；必须声明 `sourceContext`、`returnPolicy`、权限版本、dirty blockers 和焦点恢复目标。
+- 浏览器 Back/Forward、面包屑、Tabs、菜单导航、关闭容器和外部链接都必须经过同一离开保护管线；移动端不得删除返回、当前位置、未保存保护、权限说明或恢复路径。
+- 详细规则和可执行验收仅维护在 [导航与路由交互规范](references/navigation-routing.md)，本交接不重复其状态模型或检查项。
 
 ### 记录新增/编辑承载面
 
