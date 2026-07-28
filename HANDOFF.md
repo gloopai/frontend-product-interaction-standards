@@ -25,6 +25,7 @@ frontend-product-interaction-standards/
 │       └── 2026-07-25-existing-standards-hardening.md
 └── references/
     ├── admin-console.md
+    ├── buttons.md
     ├── data-tables.md
     ├── dialogs.md
     ├── drawers.md
@@ -87,6 +88,13 @@ frontend-product-interaction-standards/
 - 列表内嵌表单、常驻可编辑列表、单元格编辑、行内保存按钮和 spreadsheet-like 编辑矩阵均被完全禁止；每行直接放 input、textarea、select、排序输入和保存按钮也属于违规。
 - 新增/编辑必须按场景进入 Dialog、Drawer 或独立页，并创建独立 `editSurfaceState`，包含来源列表快照、记录身份、权限版本、表单会话、返回策略和验证边界。
 - 详细规则和可执行验收仅维护在 [记录新增/编辑承载面交互规范](references/record-editing-surfaces.md)，本交接不重复其状态模型或检查项。
+
+### 按钮
+
+- 已定义管理台和业务操作按钮的首版 owner。
+- 按钮必须具备明确动作语义、文案对象、主次层级、可访问名称、禁用原因、loading 名称、防重复门禁、危险操作确认和响应式可达性。
+- 图标按钮、更多菜单、批量按钮、导出按钮和任务按钮均需保留动作对象、权限边界、请求身份和结果 owner。
+- 详细规则和可执行验收仅维护在 [按钮交互规范](references/buttons.md)，本交接不重复其状态模型或检查项。
 
 ### 管理台完整治理
 
