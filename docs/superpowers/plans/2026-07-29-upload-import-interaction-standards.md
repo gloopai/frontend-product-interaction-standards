@@ -88,7 +88,7 @@ Add a route requiring complete reading of `references/uploads-imports.md` for Ch
 
 - [ ] **Step 2: Update README summary**
 
-Add one bullet to “当前规范” and include `[上传与导入交互规范](references/uploads-imports.md)` in the complete-rules sentence.
+Add one bullet to “当前规范” and include the README link text `上传与导入交互规范` pointing to `references/uploads-imports.md` in the complete-rules sentence.
 
 - [ ] **Step 3: Update HANDOFF summary**
 

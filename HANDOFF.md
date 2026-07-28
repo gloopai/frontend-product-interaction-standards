@@ -32,7 +32,8 @@ frontend-product-interaction-standards/
     ├── forms.md
     ├── record-editing-surfaces.md
     ├── responsive-adaptive.md
-    └── selects-comboboxes.md
+    ├── selects-comboboxes.md
+    └── uploads-imports.md
 ```
 
 仓库同时包含 `LICENSE`、`CONTRIBUTING.md`、`CODE_OF_CONDUCT.md` 和 `SECURITY.md` 等开源项目文件。
@@ -95,6 +96,13 @@ frontend-product-interaction-standards/
 - 按钮必须具备明确动作语义、文案对象、主次层级、可访问名称、禁用原因、loading 名称、防重复门禁、危险操作确认和响应式可达性。
 - 图标按钮、更多菜单、批量按钮、导出按钮和任务按钮均需保留动作对象、权限边界、请求身份和结果 owner。
 - 详细规则和可执行验收仅维护在 [按钮交互规范](references/buttons.md)，本交接不重复其状态模型或检查项。
+
+### 上传与导入
+
+- 已定义普通上传、表单内上传和结构化导入的首版 owner。
+- 文件选择、拖拽、本地校验、上传队列、进度、取消、重试、导入预检、字段映射、部分成功、错误明细和下载权限复核均有独立状态与验收。
+- 浏览器 `accept` 只能作为选择器提示，客户端取消不等于服务端取消，部分成功不能只靠 Toast，错误明细下载必须复核权限和任务身份。
+- 详细规则和可执行验收仅维护在 [上传与导入交互规范](references/uploads-imports.md)，本交接不重复其状态模型或检查项。
 
 ### 管理台完整治理
 
