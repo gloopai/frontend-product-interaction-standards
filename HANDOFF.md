@@ -30,6 +30,7 @@ frontend-product-interaction-standards/
     ├── async-jobs-task-center.md
     ├── app-shell-navigation.md
     ├── billing-subscription-invoices.md
+    ├── bulk-actions-batch-operations.md
     ├── buttons.md
     ├── card-list-results.md
     ├── chart-visualization-builders.md
@@ -269,6 +270,13 @@ frontend-product-interaction-standards/
 
 - 已定义展示、单行操作与批量操作档位下的查询、列、筛选、排序、页码/游标分页、选择、部分成功、响应式、无障碍与生命周期规则。
 - 详细规则和可执行验收仅维护在 [数据表格交互规范](references/data-tables.md)，本交接不重复其状态模型或检查项。
+
+### 批量操作与批处理动作
+
+- 已定义 `bulkActionState`，覆盖批量操作、批处理动作、当前页批量、全部筛选结果、跨页集合、排除项集合、可执行性、确认、请求身份、部分成功、结果回执、恢复、权限无泄露和移动端承载。
+- 批量操作不是“对当前可见行循环单条操作”，也不是“选择数量 + 一个按钮”；批量入口必须冻结 `selectionSnapshot`、`scopeBinding`、`targetIdentitySet`、`eligibilityMap`、`permissionBoundary` 和 `requestIdentity`。
+- `partialResult` 必须拆分成功、失败、跳过、冲突、未知和处理中对象范围；Toast 不能作为唯一批量结果，恢复入口和审计/任务/错误明细必须可达。
+- 详细规则和可执行验收维护在 `references/bulk-actions-batch-operations.md`。
 
 ### 页面操作栏与列表工具栏
 

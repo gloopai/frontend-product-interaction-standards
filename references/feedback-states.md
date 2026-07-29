@@ -1,5 +1,7 @@
 # 反馈状态与状态承载规范
 
+批量操作、批处理动作、部分成功、未知批量结果、错误明细、重试失败项和批量恢复必须同时执行 `references/bulk-actions-batch-operations.md`。反馈状态 owner 负责页面级 loading、partial、error、stale 和 recovery 承载；批量 owner 负责 `bulkActionState`、partialResult、resultReceipt、recoveryActions 和批量目标范围。
+
 ## 范围
 
 适用于页面主内容区、列表/表格结果区、卡片列表、报表区域、详情区域、设置区域、任务结果区、上传/导入结果区、权限状态页和移动端筛选结果页中的空状态、空态、暂无数据、无结果、筛选无结果、加载、加载中、骨架屏、placeholder、错误状态、刷新失败、加载失败、重试、过期数据、部分结果、无权限状态和只读状态。

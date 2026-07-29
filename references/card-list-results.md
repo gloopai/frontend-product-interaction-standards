@@ -4,6 +4,8 @@
 
 本文件是“以卡片作为主要结果形态”的唯一 owner。若结果本质是数据表格，只是在窄屏或 200% 缩放后转换为卡片，仍以 `references/data-tables.md` 为主，本文件只补充卡片结构、交互区域和移动端可达性。查询、排序、分页、刷新、结果摘要和总数可信度读取 `references/list-result-controls.md`；人工排序、拖拽排序、卡片重排、上移/下移、置顶/置底和保存顺序读取 `references/ordering-reordering.md`，本文件只提供排序入口和卡片身份。页面工具栏和视图切换读取 `references/page-toolbars-actions.md`；按钮读取 `references/buttons.md`；更多菜单、Dropdown、Popover 和 Action Sheet 读取 `references/overlays-menus-tooltips.md`；详情预览读取 `references/preview-pane.md`；新增、编辑、复制创建和字段保存读取 `references/record-editing-surfaces.md`；权限读取 `references/permissions-tenancy-visibility.md`；反馈状态读取 `references/feedback-states.md`；响应式读取 `references/responsive-adaptive.md`。
 
+卡片选择后的批量操作、批处理动作、批量工具栏、全部筛选结果操作、跨页批量、部分成功和批量回执必须同时执行 `references/bulk-actions-batch-operations.md`。卡片列表 owner 负责卡片身份、选择区域和操作区域分离；批量 owner 负责 `bulkActionState`、scopeBinding、eligibilityMap、resultReceipt、partialResult 和 recoveryActions。
+
 卡片标题、副标题、状态、标签、描述、长字段、错误、文件名、路径、截断、省略号、查看全文、展开全文和复制全文必须同时执行 `references/text-overflow-truncation.md`；本文件继续负责卡片字段映射和交互区域，`text-overflow-truncation.md` 负责截断策略、完整内容恢复、复制权限、hover-only 禁止和移动端等价路径。
 
 卡片内操作如果使用乐观更新、先改卡片状态、撤销、失败回滚、自动重试、离线队列或迟到响应协调，必须同时执行 `references/optimistic-update-undo.md`；本文件继续负责卡片身份、字段映射和交互区域，`optimistic-update-undo.md` 负责 pending 投影、撤销窗口、回滚依据、幂等、权威结果合并和旧投影清理。

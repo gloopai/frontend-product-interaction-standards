@@ -2,7 +2,7 @@
 
 适用于审批、审核、提交审批、提交审核、撤回审批、审批通过、审核通过、驳回、拒绝、转交、加签、会签、串签、或签、委托审批、代理审批、催办、审批意见、审批备注、审批附件、审批历史、审批节点、待办审批、批量审批、approval workflow、review workflow、submit for approval、approve、reject、withdraw approval、delegate approval、reassign approval、add approver、approval comment、approval history 和 approval task。
 
-本文件是审批与审核工作流 owner。它负责审批实例、审批对象、当前节点、审批人、意见/附件、决策意图、节点流转、转交/委托、批量审批、通知、审计、权限、移动端和运行时验证边界。状态展示和生命周期变更读取 `references/status-lifecycle-transitions.md`；危险确认读取 `references/risk-actions.md`；审批人、角色和成员身份读取 `references/members-invitations-access.md`；审批意见表单读取 `references/forms.md`；按钮读取 `references/buttons.md`；批量审批列表读取 `references/data-tables.md`；通知读取 `references/notifications-message-center-announcements.md`；审计读取 `references/audit-log-activity-history.md`；权限读取 `references/permissions-tenancy-visibility.md`；全局反馈读取 `references/global-feedback.md`；响应式读取 `references/responsive-adaptive.md`；管理台跨页面治理读取 `references/admin-console.md`。
+本文件是审批与审核工作流 owner。它负责审批实例、审批对象、当前节点、审批人、意见/附件、决策意图、节点流转、转交/委托、批量审批、通知、审计、权限、移动端和运行时验证边界。状态展示和生命周期变更读取 `references/status-lifecycle-transitions.md`；危险确认读取 `references/risk-actions.md`；审批人、角色和成员身份读取 `references/members-invitations-access.md`；审批意见表单读取 `references/forms.md`；按钮读取 `references/buttons.md`；批量审批列表读取 `references/data-tables.md`；批量审批的目标集合、范围冻结、部分成功和恢复读取 `references/bulk-actions-batch-operations.md`，并声明 `bulkActionState`；通知读取 `references/notifications-message-center-announcements.md`；审计读取 `references/audit-log-activity-history.md`；权限读取 `references/permissions-tenancy-visibility.md`；全局反馈读取 `references/global-feedback.md`；响应式读取 `references/responsive-adaptive.md`；管理台跨页面治理读取 `references/admin-console.md`。
 
 ## 范围与排除项
 

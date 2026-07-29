@@ -2,6 +2,8 @@
 
 适用于 export、download、artifact、result artifact、file delivery、download link、download URL、CSV、Excel、PDF、image export、report export、chart export、audit export、error report、error detail、expiry、expires、导出、下载、结果产物、文件领取、下载链接、下载地址、文件有效期、过期文件、重新生成、错误明细、报表导出、图表导出、审计导出、CSV、Excel、PDF 和图片导出。本文件是导出状态、产物身份、下载意图、范围快照、有效期、权限复核、敏感字段、旧链接失效、Toast 边界、结果恢复、可访问性和验收的唯一事实来源。
 
+批量导出、批量下载、批量错误明细、批量结果产物和全部筛选结果导出必须同时执行 `references/bulk-actions-batch-operations.md`。导出 owner 负责 `exportState`、`artifactState`、文件生命周期和下载复核；批量 owner 负责 `bulkActionState`、selectionSnapshot、scopeBinding、targetIdentitySet、partialResult、resultReceipt 和 recoveryActions。
+
 表格导出范围、选择快照和批量范围继续执行 [数据表格交互规范](data-tables.md)。查询条件、已应用筛选和 URL 恢复继续执行 [查询条件与筛选交互规范](query-filters.md)。导出范围必须读取 `references/list-result-controls.md` 的当前结果范围快照、`querySnapshot`、排序、分页、页大小、数据版本和总数可信度，但导出创建、生成、领取、下载和过期生命周期仍归本 owner。时间范围、时区、相对时间和导出快照继续执行 [日期时间与时区交互规范](date-time-ranges.md)。权限、租户/工作区和无泄露继续执行 [权限、租户与可见性交互规范](permissions-tenancy-visibility.md)。敏感导出、高风险导出和强确认继续执行 [危险操作与恢复交互规范](risk-actions.md)。异步导出、任务中心和结果领取继续执行 [异步任务与任务中心交互规范](async-jobs-task-center.md)。导入结果产物、错误明细下载和文件预检继续执行 [上传与导入交互规范](uploads-imports.md)。审计导出和操作历史继续执行 [审计日志与操作历史交互规范](audit-log-activity-history.md)。图表/报表导出继续执行 [图表与可视化交互规范](charts-visualization.md)。下载、复制链接、重新生成和重试按钮继续执行 [按钮交互规范](buttons.md)。移动端承载继续执行 [响应式与自适应交互规范](responsive-adaptive.md)。
 
 概览页、仪表盘首页、管理台首页、运营看板、业务看板、指标总览、报表总览和 dashboard landing 的导出必须同时执行 `references/overview-dashboard-pages.md`；本文件负责产物生命周期，`overview-dashboard-pages.md` 负责导出绑定当前页面级 `dataSnapshot`、`timeRangeSnapshot`、权限版本、模块口径和数据延迟。

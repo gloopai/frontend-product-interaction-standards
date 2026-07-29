@@ -15,6 +15,7 @@
 - `forms.md`：字段值、dirty、校验、`submitSnapshot`、`submitId`、错误摘要和失败恢复仍归表单 owner；按钮只管触发入口、文案、状态、禁用、loading 和重复触发边界。
 - `dialogs.md` / `drawers.md`：遮罩、关闭、焦点陷阱、右上角关闭按钮、动画和 disposal 仍归容器 owner；按钮补充操作文案、层级、状态和危险动作入口。
 - `data-tables.md`：行操作、批量操作、选择快照、分页、排序和表格能力仍归数据表格 owner；按钮管按钮名称、图标按钮、禁用原因和触发去重。
+- `references/bulk-actions-batch-operations.md`：批量按钮、批量工具栏按钮、apply to selected、apply to all filtered、批量确认按钮和批量结果恢复按钮只能作为批量操作入口；批量 owner 负责 `bulkActionState`、scopeBinding、eligibilityMap、partialResult、resultReceipt 和 recoveryActions。
 - `admin-console.md`：权限、租户、风险、审计、任务和全局反馈仍归管理台 owner；按钮不得绕过这些 owner。
 - `record-editing-surfaces.md`：新增/编辑入口可以是按钮，但按钮只能作为入口，不能把编辑字段放回列表。
 - `references/approval-workflows.md`：提交审批、通过、驳回、撤回、转交、加签、委托、催办和批量审批按钮只能作为审批工作流入口；审批实例、节点、意见/附件、通知、审计和决策快照仍归 `approval-workflows.md`。
