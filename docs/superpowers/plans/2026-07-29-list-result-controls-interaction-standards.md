@@ -247,7 +247,7 @@ The file must include sections:
 
 适用于列表结果、结果控制、结果摘要、分页、页码、游标分页、上一页、下一页、跳页、页大小、每页数量、排序、列表排序、表格排序、刷新、自动刷新、结果刷新、过期数据、数据版本、迟到响应、请求代次和总数不可靠。
 
-本文件是已应用查询快照驱动的结果控制 primary owner。表格列、选择、批量和 ARIA Grid 继续执行 [数据表格交互规范](data-tables.md)；筛选草稿和已应用条件继续执行 [查询条件与筛选交互规范](query-filters.md)；关键词输入草稿和 IME composition 继续执行 [关键词搜索输入交互规范](keyword-search-inputs.md)；状态反馈继续执行 [反馈状态交互规范](feedback-states.md)。
+本文件是已应用查询快照驱动的结果控制 primary owner。表格列、选择、批量和 ARIA Grid 继续执行 `references/data-tables.md`；筛选草稿和已应用条件继续执行 `references/query-filters.md`；关键词输入草稿和 IME composition 继续执行 `references/keyword-search-inputs.md`；状态反馈继续执行 `references/feedback-states.md`。
 ```
 
 Add `listResultControlsState` table with all `STATE_FIELDS`, then exact rule sections for:
@@ -361,7 +361,7 @@ Add section:
 - 排序变化、页大小变化和有效筛选/关键词变化必须建立新 `querySnapshot`；迟到响应不得覆盖当前 owner、当前代次或当前快照不匹配的结果。
 - 页码分页和游标分页不得在同一快照内混用；总数不可靠时不得展示精确总页数、随机跳页或“全部 N 条”的承诺。
 - 移动端不得删除排序、分页、刷新、结果摘要、错误说明、权限原因、过期说明和恢复路径。
-- 详细规则和可执行验收仅维护在 [列表结果控制交互规范](references/list-result-controls.md)，本交接不重复其状态模型或检查项。
+- 详细规则和可执行验收仅维护在 `references/list-result-controls.md`，本交接不重复其状态模型或检查项。
 ```
 
 - [ ] **Step 4: 创建 GREEN 证据**
