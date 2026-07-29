@@ -6,7 +6,7 @@
 
 本规范覆盖用户编辑一个可保存、可发布、可预览、可复用或可执行产物的完整工作台：文本内容、结构化配置、规则树、条件组、节点图、画布、字段映射、模板片段、表达式、公式、测试运行、预览、保存草稿、发布、回滚、导入片段、导出配置、复制片段、AI 生成和协作状态。
 
-本规范不替代 [表单状态、校验与错误交互规范](forms.md) 的字段级 dirty、touched 和提交快照；不替代 [页面级表单操作栏与保存区交互规范](page-form-action-bars.md) 的页面保存栏；不替代 [危险操作与恢复交互规范](risk-actions.md) 的危险确认；不替代 [上传与导入交互规范](uploads-imports.md) 的文件上传和导入任务；不替代 [图表与可视化交互规范](charts-visualization.md) 的图表呈现。复杂编辑器负责跨字段、跨节点、跨版本、跨权限和跨承载面的编辑器生命周期。
+本规范不替代 [表单状态、校验与错误交互规范](forms.md) 的字段级 dirty、touched 和提交快照；不替代 [页面级表单操作栏与保存区交互规范](page-form-action-bars.md) 的页面保存栏；不替代 [危险操作与恢复交互规范](risk-actions.md) 的危险确认；不替代 [上传与导入交互规范](uploads-imports.md) 的文件上传和导入任务；不替代 [图表与可视化交互规范](charts-visualization.md) 的图表呈现。图表配置器、可视化构建器、报表图表配置和仪表盘图表配置还必须执行 `references/chart-visualization-builders.md`；本文件继续提供通用复杂编辑器生命周期，不能降低图表配置器 owner 的专属规则。
 
 ## `editorBuilderState`
 

@@ -29,6 +29,7 @@ frontend-product-interaction-standards/
     ├── async-jobs-task-center.md
     ├── billing-subscription-invoices.md
     ├── buttons.md
+    ├── chart-visualization-builders.md
     ├── charts-visualization.md
     ├── complex-editors-builders.md
     ├── copy-clipboard.md
@@ -347,6 +348,16 @@ frontend-product-interaction-standards/
 - 移动端不得删除图表标题、口径、单位、图例/series 含义、状态说明、错误/权限说明、数据延迟、刷新时间、导出/明细入口和恢复路径。
 - 详细规则和可执行验收仅维护在 [图表与可视化交互规范](references/charts-visualization.md)，本交接不重复其状态模型或检查项。
 
+### 图表与可视化创作配置
+
+- 已定义图表创建、图表编辑、可视化配置、报表图表配置、仪表盘图表配置、图表构建器和图表配置向导的首版 owner。
+- `chartBuilderState` 必须声明 `chartBuilderOwnerId`、`sourceConfigSnapshot`、`dataSourceBinding`、`metricDraft`、`dimensionDraft`、`encodingDraft`、`interactionDraft`、`filterBindingDraft`、`previewState`、`validationState`、`savePolicy`、`publishPolicy`、`permissionBoundary` 和 `responsivePolicy`。
+- 预览成功不等于保存成功；保存成功不等于发布成功；发布请求发送不等于仪表盘或外部嵌入已生效；加入仪表盘请求发送不等于仪表盘已更新。
+- 切换图形类型时，不能静默删除不兼容配置；必须展示迁移摘要、待修复项、保留项、丢弃项和撤销/取消路径。
+- 保存时不得读取 Select query、active option、筛选草稿、hover 字段、预览高亮、当前可见结果或旧缓存。
+- 移动端不得删除数据源说明、指标配置、维度配置、图形类型、预览、完整校验、错误定位、保存草稿、发布/加入仪表盘、权限原因、版本冲突、恢复路径和离开保护。
+- 详细规则和可执行验收仅维护在 `references/chart-visualization-builders.md`，本交接不重复其状态模型或检查项。
+
 ### 导出、下载与结果产物交付
 
 - 已定义 export、download、artifact、result artifact、file delivery、download link、CSV、Excel、PDF、报表导出、图表导出、审计导出、错误明细下载和文件领取的首版 owner。
@@ -506,7 +517,6 @@ frontend-product-interaction-standards/
 建议按优先级继续增加：
 
 1. 超出管理台范围的上传能力。
-2. 图表与可视化创作。
 
 每次新增规范时，应同步检查：
 
