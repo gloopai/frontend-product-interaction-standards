@@ -1,5 +1,7 @@
 # 浮层菜单与提示交互规范
 
+卡片列表、卡片式结果、资源卡片、模板卡片、应用卡片、项目卡片、卡片网格、移动端结果卡片和 Kanban-lite 中的更多菜单、Dropdown、Popover、Tooltip、Context Menu 和 Action Sheet 必须同时执行 `references/card-list-results.md`；本文件负责浮层触发、定位、键盘、权限和清理，`card-list-results.md` 负责卡片交互区域、大链接禁止、hover-only 禁止和卡片内操作入口边界。
+
 ## 范围
 
 适用于 Tooltip、Popover、Dropdown、Dropdown Menu、Menu、Context Menu、更多菜单、操作菜单、悬浮说明、Hover 帮助、非模态浮层、Action Sheet 和移动端菜单 Drawer。本文件是非模态浮层、菜单和提示的触发、承载、定位、焦点、关闭、权限、移动端转换和清理规则的唯一事实来源。

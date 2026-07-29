@@ -8,6 +8,8 @@
 
 详情预览、侧边预览、行预览、记录预览、快速查看、只读预览和 Master-Detail 必须同时执行 `references/preview-pane.md`；权限 owner 负责证明预览目标、字段、标题、数量、文件名、内部 ID、复制内容、错误明细和旧缓存安全，`preview-pane.md` 负责在预览切换、关闭、迟到响应和移动端转换中应用这些权限边界。
 
+卡片列表、卡片式结果、资源卡片、模板卡片、应用卡片、项目卡片、卡片网格、移动端结果卡片和 Kanban-lite 必须同时执行 `references/card-list-results.md`；权限 owner 负责证明卡片标题、封面、缩略图、标签、状态、数量、文件名、菜单项、错误、复制内容和旧 ARIA label 安全，`card-list-results.md` 负责卡片 owner 中的无泄露应用和旧状态清理。
+
 ## 范围与边界
 
 本 owner 覆盖：

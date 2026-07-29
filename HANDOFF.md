@@ -29,6 +29,7 @@ frontend-product-interaction-standards/
     ├── async-jobs-task-center.md
     ├── billing-subscription-invoices.md
     ├── buttons.md
+    ├── card-list-results.md
     ├── chart-visualization-builders.md
     ├── charts-visualization.md
     ├── complex-editors-builders.md
@@ -465,6 +466,15 @@ frontend-product-interaction-standards/
 - 列表内嵌表单、常驻可编辑列表、单元格编辑、行内保存按钮和 spreadsheet-like 编辑矩阵均被完全禁止；每行直接放 input、textarea、select、排序输入和保存按钮也属于违规。
 - 新增/编辑必须按场景进入 Dialog、Drawer 或独立页，并创建独立 `editSurfaceState`，包含来源列表快照、记录身份、权限版本、表单会话、返回策略和验证边界。
 - 详细规则和可执行验收仅维护在 [记录新增/编辑承载面交互规范](references/record-editing-surfaces.md)，本交接不重复其状态模型或检查项。
+
+### 卡片列表与卡片式结果
+
+- 已定义卡片列表、卡片式结果、资源卡片、模板卡片、应用卡片、内容卡片、项目卡片、卡片网格、移动端结果卡片和 Kanban-lite 的首版 owner。
+- `cardListResultState` 必须声明 `cardListOwnerId`、`surfaceKind`、`capabilityTier`、`sourceBinding`、`cardIdentityMap`、`fieldMapping`、`interactionZones`、`selectionBinding`、`actionBinding`、`requestBinding`、`permissionBoundary`、`feedbackBinding`、`responsivePolicy`、`focusKeyboardPolicy` 和 `runtimeVerification`。
+- 卡片列表不是营销卡片墙；每张卡片必须有记录身份、字段映射、状态文本、权限边界和可访问名称。
+- 整张卡片不得包成一个大链接再在内部塞按钮、菜单、checkbox 或复制控件；打开详情区、选择区和操作区必须是独立交互区域。
+- 卡片内不得承载新增、编辑、复制创建、单元格编辑、字段保存、行内保存或完整字段表单。
+- 详细规则和可执行验收仅维护在 [卡片列表与卡片式结果交互规范](references/card-list-results.md)，本交接不重复其状态模型或检查项。
 
 ### 按钮
 

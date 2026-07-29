@@ -4,6 +4,8 @@
 
 本文件是“从列表上下文查看一条记录的只读摘要或详情预览”的唯一 owner。来源列表、分页、排序、选择和结果摘要仍归 `references/data-tables.md` 与 `references/list-result-controls.md`；只读字段展示、复制和状态语义仍归 `references/information-display.md`；新增、编辑、复制创建和批量配置必须转交 `references/record-editing-surfaces.md`；移动端 Bottom Sheet 或全屏预览层若具备模态覆盖关系，还必须执行 `references/drawers.md`；返回、URL 和浏览器历史读取 `references/navigation-routing.md`；权限无泄露读取 `references/permissions-tenancy-visibility.md`；加载、空态、错误和 stale 读取 `references/feedback-states.md`；跨端形态读取 `references/responsive-adaptive.md`。
 
+从卡片列表、卡片式结果、资源卡片、模板卡片、应用卡片、项目卡片、卡片网格、移动端结果卡片或 Kanban-lite 打开详情预览时，来源卡片结构、字段映射、打开详情区、选择区和操作区必须同时执行 `references/card-list-results.md` 与 `card-list-results.md`；本文件只负责预览目标、预览请求、预览关闭和预览权限边界。
+
 文件、图片、音视频、文档在线预览的媒体渲染继续归 `references/files-media-assets.md`。本文件只定义列表来源、预览目标、预览快照、权限边界、关闭返回和只读/编辑分界。
 
 ## 范围与排除项
