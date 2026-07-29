@@ -429,6 +429,15 @@ frontend-product-interaction-standards/
 - 浏览器 Back/Forward、面包屑、Tabs、菜单导航、关闭容器和外部链接都必须经过同一离开保护管线；移动端不得删除返回、当前位置、未保存保护、权限说明或恢复路径。
 - 详细规则和可执行验收仅维护在 [导航与路由交互规范](references/navigation-routing.md)，本交接不重复其状态模型或检查项。
 
+### Tab 视图导航
+
+- 已定义 Tabs、标签页、页签、TabList、TabPanel、当前标签、默认标签、禁用标签、隐藏标签、权限标签、页面内视图切换和移动端标签承载的首版 owner。
+- `tabViewState` 必须声明 `tabOwnerId`、`surfaceKind`、`tabRegistry`、`activeTabId`、`pendingTabIntent`、`panelState`、`requestBinding`、`urlHistoryBinding`、`permissionBoundary`、`dirtyBoundary`、`focusAnnouncementPolicy` 和 `responsivePolicy`。
+- Tabs 只能用于同一资源或同一任务上下文；激活 tab 不等于提交表单、不等于保存视图、不等于切换租户/工作区。
+- 旧 tab 请求不得写回新 active tab 或无权限 panel；Tab 切换必须经过同一未保存保护管线。
+- 移动端改变承载形态不得改变 `activeTabId`、URL、权限和 dirty 语义。
+- 详细规则和可执行验收仅维护在 [Tab 视图导航交互规范](references/tab-view-navigation.md)，本交接不重复其状态模型或检查项。
+
 ### 记录新增/编辑承载面
 
 - 已定义列表、表格、卡片列表、管理列表和报表明细中的新增、编辑、复制创建、配置和批量配置编辑承载面。
