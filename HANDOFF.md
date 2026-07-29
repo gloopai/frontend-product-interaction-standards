@@ -44,6 +44,7 @@ frontend-product-interaction-standards/
     ├── search-command-palette.md
     ├── selection-controls.md
     ├── selects-comboboxes.md
+    ├── tree-hierarchy.md
     ├── wizards-steppers.md
     └── uploads-imports.md
 ```
@@ -95,6 +96,15 @@ frontend-product-interaction-standards/
 - 风险转交要求下，危险启停、权限变更、敏感导出、任务取消/重跑、密钥、外部系统影响和不可逆状态必须进入 `risk-actions.md`；确认完成前请求数为 0。
 - 三态 checkbox 的 `indeterminateState` 不能作为可提交业务值；移动端不得删除选项、禁用原因、错误说明、保存/取消、恢复路径或当前已选摘要。
 - 详细规则和可执行验收仅维护在 [选择控件与开关交互规范](references/selection-controls.md)，本交接不重复其状态模型或检查项。
+
+### 树形结构与级联
+
+- 已定义 Tree、Tree Select、Cascader、组织树、权限树、菜单树、分类树和级联选择的首版 owner。
+- 展开、active、hover、filter match、visible descendants、indeterminate、partial loaded 和 optimistic preview 不得伪装成已提交选择。
+- 半选只表达派生状态，不是业务提交值；懒加载未完成、过滤后仅展示部分节点、权限未知或存在 disabled 后代时，不能把“全选当前可见”伪装成“全选全部后代”。
+- 无权限节点不得泄露节点名称、数量、路径、父子关系、图标、类型、内部 ID、排序位置、子节点是否存在或旧缓存。
+- 移动端不得删除搜索、展开、返回上级、路径摘要、已选摘要、清空、应用、错误说明、权限说明或恢复路径。
+- 详细规则和可执行验收仅维护在 [树形结构与级联交互规范](references/tree-hierarchy.md)，本交接不重复其状态模型或检查项。
 
 ### 表单
 
