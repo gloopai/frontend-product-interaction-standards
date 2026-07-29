@@ -21,6 +21,8 @@
 
 移动端列表结果、分页、页大小、排序、刷新、自动刷新、结果摘要、过期数据和错误恢复必须同时执行 `references/list-result-controls.md`；断点、底部分页、固定工具栏、虚拟键盘和 safe-area 不得删除或完全遮挡排序、分页、刷新、结果摘要、错误说明、权限原因、过期说明和恢复路径。
 
+移动端人工排序、拖拽排序、重排、上移/下移、置顶/置底、保存顺序和顺序冲突必须同时执行 `references/ordering-reordering.md`；本文件负责触摸、低高度、虚拟键盘、200% 缩放和安全区域，`ordering-reordering.md` 负责排序范围、草稿顺序、拖拽替代、冲突和保存回执。
+
 移动端 Tabs、标签页、页面内视图切换、横向滚动标签、Segmented Control 承载、Select 承载、Action Sheet 承载或 Drawer 承载必须同时执行 `references/tab-view-navigation.md`；断点转换不得改变 `activeTabId`、URL、权限、dirty 语义、panelState、未保存保护或焦点返回。
 
 移动端 Accordion、Collapse、Disclosure、折叠面板、展开收起和嵌套折叠必须同时执行 `references/disclosure-accordions.md`；断点转换不得删除标题、当前展开状态、错误摘要、权限原因、恢复入口、核心操作、未保存保护或焦点返回。

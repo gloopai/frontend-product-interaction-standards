@@ -2,7 +2,7 @@
 
 适用于列表、表格、卡片列表、管理列表、报表明细和详情页中触发的新增记录、编辑记录、复制创建、批量配置编辑和记录配置流程。本文件是“记录编辑应该由哪个承载面负责”的唯一事实来源。
 
-本规范只定义编辑承载面选择、列表入口、返回、权限复核和反内嵌边界；表单字段、校验、dirty、提交、错误摘要和失败恢复仍由 [表单状态、校验与错误交互规范](forms.md) 负责。选择 Dialog 时执行 [Dialog 交互规范](dialogs.md)，选择 Drawer 时执行 [Drawer 交互规范](drawers.md)，来源列表执行 [数据表格交互规范](data-tables.md)，跨端变化执行 [响应式与自适应交互规范](responsive-adaptive.md)。后台、管理台、SaaS console 或内部工具还必须执行 [管理台完整治理交互规范](admin-console.md)。
+本规范只定义编辑承载面选择、列表入口、返回、权限复核和反内嵌边界；表单字段、校验、dirty、提交、错误摘要和失败恢复仍由 [表单状态、校验与错误交互规范](forms.md) 负责。选择 Dialog 时执行 [Dialog 交互规范](dialogs.md)，选择 Drawer 时执行 [Drawer 交互规范](drawers.md)，来源列表执行 [数据表格交互规范](data-tables.md)，人工排序、拖拽排序、上移/下移、置顶/置底、保存顺序和顺序冲突执行 `references/ordering-reordering.md`；本文件只禁止排序输入常驻列表并规定排序入口不得变成记录编辑表单。跨端变化执行 [响应式与自适应交互规范](responsive-adaptive.md)。后台、管理台、SaaS console 或内部工具还必须执行 [管理台完整治理交互规范](admin-console.md)。
 
 ## 范围与术语
 

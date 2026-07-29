@@ -63,6 +63,8 @@ Tab 上方或 TabPanel 内工具栏必须同时执行 `references/tab-view-navig
 
 视图工具的可用性必须来自产品声明和权限/能力开关。未启用时 DOM、state、handler 和 request 入口均为 0；不得渲染禁用但无原因的幽灵按钮。持久化个人设置前必须说明作用范围，例如当前用户、当前工作区、当前表格或当前报表。
 
+工具栏提供“调整排序”“进入排序模式”“保存顺序”“取消排序”“上移/下移视图辅助入口”时，必须同时执行 `references/ordering-reordering.md`；工具栏只负责入口、分组、权限可见和移动端收纳，排序范围、`draftOrder`、`committedOrderSnapshot`、冲突、拖拽替代和保存回执归 reorder owner。
+
 ## 更多菜单、Tooltip、Toast 和恢复路径
 
 更多菜单只用于低频操作或空间不足收纳，必须有可访问名称、分组标题和稳定排序。更多菜单、Tooltip、Toast 或浏览器提示不得作为唯一错误恢复、权限原因、主操作入口或导出回执。

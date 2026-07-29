@@ -49,6 +49,7 @@ frontend-product-interaction-standards/
     ├── information-display.md
     ├── page-form-action-bars.md
     ├── notifications-message-center-announcements.md
+    ├── ordering-reordering.md
     ├── overview-dashboard-pages.md
     ├── page-content-layout-sections.md
     ├── page-header-title-area.md
@@ -513,6 +514,14 @@ frontend-product-interaction-standards/
 - 列表内嵌表单、常驻可编辑列表、单元格编辑、行内保存按钮和 spreadsheet-like 编辑矩阵均被完全禁止；每行直接放 input、textarea、select、排序输入和保存按钮也属于违规。
 - 新增/编辑必须按场景进入 Dialog、Drawer 或独立页，并创建独立 `editSurfaceState`，包含来源列表快照、记录身份、权限版本、表单会话、返回策略和验证边界。
 - 详细规则和可执行验收仅维护在 [记录新增/编辑承载面交互规范](references/record-editing-surfaces.md)，本交接不重复其状态模型或检查项。
+
+### 排序与重排
+
+- 已定义排序、手动排序、人工排序、调整排序、展示顺序、拖拽排序、重排、上移、下移、置顶、置底、排序模式、保存顺序和顺序冲突的首版 owner。
+- `orderingReorderingState` 必须声明 `orderingOwnerId`、`orderingSurface`、`scopeBinding`、`sourceSnapshot`、`itemIdentityMap`、`draftOrder`、`committedOrderSnapshot`、`movementPolicy`、`inputAlternativePolicy`、`submitPolicy`、`conflictPolicy`、`permissionBoundary`、`feedbackBinding`、`responsivePolicy`、`focusAnnouncementPolicy`、`lifecycleDisposal` 和 `runtimeVerification`。
+- 排序与重排不是列表内编辑，也不是查询排序；列表、表格或卡片中不得常驻排序输入、每行保存按钮或 spreadsheet-like 排序矩阵。
+- 拖拽不能是唯一排序方式；当前页局部重排不得伪装成全部结果、全部分组或全局顺序已更新。
+- 详细规则和可执行验收仅维护在 [排序与重排交互规范](references/ordering-reordering.md)，本交接不重复其状态模型或检查项。
 
 ### 卡片列表与卡片式结果
 

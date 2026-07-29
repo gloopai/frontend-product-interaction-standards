@@ -2,7 +2,7 @@
 
 适用于卡片列表、卡片式结果、资源卡片、模板卡片、应用卡片、内容卡片、项目卡片、卡片网格、移动端结果卡片和 Kanban-lite 列表。
 
-本文件是“以卡片作为主要结果形态”的唯一 owner。若结果本质是数据表格，只是在窄屏或 200% 缩放后转换为卡片，仍以 `references/data-tables.md` 为主，本文件只补充卡片结构、交互区域和移动端可达性。查询、排序、分页、刷新、结果摘要和总数可信度读取 `references/list-result-controls.md`；页面工具栏和视图切换读取 `references/page-toolbars-actions.md`；按钮读取 `references/buttons.md`；更多菜单、Dropdown、Popover 和 Action Sheet 读取 `references/overlays-menus-tooltips.md`；详情预览读取 `references/preview-pane.md`；新增、编辑、复制创建和字段保存读取 `references/record-editing-surfaces.md`；权限读取 `references/permissions-tenancy-visibility.md`；反馈状态读取 `references/feedback-states.md`；响应式读取 `references/responsive-adaptive.md`。
+本文件是“以卡片作为主要结果形态”的唯一 owner。若结果本质是数据表格，只是在窄屏或 200% 缩放后转换为卡片，仍以 `references/data-tables.md` 为主，本文件只补充卡片结构、交互区域和移动端可达性。查询、排序、分页、刷新、结果摘要和总数可信度读取 `references/list-result-controls.md`；人工排序、拖拽排序、卡片重排、上移/下移、置顶/置底和保存顺序读取 `references/ordering-reordering.md`，本文件只提供排序入口和卡片身份。页面工具栏和视图切换读取 `references/page-toolbars-actions.md`；按钮读取 `references/buttons.md`；更多菜单、Dropdown、Popover 和 Action Sheet 读取 `references/overlays-menus-tooltips.md`；详情预览读取 `references/preview-pane.md`；新增、编辑、复制创建和字段保存读取 `references/record-editing-surfaces.md`；权限读取 `references/permissions-tenancy-visibility.md`；反馈状态读取 `references/feedback-states.md`；响应式读取 `references/responsive-adaptive.md`。
 
 卡片列表不是营销卡片墙。它是管理台结果 surface，必须能回答：每张卡片代表哪个记录、哪些字段直接可见、哪些字段可展开、哪些动作可执行、哪些能力被禁用或隐藏、数据是否新鲜、用户是否有权看到和操作。
 
