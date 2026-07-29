@@ -106,6 +106,15 @@ frontend-product-interaction-standards/
 - 已定义草稿查询与已提交值、失效值、异步搜索、状态播报、焦点、Tab、Space/Enter、Home/End 和 ARIA 所有权。
 - `resolvedPlacement` 转换保留逻辑 ID；目标焦点和 ARIA 必须在焦点移动前或同一 committed render 更新，来源专属属性随之移除，且转换不提交值或草稿。
 
+### 多选、标签输入与 Tokenized Input
+
+- 已定义多选 Select、标签输入、Tokenized Input、chips input、收件人输入、成员多选、标签创建、自由文本 token、批量粘贴和异步多值检索的首版 owner。
+- `multiValueInputState` 必须声明 `multiValueOwnerId`、`valueKind`、`committedValues`、`draftTokens`、`queryState`、`candidateOptions`、`creationPolicy`、`pastePolicy`、`commitPolicy`、`validationState`、`permissionBoundary`、`feedbackBinding` 和 `responsivePolicy`。
+- 多值输入不能只维护一个数组；已提交值、当前草稿 tokens、输入 query、active option、候选列表、创建候选和粘贴候选必须分别可观察。
+- 创建标签不等于已提交字段；服务端创建成功不等于表单保存、筛选应用或设置生效。
+- 移动端不得删除已选摘要、搜索、候选列表、创建入口、粘贴解析、重复/无效项说明、删除 token、清空、应用/取消、字段错误、权限原因、重试、恢复和离开保护。
+- 详细规则和可执行验收仅维护在 `references/multi-select-tag-inputs.md`，本交接不重复其状态模型或检查项。
+
 ### 选择控件与开关
 
 - 已定义 Checkbox、Radio Group、Switch、Toggle、Toggle Group、Segmented Control 和三态 checkbox 的首版 owner。
