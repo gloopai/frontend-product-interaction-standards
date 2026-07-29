@@ -6,6 +6,8 @@
 
 本文件是用户如何形成可复现查询意图的唯一事实来源。它定义查询条件草稿、已应用条件、默认条件、应用模式、重置/清空/移除、URL 同步、敏感值、权限收敛、移动端承载和可访问性。全站搜索、命令面板、复杂查询语言编辑器、SQL/DSL、BI 自由分析器、AI 自然语言检索和搜索排序算法不属于本 owner。
 
+筛选无结果、搜索无结果、清空筛选、重置筛选、恢复默认条件和 zero results empty CTA 必须同时执行 `references/empty-first-run-zero-results.md`。查询筛选 owner 负责草稿/已应用条件、queryIntent、URL 和默认条件；空态 owner 负责 `emptyStateDecision`、zeroResults 恢复优先级、CTA 和权限安全。
+
 ## 与组件 owner 的关系
 
 表格、分页、排序、结果、选择和批量操作读取 `data-tables.md`；筛选字段的 label、校验、错误和字段状态读取 `forms.md`；自绘 Select / Combobox 的 `query`、active option、popup 状态和已提交值读取 `selects-comboboxes.md`；应用、重置、清空、移除、打开更多筛选和移动端筛选按钮读取 `buttons.md`；高级筛选 Dialog 或筛选 Drawer 读取 `dialogs.md` / `drawers.md`；管理台权限、租户/工作区、导出、审计和批量范围读取 `admin-console.md`；断点、触摸、虚拟键盘和安全区域读取 `responsive-adaptive.md`。当本文件与组件 owner 都适用时，两者都执行；冲突时停止并请用户裁决。

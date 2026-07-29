@@ -6,6 +6,8 @@
 
 卡片选择后的批量操作、批处理动作、批量工具栏、全部筛选结果操作、跨页批量、部分成功和批量回执必须同时执行 `references/bulk-actions-batch-operations.md`。卡片列表 owner 负责卡片身份、选择区域和操作区域分离；批量 owner 负责 `bulkActionState`、scopeBinding、eligibilityMap、resultReceipt、partialResult 和 recoveryActions。
 
+卡片列表空态、无结果、首次使用、筛选无结果、未配置空态和 empty CTA 必须同时执行 `references/empty-first-run-zero-results.md`。卡片列表 owner 负责卡片结果形态、字段映射和交互区域；空态 owner 负责 `emptyStateDecision`、原因、CTA、筛选恢复、权限无泄露和移动端承载。
+
 卡片标题、副标题、状态、标签、描述、长字段、错误、文件名、路径、截断、省略号、查看全文、展开全文和复制全文必须同时执行 `references/text-overflow-truncation.md`；本文件继续负责卡片字段映射和交互区域，`text-overflow-truncation.md` 负责截断策略、完整内容恢复、复制权限、hover-only 禁止和移动端等价路径。
 
 卡片内操作如果使用乐观更新、先改卡片状态、撤销、失败回滚、自动重试、离线队列或迟到响应协调，必须同时执行 `references/optimistic-update-undo.md`；本文件继续负责卡片身份、字段映射和交互区域，`optimistic-update-undo.md` 负责 pending 投影、撤销窗口、回滚依据、幂等、权威结果合并和旧投影清理。

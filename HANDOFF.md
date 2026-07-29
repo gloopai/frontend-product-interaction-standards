@@ -41,6 +41,7 @@ frontend-product-interaction-standards/
     ├── date-time-ranges.md
     ├── dialogs.md
     ├── drawers.md
+    ├── empty-first-run-zero-results.md
     ├── exports-downloads-artifacts.md
     ├── feedback-states.md
     ├── field-guidance-help-text.md
@@ -643,6 +644,13 @@ frontend-product-interaction-standards/
 - 反馈状态不得只散落在 `loading`、`error`、`empty` 三个布尔值里；首次加载与刷新失败必须区分，刷新失败保留旧内容并标记 stale。
 - 空状态不能用“暂无数据”糊住所有情况；Toast 不能作为唯一错误或结果回执；无权状态不得泄露对象名称、数量、字段、文件名、筛选值或错误明细。
 - 详细规则和可执行验收仅维护在 [反馈状态与状态承载规范](references/feedback-states.md)，本交接不重复其状态模型或检查项。
+
+### 空态、无结果与首次使用引导
+
+- 已定义 `emptyStateDecision`，覆盖空态、无结果、首次使用、初始化空态、未配置空态、只读报表空态、权限空态、错误空态、归档空态和 empty CTA。
+- 空状态不是“没有数据”的单一文案；必须区分 firstRunEmpty、trueEmpty、zeroResults、permissionEmpty、errorEmpty、loadingEmpty、archivedEmpty、notConfiguredEmpty 和 readOnlyEmpty。
+- zeroResults 优先清空筛选、调整关键词、重置时间范围或返回默认视图；创建入口不得出现在只读报表、权限不足、能力未启用、不可写范围或筛选无结果但真实数据范围未知的场景。
+- 详细规则和可执行验收维护在 `references/empty-first-run-zero-results.md`。
 
 ### 全局反馈与通知
 

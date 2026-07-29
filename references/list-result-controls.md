@@ -2,6 +2,8 @@
 
 适用于列表结果、结果控制、结果摘要、分页、页码、游标分页、上一页、下一页、跳页、页大小、每页数量、排序、列表排序、表格排序、刷新、自动刷新、结果刷新、过期数据、数据版本、迟到响应、请求代次、总数不可靠、list result、result controls、result summary、pagination、page number、cursor pagination、previous page、next page、jump page、page size、per page、sorting、list sorting、table sorting、refresh、auto refresh、result refresh、stale data、dataset version、late response、request generation 和 unreliable total。
 
+列表 empty、zero-results、no results、首次使用、清空筛选、重置筛选和 empty CTA 必须同时执行 `references/empty-first-run-zero-results.md`。列表结果控制 owner 负责查询快照、分页、排序、刷新、总数可信度和结果摘要；空态 owner 负责 `emptyStateDecision`、emptyReason、CTA、权限空态和恢复路径。
+
 本文件是已应用查询快照驱动的结果控制 primary owner。表格列、选择、批量和 ARIA Grid 继续执行 [数据表格交互规范](data-tables.md)；筛选草稿和已应用条件继续执行 [查询条件与筛选交互规范](query-filters.md)；关键词输入草稿和 IME composition 继续执行 [关键词搜索输入交互规范](keyword-search-inputs.md)；状态反馈继续执行 [反馈状态交互规范](feedback-states.md)；按钮本体继续执行 [按钮交互规范](buttons.md)；保存视图继续执行 [保存视图、视图预设与个性化布局交互规范](saved-views-layout-presets.md)；导出下载继续执行 [导出、下载与结果产物交付交互规范](exports-downloads-artifacts.md)；移动端适配继续执行 [响应式与自适应交互规范](responsive-adaptive.md)。
 
 列表结果中的乐观新增、乐观删除、乐观状态变更、撤销、失败回滚、自动重试、离线队列或迟到响应协调必须同时执行 `references/optimistic-update-undo.md`；本文件继续负责已应用查询快照、结果刷新、stale、分页和选择影响，`optimistic-update-undo.md` 负责 pending 投影、撤销窗口、回滚依据、幂等、权威结果合并和旧投影清理。

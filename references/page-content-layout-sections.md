@@ -4,6 +4,8 @@
 
 本文件是页面正文内容布局 owner。它负责页面主内容区域、Section/Card 注册、分栏与密度策略、主滚动边界、sticky/fixed 避让、状态承载转交、权限无泄露、移动端重排和生命周期清理。Page Header、页面标题区和标题区主操作读取 `references/page-header-title-area.md`；页面操作栏、列表工具栏和 Section 工具栏读取 `references/page-toolbars-actions.md`；表格结果读取 `references/data-tables.md`；表单和字段错误读取 `references/forms.md`；信息卡、详情字段和只读展示读取 `references/information-display.md`；loading、empty、error、stale、permission 和 recovery 读取 `references/feedback-states.md`；跨端断点、安全区域和触摸输入读取 `references/responsive-adaptive.md`；管理台跨页面治理读取 `references/admin-console.md`。
 
+页面级、Section 级、Dashboard 模块级和 TabPanel 内的空态、无结果、首次使用、未配置空态和 empty CTA 必须同时执行 `references/empty-first-run-zero-results.md`。页面内容 owner 负责空态所在区域、主滚动、Section 注册和布局；空态 owner 负责 `emptyStateDecision`、原因、CTA、恢复和权限边界。
+
 ## 范围与边界
 
 页面内容区不是随意堆卡片，也不是 CSS 网格细节。它是用户完成主要任务的正文 owner，用来回答“当前页面主体有哪些区域、先看什么、哪个区域负责什么、滚动在哪里发生、固定元素会不会遮挡、移动端如何保留同等能力”。

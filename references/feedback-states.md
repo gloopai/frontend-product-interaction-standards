@@ -2,6 +2,8 @@
 
 批量操作、批处理动作、部分成功、未知批量结果、错误明细、重试失败项和批量恢复必须同时执行 `references/bulk-actions-batch-operations.md`。反馈状态 owner 负责页面级 loading、partial、error、stale 和 recovery 承载；批量 owner 负责 `bulkActionState`、partialResult、resultReceipt、recoveryActions 和批量目标范围。
 
+空态、无结果、首次使用、未配置空态、只读报表空态、权限空态、错误空态和 empty CTA 必须同时执行 `references/empty-first-run-zero-results.md`。反馈状态 owner 负责 empty、zero-results、permission、error 和 recovery 的承载优先级；空态 owner 负责 `emptyStateDecision`、emptyReason、CTA 匹配、筛选恢复、权限无泄露和移动端保真。
+
 ## 范围
 
 适用于页面主内容区、列表/表格结果区、卡片列表、报表区域、详情区域、设置区域、任务结果区、上传/导入结果区、权限状态页和移动端筛选结果页中的空状态、空态、暂无数据、无结果、筛选无结果、加载、加载中、骨架屏、placeholder、错误状态、刷新失败、加载失败、重试、过期数据、部分结果、无权限状态和只读状态。
