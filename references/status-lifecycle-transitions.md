@@ -6,6 +6,8 @@
 
 从行操作、记录菜单、卡片操作、右键菜单或长按菜单触发的单条状态流转必须同时执行 `references/row-contextual-actions.md`。生命周期 owner 负责当前状态、目标状态、转换意图和结果；行操作 owner 负责 `rowActionState`、recordIdentity、sourceSnapshot、availabilityMap、requestIdentity 和旧行防护。
 
+soft delete、archive restore、deleted-restorable、permanent delete、purge、retention expired、legal hold、回收站、已删除列表和恢复入口必须同时执行 `references/trash-restore-retention.md`。生命周期 owner 负责当前状态、目标状态和转换意图；回收站 owner 负责 `trashRestoreState`、保留期、恢复位置、永久删除、旧入口清理、权限无泄露和审计追溯。
+
 ## 范围与边界
 
 本 owner 覆盖：

@@ -76,6 +76,7 @@ frontend-product-interaction-standards/
     ├── selection-controls.md
     ├── selects-comboboxes.md
     ├── status-lifecycle-transitions.md
+    ├── trash-restore-retention.md
     ├── tree-hierarchy.md
     ├── user-attachment-submission.md
     ├── webhooks-integrations-callbacks.md
@@ -615,6 +616,14 @@ frontend-product-interaction-standards/
 - 已发送请求不得因为关闭确认、Escape、路由离开、客户端取消或 Toast 消失而写成“已取消”；未知结果不得伪装成成功或失败。
 - 批量危险操作必须冻结选择快照、筛选快照、权限版本、目标数量、目标摘要和影响范围；移动端不得删除危险确认、撤销/恢复入口、未知结果说明或审计回执。
 - 详细规则和可执行验收仅维护在 [危险操作与恢复交互规范](references/risk-actions.md)，本交接不重复其状态模型或检查项。
+
+### 回收站、软删除、归档恢复与保留期
+
+- 已定义 `trashRestoreState`，覆盖删除后恢复、软删除、回收站、垃圾箱、已删除列表、已归档列表、恢复记录、撤销删除、永久删除、清空回收站、保留期、到期清理、法律保留、删除审计和恢复审计。
+- 删除不是一个按钮点击，也不是一个 Toast；soft delete、archive、disable、restore、permanent delete、purge、retention expired 和 legal hold 必须区分。
+- 承诺可恢复时，恢复入口不能只存在于 Toast、旧列表行或浏览器历史；保留期必须展示绝对时间、时区、起算点、规则来源和到期动作。
+- 删除后旧列表、详情、预览、下载、复制、菜单、批量选择、导出、搜索、URL、ARIA 和焦点目标必须失效或重算；无权限不得泄露已删除对象名称、数量、字段、文件名、路径、删除原因、操作者、删除时间、保留期、内部 ID 或旧缓存。
+- 详细规则和可执行验收仅维护在 [回收站、软删除、归档恢复与保留期交互规范](references/trash-restore-retention.md)，本交接不重复其状态模型或检查项。
 
 ### 审批与审核工作流
 

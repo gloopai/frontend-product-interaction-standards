@@ -8,7 +8,7 @@
 
 ## 与组件 owner 的关系
 
-页面/区域级 loading、empty、error、stale、permission 和 recovery 读取 `feedback-states.md`；重试、撤销、查看详情等消息动作读取 `buttons.md`；字段错误和表单提交失败读取 `forms.md`；上传/导入任务、部分成功和错误明细读取 `uploads-imports.md`；审批提交、通过、驳回、撤回、转交、加签、委托、催办和未知结果反馈必须同时执行 `references/approval-workflows.md`，全局反馈不能替代审批状态、审批历史、审计或恢复；管理台危险操作、权限、审计和任务中心读取 `admin-console.md`；移动端安全区域、触摸和遮挡风险读取 `responsive-adaptive.md`。当本文件与组件 owner 都适用时，两者都执行；冲突时停止并请用户裁决。
+页面/区域级 loading、empty、error、stale、permission 和 recovery 读取 `feedback-states.md`；重试、撤销、查看详情等消息动作读取 `buttons.md`；字段错误和表单提交失败读取 `forms.md`；上传/导入任务、部分成功和错误明细读取 `uploads-imports.md`；审批提交、通过、驳回、撤回、转交、加签、委托、催办和未知结果反馈必须同时执行 `references/approval-workflows.md`，全局反馈不能替代审批状态、审批历史、审计或恢复；删除后恢复、软删除、回收站、永久删除、保留期到期和恢复失败必须同时执行 `references/trash-restore-retention.md`，全局反馈不能替代 `trashRestoreState`、恢复入口、保留期说明、审计回执或旧入口清理；管理台危险操作、权限、审计和任务中心读取 `admin-console.md`；移动端安全区域、触摸和遮挡风险读取 `responsive-adaptive.md`。当本文件与组件 owner 都适用时，两者都执行；冲突时停止并请用户裁决。
 
 Global Feedback owner 不替代页面/区域状态、表单错误、任务中心、审计回执或危险确认；它只定义短暂或跨区域反馈消息能承载什么、不能承载什么。
 

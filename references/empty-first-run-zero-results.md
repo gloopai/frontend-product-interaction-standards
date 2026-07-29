@@ -6,6 +6,8 @@
 
 页面/区域级 loading、error、partial、stale 和 recovery 承载继续执行 `references/feedback-states.md`；列表结果、分页、排序、刷新和总数可信度继续执行 `references/list-result-controls.md`；筛选草稿、已应用条件、清空/重置语义继续执行 `references/query-filters.md`；创建/新增入口继续执行 `references/record-editing-surfaces.md` 和 `references/buttons.md`；权限、租户与无泄露继续执行 `references/permissions-tenancy-visibility.md`；页面内容布局继续执行 `references/page-content-layout-sections.md`；表格和卡片结果继续执行 `references/data-tables.md` 与 `references/card-list-results.md`；移动端继续执行 `references/responsive-adaptive.md`。
 
+回收站空态、已删除列表无结果、已归档列表无结果、保留期到期后为空、权限过滤后的已删除空态和恢复后返回空结果必须同时执行 `references/trash-restore-retention.md`；空态 owner 负责 `emptyStateDecision` 和恢复 CTA 匹配，回收站 owner 负责 `trashRestoreState`、visibilityPolicy、retentionPolicy、restorePolicy、purgePolicy 和权限无泄露。
+
 ## 范围与边界
 
 本 owner 覆盖：
@@ -101,4 +103,3 @@
 8. **Toast 边界**：Toast 不是唯一空态原因、错误说明或恢复路径。
 9. **移动端保真**：移动端保留空态原因、筛选摘要、主 CTA、恢复入口、权限说明、重试和返回。
 10. **运行时报告**：真实浏览器、键盘、读屏、触摸、筛选变化、权限切换、路由恢复、移动端和缩放未执行时必须标为未验证。
-

@@ -2,7 +2,7 @@
 
 适用于批量操作、批处理动作、批量动作、批量选择操作、批量提交、批量删除、批量停用、批量启用、批量归档、批量恢复、批量导出、批量审批、批量移动、批量分配、批量打标签、批量改状态、全部筛选结果操作、当前页批量、跨页批量、部分成功、批量确认、批量回执、batch operation、bulk action、bulk operation、bulk selection action、mass action、multi-record action、apply to selected、apply to all filtered、partial success、bulk confirmation 和 bulk receipt。
 
-本文件是批量操作与批处理动作 owner。批量操作不是“对当前可见行循环单条操作”，也不是“选择数量 + 一个按钮”。它必须证明目标集合、选择范围、可执行性、确认、请求、结果拆分、恢复、权限和审计边界。行选择、全选、分页、排序和表格展示继续执行 `references/data-tables.md`；卡片选择继续执行 `references/card-list-results.md`；触发按钮继续执行 `references/buttons.md`；危险批量操作继续执行 `references/risk-actions.md`；批量审批继续执行 `references/approval-workflows.md`；批量导出和错误明细下载继续执行 `references/exports-downloads-artifacts.md`；权限和租户收敛继续执行 `references/permissions-tenancy-visibility.md`；部分成功、未知和恢复承载继续执行 `references/feedback-states.md`；异步长任务继续执行 `references/async-jobs-task-center.md`。
+本文件是批量操作与批处理动作 owner。批量操作不是“对当前可见行循环单条操作”，也不是“选择数量 + 一个按钮”。它必须证明目标集合、选择范围、可执行性、确认、请求、结果拆分、恢复、权限和审计边界。行选择、全选、分页、排序和表格展示继续执行 `references/data-tables.md`；卡片选择继续执行 `references/card-list-results.md`；触发按钮继续执行 `references/buttons.md`；危险批量操作继续执行 `references/risk-actions.md`；批量删除、批量恢复、批量永久删除、清空回收站和保留期到期清理必须同时执行 `references/trash-restore-retention.md`，批量 owner 负责目标集合和部分成功，回收站 owner 负责 `trashRestoreState`、保留期、恢复/永久删除和旧入口清理；批量审批继续执行 `references/approval-workflows.md`；批量导出和错误明细下载继续执行 `references/exports-downloads-artifacts.md`；权限和租户收敛继续执行 `references/permissions-tenancy-visibility.md`；部分成功、未知和恢复承载继续执行 `references/feedback-states.md`；异步长任务继续执行 `references/async-jobs-task-center.md`。
 
 ## 范围与边界
 
@@ -111,4 +111,3 @@
 8. **权限无泄露**：权限降级和无权限不泄露旧目标名称、数量、字段、失败明细、导出范围、内部 ID 或旧回执。
 9. **移动端保真**：移动端保留范围摘要、目标数量、确认、结果、错误明细、任务入口、审计入口和恢复。
 10. **运行时报告**：真实浏览器、键盘、读屏、触摸、分页/筛选变化、权限切换、弱网、异步任务和移动端未执行时必须标为未验证。
-

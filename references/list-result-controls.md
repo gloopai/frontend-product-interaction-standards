@@ -8,6 +8,8 @@
 
 列表结果中的乐观新增、乐观删除、乐观状态变更、撤销、失败回滚、自动重试、离线队列或迟到响应协调必须同时执行 `references/optimistic-update-undo.md`；本文件继续负责已应用查询快照、结果刷新、stale、分页和选择影响，`optimistic-update-undo.md` 负责 pending 投影、撤销窗口、回滚依据、幂等、权威结果合并和旧投影清理。
 
+已删除列表、已归档列表、回收站结果、包含已删除筛选、恢复后返回原列表、永久删除后的结果刷新和保留期到期清理必须同时执行 `references/trash-restore-retention.md`；列表结果 owner 负责查询快照、分页、排序、刷新和摘要，回收站 owner 负责 `trashRestoreState`、visibilityPolicy、retentionPolicy、restorePolicy、purgePolicy 和旧结果清理。
+
 ## 范围与非目标
 
 本 owner 覆盖列表、表格、卡片列表、报表结果、审计日志、任务中心、文件库、成员列表和设置项列表中的结果位置、排序、分页、刷新、自动刷新、结果摘要、请求快照、迟到响应、总数可信度、URL 恢复、权限和移动端承载。

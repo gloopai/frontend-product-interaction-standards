@@ -4,7 +4,7 @@
 
 本文件是行操作与上下文操作 owner。行操作不是“在当前行 DOM 上挂一个按钮”，也不是“更多菜单里放几个命令”。它必须证明动作目标、来源快照、权限、可用性、风险、请求身份、结果回执、迟到响应、虚拟列表、移动端和生命周期。
 
-表格行、列、选择、分页和虚拟滚动继续执行 `references/data-tables.md`；卡片身份和卡片操作区继续执行 `references/card-list-results.md`；按钮语义继续执行 `references/buttons.md`；更多菜单、Context Menu、Action Sheet 和浮层定位继续执行 `references/overlays-menus-tooltips.md`；新增/编辑/复制创建承载面继续执行 `references/record-editing-surfaces.md`；危险动作继续执行 `references/risk-actions.md`；权限和租户无泄露继续执行 `references/permissions-tenancy-visibility.md`；详情预览继续执行 `references/preview-pane.md`；状态流转继续执行 `references/status-lifecycle-transitions.md`；移动端继续执行 `references/responsive-adaptive.md`。
+表格行、列、选择、分页和虚拟滚动继续执行 `references/data-tables.md`；卡片身份和卡片操作区继续执行 `references/card-list-results.md`；按钮语义继续执行 `references/buttons.md`；更多菜单、Context Menu、Action Sheet 和浮层定位继续执行 `references/overlays-menus-tooltips.md`；新增/编辑/复制创建承载面继续执行 `references/record-editing-surfaces.md`；危险动作继续执行 `references/risk-actions.md`；删除后恢复、软删除、归档恢复、永久删除和回收站入口必须同时执行 `references/trash-restore-retention.md`，行操作 owner 负责动作触发和 `rowActionState`，回收站 owner 负责 `trashRestoreState`、保留期、恢复和旧入口清理；权限和租户无泄露继续执行 `references/permissions-tenancy-visibility.md`；详情预览继续执行 `references/preview-pane.md`；状态流转继续执行 `references/status-lifecycle-transitions.md`；移动端继续执行 `references/responsive-adaptive.md`。
 
 ## 范围与边界
 
@@ -104,4 +104,3 @@ Toast 不能作为唯一结果回执、唯一错误说明、唯一审计凭证�
 8. **权限无泄露**：无权限不泄露记录名称、字段值、状态、动作数量、菜单项、禁用原因、内部 ID、旧 tooltip 或旧 aria-label。
 9. **移动端保真**：移动端保留查看、编辑、关键恢复、危险确认、权限说明、审计入口和返回路径。
 10. **运行时报告**：真实浏览器、键盘、读屏、触摸、右键、长按、虚拟列表、权限切换、移动端和缩放未执行时必须标为未验证。
-

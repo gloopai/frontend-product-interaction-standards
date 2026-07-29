@@ -4,6 +4,8 @@
 
 审计日志表格、分页、排序和行选择继续执行 [数据表格交互规范](data-tables.md)。审计查询条件、时间范围筛选、主体筛选和动作筛选继续执行 [查询条件与筛选交互规范](query-filters.md)。日期时间、时区、相对时间和数据延迟继续执行 [日期时间与时区交互规范](date-time-ranges.md)。权限、租户/工作区和无泄露继续执行 [权限、租户与可见性交互规范](permissions-tenancy-visibility.md)。危险操作、审计回执和未知结果继续执行 [危险操作与恢复交互规范](risk-actions.md)。审批实例、审批节点、审批意见、审批附件、审批人、转交、加签、委托、催办和批量审批的审计证据必须同时执行 `references/approval-workflows.md`。异步任务、任务结果和任务追溯继续执行 [异步任务与任务中心交互规范](async-jobs-task-center.md)。管理台跨页面治理继续执行 [管理台完整治理交互规范](admin-console.md)。
 
+删除审计、恢复审计、永久删除审计、保留期到期、清空回收站、legal hold 和已删除对象追溯必须同时执行 `references/trash-restore-retention.md`；审计 owner 负责证据身份、时间语义和追溯链路，回收站 owner 负责 `trashRestoreState`、auditBinding、retentionPolicy、purgePolicy、restorePolicy 和无泄露边界。
+
 ## 范围与边界
 
 本 owner 覆盖：

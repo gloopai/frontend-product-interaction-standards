@@ -4,6 +4,8 @@
 
 文件选择、上传队列、导入预检、字段映射和文件级错误继续执行 [上传与导入交互规范](uploads-imports.md)。危险操作确认、风险分级、撤销窗口、取消任务和重跑任务的风险确认继续执行 [危险操作与恢复交互规范](risk-actions.md)。Toast、Notification、Alert、Banner 和消息去重继续执行 [全局反馈与通知交互规范](global-feedback.md)。表格选择和批量范围继续执行 [数据表格交互规范](data-tables.md)。管理台跨页面权限、审计和治理继续执行 [管理台完整治理交互规范](admin-console.md)。
 
+长耗时删除、批量恢复、永久删除、清空回收站、到期清理、恢复冲突处理和部分成功错误明细必须同时执行 `references/trash-restore-retention.md`；任务中心 owner 负责任务身份、进度、取消/重试和结果领取，回收站 owner 负责 `trashRestoreState`、retentionPolicy、restorePolicy、purgePolicy、resultReceipt 和旧入口清理。
+
 ## 范围与边界
 
 本 owner 覆盖：
