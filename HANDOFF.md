@@ -35,6 +35,7 @@ frontend-product-interaction-standards/
     ├── navigation-routing.md
     ├── query-filters.md
     ├── record-editing-surfaces.md
+    ├── risk-actions.md
     ├── responsive-adaptive.md
     ├── selects-comboboxes.md
     └── uploads-imports.md
@@ -114,6 +115,14 @@ frontend-product-interaction-standards/
 - 按钮必须具备明确动作语义、文案对象、主次层级、可访问名称、禁用原因、loading 名称、防重复门禁、危险操作确认和响应式可达性。
 - 图标按钮、更多菜单、批量按钮、导出按钮和任务按钮均需保留动作对象、权限边界、请求身份和结果 owner。
 - 详细规则和可执行验收仅维护在 [按钮交互规范](references/buttons.md)，本交接不重复其状态模型或检查项。
+
+### 危险操作与恢复
+
+- 已定义危险操作、风险操作、二次确认、输入确认、撤销、取消、未知结果、部分成功和审计回执的首版 owner。
+- 危险操作不得只靠颜色表达风险；二次确认不得只有“确定 / 取消”；未满足 `confirmationPolicy` 前请求数必须为 0。
+- 已发送请求不得因为关闭确认、Escape、路由离开、客户端取消或 Toast 消失而写成“已取消”；未知结果不得伪装成成功或失败。
+- 批量危险操作必须冻结选择快照、筛选快照、权限版本、目标数量、目标摘要和影响范围；移动端不得删除危险确认、撤销/恢复入口、未知结果说明或审计回执。
+- 详细规则和可执行验收仅维护在 [危险操作与恢复交互规范](references/risk-actions.md)，本交接不重复其状态模型或检查项。
 
 ### 上传与导入
 
