@@ -8,6 +8,8 @@
 
 ## 与组件 owner 的关系
 
+App Shell、应用外框、管理台外框、全局导航、侧边导航、顶部导航、用户菜单、工作区/租户切换和移动端导航 Drawer 必须同时执行 `references/app-shell-navigation.md`；本文件负责路由意图、来源恢复、离开保护和焦点恢复，`app-shell-navigation.md` 负责持久外框、全局入口、当前项绑定和外框级权限收敛。
+
 返回、保存、取消、关闭、删除、导出和打开外链等按钮读取 `buttons.md`；表单脏状态、未保存更改和提交生命周期读取 `forms.md`；页面内 Tabs、TabList、TabPanel、active tab、权限 tab、懒加载 tab 和移动端 tab 承载必须同时执行 `references/tab-view-navigation.md`，并接入本文件同一离开保护管线；列表、分页、排序、选择和批量范围读取 `data-tables.md`；查询条件恢复和 URL 筛选读取 `query-filters.md`；新增/编辑承载面读取 `record-editing-surfaces.md`；Dialog / Drawer 关闭和焦点规则读取 `dialogs.md` / `drawers.md`；权限、租户/工作区、危险操作和审计读取 `admin-console.md`；Toast、Banner 和错误回执读取 `global-feedback.md`；移动端断点、安全区域和触控读取 `responsive-adaptive.md`。
 
 从列表上下文打开、关闭、恢复或通过 URL 表达详情预览、侧边预览、行预览、记录预览、快速查看、只读预览和 Master-Detail 时，必须同时执行 `references/preview-pane.md`；本文件负责来源恢复、浏览器 Back/Forward、URL 安全、焦点恢复和兜底目标，`preview-pane.md` 负责预览目标、来源绑定、预览关闭与权限无泄露。

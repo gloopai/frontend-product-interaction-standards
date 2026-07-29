@@ -28,6 +28,7 @@ frontend-product-interaction-standards/
     ├── approval-workflows.md
     ├── audit-log-activity-history.md
     ├── async-jobs-task-center.md
+    ├── app-shell-navigation.md
     ├── billing-subscription-invoices.md
     ├── buttons.md
     ├── card-list-results.md
@@ -461,6 +462,14 @@ frontend-product-interaction-standards/
 - 返回不得直接等同于 `history.back()`；必须声明 `sourceContext`、`returnPolicy`、权限版本、dirty blockers 和焦点恢复目标。
 - 浏览器 Back/Forward、面包屑、Tabs、菜单导航、关闭容器和外部链接都必须经过同一离开保护管线；移动端不得删除返回、当前位置、未保存保护、权限说明或恢复路径。
 - 详细规则和可执行验收仅维护在 [导航与路由交互规范](references/navigation-routing.md)，本交接不重复其状态模型或检查项。
+
+### 管理台 App Shell 与导航外框
+
+- 已定义 App Shell、应用外框、管理台外框、全局导航、侧边导航、顶部导航、主导航、用户菜单、工作区/租户切换、全局搜索入口、通知入口和移动端导航 Drawer 的首版 owner。
+- `appShellNavigationState` 必须声明 `shellOwnerId`、`shellSurface`、`navigationRegistry`、`currentNavBinding`、`workspaceTenantBinding`、`globalEntryRegistry`、`userMenuBinding`、`permissionBoundary`、`responsivePolicy`、`focusAnnouncementPolicy`、`lifecycleDisposal` 和 `runtimeVerification`。
+- App Shell 不是普通页面，也不是一组静态链接；它是跨页面持久 owner，负责全局导航结构、当前项、全局入口、上下文切换和外框级焦点公告。
+- 租户、工作区、组织和账号切换不是普通 Select；必须冻结身份、目标范围、权限版本、当前页面、离开 blocker、可恢复目标和失败恢复。
+- 详细规则和可执行验收仅维护在 [管理台 App Shell 与导航外框交互规范](references/app-shell-navigation.md)，本交接不重复其状态模型或检查项。
 
 ### Tab 视图导航
 

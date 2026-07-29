@@ -2,7 +2,7 @@
 
 适用于登录、登出、退出登录、会话、会话过期、登录过期、认证、认证失败、重新认证、二次认证、多因素认证、MFA、2FA、SSO、单点登录、账号切换、身份切换、授权回调和认证回调。本文件是前端产品交互、认证状态边界、重新认证恢复、callback 绑定、旧会话失效、移动端恢复和验收的唯一事实来源。
 
-本规范不定义后端认证协议、Token 存储、加密方案、MFA 供应商或 SSO IdP 配置。权限解析读取 [权限、租户与可见性交互规范](permissions-tenancy-visibility.md)，路由返回读取 [导航与路由交互规范](navigation-routing.md)，表单失败恢复读取 [表单状态、校验与错误交互规范](forms.md)，敏感动作确认读取 [危险操作与恢复交互规范](risk-actions.md)，下载产物领取读取 [导出、下载与结果产物交付交互规范](exports-downloads-artifacts.md)，反馈通道读取 [全局反馈与通知交互规范](global-feedback.md) 和 [反馈状态与状态承载规范](feedback-states.md)，挑战承载层读取 [Dialog 交互规范](dialogs.md)、[Drawer 交互规范](drawers.md) 和 [响应式与自适应交互规范](responsive-adaptive.md)。
+本规范不定义后端认证协议、Token 存储、加密方案、MFA 供应商或 SSO IdP 配置。权限解析读取 [权限、租户与可见性交互规范](permissions-tenancy-visibility.md)，路由返回读取 [导航与路由交互规范](navigation-routing.md)，App Shell 用户菜单、账号菜单、退出登录、身份切换、工作区/租户切换入口和会话变化后的外框收敛必须同时执行 `references/app-shell-navigation.md`；认证 owner 负责身份、挑战、callback 和旧会话失效，`app-shell-navigation.md` 负责外框入口、当前上下文、菜单和全局入口重算。表单失败恢复读取 [表单状态、校验与错误交互规范](forms.md)，敏感动作确认读取 [危险操作与恢复交互规范](risk-actions.md)，下载产物领取读取 [导出、下载与结果产物交付交互规范](exports-downloads-artifacts.md)，反馈通道读取 [全局反馈与通知交互规范](global-feedback.md) 和 [反馈状态与状态承载规范](feedback-states.md)，挑战承载层读取 [Dialog 交互规范](dialogs.md)、[Drawer 交互规范](drawers.md) 和 [响应式与自适应交互规范](responsive-adaptive.md)。
 
 ## 范围
 
