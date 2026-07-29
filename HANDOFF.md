@@ -67,6 +67,7 @@ frontend-product-interaction-standards/
     ├── query-filters.md
     ├── record-editing-surfaces.md
     ├── risk-actions.md
+    ├── row-contextual-actions.md
     ├── responsive-adaptive.md
     ├── saved-views-layout-presets.md
     ├── search-command-palette.md
@@ -582,6 +583,13 @@ frontend-product-interaction-standards/
 - 按钮必须具备明确动作语义、文案对象、主次层级、可访问名称、禁用原因、loading 名称、防重复门禁、危险操作确认和响应式可达性。
 - 图标按钮、更多菜单、批量按钮、导出按钮和任务按钮均需保留动作对象、权限边界、请求身份和结果 owner。
 - 详细规则和可执行验收仅维护在 [按钮交互规范](references/buttons.md)，本交接不重复其状态模型或检查项。
+
+### 行操作与上下文操作
+
+- 已定义 `rowActionState`，覆盖行操作、记录操作、上下文操作、更多菜单、卡片操作、操作列、右键菜单、长按菜单、单条删除/编辑/停用/启用/归档/恢复等单条记录动作。
+- 行操作不是“在当前行 DOM 上挂一个按钮”；动作必须冻结 `recordIdentity`、`sourceSnapshot`、权限版本和状态版本，不得读取 hover row、active row、虚拟行 DOM、旧 record 或 rowIndex。
+- 虚拟行复用、分页、筛选、排序、自动刷新和权限变化后，旧菜单不能操作新记录；Toast 不能作为唯一结果、错误、审计或恢复路径。
+- 详细规则和可执行验收维护在 `references/row-contextual-actions.md`。
 
 ### 浮层菜单与提示
 

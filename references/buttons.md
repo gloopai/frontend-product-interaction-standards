@@ -16,6 +16,7 @@
 - `dialogs.md` / `drawers.md`：遮罩、关闭、焦点陷阱、右上角关闭按钮、动画和 disposal 仍归容器 owner；按钮补充操作文案、层级、状态和危险动作入口。
 - `data-tables.md`：行操作、批量操作、选择快照、分页、排序和表格能力仍归数据表格 owner；按钮管按钮名称、图标按钮、禁用原因和触发去重。
 - `references/bulk-actions-batch-operations.md`：批量按钮、批量工具栏按钮、apply to selected、apply to all filtered、批量确认按钮和批量结果恢复按钮只能作为批量操作入口；批量 owner 负责 `bulkActionState`、scopeBinding、eligibilityMap、partialResult、resultReceipt 和 recoveryActions。
+- `references/row-contextual-actions.md`：行操作按钮、卡片操作按钮、记录更多按钮、右键菜单动作和单条记录动作按钮只能作为行操作入口；行操作 owner 负责 `rowActionState`、recordIdentity、sourceSnapshot、actionCatalog、availabilityMap、requestIdentity 和 resultReceipt。
 - `references/empty-first-run-zero-results.md`：空态创建按钮、导入按钮、清空筛选、重置筛选、申请权限、重试、查看帮助和返回按钮只能作为空态恢复入口；空态 owner 负责 `emptyStateDecision`、emptyReason、capabilityPolicy、primaryActionPolicy 和 recoveryPolicy。
 - `admin-console.md`：权限、租户、风险、审计、任务和全局反馈仍归管理台 owner；按钮不得绕过这些 owner。
 - `record-editing-surfaces.md`：新增/编辑入口可以是按钮，但按钮只能作为入口，不能把编辑字段放回列表。

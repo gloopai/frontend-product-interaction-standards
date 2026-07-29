@@ -6,6 +6,8 @@
 
 批量删除、批量停用、批量归档、批量恢复、批量权限变更、敏感批量导出和大范围批处理必须同时执行 `references/bulk-actions-batch-operations.md`。风险 owner 负责风险分级、强确认、撤销窗口和不可逆说明；批量 owner 负责 `bulkActionState`、目标集合、范围冻结、部分成功、结果回执和恢复范围。
 
+单条删除、单条停用、单条归档、单条恢复、取消任务、重跑任务和行菜单中的危险动作必须同时执行 `references/row-contextual-actions.md`。风险 owner 负责风险分级、影响范围、确认策略、撤销和审计；行操作 owner 负责 `rowActionState`、recordIdentity、sourceSnapshot、requestIdentity、resultReceipt 和旧行防护。
+
 本文件是风险动作生命周期的唯一事实来源。它定义风险分级、影响范围、确认策略、确认前请求边界、请求身份、撤销窗口、取消语义、未知结果、批量快照、权限收敛、审计回执、恢复入口、可访问性和移动端可达性。它不定义具体按钮视觉、Dialog 焦点陷阱、服务端事务或审计存储实现。
 
 ## 与组件 owner 的关系

@@ -4,6 +4,8 @@
 
 本文件是“以卡片作为主要结果形态”的唯一 owner。若结果本质是数据表格，只是在窄屏或 200% 缩放后转换为卡片，仍以 `references/data-tables.md` 为主，本文件只补充卡片结构、交互区域和移动端可达性。查询、排序、分页、刷新、结果摘要和总数可信度读取 `references/list-result-controls.md`；人工排序、拖拽排序、卡片重排、上移/下移、置顶/置底和保存顺序读取 `references/ordering-reordering.md`，本文件只提供排序入口和卡片身份。页面工具栏和视图切换读取 `references/page-toolbars-actions.md`；按钮读取 `references/buttons.md`；更多菜单、Dropdown、Popover 和 Action Sheet 读取 `references/overlays-menus-tooltips.md`；详情预览读取 `references/preview-pane.md`；新增、编辑、复制创建和字段保存读取 `references/record-editing-surfaces.md`；权限读取 `references/permissions-tenancy-visibility.md`；反馈状态读取 `references/feedback-states.md`；响应式读取 `references/responsive-adaptive.md`。
 
+卡片操作区、卡片更多菜单、卡片右键/长按菜单和单卡片动作必须同时执行 `references/row-contextual-actions.md`。卡片列表 owner 负责卡片身份、字段映射和交互区域；行操作 owner 负责 `rowActionState`、recordIdentity、actionCatalog、availabilityMap、requestIdentity、resultReceipt 和旧卡片状态清理。
+
 卡片选择后的批量操作、批处理动作、批量工具栏、全部筛选结果操作、跨页批量、部分成功和批量回执必须同时执行 `references/bulk-actions-batch-operations.md`。卡片列表 owner 负责卡片身份、选择区域和操作区域分离；批量 owner 负责 `bulkActionState`、scopeBinding、eligibilityMap、resultReceipt、partialResult 和 recoveryActions。
 
 卡片列表空态、无结果、首次使用、筛选无结果、未配置空态和 empty CTA 必须同时执行 `references/empty-first-run-zero-results.md`。卡片列表 owner 负责卡片结果形态、字段映射和交互区域；空态 owner 负责 `emptyStateDecision`、原因、CTA、筛选恢复、权限无泄露和移动端承载。

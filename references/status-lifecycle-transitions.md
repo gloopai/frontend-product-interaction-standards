@@ -4,6 +4,8 @@
 
 状态流转按钮、loading、禁用和按钮组继续执行 [按钮交互规范](buttons.md)。高风险、不可逆、外部系统影响或需要强确认的状态变更继续执行 [危险操作与恢复交互规范](risk-actions.md)。状态流转如果允许乐观更新、先改状态、撤销、失败回滚、自动重试、离线队列或迟到响应协调，必须同时执行 `references/optimistic-update-undo.md`；本文件继续负责当前已证明状态、目标状态、转换意图和生命周期结果，乐观 mutation owner 负责 pending 投影、非终态标记、回滚依据、幂等和权威结果合并。审批、审核、提交审批、通过、驳回、撤回、转交、加签、委托、催办、待办和批量审批必须同时执行 `references/approval-workflows.md`；本文件继续负责生命周期状态，`approval-workflows.md` 负责审批实例、节点、审批人、意见/附件、通知、审计和工作流决策快照。权限、租户/工作区、可见性和无泄露继续执行 [权限、租户与可见性交互规范](permissions-tenancy-visibility.md)。审计回执、操作历史和追溯继续执行 [审计日志与操作历史交互规范](audit-log-activity-history.md)。异步状态变更、任务中心和结果领取继续执行 [异步任务与任务中心交互规范](async-jobs-task-center.md)。批量状态变更的选择快照、筛选快照、分页和部分成功继续执行 [数据表格交互规范](data-tables.md)。只读详情、状态标签和对象摘要继续执行 [信息展示与详情页交互规范](information-display.md)。移动端承载继续执行 [响应式与自适应交互规范](responsive-adaptive.md)。
 
+从行操作、记录菜单、卡片操作、右键菜单或长按菜单触发的单条状态流转必须同时执行 `references/row-contextual-actions.md`。生命周期 owner 负责当前状态、目标状态、转换意图和结果；行操作 owner 负责 `rowActionState`、recordIdentity、sourceSnapshot、availabilityMap、requestIdentity 和旧行防护。
+
 ## 范围与边界
 
 本 owner 覆盖：

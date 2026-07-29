@@ -16,6 +16,8 @@ Tooltip 或 Popover 用于辅助展示被截断全文、长标题、长状态、
 
 Select / Combobox 的 option list、搜索、active option 和提交值读取 `selects-comboboxes.md`；Dialog / Drawer 等模态容器读取 `dialogs.md` / `drawers.md`；业务按钮、图标按钮和菜单项动作读取 `buttons.md`；危险菜单项读取 `risk-actions.md`；表格行菜单和固定列遮挡读取 `data-tables.md`；权限、审计和管理台页面级治理读取 `admin-console.md`；Toast、Alert、结果回执和恢复入口读取 `global-feedback.md`；跨端转换、触摸、虚拟键盘和安全区域读取 `responsive-adaptive.md`。
 
+行更多菜单、记录菜单、卡片菜单、Context Menu、右键菜单、长按菜单和移动端 Action Sheet 中的单条记录动作必须同时执行 `references/row-contextual-actions.md`。浮层 owner 负责触发、定位、焦点、关闭、Portal 和清理；行操作 owner 负责 `rowActionState`、动作目标、权限、请求身份、结果回执和旧行防护。
+
 ## 场景与状态模型
 
 每个非模态浮层维护 `overlayState`：

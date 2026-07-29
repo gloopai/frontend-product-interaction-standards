@@ -12,6 +12,8 @@
 
 列表中的详情预览、侧边预览、行预览、记录预览、快速查看、只读预览和 Master-Detail 归 `references/preview-pane.md`；预览面板只能展示只读内容和操作入口，不得承载新增、编辑、复制创建、批量配置、字段保存、行内保存或完整字段编辑表单。编辑入口只能从预览转交到本文件规定的 Dialog、Drawer 或独立页。
 
+从行操作、卡片操作、记录菜单、右键菜单、长按菜单或上下文操作进入新增、编辑、复制创建、配置和字段保存时，必须同时执行 `references/row-contextual-actions.md`。记录编辑 owner 负责编辑承载面和表单会话；行操作 owner 负责 `rowActionState`、recordIdentity、sourceSnapshot、editSurfaceHandoff 和旧行防护。
+
 卡片列表、卡片式结果、资源卡片、模板卡片、应用卡片、项目卡片、卡片网格、移动端结果卡片和 Kanban-lite 归 `references/card-list-results.md`；卡片内不得承载新增、编辑、复制创建、单元格编辑、字段保存、行内保存或完整字段表单，只能提供进入本文件规定承载面的入口。
 
 编辑承载面只能是：

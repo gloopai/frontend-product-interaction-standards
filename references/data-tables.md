@@ -24,6 +24,8 @@
 
 从表格、卡片列表、搜索结果或报表明细打开详情预览、侧边预览、行预览、记录预览、快速查看、只读预览或 Master-Detail 时，必须同时执行 `references/preview-pane.md`；表格 owner 只提供来源快照、稳定记录 ID、焦点和能力档位，预览目标、预览请求、预览关闭、权限无泄露、移动端预览承载和迟到响应门禁归 `preview-pane.md`。预览目标不等于表格选择、hover、focus 或 active row。
 
+表格行操作、操作列、固定操作列、行更多菜单、右键菜单、长按菜单和单条记录动作必须同时执行 `references/row-contextual-actions.md`。数据表格 owner 负责行身份、列、分页、排序、虚拟滚动和来源快照；行操作 owner 负责 `rowActionState`、recordIdentity、sourceSnapshot、actionCatalog、availabilityMap、requestIdentity 和 resultReceipt。
+
 以卡片作为主要结果形态的卡片列表、卡片式结果、资源卡片、模板卡片、应用卡片、项目卡片、卡片网格、移动端结果卡片和 Kanban-lite 必须执行 `references/card-list-results.md`；表格转卡片仍由本文件负责等价转换、选择、批量和单实例约束，`card-list-results.md` 负责卡片结构、字段映射、交互区域、大链接禁止、卡片内编辑禁止和移动端结果卡片可达性。
 
 本文件完整定义第一版的数据表格生命周期。未在能力档位、查询快照、选择快照、操作快照、响应式转换或 disposal 规则中声明的行为，不能由页面名称、组件默认值或迟到回调自行推断。
