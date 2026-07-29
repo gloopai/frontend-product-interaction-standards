@@ -47,6 +47,7 @@ frontend-product-interaction-standards/
     ├── search-command-palette.md
     ├── selection-controls.md
     ├── selects-comboboxes.md
+    ├── status-lifecycle-transitions.md
     ├── tree-hierarchy.md
     ├── wizards-steppers.md
     └── uploads-imports.md
@@ -239,6 +240,20 @@ frontend-product-interaction-standards/
 - 已发送请求不得因为关闭确认、Escape、路由离开、客户端取消或 Toast 消失而写成“已取消”；未知结果不得伪装成成功或失败。
 - 批量危险操作必须冻结选择快照、筛选快照、权限版本、目标数量、目标摘要和影响范围；移动端不得删除危险确认、撤销/恢复入口、未知结果说明或审计回执。
 - 详细规则和可执行验收仅维护在 [危险操作与恢复交互规范](references/risk-actions.md)，本交接不重复其状态模型或检查项。
+
+### 状态流转与记录生命周期
+
+- 已定义 status lifecycle、status transition、record lifecycle、state machine、发布/下线、审批/驳回、启停、归档/恢复、冻结/解冻、锁定/解锁的首版 owner。
+- 覆盖状态模型、转换意图、版本快照、结果状态、冲突恢复、权限无泄露、审计回执、批量快照和移动端承载。
+- 状态 badge、按钮 loading、乐观 UI、Toast 文案或本地缓存不得伪装成已完成状态流转。
+- 状态展示和状态变更不得共用一个含糊 status 字段。
+- 没有冻结对象版本、权限版本、当前状态、目标状态、租户/工作区和请求身份，不得提交状态变更。
+- 版本冲突、权限变化、租户切换、对象删除、状态已变化或业务限制变化时，旧意图必须失效。
+- transitionResult 必须区分 success、failure、partial-success、conflict、stale、unknown、queued、processing 和 cancelled-client-only。
+- 无权限状态流转不得泄露当前状态、下一步动作、不可见原因、对象数量、批量影响范围、审批意见、拒绝原因、内部状态码、任务结果或旧缓存。
+- 批量状态变更不得用当前页面可见行替代选择快照、筛选快照、权限版本和目标摘要。
+- 移动端不得删除当前状态、状态原因、可用动作、禁用原因、确认、结果回执、审计入口或恢复路径。
+- 详细规则和可执行验收仅维护在 [状态流转与记录生命周期交互规范](references/status-lifecycle-transitions.md)，本交接不重复其状态模型或检查项。
 
 ### 上传与导入
 

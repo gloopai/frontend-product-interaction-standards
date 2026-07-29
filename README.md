@@ -4,7 +4,7 @@
 
 ## 当前规范
 
-本 Skill 当前包含以下 Dialog、四向抽屉、可搜索单选 Select、选择控件与开关、树形结构与级联、表单、数据表格、查询条件与筛选、搜索与命令面板、日期时间与时区、信息展示与详情页、图表与可视化、分步流程与配置向导、导航与路由、记录新增/编辑承载面、按钮、浮层菜单与提示、危险操作与恢复、权限/租户与可见性、异步任务与任务中心、审计日志与操作历史、上传与导入、反馈状态、全局反馈、跨端适配和管理台治理核心要求：
+本 Skill 当前包含以下 Dialog、四向抽屉、可搜索单选 Select、选择控件与开关、树形结构与级联、表单、数据表格、查询条件与筛选、搜索与命令面板、日期时间与时区、信息展示与详情页、图表与可视化、分步流程与配置向导、导航与路由、记录新增/编辑承载面、按钮、浮层菜单与提示、危险操作与恢复、状态流转与记录生命周期、权限/租户与可见性、异步任务与任务中心、审计日志与操作历史、上传与导入、反馈状态、全局反馈、跨端适配和管理台治理核心要求：
 
 - PC、平板和移动端保持核心能力一致；低频能力可以折叠或收纳，但不能删除，且必须保持可发现、可访问。
 
@@ -33,6 +33,7 @@
 - 按钮规范首版聚焦管理台和业务操作按钮，约束按钮语义、文案、主次层级、禁用、loading、防重复、危险操作、图标按钮、按钮组和响应式可达性。
 - 浮层菜单与提示规范约束 Tooltip、Popover、Dropdown Menu、Context Menu、更多菜单、Action Sheet 和移动端菜单 Drawer 的触发、可达性、关键内容边界、菜单项动作、Portal、碰撞、权限收敛和生命周期清理。
 - 危险操作与恢复规范约束风险分级、影响范围、二次确认、输入确认、撤销窗口、取消边界、未知结果、批量快照、权限收敛、审计回执和移动端恢复可达性。
+- 状态流转与记录生命周期规范约束 status lifecycle、status transition、record lifecycle、发布/下线、审批/驳回、启停、归档/恢复、冻结/解冻、锁定/解锁的状态模型、转换意图、版本快照、结果状态、冲突恢复、权限无泄露、审计回执、批量快照和移动端承载。
 - 权限、租户与可见性规范约束 RBAC、ABAC、角色、能力开关、租户/工作区切换、权限降级、隐藏/禁用/只读/未启用语义、原子收敛、无泄露、请求绑定和移动端权限恢复。
 - 异步任务与任务中心规范约束 async job、导入导出任务、批量任务、报表生成、AI 生成、同步任务的任务身份、进度、取消/重试、未知结果、任务中心恢复、结果产物、权限复核和移动端承载。
 - 审计日志与操作历史规范约束 audit log、activity log、operation history、事件日志、变更记录和时间线的证据身份、主体/目标/动作快照、时间语义、完整性状态、权限无泄露、审计导出复核和移动端追溯。
@@ -41,7 +42,7 @@
 - 全局反馈与通知规范约束 Toast、Alert、Banner、Notification 和 Inline Feedback 的通道选择、结果绑定、自动关闭、去重堆叠、恢复入口、移动端遮挡和敏感信息边界。
 - 管理台完整治理覆盖导航、权限/租户、危险操作、审计、导入导出、异步任务、报表口径和全局反馈，并规定报表默认只读、能力显式声明、Toast 不得作为唯一回执。
 
-完整规则、验收标准与完成前检查见 [Dialog 交互规范](references/dialogs.md)、[Drawer 交互规范](references/drawers.md)、[可搜索单选 Select / Combobox 交互规范](references/selects-comboboxes.md)、[选择控件与开关交互规范](references/selection-controls.md)、[树形结构与级联交互规范](references/tree-hierarchy.md)、[表单状态、校验与错误交互规范](references/forms.md)、[数据表格交互规范](references/data-tables.md)、[查询条件与筛选交互规范](references/query-filters.md)、[搜索与命令面板交互规范](references/search-command-palette.md)、[日期时间与时区交互规范](references/date-time-ranges.md)、[信息展示与详情页交互规范](references/information-display.md)、[图表与可视化交互规范](references/charts-visualization.md)、[分步流程与配置向导交互规范](references/wizards-steppers.md)、[导航与路由交互规范](references/navigation-routing.md)、[记录新增/编辑承载面交互规范](references/record-editing-surfaces.md)、[按钮交互规范](references/buttons.md)、[浮层菜单与提示交互规范](references/overlays-menus-tooltips.md)、[危险操作与恢复交互规范](references/risk-actions.md)、[权限、租户与可见性交互规范](references/permissions-tenancy-visibility.md)、[异步任务与任务中心交互规范](references/async-jobs-task-center.md)、[审计日志与操作历史交互规范](references/audit-log-activity-history.md)、[上传与导入交互规范](references/uploads-imports.md)、[反馈状态与状态承载规范](references/feedback-states.md)、[全局反馈与通知交互规范](references/global-feedback.md)、[响应式与自适应交互规范](references/responsive-adaptive.md) 和 [管理台完整治理交互规范](references/admin-console.md)。
+完整规则、验收标准与完成前检查见 [Dialog 交互规范](references/dialogs.md)、[Drawer 交互规范](references/drawers.md)、[可搜索单选 Select / Combobox 交互规范](references/selects-comboboxes.md)、[选择控件与开关交互规范](references/selection-controls.md)、[树形结构与级联交互规范](references/tree-hierarchy.md)、[表单状态、校验与错误交互规范](references/forms.md)、[数据表格交互规范](references/data-tables.md)、[查询条件与筛选交互规范](references/query-filters.md)、[搜索与命令面板交互规范](references/search-command-palette.md)、[日期时间与时区交互规范](references/date-time-ranges.md)、[信息展示与详情页交互规范](references/information-display.md)、[图表与可视化交互规范](references/charts-visualization.md)、[分步流程与配置向导交互规范](references/wizards-steppers.md)、[导航与路由交互规范](references/navigation-routing.md)、[记录新增/编辑承载面交互规范](references/record-editing-surfaces.md)、[按钮交互规范](references/buttons.md)、[浮层菜单与提示交互规范](references/overlays-menus-tooltips.md)、[危险操作与恢复交互规范](references/risk-actions.md)、[状态流转与记录生命周期交互规范](references/status-lifecycle-transitions.md)、[权限、租户与可见性交互规范](references/permissions-tenancy-visibility.md)、[异步任务与任务中心交互规范](references/async-jobs-task-center.md)、[审计日志与操作历史交互规范](references/audit-log-activity-history.md)、[上传与导入交互规范](references/uploads-imports.md)、[反馈状态与状态承载规范](references/feedback-states.md)、[全局反馈与通知交互规范](references/global-feedback.md)、[响应式与自适应交互规范](references/responsive-adaptive.md) 和 [管理台完整治理交互规范](references/admin-console.md)。
 
 ## 系统要求
 
@@ -121,6 +122,7 @@ frontend-product-interaction-standards/
     ├── record-editing-surfaces.md
     ├── risk-actions.md
     ├── selects-comboboxes.md
+    ├── status-lifecycle-transitions.md
     ├── tree-hierarchy.md
     ├── uploads-imports.md
     ├── wizards-steppers.md
