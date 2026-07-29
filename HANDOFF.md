@@ -38,6 +38,7 @@ frontend-product-interaction-standards/
     ├── drawers.md
     ├── exports-downloads-artifacts.md
     ├── feedback-states.md
+    ├── files-media-assets.md
     ├── forms.md
     ├── global-feedback.md
     ├── information-display.md
@@ -439,6 +440,15 @@ frontend-product-interaction-standards/
 - 浏览器 `accept` 只能作为选择器提示，客户端取消不等于服务端取消，部分成功不能只靠 Toast，错误明细下载必须复核权限和任务身份。
 - 详细规则和可执行验收仅维护在 [上传与导入交互规范](references/uploads-imports.md)，本交接不重复其状态模型或检查项。
 
+### 文件与媒体资产管理
+
+- 已定义文件管理、文件库、附件管理、媒体资产、素材库、在线预览、缩略图、图片裁剪、音视频转码、替换文件、资产版本、发布/下架、分享链接、删除恢复和使用关系的首版 owner。
+- `assetState` 必须声明 `assetOwnerId`、`assetIdentity`、`assetLifecycle`、`variantState`、`previewPolicy`、`downloadPolicy`、`sharePolicy`、`editPolicy`、`publishPolicy`、`usageBinding`、`permissionBoundary`、`retentionPolicy`、`feedbackBinding` 和 `responsivePolicy`。
+- 上传完成、资产入库、扫描完成、转码完成、缩略图生成完成、预览可用、下载可用、发布可用、CDN 生效和分享链接可用必须是不同状态。
+- 缩略图、预览图、播放器 poster、PDF 首页图、波形图和已缓存媒体片段不能作为权限证明；旧预览 URL、旧下载 URL、旧分享链接、旧 CDN 地址、旧缩略图、旧播放器状态、旧复制内容、旧焦点目标和旧 ARIA 引用必须失效或重新证明安全。
+- 移动端不得删除预览、下载、替换、删除/恢复、转码状态、权限原因、分享管理、使用关系、版本说明、错误恢复和审计入口。
+- 详细规则和可执行验收仅维护在 `references/files-media-assets.md`，本交接不重复其状态模型或检查项。
+
 ### 反馈状态与状态承载
 
 - 已定义页面/区域级 loading、skeleton、empty、zero-results、error、refresh-error、stale、permission、partial 和 recovery 的首版 owner。
@@ -497,7 +507,6 @@ frontend-product-interaction-standards/
 
 1. 超出管理台范围的上传能力。
 2. 图表与可视化创作。
-3. 文件与媒体管理。
 
 每次新增规范时，应同步检查：
 
