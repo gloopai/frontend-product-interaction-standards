@@ -49,9 +49,10 @@ Select 从 PC popup 转到 Drawer，或从 Drawer 转回 PC popup 时，必须�
 - Dialog 内 popup 不得被 Dialog 内容滚动区、外框、固定页脚、局部容器、`overflow` 或 `transform` 裁切。
 - 不得为了 Select popup 展开而让 Dialog 外框滚动。
 - popup 不得遮挡 Dialog 主要确认按钮；空间不足时必须 flip、限高或转换为 Drawer。
+- 截图型页脚冲突不能仅凭“选项还能点击”判定通过；必须记录 trigger、popup、选中高亮行、滚动阴影、底部操作区和安全区域的可视矩形，并证明没有视觉相交。
 - 移动端复杂 Dialog 转 Bottom Drawer 后，不能删除标题、关闭路径、提交、取消、错误、未保存保护或底部操作。
 - Bottom Drawer 即使左右留边距和圆角，也必须执行 Drawer 的模态、焦点、遮罩、滚动和清理规则。
-- Select 转 Drawer 不得改变已提交值、提交草稿、重置搜索、重复请求或触发值变化回调。
+- Select 转 Drawer 不得改变已提交值、提交草稿、重置搜索、重复请求或触发值变化回调，也不得与外层 Bottom Sheet 正文共享滚动容器。
 - 已打开 Dialog/Select 在断点变化时必须保持单实例，不能产生重复遮罩、焦点陷阱、滚动锁、动画或异步回调。
 
 ## 验收策略
@@ -61,5 +62,5 @@ Select 从 PC popup 转到 Drawer，或从 Drawer 转回 PC popup 时，必须�
 - `dialogs.md` 明确 Dialog 内 popup 不得被裁切，且不得通过外框滚动解决。
 - `selects-comboboxes.md` 明确 PC popup portal/flip/max-height，移动端空间不足时 Select Drawer 优先。
 - `responsive-adaptive.md` 明确 Bottom Drawer 可左右留边距和圆角，但语义仍为 Drawer。
-- RED/GREEN 证据包含截图对应负例：Dialog 内 Select popup 被页脚裁切、Dialog 外框被迫滚动、移动端删除关闭/底部操作、Select 转 Drawer 丢 query 或 selectedValue。
+- RED/GREEN 证据包含截图对应负例：Dialog 内 Select popup 被页脚裁切、Dialog 外框被迫滚动、缺少可视矩形证据、移动端删除关闭/底部操作、Select 转 Drawer 丢 query 或 selectedValue、Select Drawer 与外层 Bottom Sheet 共用滚动容器。
 - 运行时浏览器、触摸设备、真实组件和真实视口未执行时必须标为未验证。

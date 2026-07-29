@@ -54,11 +54,11 @@ Clarify that mobile complex Dialog may convert to bottom Drawer / Bottom Sheet w
 
 - [ ] **Step 1: Write Ruby audit**
 
-Audit required terms in the three owners and RED/GREEN evidence: no clipping, no Dialog outer-frame scroll workaround, portal/modal popup root, flip/max-height/options-only scroll, mobile bottom Drawer / Bottom Sheet, side margins/rounded corners, Drawer semantics, selectedValue/query/activeOption continuity, no duplicate overlay/focus trap/scroll lock/requests/animations, and unverified runtime disclosure.
+Audit required terms in the three owners and RED/GREEN evidence: no clipping, no Dialog outer-frame scroll workaround, portal/modal popup root, flip/max-height/options-only scroll, visible-rectangle proof for screenshot-shaped footer conflicts, mobile bottom Drawer / Bottom Sheet, side margins/rounded corners, Drawer semantics, no shared scroll container between Select Drawer and outer Bottom Sheet body, selectedValue/query/activeOption continuity, no duplicate overlay/focus trap/scroll lock/requests/animations, and unverified runtime disclosure.
 
 - [ ] **Step 2: Add mutation checks**
 
-The `--mutations` mode must fail when removing the no-clipping rule, no-outer-scroll workaround rule, portal root rule, flip/max-height rule, mobile Bottom Drawer rule, Drawer semantics despite margins/corners rule, Select state continuity rule, duplicate overlay/focus trap/scroll lock/request/animation rule, and runtime unverified disclosure.
+The `--mutations` mode must fail when removing the no-clipping rule, no-outer-scroll workaround rule, portal root rule, flip/max-height rule, footer visible-rectangle proof rule, selected-option/action non-intersection rule, mobile Bottom Drawer rule, Drawer semantics despite margins/corners rule, Select Drawer independent scroll boundary rule, Select state continuity rule, duplicate overlay/focus trap/scroll lock/request/animation rule, and runtime unverified disclosure.
 
 - [ ] **Step 3: Add RED/GREEN summaries**
 

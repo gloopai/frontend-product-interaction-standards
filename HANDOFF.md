@@ -68,14 +68,14 @@ frontend-product-interaction-standards/
 - 普通可退出 Dialog 必须保留右上角关闭按钮。
 - 已定义打开/关闭动画、焦点管理、Escape、焦点陷阱、多层弹窗、异步状态、错误反馈、清理和 reduced motion。
 - 普通关闭固定遵循“退出完成 → DOM 移除 → 本实例保护释放 → 恰好一次焦点恢复”；路由变化或卸载走立即 disposal。
-- Dialog 内 Select / Combobox / Dropdown popup 必须归属当前模态实例；通过 portal、锚点重算、collision、页脚避让、安全间距、限高和 options 区滚动解决遮挡，不能只靠临时 `z-index`、Dialog 外框滚动、贴住底部操作区或覆盖主要确认按钮。
+- Dialog 内 Select / Combobox / Dropdown popup 必须归属当前模态实例；通过 portal、锚点重算、collision、页脚避让、安全间距、限高和 options 区滚动解决遮挡，不能只靠临时 `z-index`、Dialog 外框滚动、贴住底部操作区或覆盖主要确认按钮。截图型页脚冲突必须记录 trigger、popup、选中高亮行、滚动阴影、底部操作区和安全区域的可视矩形，不能只用“还能点击”判定通过。
 
 ### Drawer
 
 - 支持上、下、左、右四个方向。
 - 已定义遮罩、关闭路径、滚动区域、焦点、层级、动画、异步状态和响应式规则。
 - PC 与移动端核心能力保持一致；低频能力可以折叠，但不能彻底删除。
-- 移动端 Bottom Sheet 可以保留左右边距、顶部圆角和安全区域视觉，但最大高度、底部偏移、左右边距和右边距必须基于动态视口与 safe-area 计算，并仍执行完整 Drawer 语义；其内部 Select 若会贴住底部操作区、遮挡确认按钮或被虚拟键盘挤压，应优先转 Select Drawer，任务承载不足时再升级为全屏 Drawer 或独立页。
+- 移动端 Bottom Sheet 可以保留左右边距、顶部圆角和安全区域视觉，但最大高度、底部偏移、左右边距和右边距必须基于动态视口与 safe-area 计算，并仍执行完整 Drawer 语义；其内部 Select 若会贴住底部操作区、遮挡确认按钮或被虚拟键盘挤压，应优先转 Select Drawer，任务承载不足时再升级为全屏 Drawer 或独立页。Select Drawer 是独立字段选项层，不得与外层 Bottom Sheet 正文共享滚动容器、滚动位置、滚动阴影或清理责任。
 - 从 Drawer 转为非模态形态时，Drawer 专属模态基础设施必须释放；进入 Drawer 时必须由其取得，并且每项只处理一次。
 - 普通关闭固定遵循“退出完成 → DOM 移除 → 本实例保护释放 → 恰好一次焦点恢复”；路由变化或 owner 卸载立即执行幂等 disposal。
 
