@@ -13,6 +13,8 @@
 
 移动端字段说明、帮助文本、placeholder、字段 label、必填/选填、单位、格式示例、空值说明、权限原因、只读原因和禁用原因必须同时执行 `references/field-guidance-help-text.md`；本文件负责断点、触摸、虚拟键盘、安全区域和布局可达性，`field-guidance-help-text.md` 负责说明语义、hover-only 替代路径和旧描述引用清理。
 
+移动端 Page Header、页面标题区、页面头部、标题栏、页面标题、副标题、对象标题、状态摘要、标题区主操作和标题区权限说明必须同时执行 `references/page-header-title-area.md`；本文件负责断点、触摸、虚拟键盘、安全区域和遮挡可达性，`page-header-title-area.md` 负责页面身份、标题快照、主操作槽和标题区移动端保留。
+
 移动端关键词搜索输入、搜索框、筛选搜索、防抖搜索和 IME 搜索必须同时执行 `references/keyword-search-inputs.md`；虚拟键盘、safe-area、动态 viewport、缩放和断点转换不得删除或遮挡输入、清空、提交、取消/返回、错误说明、权限原因、loading、结果摘要和恢复路径。
 
 移动端列表结果、分页、页大小、排序、刷新、自动刷新、结果摘要、过期数据和错误恢复必须同时执行 `references/list-result-controls.md`；断点、底部分页、固定工具栏、虚拟键盘和 safe-area 不得删除或完全遮挡排序、分页、刷新、结果摘要、错误说明、权限原因、过期说明和恢复路径。

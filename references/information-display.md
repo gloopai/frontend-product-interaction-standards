@@ -10,6 +10,8 @@
 
 只读字段 label、详情字段说明、单位、格式示例、来源说明、空值说明、权限原因、只读原因、禁用原因和 Tooltip 帮助必须同时执行 `references/field-guidance-help-text.md`；本文件继续负责展示对象、字段值、展示快照和只读布局，`field-guidance-help-text.md` 负责说明语义、placeholder 禁止替代、帮助可达性和旧描述引用清理。
 
+详情页标题、对象标题、页面标题区、状态摘要、标题区权限说明和移动端标题区必须同时执行 `references/page-header-title-area.md`；本文件继续负责字段和值展示，`page-header-title-area.md` 负责页面级标题身份、标题快照、主状态摘要、标题区操作槽和旧标题清理。
+
 概览页、仪表盘首页、管理台首页、运营看板、业务看板、指标总览、报表总览和 dashboard landing 的 KPI、摘要卡、指标卡和状态摘要必须同时执行 `references/overview-dashboard-pages.md`；本文件负责字段口径和只读展示，`overview-dashboard-pages.md` 负责页面级 `dataSnapshot`、`timeRangeSnapshot`、模块一致性和移动端总览保留。
 
 ## 状态模型

@@ -50,6 +50,7 @@ frontend-product-interaction-standards/
     ├── page-form-action-bars.md
     ├── notifications-message-center-announcements.md
     ├── overview-dashboard-pages.md
+    ├── page-header-title-area.md
     ├── navigation-routing.md
     ├── overlays-menus-tooltips.md
     ├── page-toolbars-actions.md
@@ -471,6 +472,14 @@ frontend-product-interaction-standards/
 - 返回不得直接等同于 `history.back()`；必须声明 `sourceContext`、`returnPolicy`、权限版本、dirty blockers 和焦点恢复目标。
 - 浏览器 Back/Forward、面包屑、Tabs、菜单导航、关闭容器和外部链接都必须经过同一离开保护管线；移动端不得删除返回、当前位置、未保存保护、权限说明或恢复路径。
 - 详细规则和可执行验收仅维护在 [导航与路由交互规范](references/navigation-routing.md)，本交接不重复其状态模型或检查项。
+
+### 页面标题区与 Page Header
+
+- 已定义 Page Header、页面标题区、页面头部、标题栏、页面标题、副标题、对象标题、状态摘要、标题区主操作、标题区次要操作、标题区权限说明和移动端标题区的首版 owner。
+- `pageHeaderState` 必须声明 `headerOwnerId`、`headerSurface`、`pageIdentity`、`titleBinding`、`subtitlePolicy`、`contextBinding`、`statusSummary`、`primaryActionSlot`、`secondaryActionSlot`、`navigationBinding`、`permissionBoundary`、`responsivePolicy`、`focusAnnouncementPolicy`、`lifecycleDisposal` 和 `runtimeVerification`。
+- 页面标题区不是装饰，也不是 App Shell 的一部分；标题、对象名、状态、数量、时间范围、租户/工作区和权限说明必须来自同一有效快照。
+- 标题区主操作只能作为入口，必须转交按钮、工具栏、表单、记录编辑、风险操作、审批、导出、异步任务或对应业务 owner。
+- 详细规则和可执行验收仅维护在 [页面标题区与 Page Header 交互规范](references/page-header-title-area.md)，本交接不重复其状态模型或检查项。
 
 ### 管理台 App Shell 与导航外框
 

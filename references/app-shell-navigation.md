@@ -2,7 +2,7 @@
 
 适用于 App Shell、应用外框、管理台外框、全局导航、侧边导航、顶部导航、主导航、导航栏、侧边栏、折叠菜单、Logo/Home 入口、当前导航项、用户菜单、账号菜单、租户切换、工作区切换、组织切换、全局搜索入口、通知入口、帮助入口、移动端导航 Drawer、移动端菜单、app shell、application shell、global navigation、side navigation、top navigation、sidebar navigation、workspace switcher、tenant switcher、organization switcher、user menu、account menu、mobile navigation drawer 和 navigation shell。
 
-本文件是管理台 App Shell 与导航外框 owner。它负责持久外框、全局导航结构、当前导航项、租户/工作区切换、用户菜单、全局入口、权限收敛、移动端外框、焦点公告和生命周期清理。页面级路由、返回和浏览器历史读取 `references/navigation-routing.md`；权限与租户可见性读取 `references/permissions-tenancy-visibility.md`；管理台跨页面治理读取 `references/admin-console.md`；响应式读取 `references/responsive-adaptive.md`；全局搜索读取 `references/search-command-palette.md`；通知入口读取 `references/notifications-message-center-announcements.md`；菜单和浮层读取 `references/overlays-menus-tooltips.md`；按钮入口读取 `references/buttons.md`；会话、账号切换和重新认证读取 `references/auth-session-reauth.md`。
+本文件是管理台 App Shell 与导航外框 owner。它负责持久外框、全局导航结构、当前导航项、租户/工作区切换、用户菜单、全局入口、权限收敛、移动端外框、焦点公告和生命周期清理。页面标题区、Page Header、页面标题、副标题、对象标题、状态摘要和标题区主操作读取 `references/page-header-title-area.md`；页面级路由、返回和浏览器历史读取 `references/navigation-routing.md`；权限与租户可见性读取 `references/permissions-tenancy-visibility.md`；管理台跨页面治理读取 `references/admin-console.md`；响应式读取 `references/responsive-adaptive.md`；全局搜索读取 `references/search-command-palette.md`；通知入口读取 `references/notifications-message-center-announcements.md`；菜单和浮层读取 `references/overlays-menus-tooltips.md`；按钮入口读取 `references/buttons.md`；会话、账号切换和重新认证读取 `references/auth-session-reauth.md`。
 
 ## 范围与排除项
 

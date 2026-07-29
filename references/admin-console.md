@@ -8,6 +8,8 @@
 
 App Shell、应用外框、管理台外框、全局导航、侧边导航、顶部导航、用户菜单、工作区/租户切换、全局搜索入口、通知入口和移动端导航 Drawer 必须同时执行 `references/app-shell-navigation.md`；本文件负责管理台跨页面治理，`app-shell-navigation.md` 负责持久外框 owner、全局入口转交、当前项绑定和移动端外框形态。
 
+Page Header、页面标题区、页面头部、标题栏、页面标题、副标题、对象标题、状态摘要、标题区主操作、标题区权限说明和移动端标题区必须同时执行 `references/page-header-title-area.md`；本文件负责管理台跨页面治理，`page-header-title-area.md` 负责页面身份、标题快照、标题区操作槽、权限收敛和移动端标题区保留。
+
 表格、报表、列表、分页、筛选、排序、选择和批量操作读取 `data-tables.md`；表单、设置页、编辑页和提交失败恢复读取 `forms.md`；确认、详情、编辑或结果弹窗读取 `dialogs.md` / `drawers.md`；选择器读取 `selects-comboboxes.md`；跨端布局、导航折叠和安全区域读取 `responsive-adaptive.md`。当 `admin-console` 与组件 owner 都适用时，两者都执行；冲突时停止并请用户裁决。
 
 管理台规范是跨页面 owner，不重新定义上述组件的局部交互、数据表格、表单、Dialog、Drawer、Select 或响应式细节；它定义页面能力边界、跨页面状态和安全收敛要求。
