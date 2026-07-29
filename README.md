@@ -4,7 +4,7 @@
 
 ## 当前规范
 
-本 Skill 当前包含以下 Dialog、四向抽屉、可搜索单选 Select、表单、数据表格、查询条件与筛选、日期时间与时区、信息展示与详情页、图表与可视化、导航与路由、记录新增/编辑承载面、按钮、浮层菜单与提示、危险操作与恢复、上传与导入、反馈状态、全局反馈、跨端适配和管理台治理核心要求：
+本 Skill 当前包含以下 Dialog、四向抽屉、可搜索单选 Select、表单、数据表格、查询条件与筛选、日期时间与时区、信息展示与详情页、图表与可视化、分步流程与配置向导、导航与路由、记录新增/编辑承载面、按钮、浮层菜单与提示、危险操作与恢复、上传与导入、反馈状态、全局反馈、跨端适配和管理台治理核心要求：
 
 - PC、平板和移动端保持核心能力一致；低频能力可以折叠或收纳，但不能删除，且必须保持可发现、可访问。
 
@@ -22,6 +22,7 @@
 - 日期时间与时区规范约束日期、时间、时间范围、快捷范围、时区、范围边界、URL 恢复、报表/导出/审计快照和移动端承载转换。
 - 信息展示与详情页规范约束详情页、描述列表、只读字段、信息卡、状态标签、指标卡、字段语义、脱敏复制、权限收敛、审计摘要和移动端折叠。
 - 图表与可视化规范约束图表数据快照、指标口径、维度编码、坐标轴、图例、tooltip、交互能力、空态错误、权限安全、导出明细、可访问性和移动端替代表达。
+- 分步流程与配置向导规范约束 Wizard、Stepper、多步骤表单、步骤状态、导航意图、草稿/复核/提交快照、跨步失效、异步结果、权限安全和移动端步骤承载。
 - 导航与路由规范约束导航入口、返回策略、来源上下文恢复、面包屑、Tabs、浏览器历史、路由离开保护、权限重校验和移动端返回可达性。
 - 记录新增/编辑承载面禁止列表内嵌表单、常驻可编辑列表、单元格编辑、行内保存按钮和 spreadsheet-like 编辑矩阵；新增、编辑、复制创建和批量配置必须按场景进入 Dialog、Drawer 或独立页。
 - 按钮规范首版聚焦管理台和业务操作按钮，约束按钮语义、文案、主次层级、禁用、loading、防重复、危险操作、图标按钮、按钮组和响应式可达性。
@@ -32,7 +33,7 @@
 - 全局反馈与通知规范约束 Toast、Alert、Banner、Notification 和 Inline Feedback 的通道选择、结果绑定、自动关闭、去重堆叠、恢复入口、移动端遮挡和敏感信息边界。
 - 管理台完整治理覆盖导航、权限/租户、危险操作、审计、导入导出、异步任务、报表口径和全局反馈，并规定报表默认只读、能力显式声明、Toast 不得作为唯一回执。
 
-完整规则、验收标准与完成前检查见 [Dialog 交互规范](references/dialogs.md)、[Drawer 交互规范](references/drawers.md)、[可搜索单选 Select / Combobox 交互规范](references/selects-comboboxes.md)、[表单状态、校验与错误交互规范](references/forms.md)、[数据表格交互规范](references/data-tables.md)、[查询条件与筛选交互规范](references/query-filters.md)、[日期时间与时区交互规范](references/date-time-ranges.md)、[信息展示与详情页交互规范](references/information-display.md)、[图表与可视化交互规范](references/charts-visualization.md)、[导航与路由交互规范](references/navigation-routing.md)、[记录新增/编辑承载面交互规范](references/record-editing-surfaces.md)、[按钮交互规范](references/buttons.md)、[浮层菜单与提示交互规范](references/overlays-menus-tooltips.md)、[危险操作与恢复交互规范](references/risk-actions.md)、[上传与导入交互规范](references/uploads-imports.md)、[反馈状态与状态承载规范](references/feedback-states.md)、[全局反馈与通知交互规范](references/global-feedback.md)、[响应式与自适应交互规范](references/responsive-adaptive.md) 和 [管理台完整治理交互规范](references/admin-console.md)。
+完整规则、验收标准与完成前检查见 [Dialog 交互规范](references/dialogs.md)、[Drawer 交互规范](references/drawers.md)、[可搜索单选 Select / Combobox 交互规范](references/selects-comboboxes.md)、[表单状态、校验与错误交互规范](references/forms.md)、[数据表格交互规范](references/data-tables.md)、[查询条件与筛选交互规范](references/query-filters.md)、[日期时间与时区交互规范](references/date-time-ranges.md)、[信息展示与详情页交互规范](references/information-display.md)、[图表与可视化交互规范](references/charts-visualization.md)、[分步流程与配置向导交互规范](references/wizards-steppers.md)、[导航与路由交互规范](references/navigation-routing.md)、[记录新增/编辑承载面交互规范](references/record-editing-surfaces.md)、[按钮交互规范](references/buttons.md)、[浮层菜单与提示交互规范](references/overlays-menus-tooltips.md)、[危险操作与恢复交互规范](references/risk-actions.md)、[上传与导入交互规范](references/uploads-imports.md)、[反馈状态与状态承载规范](references/feedback-states.md)、[全局反馈与通知交互规范](references/global-feedback.md)、[响应式与自适应交互规范](references/responsive-adaptive.md) 和 [管理台完整治理交互规范](references/admin-console.md)。
 
 ## 系统要求
 
@@ -110,6 +111,7 @@ frontend-product-interaction-standards/
     ├── risk-actions.md
     ├── selects-comboboxes.md
     ├── uploads-imports.md
+    ├── wizards-steppers.md
     └── responsive-adaptive.md
 ```
 

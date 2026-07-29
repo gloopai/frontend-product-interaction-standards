@@ -42,6 +42,7 @@ frontend-product-interaction-standards/
     ├── risk-actions.md
     ├── responsive-adaptive.md
     ├── selects-comboboxes.md
+    ├── wizards-steppers.md
     └── uploads-imports.md
 ```
 
@@ -124,6 +125,15 @@ frontend-product-interaction-standards/
 - Hover/highlight、legend toggle、drilldown、brush、zoom、联动筛选、导出和查看明细必须在 `interactionPolicy` 中声明；图表必须区分 loading、empty、zero-results、partial、stale、refresh-error、permission-denied 和 metric-unavailable。
 - 移动端不得删除图表标题、口径、单位、图例/series 含义、状态说明、错误/权限说明、数据延迟、刷新时间、导出/明细入口和恢复路径。
 - 详细规则和可执行验收仅维护在 [图表与可视化交互规范](references/charts-visualization.md)，本交接不重复其状态模型或检查项。
+
+### 分步流程与配置向导
+
+- 已定义 Wizard、Stepper、多步骤表单、配置向导、导入向导、发布流程、复核页、保存草稿、恢复草稿、跨步校验和流程结果的首版 owner。
+- 每个步骤必须有稳定 ID、标题、进入条件、完成条件和错误归属；上一步、下一步、跳过、直接跳转、保存草稿、取消和完成必须是不同意图。
+- `stepDrafts`、`committedStepValues`、`reviewSnapshot` 和 `submitSnapshot` 必须分离；最终提交只能读取仍有效的 `reviewSnapshot` / `submitSnapshot`，不得读取正在编辑的草稿。
+- 上游步骤变化后，依赖它的后续步骤、预检、预览、费用、权限、导出范围和确认摘要必须失效或重算；取消客户端流程不等于取消服务端任务。
+- 移动端不得删除步骤标题、当前进度、步骤错误、上一步、下一步、保存/放弃草稿、复核页、取消路径、结果回执或恢复入口。
+- 详细规则和可执行验收仅维护在 [分步流程与配置向导交互规范](references/wizards-steppers.md)，本交接不重复其状态模型或检查项。
 
 ### 导航与路由
 
