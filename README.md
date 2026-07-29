@@ -4,14 +4,14 @@
 
 ## 当前规范
 
-本 Skill 当前包含以下 Dialog、四向抽屉、可搜索单选 Select、选择控件与开关、树形结构与级联、表单、数据表格、查询条件与筛选、搜索与命令面板、日期时间与时区、信息展示与详情页、图表与可视化、分步流程与配置向导、导航与路由、记录新增/编辑承载面、按钮、浮层菜单与提示、危险操作与恢复、状态流转与记录生命周期、权限/租户与可见性、异步任务与任务中心、审计日志与操作历史、上传与导入、反馈状态、全局反馈、跨端适配和管理台治理核心要求：
+本 Skill 当前包含以下 Dialog、四向抽屉、可搜索单选 Select、选择控件与开关、树形结构与级联、表单、数据表格、查询条件与筛选、搜索与命令面板、日期时间与时区、信息展示与详情页、图表与可视化、导出/下载与结果产物、分步流程与配置向导、导航与路由、记录新增/编辑承载面、按钮、浮层菜单与提示、危险操作与恢复、状态流转与记录生命周期、权限/租户与可见性、异步任务与任务中心、审计日志与操作历史、上传与导入、反馈状态、全局反馈、跨端适配和管理台治理核心要求：
 
 - PC、平板和移动端保持核心能力一致；低频能力可以折叠或收纳，但不能删除，且必须保持可发现、可访问。
 
 - 遮罩点击不会关闭 Dialog；外框保持非滚动、仅内容区域滚动，且遮罩以正确层级覆盖整个视口。
 - 打开和关闭动画防止重复操作并遵循 reduced-motion 偏好；焦点进入合理元素、在当前 Dialog 内循环，并在关闭后恢复。
 - Dialog 具有可访问的角色、名称和可见操作；普通 Dialog 必须保留右上角关闭按钮，只有业务明确禁止退出时才可隐藏或禁用；背景隔离且多层 Dialog 仅允许最上层交互。
-- Dialog 内 Select / Combobox / Dropdown popup 必须归属当前最上层模态实例，使用 portal、锚点重算、collision、页脚避让和内部滚动；不得用临时 `z-index`、Dialog 外框滚动或遮挡确认按钮来解决空间问题。
+- Dialog 内 Select / Combobox / Dropdown popup 必须归属当前最上层模态实例，使用 portal、锚点重算、collision、页脚避让、安全间距和内部滚动；不得用临时 `z-index`、Dialog 外框滚动、贴住底部操作区或遮挡确认按钮来解决空间问题。
 - 异步提交防止重复操作并可访问地传达 loading 与错误；关闭、路由变化和再次打开会清理相关状态。
 - 在移动端、缩放、低高度与虚拟键盘场景中，内容和操作保持可访问。
 - 上、下、左、右抽屉按来源边缘进入与退出；遮罩点击、拖拽和滑动均不会关闭抽屉，外框保持非滚动且仅内容区域滚动。
@@ -19,7 +19,7 @@
 - 自绘可搜索单选 Select 的值只能来自已有选项，支持完整键盘和 ARIA；`auto` 按稳定声明条件确定性解析为 `inline`、`panel`、`drawer` 或 Select-only `none`，PC 使用非模态浮层，移动端在需要时转换为移动端 Drawer。
 - 选择控件与开关规范约束 Checkbox、Radio、Switch、Toggle、Segmented Control、三态 checkbox 的草稿/提交分离、组语义、风险转交、禁用原因、权限安全、键盘可达和移动端承载。
 - 树形结构与级联规范约束 Tree、Tree Select、Cascader、组织树、权限树、菜单树、分类树的节点身份、展开、选择、级联、半选、过滤、懒加载、权限无泄露和移动端承载。
-- 移动端复杂 Dialog 可转 Bottom Sheet；其内部 Select 若遮挡确认按钮、受虚拟键盘挤压或无法安全定位，应优先转 Select Drawer，必要时再升级为全屏 Drawer 或独立页。
+- 移动端复杂 Dialog 可转 Bottom Sheet；其最大高度、底部偏移、左右边距和右边距必须基于动态视口与 safe-area 计算，其内部 Select 若贴住底部操作区、遮挡确认按钮、受虚拟键盘挤压或无法安全定位，应优先转 Select Drawer，必要时再升级为全屏 Drawer 或独立页。
 - 表单以明确的字段状态、校验与提交生命周期管理错误、恢复、未保存更改和可访问错误反馈。
 - 数据表格以显式能力档位覆盖展示、单行与批量场景，并约束筛选、排序、页码/游标分页、列与固定列、选择、批量操作和部分成功的交互。
 - 查询条件与筛选规范约束草稿/已应用分离、应用模式、默认值、重置/清空、已应用摘要、URL 安全同步、权限收敛和移动端筛选可达性。
@@ -27,6 +27,7 @@
 - 日期时间与时区规范约束日期、时间、时间范围、快捷范围、时区、范围边界、URL 恢复、报表/导出/审计快照和移动端承载转换。
 - 信息展示与详情页规范约束详情页、描述列表、只读字段、信息卡、状态标签、指标卡、字段语义、脱敏复制、权限收敛、审计摘要和移动端折叠。
 - 图表与可视化规范约束图表数据快照、指标口径、维度编码、坐标轴、图例、tooltip、交互能力、空态错误、权限安全、导出明细、可访问性和移动端替代表达。
+- 导出、下载与结果产物交付规范约束 export、download、artifact、result artifact、报表导出、图表导出、审计导出、错误明细下载和文件领取的范围快照、产物身份、下载意图、权限复核、有效期、敏感字段、旧链接失效、Toast 边界、恢复路径和移动端承载。
 - 分步流程与配置向导规范约束 Wizard、Stepper、多步骤表单、步骤状态、导航意图、草稿/复核/提交快照、跨步失效、异步结果、权限安全和移动端步骤承载。
 - 导航与路由规范约束导航入口、返回策略、来源上下文恢复、面包屑、Tabs、浏览器历史、路由离开保护、权限重校验和移动端返回可达性。
 - 记录新增/编辑承载面禁止列表内嵌表单、常驻可编辑列表、单元格编辑、行内保存按钮和 spreadsheet-like 编辑矩阵；新增、编辑、复制创建和批量配置必须按场景进入 Dialog、Drawer 或独立页。
@@ -42,7 +43,7 @@
 - 全局反馈与通知规范约束 Toast、Alert、Banner、Notification 和 Inline Feedback 的通道选择、结果绑定、自动关闭、去重堆叠、恢复入口、移动端遮挡和敏感信息边界。
 - 管理台完整治理覆盖导航、权限/租户、危险操作、审计、导入导出、异步任务、报表口径和全局反馈，并规定报表默认只读、能力显式声明、Toast 不得作为唯一回执。
 
-完整规则、验收标准与完成前检查见 [Dialog 交互规范](references/dialogs.md)、[Drawer 交互规范](references/drawers.md)、[可搜索单选 Select / Combobox 交互规范](references/selects-comboboxes.md)、[选择控件与开关交互规范](references/selection-controls.md)、[树形结构与级联交互规范](references/tree-hierarchy.md)、[表单状态、校验与错误交互规范](references/forms.md)、[数据表格交互规范](references/data-tables.md)、[查询条件与筛选交互规范](references/query-filters.md)、[搜索与命令面板交互规范](references/search-command-palette.md)、[日期时间与时区交互规范](references/date-time-ranges.md)、[信息展示与详情页交互规范](references/information-display.md)、[图表与可视化交互规范](references/charts-visualization.md)、[分步流程与配置向导交互规范](references/wizards-steppers.md)、[导航与路由交互规范](references/navigation-routing.md)、[记录新增/编辑承载面交互规范](references/record-editing-surfaces.md)、[按钮交互规范](references/buttons.md)、[浮层菜单与提示交互规范](references/overlays-menus-tooltips.md)、[危险操作与恢复交互规范](references/risk-actions.md)、[状态流转与记录生命周期交互规范](references/status-lifecycle-transitions.md)、[权限、租户与可见性交互规范](references/permissions-tenancy-visibility.md)、[异步任务与任务中心交互规范](references/async-jobs-task-center.md)、[审计日志与操作历史交互规范](references/audit-log-activity-history.md)、[上传与导入交互规范](references/uploads-imports.md)、[反馈状态与状态承载规范](references/feedback-states.md)、[全局反馈与通知交互规范](references/global-feedback.md)、[响应式与自适应交互规范](references/responsive-adaptive.md) 和 [管理台完整治理交互规范](references/admin-console.md)。
+完整规则、验收标准与完成前检查见 [Dialog 交互规范](references/dialogs.md)、[Drawer 交互规范](references/drawers.md)、[可搜索单选 Select / Combobox 交互规范](references/selects-comboboxes.md)、[选择控件与开关交互规范](references/selection-controls.md)、[树形结构与级联交互规范](references/tree-hierarchy.md)、[表单状态、校验与错误交互规范](references/forms.md)、[数据表格交互规范](references/data-tables.md)、[查询条件与筛选交互规范](references/query-filters.md)、[搜索与命令面板交互规范](references/search-command-palette.md)、[日期时间与时区交互规范](references/date-time-ranges.md)、[信息展示与详情页交互规范](references/information-display.md)、[图表与可视化交互规范](references/charts-visualization.md)、[导出、下载与结果产物交付交互规范](references/exports-downloads-artifacts.md)、[分步流程与配置向导交互规范](references/wizards-steppers.md)、[导航与路由交互规范](references/navigation-routing.md)、[记录新增/编辑承载面交互规范](references/record-editing-surfaces.md)、[按钮交互规范](references/buttons.md)、[浮层菜单与提示交互规范](references/overlays-menus-tooltips.md)、[危险操作与恢复交互规范](references/risk-actions.md)、[状态流转与记录生命周期交互规范](references/status-lifecycle-transitions.md)、[权限、租户与可见性交互规范](references/permissions-tenancy-visibility.md)、[异步任务与任务中心交互规范](references/async-jobs-task-center.md)、[审计日志与操作历史交互规范](references/audit-log-activity-history.md)、[上传与导入交互规范](references/uploads-imports.md)、[反馈状态与状态承载规范](references/feedback-states.md)、[全局反馈与通知交互规范](references/global-feedback.md)、[响应式与自适应交互规范](references/responsive-adaptive.md) 和 [管理台完整治理交互规范](references/admin-console.md)。
 
 ## 系统要求
 
@@ -111,6 +112,7 @@ frontend-product-interaction-standards/
     ├── date-time-ranges.md
     ├── dialogs.md
     ├── drawers.md
+    ├── exports-downloads-artifacts.md
     ├── feedback-states.md
     ├── forms.md
     ├── global-feedback.md

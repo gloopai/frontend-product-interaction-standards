@@ -99,7 +99,7 @@ Dialog、Drawer 或其他模态容器内的 PC Select popup 不得被容器内�
 
 Dialog 或 Bottom Sheet 内的 Select Drawer 是字段选项层，不是外层任务承载层的替代提交。打开 Select Drawer 时，当前最上层交互切换到字段选项层；关闭 Select Drawer 后焦点返回原 Select trigger，外层 Dialog/Bottom Sheet 的确认、取消、关闭、脏状态、错误摘要和底部操作继续存在并保持原状态。不得因为 Select Drawer 打开而隐藏外层任务的关闭路径、提前提交外层表单、重置外层错误、释放外层滚动锁，或让外层确认按钮在视觉上被当作当前 Select 的提交按钮。
 
-若移动端视觉方案要求 Bottom Sheet 保留右边距、左右边距或顶部圆角，Select Drawer 仍必须独立满足 Drawer 语义和 Select 会话语义。它可以采用符合设计系统的下方弹出样式，但不得只在原 Dialog 内部铺开 options；不得让 options 与外层固定页脚共享滚动容器；不得以缩小字号、压缩行高或覆盖确认按钮来避免转换。
+若移动端视觉方案要求 Bottom Sheet 保留右边距、左右边距或顶部圆角，Select Drawer 仍必须独立满足 Drawer 语义和 Select 会话语义。它可以采用符合设计系统的下方弹出样式，但不得只在原 Dialog 内部铺开 options；不得让 options 与外层固定页脚共享滚动容器；不得让 options 列表贴边覆盖外层固定页脚、取消按钮、确认按钮或错误摘要；不得以缩小字号、压缩行高或覆盖确认按钮来避免转换。
 
 大量结果可虚拟化，但 active 引用的 option 必须实际在 DOM 并滚入可视区；播报结果数量/位置。远程分页不得重复 options、丢失提交值或意外移动 active。
 

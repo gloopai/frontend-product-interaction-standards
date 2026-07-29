@@ -19,6 +19,7 @@ DIALOG_TERMS = [
   "左右边距、右边距、顶部圆角或底部安全区域",
   "左右边距或右边距只是视觉外框",
   "截图型问题表现为 Dialog 内 Select options 向下展开后与固定页脚或确认按钮贴边、压盖、被截断",
+  "popup 边界与固定底部操作区之间必须保留可感知安全间距",
   "遮罩点击不关闭、拖拽不关闭",
   "未验证"
 ].freeze
@@ -34,6 +35,7 @@ SELECT_TERMS = [
   "不得因为 Select Drawer 打开而隐藏外层任务的关闭路径、提前提交外层表单、重置外层错误、释放外层滚动锁，或让外层确认按钮在视觉上被当作当前 Select 的提交按钮",
   "不得只在原 Dialog 内部铺开 options",
   "不得让 options 与外层固定页脚共享滚动容器",
+  "不得让 options 列表贴边覆盖外层固定页脚、取消按钮、确认按钮或错误摘要",
   "不得要求 Dialog 外框滚动",
   "移动端、窄屏、低高度、虚拟键盘明显影响布局",
   "`auto` 应优先解析为 `drawer`",
@@ -50,9 +52,11 @@ RESPONSIVE_TERMS = [
   "两者不得各自创建互相竞争的遮罩、滚动锁或焦点陷阱",
   "若 Bottom Sheet 内继续使用非模态 Select popup 会遮挡确认按钮或被虚拟键盘挤压，必须优先转 Select Drawer",
   "Bottom Sheet 保留右边距、左右边距、顶部圆角或底部安全区域时",
+  "Bottom Sheet 的最大高度、底部偏移、左右边距和右边距必须基于动态视口与 safe-area 计算",
   "字段选项层的 Select Drawer 不能复用外层底部确认按钮作为选择提交",
   "不能把 options 直接铺在外层 Dialog 内容滚动区中",
   "外层任务承载层的确认、取消、关闭、错误、脏状态和底部操作不被覆盖、不被复用、不被重置",
+  "底部操作区必须始终高于正文滚动区和字段选项层的视觉边界",
   "不得改变已提交值、提交草稿、重置搜索、重复请求、重复遮罩、重复焦点陷阱、重复滚动锁或重复动画"
 ].freeze
 
@@ -74,6 +78,8 @@ EVIDENCE_TERMS = [
   "Drawer 语义",
   "字段选项层",
   "外层确认按钮",
+  "安全间距",
+  "底部操作区",
   "selectedValue",
   "query",
   "activeOption",
@@ -182,6 +188,11 @@ if ARGV.include?("--mutations")
           selects: selects, responsive: responsive, green: green, red: red)
   end
 
+  expect_failure("footer-safety-gap-required") do
+    audit(dialogs: dialogs.gsub("popup 边界与固定底部操作区之间必须保留可感知安全间距", ""),
+          selects: selects, responsive: responsive, green: green, red: red)
+  end
+
   expect_failure("select-drawer-field-option-layer") do
     audit(dialogs: dialogs,
           selects: selects.gsub("Select Drawer 是字段选项层，不是外层任务承载层的替代提交", ""),
@@ -193,6 +204,24 @@ if ARGV.include?("--mutations")
     audit(dialogs: dialogs,
           selects: selects.gsub("不得只在原 Dialog 内部铺开 options", ""),
           responsive: responsive.gsub("不能把 options 直接铺在外层 Dialog 内容滚动区中", ""),
+          green: green, red: red)
+  end
+
+  expect_failure("options-must-not-cover-footer-actions") do
+    audit(dialogs: dialogs,
+          selects: selects.gsub("不得让 options 列表贴边覆盖外层固定页脚、取消按钮、确认按钮或错误摘要", ""),
+          responsive: responsive, green: green, red: red)
+  end
+
+  expect_failure("bottom-sheet-dynamic-viewport-safe-area") do
+    audit(dialogs: dialogs, selects: selects,
+          responsive: responsive.gsub("Bottom Sheet 的最大高度、底部偏移、左右边距和右边距必须基于动态视口与 safe-area 计算", ""),
+          green: green, red: red)
+  end
+
+  expect_failure("footer-action-zone-above-content-boundary") do
+    audit(dialogs: dialogs, selects: selects,
+          responsive: responsive.gsub("底部操作区必须始终高于正文滚动区和字段选项层的视觉边界", ""),
           green: green, red: red)
   end
 
