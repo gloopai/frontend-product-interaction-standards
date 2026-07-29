@@ -80,6 +80,16 @@ frontend-product-interaction-standards/
 - 普通关闭固定遵循“退出完成 → DOM 移除 → 本实例保护释放 → 恰好一次焦点恢复”；路由变化或卸载走立即 disposal。
 - Dialog 内 Select / Combobox / Dropdown popup 必须归属当前模态实例；通过 portal、锚点重算、collision、页脚避让、安全间距、限高和 options 区滚动解决遮挡，不能只靠临时 `z-index`、Dialog 外框滚动、贴住底部操作区或覆盖主要确认按钮。截图型页脚冲突必须记录 trigger、popup、选中高亮行、滚动阴影、底部操作区和安全区域的可视矩形，不能只用“还能点击”判定通过。
 
+### 折叠面板与 Disclosure
+
+- 已定义 Accordion、Collapse、Disclosure、折叠面板、折叠区块、展开收起、错误详情折叠、移动端折叠和嵌套折叠的首版 owner。
+- `disclosureAccordionState` 必须声明 `disclosureOwnerId`、`surfaceKind`、`itemRegistry`、`expandedItemIds`、`expansionPolicy`、`contentState`、`requestBinding`、`errorVisibilityBinding`、`permissionBoundary`、`persistenceBinding`、`focusAnnouncementPolicy` 和 `responsivePolicy`。
+- 展开状态不等于业务值、不等于表单提交、不等于权限事实。
+- 折叠不能隐藏当前必须处理的错误、必填缺失、权限原因或恢复入口。
+- 懒加载迟到响应不得写回已收起、卸载、无权限或身份不匹配的 item。
+- 移动端不得删除标题、当前展开状态、错误摘要、权限原因、恢复入口和核心操作。
+- 详细规则和可执行验收仅维护在 [折叠面板与 Disclosure 交互规范](references/disclosure-accordions.md)，本交接不重复其状态模型或检查项。
+
 ### Drawer
 
 - 支持上、下、左、右四个方向。
