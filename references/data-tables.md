@@ -2,6 +2,8 @@
 
 适用于只读报表、带单行操作的管理列表和显式启用批量能力的数据表格。本文件是数据表格查询、展示、导航、选择、批量操作、响应式等价、无障碍与生命周期规则的 owner；筛选字段自身的值、校验与错误继续由 [表单规范](forms.md) 负责，自绘 Select / Combobox 的草稿、提交值和弹层由 [Select / Combobox 规范](selects-comboboxes.md) 负责，跨端布局同时执行 [响应式与自适应规范](responsive-adaptive.md)。
 
+列表行审批、待办审批列表、批量审批、审批历史表格和审批任务结果必须同时执行 `references/approval-workflows.md`；本文件继续负责表格能力、选择快照、筛选/分页/排序和批量结果结构，`approval-workflows.md` 负责审批实例、节点、意见/附件、审批人、通知和审计边界。
+
 表格工具栏、列表顶部或报表区域里的关键词搜索输入必须执行 `references/keyword-search-inputs.md`；表格结果、分页、排序、选择和批量范围只能读取上层 owner 的已应用查询快照，不得直接读取 `inputDraft`。
 
 概览页、仪表盘首页、管理台首页、运营看板、业务看板、指标总览、报表总览和 dashboard landing 中的明细表、摘要表或报表明细必须同时执行 `references/overview-dashboard-pages.md`；本文件负责表格能力和结果语义，`overview-dashboard-pages.md` 负责页面级共享快照、只读默认、模块状态一致和移动端总览保留。

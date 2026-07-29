@@ -12,6 +12,8 @@
 
 概览页、仪表盘首页、管理台首页、运营看板、业务看板、指标总览、报表总览和 dashboard landing 必须同时执行 `references/overview-dashboard-pages.md`；本文件继续负责管理台跨页面治理，`overview-dashboard-pages.md` 负责页面级共享快照、模块一致性、告警优先级、移动端总览和局部 owner 转交。
 
+审批、审核、提交审批、通过、驳回、撤回、转交、加签、委托、催办、待办审批和批量审批必须同时执行 `references/approval-workflows.md`；本文件继续负责管理台跨页面治理，`approval-workflows.md` 负责审批实例、节点、审批人、意见/附件、通知、审计和工作流决策快照。
+
 ## 场景与状态模型
 
 每个页面声明一个或多个 `consoleSurface`：`overview-dashboard`、`report`、`record-list`、`record-detail`、`record-editor`、`settings`、`job-center`、`audit-log`。页面级状态至少包含 `navigationState`、`permissionState`、`surfaceState`、`riskState`、`auditState`、`taskState`、`feedbackState`；组件 owner 的局部状态不得替代这些页面级 owner。

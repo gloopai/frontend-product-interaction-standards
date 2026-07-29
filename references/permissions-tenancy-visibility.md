@@ -12,6 +12,8 @@
 
 概览页、仪表盘首页、管理台首页、运营看板、业务看板、指标总览、报表总览和 dashboard landing 必须同时执行 `references/overview-dashboard-pages.md`；权限 owner 负责证明 KPI 名称和值、图表 series、明细数量、导出范围、告警标题、菜单项和旧 ARIA label 安全，`overview-dashboard-pages.md` 负责页面级模块收敛和旧快照清理。
 
+审批对象、审批人、代理人、审批意见、审批附件、审批节点、待办、通知和审批历史的权限边界必须同时执行 `references/approval-workflows.md`；本文件继续负责权限和租户收敛，`approval-workflows.md` 负责审批工作流状态、节点与决策快照。
+
 ## 范围与边界
 
 本 owner 覆盖：

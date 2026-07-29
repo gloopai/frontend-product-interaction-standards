@@ -8,7 +8,7 @@
 
 ## 与组件 owner 的关系
 
-按钮入口、loading、防重复和按钮可访问名称读取 `buttons.md`；确认承载面、遮罩、关闭、滚动和焦点陷阱读取 `dialogs.md` / `drawers.md`；表单 dirty、校验和提交错误读取 `forms.md`；表格选择、全部筛选结果选择、部分成功和批量范围读取 `data-tables.md`；查询筛选快照读取 `query-filters.md`；导航离开、浏览器 Back/Forward 和 `dirtyBlockers` 读取 `navigation-routing.md`；管理台权限、任务中心和审计治理读取 `admin-console.md`；Toast、Alert、Banner、Notification 和恢复入口呈现读取 `global-feedback.md`；移动端、触摸、安全区域和缩放读取 `responsive-adaptive.md`。
+按钮入口、loading、防重复和按钮可访问名称读取 `buttons.md`；确认承载面、遮罩、关闭、滚动和焦点陷阱读取 `dialogs.md` / `drawers.md`；表单 dirty、校验和提交错误读取 `forms.md`；表格选择、全部筛选结果选择、部分成功和批量范围读取 `data-tables.md`；查询筛选快照读取 `query-filters.md`；审批通过、驳回、撤回、转交、加签、委托、催办和批量审批读取 `references/approval-workflows.md`，风险 owner 只决定确认和结果风险，审批节点、意见/附件、审批人和工作流快照仍归 `approval-workflows.md`；导航离开、浏览器 Back/Forward 和 `dirtyBlockers` 读取 `navigation-routing.md`；管理台权限、任务中心和审计治理读取 `admin-console.md`；Toast、Alert、Banner、Notification 和恢复入口呈现读取 `global-feedback.md`；移动端、触摸、安全区域和缩放读取 `responsive-adaptive.md`。
 
 Risk Actions owner 不替代上述 owner。它只决定一个动作是否有风险、风险如何被用户理解、请求什么时候可以发送、发送后如何解释结果、失败后如何恢复。
 

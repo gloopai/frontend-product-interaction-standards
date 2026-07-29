@@ -2,7 +2,7 @@
 
 适用于通知中心、消息中心、站内信、消息列表、未读角标、系统公告、运营公告、维护公告、发布公告、通知设置、通知偏好、订阅偏好、邮件通知、短信通知、Push 通知、Webhook 通知、通知点击、通知详情、全部已读、标记已读/未读、归档通知、删除通知和退订通知。本文件是持久通知、公告、投递渠道和订阅偏好的前端产品交互 owner。
 
-Toast、Snackbar、Alert、Banner 和轻量 Notification 读取 [全局反馈与通知交互规范](global-feedback.md)；普通设置页草稿、保存、生效和未保存保护读取 [设置、偏好与配置页交互规范](settings-preferences-configuration.md)；点击跳转、返回和深链读取 [导航与路由交互规范](navigation-routing.md)；权限、租户/工作区和无泄露读取 [权限、租户与可见性交互规范](permissions-tenancy-visibility.md)；高影响批量、退订、清空和强制公告关闭读取 [危险操作与恢复交互规范](risk-actions.md)；审计证据读取 [审计日志与操作历史交互规范](audit-log-activity-history.md)；管理台整体治理读取 [管理台完整治理交互规范](admin-console.md)。兼容规则全部执行；一方更严格且不冲突时，执行更严格规则。
+Toast、Snackbar、Alert、Banner 和轻量 Notification 读取 [全局反馈与通知交互规范](global-feedback.md)；普通设置页草稿、保存、生效和未保存保护读取 [设置、偏好与配置页交互规范](settings-preferences-configuration.md)；点击跳转、返回和深链读取 [导航与路由交互规范](navigation-routing.md)；审批待办、审批催办、审批完成、驳回、转交、加签、超时和未知结果通知必须同时执行 `references/approval-workflows.md`，通知 owner 负责投递与点击，`approval-workflows.md` 负责审批状态、审批历史、审计和恢复；权限、租户/工作区和无泄露读取 [权限、租户与可见性交互规范](permissions-tenancy-visibility.md)；高影响批量、退订、清空和强制公告关闭读取 [危险操作与恢复交互规范](risk-actions.md)；审计证据读取 [审计日志与操作历史交互规范](audit-log-activity-history.md)；管理台整体治理读取 [管理台完整治理交互规范](admin-console.md)。兼容规则全部执行；一方更严格且不冲突时，执行更严格规则。
 
 ## 场景与状态模型
 

@@ -17,6 +17,7 @@
 - `data-tables.md`：行操作、批量操作、选择快照、分页、排序和表格能力仍归数据表格 owner；按钮管按钮名称、图标按钮、禁用原因和触发去重。
 - `admin-console.md`：权限、租户、风险、审计、任务和全局反馈仍归管理台 owner；按钮不得绕过这些 owner。
 - `record-editing-surfaces.md`：新增/编辑入口可以是按钮，但按钮只能作为入口，不能把编辑字段放回列表。
+- `references/approval-workflows.md`：提交审批、通过、驳回、撤回、转交、加签、委托、催办和批量审批按钮只能作为审批工作流入口；审批实例、节点、意见/附件、通知、审计和决策快照仍归 `approval-workflows.md`。
 - `responsive-adaptive.md`：断点、触摸、虚拟键盘、安全区域和能力折叠仍归响应式 owner；按钮声明在这些形态下的可达性要求。
 - 搜索、清空、取消、重置和重试按钮若作用于关键词搜索输入，必须同时执行 `references/keyword-search-inputs.md`，并保留清空草稿、清空已提交关键词、重置默认关键词和取消输入的意图区分。
 

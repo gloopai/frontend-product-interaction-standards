@@ -25,6 +25,7 @@ frontend-product-interaction-standards/
 │       └── 2026-07-25-existing-standards-hardening.md
 └── references/
     ├── admin-console.md
+    ├── approval-workflows.md
     ├── audit-log-activity-history.md
     ├── async-jobs-task-center.md
     ├── billing-subscription-invoices.md
@@ -508,6 +509,14 @@ frontend-product-interaction-standards/
 - 已发送请求不得因为关闭确认、Escape、路由离开、客户端取消或 Toast 消失而写成“已取消”；未知结果不得伪装成成功或失败。
 - 批量危险操作必须冻结选择快照、筛选快照、权限版本、目标数量、目标摘要和影响范围；移动端不得删除危险确认、撤销/恢复入口、未知结果说明或审计回执。
 - 详细规则和可执行验收仅维护在 [危险操作与恢复交互规范](references/risk-actions.md)，本交接不重复其状态模型或检查项。
+
+### 审批与审核工作流
+
+- 已定义审批、审核、提交审批、撤回审批、通过、驳回、转交、加签、委托、催办、会签、串签、待办审批和批量审批的首版 owner。
+- `approvalWorkflowState` 必须声明 `workflowInstanceId`、`approvalSurface`、`approvalObjectSnapshot`、`currentStepBinding`、`approverBinding`、`decisionIntent`、`commentPolicy`、`attachmentPolicy`、`assignmentPolicy`、`delegationPolicy`、`batchApprovalSnapshot`、`notificationBinding`、`auditBinding`、`permissionBoundary`、`feedbackState`、`responsivePolicy` 和 `runtimeVerification`。
+- 审批动作不是普通状态按钮；提交审批、通过、驳回、撤回、转交、加签、委托、催办和批量审批都必须冻结审批对象、节点、权限、意见/附件和请求身份。
+- 通知只提示待办、催办或结果，不能替代当前审批状态、审批历史、审计回执或恢复入口。
+- 详细规则和可执行验收仅维护在 [审批与审核工作流交互规范](references/approval-workflows.md)，本交接不重复其状态模型或检查项。
 
 ### 状态流转与记录生命周期
 

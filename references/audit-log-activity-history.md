@@ -2,7 +2,7 @@
 
 适用于 audit log、activity log、operation history、event log、change history、audit detail、audit export、audit receipt、traceability、operation record、login log、access log、timeline、审计日志、操作历史、活动记录、事件日志、变更记录、审计详情、审计导出、审计回执、追溯链路、操作记录、登录日志、访问日志和时间线。本文件是审计证据、操作历史、活动时间线、时间语义、完整性、导出复核、权限无泄露、可访问性和验收的唯一事实来源。
 
-审计日志表格、分页、排序和行选择继续执行 [数据表格交互规范](data-tables.md)。审计查询条件、时间范围筛选、主体筛选和动作筛选继续执行 [查询条件与筛选交互规范](query-filters.md)。日期时间、时区、相对时间和数据延迟继续执行 [日期时间与时区交互规范](date-time-ranges.md)。权限、租户/工作区和无泄露继续执行 [权限、租户与可见性交互规范](permissions-tenancy-visibility.md)。危险操作、审计回执和未知结果继续执行 [危险操作与恢复交互规范](risk-actions.md)。异步任务、任务结果和任务追溯继续执行 [异步任务与任务中心交互规范](async-jobs-task-center.md)。管理台跨页面治理继续执行 [管理台完整治理交互规范](admin-console.md)。
+审计日志表格、分页、排序和行选择继续执行 [数据表格交互规范](data-tables.md)。审计查询条件、时间范围筛选、主体筛选和动作筛选继续执行 [查询条件与筛选交互规范](query-filters.md)。日期时间、时区、相对时间和数据延迟继续执行 [日期时间与时区交互规范](date-time-ranges.md)。权限、租户/工作区和无泄露继续执行 [权限、租户与可见性交互规范](permissions-tenancy-visibility.md)。危险操作、审计回执和未知结果继续执行 [危险操作与恢复交互规范](risk-actions.md)。审批实例、审批节点、审批意见、审批附件、审批人、转交、加签、委托、催办和批量审批的审计证据必须同时执行 `references/approval-workflows.md`。异步任务、任务结果和任务追溯继续执行 [异步任务与任务中心交互规范](async-jobs-task-center.md)。管理台跨页面治理继续执行 [管理台完整治理交互规范](admin-console.md)。
 
 ## 范围与边界
 

@@ -2,7 +2,7 @@
 
 适用于成员、团队成员、工作区成员、组织成员、用户管理、账号管理、邀请成员、邀请链接、重新发送邀请、撤销邀请、接受邀请、拒绝邀请、邀请过期、角色、角色变更、权限角色、成员角色、Owner、转移 Owner、管理员、外部成员、访客、移除成员、禁用成员、启用成员、恢复成员、成员状态和成员审计。本文件是成员身份、邀请身份、角色授权意图、成员生命周期、旧邀请链接失效、风险确认、权限/会话/租户收敛、审计不泄露、移动端恢复和验收的唯一事实来源。
 
-本规范不定义后端组织架构、账号体系、身份提供商、目录同步、SCIM、SSO provider、邮件发送服务、权限 DSL、品牌视觉 token、图标、颜色、角色名称或业务项目具体权限矩阵。权限解析读取 `permissions-tenancy-visibility.md`；重新认证读取 `auth-session-reauth.md`；风险确认读取 `risk-actions.md`；审计证据读取 `audit-log-activity-history.md`；成员列表、行操作和批量操作读取 `data-tables.md`；全局反馈读取 `global-feedback.md`；状态承载读取 `feedback-states.md`。
+本规范不定义后端组织架构、账号体系、身份提供商、目录同步、SCIM、SSO provider、邮件发送服务、权限 DSL、品牌视觉 token、图标、颜色、角色名称或业务项目具体权限矩阵。权限解析读取 `permissions-tenancy-visibility.md`；重新认证读取 `auth-session-reauth.md`；风险确认读取 `risk-actions.md`；审批人、候选审批人、代理/委托、转交、加签和催办必须同时执行 `references/approval-workflows.md`，成员 owner 负责成员身份，`approval-workflows.md` 负责审批节点和工作流决策；审计证据读取 `audit-log-activity-history.md`；成员列表、行操作和批量操作读取 `data-tables.md`；全局反馈读取 `global-feedback.md`；状态承载读取 `feedback-states.md`。
 
 成员多选、用户多选、角色多选、收件人 chips 和批量粘贴成员候选必须同时执行 `references/multi-select-tag-inputs.md`；本文件继续负责邀请、角色变更、成员生命周期和访问管理业务动作。
 
