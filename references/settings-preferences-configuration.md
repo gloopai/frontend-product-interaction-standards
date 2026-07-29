@@ -6,6 +6,8 @@
 
 条件设置项、依赖配置、继承默认影响下游、上游配置切换、条件必填、自动填充和隐藏配置值清理必须同时执行 `references/conditional-fields-dependent-inputs.md`。设置 owner 负责 draftSettings、savedSettings、effectiveSettings、defaultSettings、applyMode 和 resultReceipt；条件字段 owner 负责 `fieldDependencyState`、upstreamSnapshot、downstreamPolicy、valueRetentionPolicy 和 submitSnapshotPolicy。
 
+设置页中的数字、金额、百分比、比例、费率、数量、排序序号、权重、阈值、配额、额度、余额、预算、时长、容量和单价必须同时执行 `references/numeric-amount-inputs.md`；设置 owner 负责 draftSettings、effectiveSettings 和保存结果，数字 owner 负责 `numericInputState`、单位/精度/边界、草稿解析、步进、粘贴、IME 和提交快照。
+
 ## 范围与非目标
 
 本 owner 覆盖用户偏好、租户配置、工作区配置、项目配置、环境配置、角色配置、对象配置、通知设置、功能开关、策略配置、外部集成配置、默认值、继承默认、保存设置、重置默认、恢复保存值、清空自定义、配置保存结果和配置审计回执。

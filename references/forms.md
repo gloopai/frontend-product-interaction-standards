@@ -8,6 +8,8 @@
 
 字段 label、字段标题、必填/选填、条件必填、placeholder、字段说明、帮助文本、单位、格式示例、来源说明、权限原因、只读原因和禁用原因必须同时执行 `references/field-guidance-help-text.md`；本文件继续负责字段值、dirty、校验、错误 owner 和提交生命周期，`field-guidance-help-text.md` 负责说明信息、可访问描述、移动端等价路径和旧说明引用清理。
 
+数字输入、金额输入、百分比、比例、费率、数量、排序序号、权重、阈值、配额、额度、余额、预算、时长、容量和单价必须同时执行 `references/numeric-amount-inputs.md`；Forms owner 只接收数字 owner 提交的 `committedValue`，数字 owner 负责 `numericInputState`、draftText、parsedValue、unitBinding、precisionPolicy、rangePolicy、submitSnapshotPolicy 和输入法/粘贴/移动端键盘边界。
+
 条件字段、依赖字段、字段联动、条件显示/隐藏、条件必填、上游字段、下游字段、隐藏字段清理、自动填充和派生值必须同时执行 `references/conditional-fields-dependent-inputs.md`。Forms owner 继续负责字段值、dirty、校验、错误摘要和提交生命周期；条件字段 owner 负责 `fieldDependencyState`、dependencyGraph、upstreamSnapshot、downstreamPolicy、valueRetentionPolicy、candidatePolicy 和 submitSnapshotPolicy。
 
 TabPanel 内表单的 dirty、提交、错误摘要和字段焦点仍归本文件；页面内 Tabs 执行 `references/tab-view-navigation.md`，tab owner 只能读取 `dirtyBoundary`，不得把激活 tab 当作提交表单、保存视图或清空表单草稿。

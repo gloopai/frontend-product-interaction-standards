@@ -8,6 +8,8 @@
 
 单条删除、单条停用、单条归档、单条恢复、取消任务、重跑任务和行菜单中的危险动作必须同时执行 `references/row-contextual-actions.md`。风险 owner 负责风险分级、影响范围、确认策略、撤销和审计；行操作 owner 负责 `rowActionState`、recordIdentity、sourceSnapshot、requestIdentity、resultReceipt 和旧行防护。
 
+清空余额、购买大额额度、预算上限、超额付费、折扣/税率/汇率变更、关键阈值、权限数量、席位数、并发数、保留天数和不可逆配额变更必须同时执行 `references/numeric-amount-inputs.md`。风险 owner 负责风险分级、影响范围、确认策略和审计；数字 owner 负责 `numericInputState`、单位/币种/倍率、精度/舍入、范围边界、提交快照和误触输入防护。
+
 本文件是风险动作生命周期的唯一事实来源。它定义风险分级、影响范围、确认策略、确认前请求边界、请求身份、撤销窗口、取消语义、未知结果、批量快照、权限收敛、审计回执、恢复入口、可访问性和移动端可达性。它不定义具体按钮视觉、Dialog 焦点陷阱、服务端事务或审计存储实现。
 
 ## 与组件 owner 的关系

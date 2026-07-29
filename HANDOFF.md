@@ -53,6 +53,7 @@ frontend-product-interaction-standards/
     ├── keyboard-shortcuts-commands.md
     ├── page-form-action-bars.md
     ├── notifications-message-center-announcements.md
+    ├── numeric-amount-inputs.md
     ├── ordering-reordering.md
     ├── optimistic-update-undo.md
     ├── text-overflow-truncation.md
@@ -240,6 +241,14 @@ frontend-product-interaction-standards/
 
 - 已定义字段与表单的状态、校验时机、提交快照、错误归属、失败恢复、未保存更改确认及可访问错误反馈。
 - 详细规则和可执行验收仅维护在 [表单状态、校验与错误交互规范](references/forms.md)，本交接不重复其状态模型或检查项。
+
+### 数字、金额、比例与配额输入
+
+- 已定义 `numericInputState`，覆盖数字输入、金额、百分比、比例、费率、数量、排序序号、权重、阈值、配额、额度、余额、预算、时长、容量和单价。
+- 数字字段不是普通文本框加 `type=number`；必须分离 `draftText`、`parsedValue` 和 `committedValue`，并声明单位/币种/倍率、精度/舍入、硬软边界、步进、粘贴、IME 和提交快照。
+- 空值、0、负数和非法值不是同一件事；金额必须声明币种，百分比必须声明提交倍率，容量/时长/配额必须声明单位和计量周期。
+- 无权限不得泄露金额、余额、额度、用量、阈值、单价、套餐限制、历史值、旧 aria-label 或错误明细；移动端不得删除单位、错误、边界说明、保存/取消、恢复或权限说明。
+- 详细规则和可执行验收仅维护在 [数字、金额、比例与配额输入交互规范](references/numeric-amount-inputs.md)，本交接不重复其状态模型或检查项。
 
 ### 条件字段与依赖输入
 
