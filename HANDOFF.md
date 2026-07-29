@@ -30,6 +30,7 @@ frontend-product-interaction-standards/
     ├── billing-subscription-invoices.md
     ├── buttons.md
     ├── charts-visualization.md
+    ├── complex-editors-builders.md
     ├── copy-clipboard.md
     ├── data-tables.md
     ├── date-time-ranges.md
@@ -193,6 +194,15 @@ frontend-product-interaction-standards/
 - 无权或未启用时保存按钮的 DOM、state、handler、request 和快捷键入口为 0；权限、租户/工作区、对象状态、表单版本或会话状态变化后旧保存入口、旧快捷键、旧 loading、旧错误、旧 Toast、旧 focus target 和旧回调必须失效或重新证明安全。
 - 移动端不得删除保存、取消/返回、错误摘要、权限原因、脏状态说明和恢复路径；虚拟键盘出现后当前聚焦字段、字段错误、错误摘要、保存按钮、取消/返回、提交中状态和恢复入口仍必须可见或可滚动到达。
 - 详细规则和可执行验收仅维护在 [页面级表单操作栏与保存区交互规范](references/page-form-action-bars.md)，本交接不重复其状态模型或检查项。
+
+### 复杂编辑器和构建器
+
+- 已定义复杂编辑器、构建器、富文本编辑器、Markdown 编辑器、代码编辑器、JSON/YAML 编辑器、模板编辑器、规则构建器、流程编排器、节点编辑、画布编辑、字段映射、表达式编辑、报表构建器和 AI 生成配置的首版 owner。
+- `editorBuilderState` 必须声明 `editorOwnerId`、`sourceSnapshot`、`draftModel`、`validationState`、`previewState`、`versionPolicy`、`savePolicy`、`publishPolicy`、`importExportPolicy`、`permissionBoundary`、`collaborationPolicy` 和 `responsivePolicy`。
+- 草稿、预览、保存、发布、应用、启用、提交审核、回滚、导入、导出和复制必须是不同意图；输入、拖拽、节点连接、格式化、粘贴、AI 生成、导入片段和自动修复只能写入 `draftModel`。
+- 复杂编辑器必须校验完整结构，而不是只校验当前可见区域；折叠节点、隐藏面板、未展开分支、不可见字段、禁用节点、孤立节点、断开的边、循环依赖、缺失变量、重复 key、非法表达式、未映射字段、权限不可见引用、旧版本引用和外部资源失效都必须进入 `validationState`。
+- 移动端不得删除编辑、预览、校验、保存草稿、发布/提交、错误摘要、错误定位、版本/冲突说明、权限原因、恢复路径和离开保护。
+- 详细规则和可执行验收仅维护在 [复杂编辑器和构建器交互规范](references/complex-editors-builders.md)，本交接不重复其状态模型或检查项。
 
 ### 数据表格
 
@@ -486,9 +496,8 @@ frontend-product-interaction-standards/
 建议按优先级继续增加：
 
 1. 超出管理台范围的上传能力。
-2. 复杂编辑器和构建器。
-3. 图表与可视化创作。
-4. 文件与媒体管理。
+2. 图表与可视化创作。
+3. 文件与媒体管理。
 
 每次新增规范时，应同步检查：
 
