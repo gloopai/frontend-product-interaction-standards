@@ -4,6 +4,8 @@
 
 本文件是字段说明、帮助文本与占位提示 owner。它负责说明信息的身份、语义分层、可访问关联、移动端等价路径、权限安全、错误关系、语言/断点变化和生命周期清理。字段业务值、dirty、校验和提交读取 `references/forms.md`；只读字段和值展示读取 `references/information-display.md`；Tooltip、Popover、Action Sheet 和 Drawer 的触发/定位/关闭读取 `references/overlays-menus-tooltips.md`；权限和无泄露读取 `references/permissions-tenancy-visibility.md`；响应式和输入方式读取 `references/responsive-adaptive.md`。
 
+字段 label、帮助文本、placeholder、单位、错误文本和计数参与表单布局、字段分组、两列/三列排列、跨列和移动端重排时，必须同时执行 `references/form-layout-field-groups.md`，并声明 `formLayoutState`。字段说明 owner 负责说明语义和可访问描述；表单布局 owner 负责说明与字段的空间归属、对齐、折行、溢出、跨列和底部操作栏避让。
+
 数字输入、金额输入、百分比、比例、费率、数量、排序序号、权重、阈值、配额、额度、余额、预算、时长、容量和单价的单位、币种、倍率、精度、范围和格式示例必须同时执行 `references/numeric-amount-inputs.md`；字段说明 owner 负责可见说明和 ARIA 描述，数字 owner 负责 `numericInputState`、unitBinding、precisionPolicy、rangePolicy、normalizationPolicy 和提交语义。
 
 条件字段、依赖字段、字段联动、条件必填、条件隐藏、条件禁用、条件只读和自动填充说明必须同时执行 `references/conditional-fields-dependent-inputs.md`。字段说明 owner 负责 label、帮助文本、placeholder、必填说明和错误描述；条件字段 owner 负责 `fieldDependencyState`、requirementPolicy、visibilityPolicy、valueRetentionPolicy 和条件变化后的说明引用清理。

@@ -4,6 +4,8 @@
 
 表单放在 [Dialog](dialogs.md) 或 [Drawer](drawers.md) 中时，容器的打开、关闭、焦点陷阱、退出动画与 disposal 仍由对应 owner 负责；表单仅提供 `dirty`、`submitting`、错误摘要和可聚焦目标。Select / Combobox 的 `query`、`activeOption` 与 popup 会话仍由 [Select / Combobox](selects-comboboxes.md) owner 负责，只有已提交的 `selectedValue` 才是表单字段值。断点切换、跨端呈现和 route/unmount disposal 同时遵循 [响应式与自适应交互规范](responsive-adaptive.md)，不得重置同一表单会话。
 
+表单布局、字段分组、两列/三列排列、表单栅格、字段对齐、label 对齐、错误文本排列、底部操作栏避让和移动端表单布局必须同时执行 `references/form-layout-field-groups.md`，并声明 `formLayoutState`。Forms owner 继续负责字段值、dirty、校验、错误和提交生命周期；表单布局 owner 负责字段注册、组注册、视觉/DOM/Tab/读屏顺序、跨列、溢出、错误定位、响应式转换和焦点恢复。
+
 关键词搜索输入作为表单字段时必须执行 `references/keyword-search-inputs.md`；表单只接收已提交的 `committedKeyword`，不得把 `inputDraft`、`normalizedDraft` 或 `compositionState` 当作字段业务值、dirty 或 submit payload。
 
 对象、资源、成员、用户、负责人、审批人、角色主体、账号、项目、工作区、关联对象和关联资源选择字段必须同时执行 `references/entity-resource-pickers.md`，并声明 `entityResourcePickerState`；表单只接收目标 owner 确认后的 `committedSelection`，不得把 display label、搜索 query、active option、最近项或候选缓存当作字段业务值、dirty 或 submit payload。

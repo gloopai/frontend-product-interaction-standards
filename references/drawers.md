@@ -4,6 +4,8 @@
 
 列表或表格的详情预览、侧边预览、行预览、记录预览、快速查看、只读预览和 Master-Detail 归 `references/preview-pane.md`；当这些预览在移动端或窄屏转换为底部 Drawer、全屏 Drawer 或其他模态覆盖层时，本文件负责遮罩、背景隔离、滚动锁、焦点陷阱、固定标题/关闭、底部安全区域和 disposal，`preview-pane.md` 继续负责预览目标、只读边界、迟到响应和权限无泄露。
 
+Drawer 内承载表单布局、字段分组、两列/三列排列、长错误、帮助文本、底部 footer 避让或移动端表单重排时，必须同时执行 `references/form-layout-field-groups.md`，并声明 `formLayoutState`。Drawer owner 负责抽屉方向、遮罩、滚动、焦点陷阱、标题和 footer；表单布局 owner 负责字段顺序、分组、跨列、错误定位、footer 遮挡避让和移动端单列转换。
+
 涉及跨端形态或视口适配时，还必须执行 [响应式与自适应交互规范](responsive-adaptive.md)。兼容规则全部执行；一方更严格且不冲突时，执行更严格规则。Dialog/Drawer 的形态专属动画、边缘和几何规则不以“更严格”裁定：初次打开采用当前视口最终渲染形态的专项动画，已打开实例实时转换时保持单实例并进行无入场/退场的布局转换，具体执行 `responsive-adaptive.md` 的跨端形态规则。
 
 自绘可搜索单选 Select / Combobox 转为移动端 Drawer 时，还必须完整执行 [可搜索单选 Select / Combobox 交互规范](selects-comboboxes.md)。关闭路径、遮罩、滚动、焦点、背景隔离、固定关闭按钮、层级和清理适用本文件的 Drawer 硬性规则；`selectedValue`、`query`、`activeOption`、选择提交、搜索与高亮状态适用 Select 状态规则。两类规则兼容时同时执行，不得用 Drawer 的关闭或动画实现改变已选值、查询或高亮的提交边界。

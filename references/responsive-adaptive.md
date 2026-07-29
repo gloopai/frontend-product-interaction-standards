@@ -13,6 +13,8 @@
 
 移动端字段说明、帮助文本、placeholder、字段 label、必填/选填、单位、格式示例、空值说明、权限原因、只读原因和禁用原因必须同时执行 `references/field-guidance-help-text.md`；本文件负责断点、触摸、虚拟键盘、安全区域和布局可达性，`field-guidance-help-text.md` 负责说明语义、hover-only 替代路径和旧描述引用清理。
 
+移动端表单布局、字段分组、两列/三列转单列、表单栅格、label 对齐、帮助/错误排列、底部保存栏避让和虚拟键盘下字段可达性必须同时执行 `references/form-layout-field-groups.md`，并声明 `formLayoutState`。本文件负责跨端断点、触摸、虚拟键盘、安全区域和缩放；表单布局 owner 负责字段顺序、组语义、跨列降级、错误定位和焦点恢复。
+
 移动端 Page Header、页面标题区、页面头部、标题栏、页面标题、副标题、对象标题、状态摘要、标题区主操作和标题区权限说明必须同时执行 `references/page-header-title-area.md`；本文件负责断点、触摸、虚拟键盘、安全区域和遮挡可达性，`page-header-title-area.md` 负责页面身份、标题快照、主操作槽和标题区移动端保留。
 
 移动端页面内容区、页面正文、主内容区、Section、卡片区块、分栏布局、主滚动、嵌套滚动、Sticky/fixed 避让、内容密度和移动端单列必须同时执行 `references/page-content-layout-sections.md`；本文件负责跨端断点、视口、触摸、虚拟键盘和安全区域，`page-content-layout-sections.md` 负责内容区 owner、Section 注册、主滚动身份、Sticky/fixed 遮挡避让和核心 Section 保留。

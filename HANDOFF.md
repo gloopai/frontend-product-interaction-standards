@@ -191,6 +191,16 @@ frontend-product-interaction-standards/
 - 三态 checkbox 的 `indeterminateState` 不能作为可提交业务值；移动端不得删除选项、禁用原因、错误说明、保存/取消、恢复路径或当前已选摘要。
 - 详细规则和可执行验收仅维护在 [选择控件与开关交互规范](references/selection-controls.md)，本交接不重复其状态模型或检查项。
 
+### 表单布局、字段分组与响应式排列
+
+- 已定义表单布局、字段布局、字段分组、表单区块、两列表单、三列表单、表单栅格、label 对齐、帮助文本排列、错误文本排列、表单 Section/Card、设置表单布局和移动端表单布局的首版 owner。
+- `formLayoutState` 必须声明 `formLayoutOwnerId`、`layoutSurface`、`fieldRegistry`、`groupRegistry`、`layoutMode`、`breakpointPolicy`、`fieldOrder`、`alignmentPolicy`、`spanPolicy`、`densityPolicy`、`overflowPolicy`、`errorPlacementPolicy`、`loadingPlaceholderPolicy`、`conditionalLayoutBinding`、`actionBarAvoidance`、`responsivePolicy`、`focusRestorationPolicy`、`lifecycleDisposal` 和 `runtimeVerification`。
+- CSS Grid、span、labelCol/wrapperCol、组件库 Form.Item、两个 div、媒体查询或截图不能替代布局 owner。
+- 视觉顺序、DOM 顺序、Tab 顺序和读屏顺序默认一致；字段组必须有标题或等价语义，label、帮助文本、单位、错误文本和计数必须绑定到对应字段。
+- 两列/三列表单不得让跨列字段、长错误、长帮助或组合字段挤压相邻字段；移动端不得保留需要横向滚动才能填写的多列表单。
+- sticky/fixed 保存栏、Dialog footer、Drawer footer 和虚拟键盘不得遮挡字段、帮助、错误或聚焦目标。
+- 详细规则和可执行验收仅维护在 [表单布局、字段分组与响应式排列交互规范](references/form-layout-field-groups.md)，本交接不重复其状态模型或检查项。
+
 ### 树形结构与级联
 
 - 已定义 Tree、Tree Select、Cascader、组织树、权限树、菜单树、分类树和级联选择的首版 owner。
