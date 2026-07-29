@@ -30,6 +30,7 @@ frontend-product-interaction-standards/
     ├── billing-subscription-invoices.md
     ├── buttons.md
     ├── charts-visualization.md
+    ├── copy-clipboard.md
     ├── data-tables.md
     ├── date-time-ranges.md
     ├── dialogs.md
@@ -228,6 +229,20 @@ frontend-product-interaction-standards/
 - 指标卡必须声明指标名、口径、单位、时间范围、数据延迟、刷新时间和权限范围；复制、导出、跳转、编辑和危险操作必须绑定当前展示快照与权限版本。
 - 移动端不得删除字段 label、单位、状态说明、错误/权限说明、复制/恢复路径或审计入口。
 - 详细规则和可执行验收仅维护在 [信息展示与详情页交互规范](references/information-display.md)，本交接不重复其状态模型或检查项。
+
+### 复制与剪贴板操作
+
+- 已定义复制、复制字段、复制值、复制文本、复制 ID、复制编号、复制错误编号、复制链接、复制邀请链接、复制下载链接、复制地址、复制 URL、复制配置、复制片段、复制命令、复制审计字段、复制数据、复制图片、复制脱敏值、复制真实值、剪贴板、系统剪贴板、一键复制和复制失败的通用 owner。
+- `copyActionState` 必须声明 `copyOwnerId`、`copyIntent`、`sourceBinding`、`valuePolicy`、`sensitiveBoundary`、`clipboardCapability`、`linkBinding`、`resultReceipt`、`auditBinding`、`focusReturn` 和 `disposalState`。
+- 复制必须绑定当前快照；每个业务复制按钮、菜单项或快捷动作都必须创建 `copyIntent`，不得读取旧 DOM、旧缓存、旧请求结果、隐藏字段、旧权限字段、旧下载 URL、旧邀请链接或旧审计详情。
+- 复制脱敏值必须明确告诉用户复制的是脱敏值或安全摘要，不能误导用户以为复制了真实值；复制真实值必须由来源 owner 明确允许。
+- Toast、Notification、Tooltip、ARIA label、审计摘要和错误说明不得包含真实密钥、token 片段、完整下载 URL、邀请 token、签名材料、payload、无权限字段或可复原敏感内容。
+- 复制链接不是权限证明；旧复制链接、旧浏览器历史、旧 Toast/Notification、旧菜单项和旧 DOM 属性必须在权限变化、会话过期、租户/工作区切换、对象删除、任务过期、文件过期、邀请撤销、凭证轮换或链接版本变化后失效或重新证明安全。
+- 复制成功只表示写入系统剪贴板成功，不代表用户已经安全保存、链接已经被使用、邀请已经发送、文件已经下载、任务已经完成、字段已经更新或审计已经导出。
+- 复制失败不能静默吞掉，必须说明可恢复原因并提供重试、手动选择、下载、Reveal、重新生成、重新认证、查看安全说明或联系支持等适用路径。
+- 复制按钮、图标按钮、菜单项和快捷操作必须有动作对象和可访问名称；复制成功、失败、权限拒绝、过期和未知结果必须由唯一 owner 公告。
+- 移动端、低高度、虚拟键盘、安全区域、WebView、系统分享面板、系统剪贴板限制和 200% 缩放下，不得删除核心复制入口、复制失败原因、敏感警示、权限说明或替代路径。
+- 详细规则和可执行验收仅维护在 [复制与剪贴板操作交互规范](references/copy-clipboard.md)，本交接不重复其状态模型或检查项。
 
 ### 密钥、令牌与敏感凭证
 
