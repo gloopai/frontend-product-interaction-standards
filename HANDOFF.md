@@ -49,6 +49,7 @@ frontend-product-interaction-standards/
     ├── record-editing-surfaces.md
     ├── risk-actions.md
     ├── responsive-adaptive.md
+    ├── saved-views-layout-presets.md
     ├── search-command-palette.md
     ├── settings-preferences-configuration.md
     ├── selection-controls.md
@@ -197,6 +198,18 @@ frontend-product-interaction-standards/
 - 权限、租户/工作区、能力开关或结果 owner 变化后，工具栏必须原子重算可见操作、禁用原因、批量条、导出入口和视图工具。
 - 移动端不得删除新增、刷新、错误恢复、已选摘要、批量入口、导出恢复或主要视图工具；低频工具可进入更多菜单、Action Sheet、Drawer 或独立页，但必须保持可访问名称、分组、范围、禁用原因和焦点返回。
 - 详细规则和可执行验收仅维护在 [页面操作栏与列表工具栏交互规范](references/page-toolbars-actions.md)，本交接不重复其状态模型或检查项。
+
+### 保存视图、视图预设与个性化布局
+
+- 已定义保存视图、视图预设、我的视图、个人视图、共享视图、团队视图、默认视图、系统视图、保存筛选、筛选预设、列布局、布局预设、密度预设、恢复默认视图、设为默认视图和视图切换器的首版 owner。
+- `savedViewState` 必须声明 `savedViewOwnerId`、`viewIdentity`、`viewScope`、`appliedSnapshot`、`layoutSnapshot`、`draftBinding`、`defaultPolicy`、`sharePolicy`、`applyIntent`、`permissionBoundary`、`resultReceipt`、`auditBinding` 和 `responsivePolicy`。
+- 保存视图必须读取 `appliedSnapshot` 和明确允许持久化的 `layoutSnapshot`；筛选草稿、Select query、active option、未提交日期范围、当前页码、展开行、hover、高亮、焦点、loading、错误状态和旧结果缓存不得进入正式保存视图。
+- 应用视图必须创建 `applyIntent`，并让 Query Filters、Data Table、Toolbar、URL、结果摘要和焦点读取同一视图版本；旧请求、旧结果、旧 URL、旧导出范围和旧焦点任务必须失效或重算。
+- 个人视图、团队共享视图、系统预设、个人默认、团队默认和角色默认必须分开表达；共享视图不得泄露无权限字段、筛选值、对象名称、数量、列名、内部 ID、成员、客户、文件名、金额、发票、密钥、审计字段或旧缓存。
+- 覆盖、删除、共享、设默认、取消共享、恢复默认和批量管理视图必须说明影响范围、视图版本、权限版本、请求身份和未知结果；高影响动作进入 `risk-actions.md`，确认前请求数为 0。
+- 未知结果不能伪装成已保存、已覆盖、已删除、已共享、已设为默认或已恢复默认，必须提供刷新视图列表、检查当前视图、查看审计、重试或联系支持路径。
+- 移动端不得删除视图切换、当前视图说明、保存视图、覆盖视图、恢复默认、权限原因、冲突恢复、错误回执和审计入口；复杂视图管理可以进入 Drawer、Bottom Sheet、Action Sheet 或独立页。
+- 详细规则和可执行验收仅维护在 [保存视图、视图预设与个性化布局交互规范](references/saved-views-layout-presets.md)，本交接不重复其状态模型或检查项。
 
 ### 查询条件与筛选
 
