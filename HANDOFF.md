@@ -60,6 +60,7 @@ frontend-product-interaction-standards/
     ├── selects-comboboxes.md
     ├── status-lifecycle-transitions.md
     ├── tree-hierarchy.md
+    ├── user-attachment-submission.md
     ├── webhooks-integrations-callbacks.md
     ├── wizards-steppers.md
     └── uploads-imports.md
@@ -460,6 +461,15 @@ frontend-product-interaction-standards/
 - 移动端不得删除预览、下载、替换、删除/恢复、转码状态、权限原因、分享管理、使用关系、版本说明、错误恢复和审计入口。
 - 详细规则和可执行验收仅维护在 `references/files-media-assets.md`，本交接不重复其状态模型或检查项。
 
+### 用户侧附件与内容提交上传
+
+- 已定义头像上传、评论附件、聊天附件、消息附件、工单附件、反馈附件、内容投稿附件、移动端拍照/录音/录像、发送前预览、发送后附件引用和附件草稿恢复的首版 owner。
+- `attachmentSubmissionState` 必须声明 `attachmentSubmissionOwnerId`、`contentDraftBinding`、`inputSourcePolicy`、`localAttachmentDrafts`、`uploadBinding`、`submitSnapshot`、`sendPolicy`、`postSubmitState`、`revisionPolicy`、`permissionBoundary`、`feedbackBinding` 和 `responsivePolicy`。
+- 上传成功只能说明文件引用可用于当前提交候选；不能自动说明消息已发送、评论已发布、头像已生效、内容已审核通过或资产已入库。
+- 发送按钮不得只读取“是否有本地文件名”；必须绑定文本草稿、附件草稿、上传状态、必填规则、权限、会话、内容版本和提交策略。
+- 移动端不得删除相机、相册、文件选择、录音录像、附件预览、文件级错误、上传进度、删除/替换、重试、发送状态、离开保护、权限原因、失败恢复和已发送附件状态。
+- 详细规则和可执行验收仅维护在 `references/user-attachment-submission.md`，本交接不重复其状态模型或检查项。
+
 ### 反馈状态与状态承载
 
 - 已定义页面/区域级 loading、skeleton、empty、zero-results、error、refresh-error、stale、permission、partial 和 recovery 的首版 owner。
@@ -514,9 +524,7 @@ frontend-product-interaction-standards/
 
 ## 后续建议
 
-建议按优先级继续增加：
-
-1. 超出管理台范围的上传能力。
+当前高频管理台与用户侧附件规范已形成首轮覆盖。继续扩展时，优先选择使用频率高、容易误把状态或权限边界合并的交互 owner。
 
 每次新增规范时，应同步检查：
 
