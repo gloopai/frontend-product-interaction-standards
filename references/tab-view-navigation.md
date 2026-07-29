@@ -4,6 +4,8 @@
 
 本文件是页面内 tab view 的 primary owner。全局导航、侧边导航、面包屑、浏览器 Back/Forward、路由离开和返回列表继续执行 [导航与路由交互规范](navigation-routing.md)；字段型 Segmented Control、Radio、Toggle 继续执行 [选择控件与开关交互规范](selection-controls.md)；TabPanel 内表单继续执行 [表单状态、校验与错误交互规范](forms.md)；权限、租户与可见性继续执行 [权限、租户与可见性交互规范](permissions-tenancy-visibility.md)；移动端与断点继续执行 [响应式与自适应交互规范](responsive-adaptive.md)。
 
+TabPanel 内可折叠内容、错误详情折叠和设置分组折叠必须同时执行 `references/disclosure-accordions.md`；不得用 Accordion 伪装页面内 tab navigation，也不得让折叠展开状态改变 `activeTabId`、URL 或 tab 权限语义。
+
 ## 范围与非目标
 
 本 owner 覆盖页面内 Tabs、对象详情 Tabs、设置页 Tabs、报表 Tabs、列表状态 Tabs、TabList、TabPanel、active tab、default tab、disabled tab、hidden tab、permission tab、URL tab、懒加载 tab、保活 tab、权限变化后的恢复和移动端形态转换。

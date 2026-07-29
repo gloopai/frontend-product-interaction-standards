@@ -16,6 +16,8 @@
 
 结果分页、排序、刷新和结果摘要由 `references/list-result-controls.md` 读取已应用查询快照；query-filters 只输出 `appliedFilters`，不得让结果控制读取 `filterDraft` 或字段内部草稿。
 
+高级筛选折叠、更多筛选折叠和筛选错误详情必须同时执行 `references/disclosure-accordions.md`；折叠 owner 不得隐藏已应用条件、筛选草稿状态、字段错误、权限原因或清空/恢复入口。
+
 Query Filter owner 不重新定义字段内部交互、表格请求结果、排序分页、Dialog/Drawer 关闭或管理台审计。它只负责把用户编辑的条件变成明确、可解释、可复现且安全的 `queryIntent`。
 
 ## 场景与状态模型

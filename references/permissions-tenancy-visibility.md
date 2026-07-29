@@ -4,6 +4,8 @@
 
 按钮入口、禁用、loading 和动作对象继续执行 [按钮交互规范](buttons.md)。表格行、列、选择、批量和跨页范围继续执行 [数据表格交互规范](data-tables.md)。字段、表单错误和未保存离开继续执行 [表单状态、校验与错误交互规范](forms.md)。导航、返回和路由恢复继续执行 [导航与路由交互规范](navigation-routing.md)。页面内 tab 可见性、禁用、隐藏、无权限、安全占位和旧 panel 清理必须同时执行 `references/tab-view-navigation.md`，并按本文件证明权限、租户/工作区和旧缓存无泄露。异步任务、下载产物和任务中心继续执行 [异步任务与任务中心交互规范](async-jobs-task-center.md)。上传、导入、模板和错误明细继续执行 [上传与导入交互规范](uploads-imports.md)。风险确认、权限变更和敏感导出继续执行 [危险操作与恢复交互规范](risk-actions.md)。Toast、Notification 和页面消息继续执行 [全局反馈与通知交互规范](global-feedback.md)。管理台跨页面治理继续执行 [管理台完整治理交互规范](admin-console.md)。
 
+折叠标题、摘要、数量、图标、展开状态、旧内容和子项关系必须同时执行 `references/disclosure-accordions.md`；无权限或未启用时不得通过收起标题、旧摘要、旧 ARIA label 或旧缓存泄露内部对象。
+
 ## 范围与边界
 
 本 owner 覆盖：
