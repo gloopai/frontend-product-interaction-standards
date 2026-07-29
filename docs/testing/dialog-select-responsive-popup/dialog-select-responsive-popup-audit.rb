@@ -22,6 +22,10 @@ DIALOG_TERMS = [
   "popup 边界与固定底部操作区之间必须保留可感知安全间距",
   "必须记录 trigger、popup、选中高亮行、滚动阴影、底部操作区和安全区域的可视矩形",
   "选中高亮行不得与取消、确认或错误摘要发生视觉相交",
+  "承载面选择必须先判断任务复杂度、字段数量、选择器数量、风险等级、是否需要上下文对照、是否会触发虚拟键盘、是否有固定底部操作和当前可用视口",
+  "短确认、短提示和无表单轻任务可继续使用居中 Dialog",
+  "中等复杂度任务在移动端优先转换为底部 Drawer / Bottom Sheet",
+  "长表单、多步骤、高风险、强上下文编辑或需要稳定 URL / 刷新的任务必须升级为全屏 Drawer 或独立页",
   "遮罩点击不关闭、拖拽不关闭",
   "未验证"
 ].freeze
@@ -39,6 +43,10 @@ SELECT_TERMS = [
   "不得让 options 与外层固定页脚共享滚动容器",
   "不得让 Select Drawer 与外层 Bottom Sheet 正文共用同一个滚动容器",
   "不得让 options 列表贴边覆盖外层固定页脚、取消按钮、确认按钮或错误摘要",
+  "Select 承载面不得只按选项数量决定",
+  "必须同时判断搜索需求、选项文本长度、禁用项/失效项、远程加载、错误重试、虚拟键盘、触控目标、外层容器剩余高度和底部操作避让",
+  "桌面端空间充足且无固定页脚冲突时可继续使用非模态 popup",
+  "移动端、低高度、虚拟键盘、Dialog/Bottom Sheet 内、需要搜索或会遮挡确认区时默认解析为 `drawer`",
   "不得要求 Dialog 外框滚动",
   "移动端、窄屏、低高度、虚拟键盘明显影响布局",
   "`auto` 应优先解析为 `drawer`",
@@ -60,6 +68,10 @@ RESPONSIVE_TERMS = [
   "不能把 options 直接铺在外层 Dialog 内容滚动区中",
   "字段选项层必须拥有独立滚动边界",
   "外层任务承载层的确认、取消、关闭、错误、脏状态和底部操作不被覆盖、不被复用、不被重置",
+  "承载面决策必须输出最终形态、触发条件、状态延续策略、关闭路径和验证边界",
+  "不得把所有移动端 Dialog 一刀切改成 Bottom Sheet",
+  "不得把所有 Select 一刀切改成 Drawer",
+  "不得把需要稳定路由、刷新恢复、深链、多人协作或长时间编辑的任务塞进 Dialog 或 Bottom Sheet",
   "底部操作区必须始终高于正文滚动区和字段选项层的视觉边界",
   "不得改变已提交值、提交草稿、重置搜索、重复请求、重复遮罩、重复焦点陷阱、重复滚动锁或重复动画"
 ].freeze
@@ -86,6 +98,12 @@ EVIDENCE_TERMS = [
   "可视矩形",
   "底部操作区",
   "共享滚动容器",
+  "承载面决策",
+  "任务复杂度",
+  "全屏 Drawer",
+  "独立页",
+  "稳定 URL",
+  "一刀切",
   "selectedValue",
   "query",
   "activeOption",
@@ -209,6 +227,20 @@ if ARGV.include?("--mutations")
           selects: selects, responsive: responsive, green: green, red: red)
   end
 
+  expect_failure("task-surface-decision-inputs") do
+    audit(dialogs: dialogs.gsub("承载面选择必须先判断任务复杂度、字段数量、选择器数量、风险等级、是否需要上下文对照、是否会触发虚拟键盘、是否有固定底部操作和当前可用视口", ""),
+          selects: selects, responsive: responsive, green: green, red: red)
+  end
+
+  expect_failure("mobile-task-surface-not-one-size-fits-all") do
+    audit(dialogs: dialogs.gsub("短确认、短提示和无表单轻任务可继续使用居中 Dialog", "")
+                           .gsub("中等复杂度任务在移动端优先转换为底部 Drawer / Bottom Sheet", "")
+                           .gsub("长表单、多步骤、高风险、强上下文编辑或需要稳定 URL / 刷新的任务必须升级为全屏 Drawer 或独立页", ""),
+          selects: selects,
+          responsive: responsive.gsub("不得把所有移动端 Dialog 一刀切改成 Bottom Sheet", ""),
+          green: green, red: red)
+  end
+
   expect_failure("select-drawer-field-option-layer") do
     audit(dialogs: dialogs,
           selects: selects.gsub("Select Drawer 是字段选项层，不是外层任务承载层的替代提交", ""),
@@ -236,6 +268,21 @@ if ARGV.include?("--mutations")
           responsive: responsive, green: green, red: red)
   end
 
+  expect_failure("select-surface-decision-inputs") do
+    audit(dialogs: dialogs,
+          selects: selects.gsub("Select 承载面不得只按选项数量决定", "")
+                          .gsub("必须同时判断搜索需求、选项文本长度、禁用项/失效项、远程加载、错误重试、虚拟键盘、触控目标、外层容器剩余高度和底部操作避让", ""),
+          responsive: responsive, green: green, red: red)
+  end
+
+  expect_failure("select-drawer-not-one-size-fits-all") do
+    audit(dialogs: dialogs,
+          selects: selects.gsub("桌面端空间充足且无固定页脚冲突时可继续使用非模态 popup", "")
+                          .gsub("移动端、低高度、虚拟键盘、Dialog/Bottom Sheet 内、需要搜索或会遮挡确认区时默认解析为 `drawer`", ""),
+          responsive: responsive.gsub("不得把所有 Select 一刀切改成 Drawer", ""),
+          green: green, red: red)
+  end
+
   expect_failure("bottom-sheet-dynamic-viewport-safe-area") do
     audit(dialogs: dialogs, selects: selects,
           responsive: responsive.gsub("Bottom Sheet 的最大高度、底部偏移、左右边距和右边距必须基于动态视口与 safe-area 计算", ""),
@@ -245,6 +292,12 @@ if ARGV.include?("--mutations")
   expect_failure("footer-action-zone-above-content-boundary") do
     audit(dialogs: dialogs, selects: selects,
           responsive: responsive.gsub("底部操作区必须始终高于正文滚动区和字段选项层的视觉边界", ""),
+          green: green, red: red)
+  end
+
+  expect_failure("long-running-task-requires-page-or-full-drawer") do
+    audit(dialogs: dialogs, selects: selects,
+          responsive: responsive.gsub("不得把需要稳定路由、刷新恢复、深链、多人协作或长时间编辑的任务塞进 Dialog 或 Bottom Sheet", ""),
           green: green, red: red)
   end
 

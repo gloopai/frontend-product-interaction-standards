@@ -8,6 +8,10 @@
 - popup 与底部操作区没有安全间距，options 底边、选中行高亮、滚动阴影或列表边框贴住取消/确认按钮。
 - 没有记录 trigger、popup、选中高亮行、滚动阴影、底部操作区和安全区域的可视矩形，就声称截图型页脚冲突已解决。
 - 选中高亮行、列表边框或滚动阴影与取消、确认或错误摘要发生视觉相交，仍被判定为可接受。
+- 承载面决策没有判断任务复杂度、字段数量、选择器数量、风险等级、上下文对照、虚拟键盘、固定底部操作和可用视口，就直接把任务塞进 Dialog。
+- 把所有移动端 Dialog 一刀切改成 Bottom Sheet，导致短确认变重、长时间编辑没有稳定 URL，或需要刷新恢复、深链、多人协作的任务没有升级为全屏 Drawer / 独立页。
+- Select 只按选项数量决定 popup 或 Drawer，忽略搜索需求、选项文本长度、禁用项/失效项、远程加载、错误重试、虚拟键盘、触控目标、外层剩余高度和底部操作避让。
+- 把所有 Select 一刀切改成 Drawer，或者在移动端、低高度、虚拟键盘和 Bottom Sheet 内仍强行保留会遮挡确认区的 popup。
 - 只用临时 `z-index` 把 Select popup 压到 Dialog 页脚之上，却没有处理锚点、collision、虚拟键盘、滚动重算和层级归属。
 - PC popup 没有 Portal 到应用根或当前模态层专用 popup root，层级与更上层 Dialog/Drawer 混乱。
 - Dialog 内容滚动、窗口缩放、字体放大、虚拟键盘、锚点移除或更上层模态打开后，popup 悬空、穿透上层模态或留下失效 ARIA 引用。
@@ -18,6 +22,7 @@
 - Select Drawer 没有被当作字段选项层，而是被当作外层 Dialog/Bottom Sheet 的提交层，复用外层确认按钮、提交外层表单、重置外层错误，或关闭后没有把焦点返回原 Select trigger。
 - Select Drawer 与外层 Bottom Sheet 正文共享滚动容器，导致字段选项层没有独立滚动边界，滚动位置、滚动阴影或清理责任互相串扰。
 - Bottom Sheet 内继续使用非模态 Select popup，导致确认按钮、错误信息或取消/关闭路径被遮挡；这种场景应转 Select Drawer、全屏 Drawer 或独立页。
+- 承载面决策没有输出最终形态、触发条件、状态延续策略、关闭路径和验证边界，导致后续实现无法稳定复核。
 - 浏览器、触摸设备、真实组件和真实视口没有执行时，不能写成已验证，必须标为未验证。
 
 对应静态审计入口：`ruby docs/testing/dialog-select-responsive-popup/dialog-select-responsive-popup-audit.rb --mutations`。

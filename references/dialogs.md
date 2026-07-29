@@ -55,6 +55,7 @@
 
 ## 推荐设计
 
+- Dialog、Bottom Sheet、全屏 Drawer 和独立页的承载面选择必须先判断任务复杂度、字段数量、选择器数量、风险等级、是否需要上下文对照、是否会触发虚拟键盘、是否有固定底部操作和当前可用视口。短确认、短提示和无表单轻任务可继续使用居中 Dialog；中等复杂度任务在移动端优先转换为底部 Drawer / Bottom Sheet；长表单、多步骤、高风险、强上下文编辑或需要稳定 URL / 刷新的任务必须升级为全屏 Drawer 或独立页。不得只因为组件库提供 Dialog 就把所有新增、编辑和配置任务都塞进 Dialog，也不得只因为移动端空间有限就删除字段、取消、确认、错误摘要、未保存保护或恢复路径。
 - Dialog 内 Select / Combobox / Dropdown popup 不得被 Dialog 内容滚动区、Dialog 外框、固定页脚、局部容器、`overflow` 或 `transform` 裁切。不得为了 Select popup 展开而让 Dialog 外框滚动；PC / 宽屏应通过应用根或当前模态层专用 popup root、统一层级、锚点定位、空间不足时向上翻转、最大高度限制和仅 options 区滚动来解决。popup 不得遮挡 Dialog 主要确认按钮；空间不足时必须翻转、限高或按 Select/Responsive owner 转换为 Drawer。
 - Dialog 内嵌 popup 的层级必须归属当前最上层模态实例：popup root 与锚点定位、collision 计算、滚动监听和关闭清理均由该 Dialog 实例登记。不得只通过临时提高 `z-index` 解决截图式遮挡；不得让 popup 穿透到更上层 Dialog/Drawer、被固定页脚覆盖、覆盖主要操作且无可见避让策略，或在 Dialog 内容滚动后脱离 trigger。锚点滚出当前内容视窗、Dialog 关闭、路由卸载或更上层模态打开时，该 popup 必须关闭或转换为合法承载形态，并同步清理 ARIA 引用。
 - Dialog 内 Select popup 边界与固定底部操作区之间必须保留可感知安全间距。不能让 options 底边、选中行高亮、滚动阴影或列表边框贴住取消/确认按钮所在操作区；若可用空间不足以同时保留安全间距、可读选项高度和主要操作可达性，必须向上翻转、缩短 options 区、转换为 Select Drawer，或把任务承载层升级为更合适的 Bottom Sheet / 全屏 Drawer / 独立页。
