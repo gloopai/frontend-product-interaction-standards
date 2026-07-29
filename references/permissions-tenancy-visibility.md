@@ -6,6 +6,8 @@
 
 折叠标题、摘要、数量、图标、展开状态、旧内容和子项关系必须同时执行 `references/disclosure-accordions.md`；无权限或未启用时不得通过收起标题、旧摘要、旧 ARIA label 或旧缓存泄露内部对象。
 
+详情预览、侧边预览、行预览、记录预览、快速查看、只读预览和 Master-Detail 必须同时执行 `references/preview-pane.md`；权限 owner 负责证明预览目标、字段、标题、数量、文件名、内部 ID、复制内容、错误明细和旧缓存安全，`preview-pane.md` 负责在预览切换、关闭、迟到响应和移动端转换中应用这些权限边界。
+
 ## 范围与边界
 
 本 owner 覆盖：

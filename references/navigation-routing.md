@@ -10,6 +10,8 @@
 
 返回、保存、取消、关闭、删除、导出和打开外链等按钮读取 `buttons.md`；表单脏状态、未保存更改和提交生命周期读取 `forms.md`；页面内 Tabs、TabList、TabPanel、active tab、权限 tab、懒加载 tab 和移动端 tab 承载必须同时执行 `references/tab-view-navigation.md`，并接入本文件同一离开保护管线；列表、分页、排序、选择和批量范围读取 `data-tables.md`；查询条件恢复和 URL 筛选读取 `query-filters.md`；新增/编辑承载面读取 `record-editing-surfaces.md`；Dialog / Drawer 关闭和焦点规则读取 `dialogs.md` / `drawers.md`；权限、租户/工作区、危险操作和审计读取 `admin-console.md`；Toast、Banner 和错误回执读取 `global-feedback.md`；移动端断点、安全区域和触控读取 `responsive-adaptive.md`。
 
+从列表上下文打开、关闭、恢复或通过 URL 表达详情预览、侧边预览、行预览、记录预览、快速查看、只读预览和 Master-Detail 时，必须同时执行 `references/preview-pane.md`；本文件负责来源恢复、浏览器 Back/Forward、URL 安全、焦点恢复和兜底目标，`preview-pane.md` 负责预览目标、来源绑定、预览关闭与权限无泄露。
+
 当本文件与其他 owner 都适用时，两者都执行。冲突时停止受影响实现并请用户裁决；不得用“路由库默认如此”“浏览器默认如此”或“组件默认如此”降低规范。
 
 ## 场景与状态模型

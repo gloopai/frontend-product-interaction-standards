@@ -6,6 +6,8 @@
 
 详情折叠、只读字段分组、展开/收起区块、错误详情折叠和移动端折叠内容必须同时执行 `references/disclosure-accordions.md`；本文件继续负责字段语义和只读展示，折叠 owner 负责展开状态、错误外显、权限摘要和焦点路径。
 
+从列表、表格、卡片列表、搜索结果或报表明细进入的详情预览、侧边预览、行预览、记录预览、快速查看、只读预览和 Master-Detail 必须同时执行 `references/preview-pane.md`；本文件负责预览内字段 label/value、空值、状态、复制和长文本展示，`preview-pane.md` 负责预览目标、来源绑定、关闭返回、迟到响应、权限无泄露和移动端承载边界。
+
 ## 状态模型
 
 每个详情页或信息展示区域必须声明 `informationDisplayState`，至少包含：

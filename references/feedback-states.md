@@ -12,6 +12,8 @@
 
 折叠内容里的 loading、error、stale、empty、permission-denied 和恢复入口必须同时执行 `references/disclosure-accordions.md`；本文件负责反馈承载和公告去重，折叠 owner 负责收起状态下的标题外显、自动展开和迟到内容清理。
 
+详情预览、侧边预览、行预览、记录预览、快速查看、只读预览和 Master-Detail 的 loading、empty、refresh-error、stale、partial、permission-denied 和恢复入口必须同时执行 `references/preview-pane.md`；本文件负责区域反馈承载、文案、恢复入口和公告去重，`preview-pane.md` 负责预览目标、来源绑定、迟到响应和关闭清理。
+
 Feedback States owner 不重新定义字段错误、表格查询、上传任务、按钮语义或管理台审计；它统一页面/区域级 loading、empty、error、stale、permission、partial 和 recovery 的状态承载。
 
 ## 场景与状态模型

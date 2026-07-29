@@ -49,6 +49,7 @@ frontend-product-interaction-standards/
     ├── overlays-menus-tooltips.md
     ├── page-toolbars-actions.md
     ├── permissions-tenancy-visibility.md
+    ├── preview-pane.md
     ├── query-filters.md
     ├── record-editing-surfaces.md
     ├── risk-actions.md
@@ -305,6 +306,16 @@ frontend-product-interaction-standards/
 - 指标卡必须声明指标名、口径、单位、时间范围、数据延迟、刷新时间和权限范围；复制、导出、跳转、编辑和危险操作必须绑定当前展示快照与权限版本。
 - 移动端不得删除字段 label、单位、状态说明、错误/权限说明、复制/恢复路径或审计入口。
 - 详细规则和可执行验收仅维护在 [信息展示与详情页交互规范](references/information-display.md)，本交接不重复其状态模型或检查项。
+
+### 详情预览面板
+
+- 已定义详情预览、侧边预览、预览面板、行预览、记录预览、快速查看、只读预览和 Master-Detail 的首版 owner。
+- `previewPaneState` 必须声明 `previewOwnerId`、`surfaceKind`、`sourceBinding`、`activePreviewTarget`、`pendingPreviewIntent`、`previewSnapshot`、`requestBinding`、`permissionBoundary`、`displayBinding`、`actionBoundary`、`urlHistoryBinding`、`focusReturnPolicy`、`responsivePolicy` 和 `runtimeVerification`。
+- 预览目标不等于表格选择、不等于 hover、不等于 focus、不等于 active row，也不等于编辑目标。
+- 预览面板不得渲染 input、textarea、select、combobox、日期选择器、单元格编辑、行内保存按钮或任何完整字段编辑表单；编辑入口只能转交记录编辑承载面。
+- 迟到预览响应只有同时匹配 `previewOwnerId`、owner live、请求代次、预览目标、租户/工作区和权限版本时才可提交。
+- 移动端可以把桌面侧边预览转换为底部 Drawer、全屏 Drawer 或独立详情页，但不得删除返回列表、当前预览目标、安全标题、权限原因、错误状态、主要只读信息和恢复入口。
+- 详细规则和可执行验收仅维护在 [详情预览面板交互规范](references/preview-pane.md)，本交接不重复其状态模型或检查项。
 
 ### 复制与剪贴板操作
 
