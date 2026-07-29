@@ -39,6 +39,7 @@ frontend-product-interaction-standards/
     ├── forms.md
     ├── global-feedback.md
     ├── information-display.md
+    ├── notifications-message-center-announcements.md
     ├── navigation-routing.md
     ├── overlays-menus-tooltips.md
     ├── page-toolbars-actions.md
@@ -269,6 +270,22 @@ frontend-product-interaction-standards/
 - Toast、Notification、Snackbar 或浏览器提示不能作为唯一支付失败、支付未知、取消订阅、降级、退款、发票生成失败、发票下载失败、用量同步失败、权限拒绝或部分成功恢复路径。
 - 移动端不得删除当前套餐、目标套餐、金额、币种、账期、税费/折扣摘要、权益变化、用量口径、额度状态、付款方式状态、支付失败恢复、取消/降级影响范围、发票下载、账单历史、审计入口、权限说明和恢复路径。
 - 详细规则和可执行验收仅维护在 [计费、套餐、订阅与发票交互规范](references/billing-subscription-invoices.md)，本交接不重复其状态模型或检查项。
+
+### 通知中心、站内信与公告
+
+- 已定义通知中心、消息中心、站内信、通知、消息、公告、系统公告、运营公告、维护公告、发布公告、未读、已读、全部已读、标记已读/未读、归档通知、删除通知、通知设置、通知偏好、订阅偏好、邮件通知、短信通知、Push 通知、推送通知、通知入口、铃铛、消息角标、通知跳转、通知详情和退订通知的 owner。
+- `notificationCenterState` 必须声明 `notificationOwnerId`、`notificationIdentity`、`recipientBoundary`、`messageState`、`deliveryChannelState`、`announcementState`、`clickTargetBinding`、`preferenceState`、`badgeState`、`riskBinding`、`permissionBoundary`、`auditBinding` 和 `resultReceipt`。
+- 持久通知不是 Toast；Toast 可以提示“有新消息”，但不能成为唯一消息记录、唯一恢复入口、唯一审计入口或唯一错误说明。
+- 通知点击不是普通链接；点击前必须复核权限、目标对象状态、租户/工作区、来源上下文和目标路由是否仍安全。
+- 旧通知、旧点击链接、旧邮件入口、旧 Push deep link、旧公告、旧 Toast/Notification 和旧未读角标必须在权限、租户/工作区、对象状态、事件版本、投递版本、偏好版本、会话或渠道状态变化后失效或重算。
+- 标记已读不等于归档，归档不等于删除，删除通知不等于删除目标对象，关闭公告不等于已读所有相关消息；未读数必须绑定 `badgeState`。
+- 保存偏好成功不等于邮件、短信、Push 或 Webhook 通知真实可达；偏好保存、偏好生效、渠道可达和真实投递结果必须分开表达。
+- 系统公告、维护公告、发布公告、运营公告和强制阅读公告必须维护 `announcementState`，公告 Banner、Modal、Drawer 或顶部条不能遮挡 Dialog/Drawer 底部操作、危险确认、表单错误、支付确认、导出下载、任务取消、导航返回或安全区域。
+- 无权限用户不得通过通知标题、摘要、图标、未读数、分类、错误、空态、DOM/ARIA、邮件预览、短信文案、Push 文案、下载链接、点击目标或审计摘要泄露对象名称、金额、成员、邮箱、发票编号、文件名、密钥、payload、内部 ID、外部对象或旧缓存。
+- 全部已读、批量标记已读/未读、批量归档、删除通知、清空通知、退订通知、恢复订阅和关闭强制公告必须说明范围、数量、分类、权限版本、目标快照、请求身份、结果回执和未知结果处理；高影响动作确认前请求数为 0。
+- 未知结果不能伪装成已读成功、归档成功、删除成功、退订成功、公告关闭成功或偏好保存成功。
+- 移动端不得删除通知分类、未读/已读状态、未读角标含义、筛选、标记已读/未读、归档、退订/偏好入口、公告详情、点击恢复、权限说明、审计入口和错误恢复路径。
+- 详细规则和可执行验收仅维护在 [通知中心、站内信与公告交互规范](references/notifications-message-center-announcements.md)，本交接不重复其状态模型或检查项。
 
 ### 图表与可视化
 
