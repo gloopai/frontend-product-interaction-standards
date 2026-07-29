@@ -8,6 +8,8 @@
 
 顶部全局搜索入口、App Shell 搜索按钮、命令面板触发器和移动端搜索入口必须同时执行 `references/app-shell-navigation.md`；本文件负责搜索状态、结果和命令执行，`app-shell-navigation.md` 负责全局入口注册、权限可见性、当前上下文绑定和外框级焦点返回。
 
+打开命令面板、快速跳转、动作搜索、结果激活或命令执行使用快捷键、热键、组合键或 keybinding 时，必须同时执行 `references/keyboard-shortcuts-commands.md`；本文件继续负责 `searchCommandState`、命令身份和结果执行，`keyboard-shortcuts-commands.md` 负责快捷键作用域、输入保护、冲突、可发现性、权限门禁和旧监听器清理。
+
 涉及搜索结果激活后的返回、来源恢复或路由切换时，还必须执行 [导航与路由交互规范](navigation-routing.md)。涉及移动端、虚拟键盘、低高度、安全区域或跨端形态转换时，还必须执行 [响应式与自适应交互规范](responsive-adaptive.md)。兼容规则全部执行；一方更严格且不冲突时，执行更严格规则。
 
 ## 范围与边界

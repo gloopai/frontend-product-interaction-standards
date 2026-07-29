@@ -14,6 +14,8 @@
 
 表格单元格、列标题、固定列、长 ID、长状态、长错误、URL、邮箱、文件名、路径、截断、省略号、查看全文、展开全文和复制全文必须同时执行 `references/text-overflow-truncation.md`；Data Table owner 继续负责列、行、选择、分页和 ARIA Grid，`text-overflow-truncation.md` 负责截断策略、完整内容恢复、复制权限、hover-only 禁止和移动端等价路径。
 
+表格提供全局快捷键、表格作用域快捷键、行操作快捷键、批量操作快捷键、列调整快捷键或 Grid 模式命令快捷键时，必须同时执行 `references/keyboard-shortcuts-commands.md`；Data Table owner 继续负责 Table/Grid 语义、单元格导航和行列状态，`keyboard-shortcuts-commands.md` 负责快捷键作用域、输入保护、冲突、可发现性、权限门禁和旧监听器清理。
+
 页面正文中的表格 Section、报表区域、结果区卡片、主滚动、局部滚动、Sticky/fixed 表头/分页/工具栏避让和移动端单列必须同时执行 `references/page-content-layout-sections.md`；Data Table owner 继续负责表格能力、查询、列、行、选择和批量操作，`page-content-layout-sections.md` 负责表格所在 Section 的注册、布局、主滚动身份和遮挡边界。
 
 从表格、卡片列表、搜索结果或报表明细打开详情预览、侧边预览、行预览、记录预览、快速查看、只读预览或 Master-Detail 时，必须同时执行 `references/preview-pane.md`；表格 owner 只提供来源快照、稳定记录 ID、焦点和能力档位，预览目标、预览请求、预览关闭、权限无泄露、移动端预览承载和迟到响应门禁归 `preview-pane.md`。预览目标不等于表格选择、hover、focus 或 active row。

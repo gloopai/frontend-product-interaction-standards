@@ -12,7 +12,7 @@ App Shell、应用外框、管理台外框、全局导航、侧边导航、顶�
 
 Page Header、页面标题区、页面头部、标题栏、页面标题、副标题、对象标题、状态摘要、标题区主操作和移动端标题区必须同时执行 `references/page-header-title-area.md`；本文件负责面包屑、返回、URL、来源恢复和路由失败，`page-header-title-area.md` 负责标题区页面身份、标题快照、操作槽和标题区权限收敛。
 
-返回、保存、取消、关闭、删除、导出和打开外链等按钮读取 `buttons.md`；表单脏状态、未保存更改和提交生命周期读取 `forms.md`；页面内 Tabs、TabList、TabPanel、active tab、权限 tab、懒加载 tab 和移动端 tab 承载必须同时执行 `references/tab-view-navigation.md`，并接入本文件同一离开保护管线；列表、分页、排序、选择和批量范围读取 `data-tables.md`；查询条件恢复和 URL 筛选读取 `query-filters.md`；新增/编辑承载面读取 `record-editing-surfaces.md`；Dialog / Drawer 关闭和焦点规则读取 `dialogs.md` / `drawers.md`；权限、租户/工作区、危险操作和审计读取 `admin-console.md`；Toast、Banner 和错误回执读取 `global-feedback.md`；移动端断点、安全区域和触控读取 `responsive-adaptive.md`。
+返回、保存、取消、关闭、删除、导出和打开外链等按钮读取 `buttons.md`；表单脏状态、未保存更改和提交生命周期读取 `forms.md`；页面内 Tabs、TabList、TabPanel、active tab、权限 tab、懒加载 tab 和移动端 tab 承载必须同时执行 `references/tab-view-navigation.md`，并接入本文件同一离开保护管线；列表、分页、排序、选择和批量范围读取 `data-tables.md`；查询条件恢复和 URL 筛选读取 `query-filters.md`；新增/编辑承载面读取 `record-editing-surfaces.md`；Dialog / Drawer 关闭和焦点规则读取 `dialogs.md` / `drawers.md`；浏览器 Back/Forward、返回、路由跳转、命令跳转或离开保护由快捷键触发时必须同时执行 `references/keyboard-shortcuts-commands.md`，本文件继续负责路由语义和来源恢复，快捷键 owner 负责作用域、输入保护、系统/浏览器快捷键避让和旧监听器清理；权限、租户/工作区、危险操作和审计读取 `admin-console.md`；Toast、Banner 和错误回执读取 `global-feedback.md`；移动端断点、安全区域和触控读取 `responsive-adaptive.md`。
 
 从列表上下文打开、关闭、恢复或通过 URL 表达详情预览、侧边预览、行预览、记录预览、快速查看、只读预览和 Master-Detail 时，必须同时执行 `references/preview-pane.md`；本文件负责来源恢复、浏览器 Back/Forward、URL 安全、焦点恢复和兜底目标，`preview-pane.md` 负责预览目标、来源绑定、预览关闭与权限无泄露。
 

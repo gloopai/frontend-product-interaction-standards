@@ -2,6 +2,8 @@
 
 适用于所有 Dialog、Modal、对话框及具有相同行为的弹出层。本文件是 Dialog 完整规则、验收标准与参考资料的唯一事实来源。
 
+Dialog 内或 Dialog 打开/关闭/提交/取消/帮助使用快捷键、热键、组合键或键盘命令时，必须同时执行 `references/keyboard-shortcuts-commands.md`；本文件继续负责模态语义、焦点陷阱、Escape/关闭、遮罩、滚动和 disposal，`keyboard-shortcuts-commands.md` 负责快捷键作用域、最上层优先级、输入保护、冲突、可发现性和旧监听器清理。
+
 涉及跨端形态或视口适配时，还必须执行 [响应式与自适应交互规范](responsive-adaptive.md)。兼容规则全部执行；一方更严格且不冲突时，执行更严格规则。Dialog/Drawer 的形态专属动画、边缘和几何规则不以“更严格”裁定：初次打开采用当前视口最终渲染形态的专项动画，已打开实例实时转换时保持单实例并进行无入场/退场的布局转换，具体执行 `responsive-adaptive.md` 的跨端形态规则。
 
 ## 遮罩与滚动

@@ -47,6 +47,7 @@ frontend-product-interaction-standards/
     ├── forms.md
     ├── global-feedback.md
     ├── information-display.md
+    ├── keyboard-shortcuts-commands.md
     ├── page-form-action-bars.md
     ├── notifications-message-center-announcements.md
     ├── ordering-reordering.md
@@ -540,6 +541,14 @@ frontend-product-interaction-standards/
 - 乐观更新不是成功回执；未得到权威确认前必须标记为 pending、syncing、undoable 或 queued，不得绕过确认、权限、审计或服务端权威状态。
 - 撤销入口不得只存在于自动消失 Toast；失败回滚必须基于 `sourceSnapshot`、权威刷新或 conflict payload。
 - 详细规则和可执行验收仅维护在 [乐观更新、撤销与回滚交互规范](references/optimistic-update-undo.md)，本交接不重复其状态模型或检查项。
+
+### 快捷键与键盘命令
+
+- 已定义快捷键、键盘命令、全局快捷键、页面快捷键、局部快捷键、热键、组合键、访问键、助记键、快捷键帮助、快捷键冲突、输入框快捷键保护、系统快捷键避让和浏览器快捷键避让的首版 owner。
+- `keyboardShortcutState` 必须声明 `shortcutOwnerId`、`shortcutSurface`、`scopeBinding`、`commandRegistry`、`keyBindingMap`、`focusContext`、`inputProtectionPolicy`、`conflictPolicy`、`discoverabilityPolicy`、`executionPolicy`、`permissionBoundary`、`responsivePolicy`、`focusAnnouncementPolicy`、`lifecycleDisposal` 和 `runtimeVerification`。
+- 快捷键不是隐藏按钮，也不是绕过焦点、权限、确认、表单输入或浏览器默认行为的后门；未声明作用域的全局 `keydown` 监听失败。
+- 输入框、编辑器、Select 搜索和 IME composition 中页面级快捷键默认不生效；系统、浏览器、输入法、屏幕阅读器和编辑器保留快捷键不得被强行覆盖。
+- 详细规则和可执行验收仅维护在 [快捷键与键盘命令交互规范](references/keyboard-shortcuts-commands.md)，本交接不重复其状态模型或检查项。
 
 ### 卡片列表与卡片式结果
 

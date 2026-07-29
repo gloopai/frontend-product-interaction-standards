@@ -23,6 +23,7 @@
 - `references/ordering-reordering.md`：调整排序、进入排序模式、上移、下移、置顶、置底、保存顺序和取消排序可以表现为按钮；按钮 owner 负责触发语义、可访问名称、禁用和防重复，排序 owner 负责 `orderingReorderingState`、排序范围、草稿顺序、冲突、拖拽替代和保存回执。
 - `references/text-overflow-truncation.md`：长按钮文案、图标按钮折叠、窄屏收纳、loading 文案、省略号和可访问名称必须同时执行文本溢出与截断 owner；按钮继续负责动作语义、层级和防重复，`text-overflow-truncation.md` 负责动作对象不得被截掉、全文/可访问名称一致、hover-only 禁止和移动端等价表达。
 - `references/optimistic-update-undo.md`：按钮触发乐观更新、先改界面、撤销、回滚、自动重试、离线队列或迟到响应协调时必须同时执行乐观 mutation owner；按钮继续负责触发语义、loading 和防重复，`optimistic-update-undo.md` 负责 pending 投影、撤销窗口、回滚依据、幂等、权威结果合并和旧投影清理。
+- `references/keyboard-shortcuts-commands.md`：按钮动作提供快捷键、组合键、菜单快捷键或键盘命令入口时必须同时执行快捷键 owner；按钮继续负责动作语义、可访问名称、loading 和防重复，`keyboard-shortcuts-commands.md` 负责快捷键作用域、输入保护、冲突、可发现性、权限门禁和旧监听器清理。
 - `responsive-adaptive.md`：断点、触摸、虚拟键盘、安全区域和能力折叠仍归响应式 owner；按钮声明在这些形态下的可达性要求。
 - 搜索、清空、取消、重置和重试按钮若作用于关键词搜索输入，必须同时执行 `references/keyword-search-inputs.md`，并保留清空草稿、清空已提交关键词、重置默认关键词和取消输入的意图区分。
 
