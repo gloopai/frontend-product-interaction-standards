@@ -124,6 +124,16 @@ frontend-product-interaction-standards/
 - 移动端不得删除输入、清空、提交、取消/返回、错误说明、权限原因、loading、结果摘要和恢复路径。
 - 详细规则和可执行验收仅维护在 `references/keyword-search-inputs.md`，本交接不重复其状态模型或检查项。
 
+### 列表结果控制
+
+- 已定义列表结果、结果控制、结果摘要、分页、页码、游标分页、页大小、排序、刷新、自动刷新、过期数据、数据版本、迟到响应、请求代次和总数不可靠的首版 owner。
+- `listResultControlsState` 必须声明 `resultControlsOwnerId`、`surfaceKind`、`appliedQueryBinding`、`querySnapshot`、`requestGeneration`、`requestPhase`、`sortState`、`paginationState`、`refreshState`、`resultSummary`、`selectionImpact`、`urlHistoryBinding`、`permissionBoundary`、`feedbackBinding` 和 `responsivePolicy`。
+- 结果控制只能读取已应用查询，不得读取筛选草稿或搜索输入草稿。
+- 排序变化、页大小变化和有效筛选/关键词变化必须建立新 `querySnapshot`；迟到响应不得覆盖当前 owner、当前代次或当前快照不匹配的结果。
+- 页码分页和游标分页不得在同一快照内混用；总数不可靠时不得展示精确总页数、随机跳页或“全部 N 条”的承诺。
+- 移动端不得删除排序、分页、刷新、结果摘要、错误说明、权限原因、过期说明和恢复路径。
+- 详细规则和可执行验收仅维护在 [列表结果控制交互规范](references/list-result-controls.md)，本交接不重复其状态模型或检查项。
+
 ### 选择控件与开关
 
 - 已定义 Checkbox、Radio Group、Switch、Toggle、Toggle Group、Segmented Control 和三态 checkbox 的首版 owner。
