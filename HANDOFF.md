@@ -38,6 +38,7 @@ frontend-product-interaction-standards/
     ├── information-display.md
     ├── navigation-routing.md
     ├── overlays-menus-tooltips.md
+    ├── permissions-tenancy-visibility.md
     ├── query-filters.md
     ├── record-editing-surfaces.md
     ├── risk-actions.md
@@ -117,6 +118,17 @@ frontend-product-interaction-standards/
 - 领取、下载、复制、重试和分享前必须复核任务身份、权限版本、租户/工作区、有效期和请求身份。
 - 移动端不得删除任务中心入口、任务状态、进度、取消中、重试、结果领取、错误明细、未知结果说明、权限说明或恢复路径。
 - 详细规则和可执行验收仅维护在 [异步任务与任务中心交互规范](references/async-jobs-task-center.md)，本交接不重复其状态模型或检查项。
+
+### 权限、租户与可见性
+
+- 已定义 RBAC、ABAC、角色、能力开关、租户/工作区切换、权限降级、权限升级、隐藏入口、禁用原因、只读、无权限和权限泄露防护的首版 owner。
+- 覆盖隐藏/禁用/只读/未启用语义、原子收敛、无泄露、请求绑定和移动端权限恢复。
+- 隐藏、禁用、只读、未启用和无权限不是同一件事；未启用表示产品或配置没有启用该能力，DOM、state、handler 和 request 入口均为 0。
+- 权限、租户/工作区、角色、认证状态、对象状态、权限版本或资源版本变化后，必须原子重算可见数据、菜单、按钮、表单字段、筛选项、导航、下载、任务入口、确认面板和缓存。
+- 旧可见数据、旧菜单、旧按钮、旧确认、旧下载链接、旧任务入口、旧错误明细、旧搜索结果、旧表单草稿、旧图表明细和旧 ARIA label 不得继续暴露。
+- 无权限状态不得泄露对象名称、数量、字段、文件名、路径、父子关系、导出范围、错误明细、任务结果、搜索摘要、内部 ID、图标、排序位置、旧缓存或旧可访问名称。
+- 移动端不得删除权限说明、只读原因、禁用原因、申请权限、切换租户/工作区、安全占位、重新认证或恢复路径。
+- 详细规则和可执行验收仅维护在 [权限、租户与可见性交互规范](references/permissions-tenancy-visibility.md)，本交接不重复其状态模型或检查项。
 
 ### 表单
 
