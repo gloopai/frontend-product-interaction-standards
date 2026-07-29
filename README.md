@@ -4,7 +4,7 @@
 
 ## 当前规范
 
-本 Skill 当前包含以下 Dialog、四向抽屉、可搜索单选 Select、选择控件与开关、树形结构与级联、表单、数据表格、查询条件与筛选、搜索与命令面板、日期时间与时区、信息展示与详情页、图表与可视化、导出/下载与结果产物、页面操作栏与列表工具栏、设置/偏好与配置页、分步流程与配置向导、导航与路由、会话、认证与重新认证、记录新增/编辑承载面、按钮、浮层菜单与提示、危险操作与恢复、状态流转与记录生命周期、权限/租户与可见性、异步任务与任务中心、审计日志与操作历史、上传与导入、反馈状态、全局反馈、跨端适配和管理台治理核心要求：
+本 Skill 当前包含以下 Dialog、四向抽屉、可搜索单选 Select、选择控件与开关、树形结构与级联、表单、数据表格、查询条件与筛选、搜索与命令面板、日期时间与时区、信息展示与详情页、密钥、令牌与敏感凭证、图表与可视化、导出/下载与结果产物、页面操作栏与列表工具栏、设置/偏好与配置页、分步流程与配置向导、导航与路由、会话、认证与重新认证、记录新增/编辑承载面、按钮、浮层菜单与提示、危险操作与恢复、状态流转与记录生命周期、权限/租户与可见性、异步任务与任务中心、审计日志与操作历史、上传与导入、反馈状态、全局反馈、跨端适配和管理台治理核心要求：
 
 - PC、平板和移动端保持核心能力一致；低频能力可以折叠或收纳，但不能删除，且必须保持可发现、可访问。
 
@@ -26,6 +26,7 @@
 - 搜索与命令面板规范约束全局搜索、站内搜索、命令面板、快速跳转、动作搜索、结果分组、命令执行、权限无泄露、最近/保存搜索、快捷键、移动端承载和 AI 搜索边界。
 - 日期时间与时区规范约束日期、时间、时间范围、快捷范围、时区、范围边界、URL 恢复、报表/导出/审计快照和移动端承载转换。
 - 信息展示与详情页规范约束详情页、描述列表、只读字段、信息卡、状态标签、指标卡、字段语义、脱敏复制、权限收敛、审计摘要和移动端折叠。
+- 密钥、令牌与敏感凭证规范约束 API Key、Token、Webhook Secret、Client Secret、服务账号凭证的生成后一次性展示、Reveal、复制、下载凭证、Rotate/轮换、撤销、旧值失效、审计不泄露、系统剪贴板风险、Toast 边界和移动端恢复路径。
 - 图表与可视化规范约束图表数据快照、指标口径、维度编码、坐标轴、图例、tooltip、交互能力、空态错误、权限安全、导出明细、可访问性和移动端替代表达。
 - 导出、下载与结果产物交付规范约束 export、download、artifact、result artifact、报表导出、图表导出、审计导出、错误明细下载和文件领取的范围快照、产物身份、下载意图、权限复核、有效期、敏感字段、旧链接失效、Toast 边界、恢复路径和移动端承载。
 - 页面操作栏与列表工具栏规范约束 toolbarState、页面主操作、结果绑定、批量操作栏、视图工具、更多菜单、权限收敛和移动端收纳，避免主操作埋入菜单、读取筛选草稿、空批量条、旧权限入口和移动端核心操作消失。
@@ -46,7 +47,7 @@
 - 全局反馈与通知规范约束 Toast、Alert、Banner、Notification 和 Inline Feedback 的通道选择、结果绑定、自动关闭、去重堆叠、恢复入口、移动端遮挡和敏感信息边界。
 - 管理台完整治理覆盖导航、权限/租户、危险操作、审计、导入导出、异步任务、报表口径和全局反馈，并规定报表默认只读、能力显式声明、Toast 不得作为唯一回执。
 
-完整规则、验收标准与完成前检查见 [Dialog 交互规范](references/dialogs.md)、[Drawer 交互规范](references/drawers.md)、[可搜索单选 Select / Combobox 交互规范](references/selects-comboboxes.md)、[选择控件与开关交互规范](references/selection-controls.md)、[树形结构与级联交互规范](references/tree-hierarchy.md)、[表单状态、校验与错误交互规范](references/forms.md)、[数据表格交互规范](references/data-tables.md)、[查询条件与筛选交互规范](references/query-filters.md)、[搜索与命令面板交互规范](references/search-command-palette.md)、[日期时间与时区交互规范](references/date-time-ranges.md)、[信息展示与详情页交互规范](references/information-display.md)、[图表与可视化交互规范](references/charts-visualization.md)、[导出、下载与结果产物交付交互规范](references/exports-downloads-artifacts.md)、[页面操作栏与列表工具栏交互规范](references/page-toolbars-actions.md)、[设置、偏好与配置页交互规范](references/settings-preferences-configuration.md)、[分步流程与配置向导交互规范](references/wizards-steppers.md)、[导航与路由交互规范](references/navigation-routing.md)、[会话、认证与重新认证交互规范](references/auth-session-reauth.md)、[记录新增/编辑承载面交互规范](references/record-editing-surfaces.md)、[按钮交互规范](references/buttons.md)、[浮层菜单与提示交互规范](references/overlays-menus-tooltips.md)、[危险操作与恢复交互规范](references/risk-actions.md)、[状态流转与记录生命周期交互规范](references/status-lifecycle-transitions.md)、[权限、租户与可见性交互规范](references/permissions-tenancy-visibility.md)、[异步任务与任务中心交互规范](references/async-jobs-task-center.md)、[审计日志与操作历史交互规范](references/audit-log-activity-history.md)、[上传与导入交互规范](references/uploads-imports.md)、[反馈状态与状态承载规范](references/feedback-states.md)、[全局反馈与通知交互规范](references/global-feedback.md)、[响应式与自适应交互规范](references/responsive-adaptive.md) 和 [管理台完整治理交互规范](references/admin-console.md)。
+完整规则、验收标准与完成前检查见 [Dialog 交互规范](references/dialogs.md)、[Drawer 交互规范](references/drawers.md)、[可搜索单选 Select / Combobox 交互规范](references/selects-comboboxes.md)、[选择控件与开关交互规范](references/selection-controls.md)、[树形结构与级联交互规范](references/tree-hierarchy.md)、[表单状态、校验与错误交互规范](references/forms.md)、[数据表格交互规范](references/data-tables.md)、[查询条件与筛选交互规范](references/query-filters.md)、[搜索与命令面板交互规范](references/search-command-palette.md)、[日期时间与时区交互规范](references/date-time-ranges.md)、[信息展示与详情页交互规范](references/information-display.md)、[密钥、令牌与敏感凭证交互规范](references/secrets-credentials.md)、[图表与可视化交互规范](references/charts-visualization.md)、[导出、下载与结果产物交付交互规范](references/exports-downloads-artifacts.md)、[页面操作栏与列表工具栏交互规范](references/page-toolbars-actions.md)、[设置、偏好与配置页交互规范](references/settings-preferences-configuration.md)、[分步流程与配置向导交互规范](references/wizards-steppers.md)、[导航与路由交互规范](references/navigation-routing.md)、[会话、认证与重新认证交互规范](references/auth-session-reauth.md)、[记录新增/编辑承载面交互规范](references/record-editing-surfaces.md)、[按钮交互规范](references/buttons.md)、[浮层菜单与提示交互规范](references/overlays-menus-tooltips.md)、[危险操作与恢复交互规范](references/risk-actions.md)、[状态流转与记录生命周期交互规范](references/status-lifecycle-transitions.md)、[权限、租户与可见性交互规范](references/permissions-tenancy-visibility.md)、[异步任务与任务中心交互规范](references/async-jobs-task-center.md)、[审计日志与操作历史交互规范](references/audit-log-activity-history.md)、[上传与导入交互规范](references/uploads-imports.md)、[反馈状态与状态承载规范](references/feedback-states.md)、[全局反馈与通知交互规范](references/global-feedback.md)、[响应式与自适应交互规范](references/responsive-adaptive.md) 和 [管理台完整治理交互规范](references/admin-console.md)。
 
 ## 系统要求
 
@@ -127,6 +128,7 @@ frontend-product-interaction-standards/
     ├── query-filters.md
     ├── record-editing-surfaces.md
     ├── risk-actions.md
+    ├── secrets-credentials.md
     ├── settings-preferences-configuration.md
     ├── selects-comboboxes.md
     ├── status-lifecycle-transitions.md

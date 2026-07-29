@@ -213,6 +213,19 @@ frontend-product-interaction-standards/
 - 移动端不得删除字段 label、单位、状态说明、错误/权限说明、复制/恢复路径或审计入口。
 - 详细规则和可执行验收仅维护在 [信息展示与详情页交互规范](references/information-display.md)，本交接不重复其状态模型或检查项。
 
+### 密钥、令牌与敏感凭证
+
+- 已定义 API Key、Access Token、Webhook Secret、Client Secret、集成凭证、服务账号、签名密钥、一次性密钥、Reveal、复制、下载、轮换、重置、撤销和泄露恢复的 owner。
+- 密钥不是普通只读字段；真实值、脱敏值、一次性值、旧版本、已撤销、过期、泄露和未知状态必须区分。
+- 一次性密钥必须在创建前、创建中和创建后说明“一旦离开无法再次查看”，并提供安全保存、复制或下载路径。
+- Reveal 必须由明确用户意图触发，绑定 `revealIntent`、`permissionBoundary`、`authBinding`、`credentialVersion` 和过期清理策略；hover、自动聚焦、页面加载、展开详情、复制失败或移动端键盘打开不得自动 Reveal。
+- 复制真实密钥必须绑定 `copyIntent`、凭证版本、权限版本、租户/工作区、认证强度和请求身份；Toast/Notification 不得包含真实值或片段。
+- 下载凭证必须绑定 `downloadIntent`、凭证版本、文件格式、有效期、权限版本、认证强度、请求身份和审计；旧下载链接在权限、会话、租户、轮换、撤销或过期后失效。
+- Rotate、Reset、Revoke、Delete、Disable、Enable 和泄露恢复必须进入 `risk-actions.md`；确认前请求数为 0，不能用 Switch 直接启停密钥。
+- 审计记录不得包含真实密钥、完整 token、可复原片段、下载 URL、签名材料或剪贴板内容。
+- 移动端不得删除 Reveal、复制、下载、轮换、撤销、过期、审计和恢复路径。
+- 详细规则和可执行验收仅维护在 [密钥、令牌与敏感凭证交互规范](references/secrets-credentials.md)，本交接不重复其状态模型或检查项。
+
 ### 图表与可视化
 
 - 已定义图表、可视化、报表图形、趋势图、折线图、柱状图、饼图、散点图、漏斗图、排行图、热力图、图例、坐标轴、tooltip、钻取、联动和导出的首版 owner。
