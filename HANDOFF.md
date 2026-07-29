@@ -33,6 +33,7 @@ frontend-product-interaction-standards/
     ├── feedback-states.md
     ├── forms.md
     ├── global-feedback.md
+    ├── information-display.md
     ├── navigation-routing.md
     ├── overlays-menus-tooltips.md
     ├── query-filters.md
@@ -104,6 +105,15 @@ frontend-product-interaction-standards/
 - 快捷范围必须冻结应用时的 `relativeAnchor`；报表、导出和审计必须携带范围快照、时区、数据延迟和刷新时间。
 - 移动端可以把复杂日期时间 Dialog 转换为 Bottom Drawer、Bottom Sheet 或独立页，但不得删除清空、重置、快捷范围、错误说明或时区说明。
 - 详细规则和可执行验收仅维护在 [日期时间与时区交互规范](references/date-time-ranges.md)，本交接不重复其状态模型或检查项。
+
+### 信息展示与详情页
+
+- 已定义详情页、对象详情、信息展示、描述列表、只读字段、信息卡、状态标签、指标卡、元数据和审计摘要的首版 owner。
+- 详情页不得直接内嵌 input、textarea、select、可编辑表格或行内保存按钮来完成编辑；只读状态不得用 disabled 表单控件充当展示文本。
+- 空值、未配置、未知、加载失败、无权限、已删除和不适用必须可区分；状态标签、颜色、图标和趋势箭头不能是唯一语义来源。
+- 指标卡必须声明指标名、口径、单位、时间范围、数据延迟、刷新时间和权限范围；复制、导出、跳转、编辑和危险操作必须绑定当前展示快照与权限版本。
+- 移动端不得删除字段 label、单位、状态说明、错误/权限说明、复制/恢复路径或审计入口。
+- 详细规则和可执行验收仅维护在 [信息展示与详情页交互规范](references/information-display.md)，本交接不重复其状态模型或检查项。
 
 ### 导航与路由
 
