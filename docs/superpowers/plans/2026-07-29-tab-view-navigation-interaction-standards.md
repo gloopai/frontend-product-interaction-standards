@@ -254,7 +254,7 @@ Add Chinese section:
 - Tabs 只能用于同一资源或同一任务上下文；激活 tab 不等于提交表单、不等于保存视图、不等于切换租户/工作区。
 - 旧 tab 请求不得写回新 active tab 或无权限 panel；Tab 切换必须经过同一未保存保护管线。
 - 移动端改变承载形态不得改变 `activeTabId`、URL、权限和 dirty 语义。
-- 详细规则和可执行验收仅维护在 [Tab 视图导航交互规范](references/tab-view-navigation.md)，本交接不重复其状态模型或检查项。
+- 详细规则和可执行验收仅维护在 `references/tab-view-navigation.md`，本交接不重复其状态模型或检查项。
 ```
 
 - [ ] **Step 4: 创建 GREEN 证据**
