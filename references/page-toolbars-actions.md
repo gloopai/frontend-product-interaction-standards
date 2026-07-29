@@ -2,7 +2,7 @@
 
 适用于 page toolbar、action bar、list toolbar、result toolbar、bulk toolbar、view tools、refresh action、create action、column settings、density、view switcher、页面操作栏、列表工具栏、结果工具栏、批量操作栏、视图工具、刷新操作、新增操作、列设置、密度和视图切换。本文件是页面标题操作区、结果工具栏、批量条、视图工具、更多菜单收纳、移动端操作承载和权限收敛的唯一事实来源。
 
-按钮本体继续执行 [按钮交互规范](buttons.md)。表格能力档位、选择快照、批量操作结果继续执行 [数据表格交互规范](data-tables.md)。筛选草稿、已应用条件、URL 恢复继续执行 [查询条件与筛选交互规范](query-filters.md)。导出、下载和结果产物继续执行 [导出、下载与结果产物交付交互规范](exports-downloads-artifacts.md)。权限、租户/工作区、能力开关和无泄露继续执行 [权限、租户与可见性交互规范](permissions-tenancy-visibility.md)。移动端收纳和断点切换继续执行 [响应式与自适应交互规范](responsive-adaptive.md)。更多菜单、Action Sheet、Popover 和 Tooltip 继续执行 [浮层菜单与提示交互规范](overlays-menus-tooltips.md)。风险操作继续执行 [危险操作与恢复交互规范](risk-actions.md)。
+按钮本体继续执行 [按钮交互规范](buttons.md)。表格能力档位、选择快照、批量操作结果继续执行 [数据表格交互规范](data-tables.md)。筛选草稿、已应用条件、URL 恢复继续执行 [查询条件与筛选交互规范](query-filters.md)。刷新、导出、视图工具、结果范围和结果摘要必须读取 `references/list-result-controls.md` 的当前范围、`querySnapshot` 和结果控制状态，不得读取筛选草稿、搜索输入草稿或旧结果。导出、下载和结果产物继续执行 [导出、下载与结果产物交付交互规范](exports-downloads-artifacts.md)。权限、租户/工作区、能力开关和无泄露继续执行 [权限、租户与可见性交互规范](permissions-tenancy-visibility.md)。移动端收纳和断点切换继续执行 [响应式与自适应交互规范](responsive-adaptive.md)。更多菜单、Action Sheet、Popover 和 Tooltip 继续执行 [浮层菜单与提示交互规范](overlays-menus-tooltips.md)。风险操作继续执行 [危险操作与恢复交互规范](risk-actions.md)。
 
 ## 范围与非目标
 

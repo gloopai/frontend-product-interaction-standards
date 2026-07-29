@@ -14,6 +14,8 @@
 
 关键词搜索、搜索输入、搜索框、文本搜索、列表搜索、表格搜索、报表搜索、局部搜索、页面内搜索、筛选搜索、即时搜索、防抖搜索、搜索清空、搜索重置、IME 搜索和搜索 URL 必须执行 `references/keyword-search-inputs.md`；本文件继续负责筛选草稿、已应用条件、URL 安全、重置和查询意图。
 
+结果分页、排序、刷新和结果摘要由 `references/list-result-controls.md` 读取已应用查询快照；query-filters 只输出 `appliedFilters`，不得让结果控制读取 `filterDraft` 或字段内部草稿。
+
 Query Filter owner 不重新定义字段内部交互、表格请求结果、排序分页、Dialog/Drawer 关闭或管理台审计。它只负责把用户编辑的条件变成明确、可解释、可复现且安全的 `queryIntent`。
 
 ## 场景与状态模型

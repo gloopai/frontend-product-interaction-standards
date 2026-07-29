@@ -15,6 +15,7 @@
 - 关键词输入作为表单字段时，字段值、错误摘要、dirty/touched 和提交仍执行 `references/forms.md`。
 - 搜索、清空、取消、重置和重试按钮仍执行 `references/buttons.md`。
 - 表格结果、分页、排序、选择和批量范围仍执行 `references/data-tables.md`，并只读取上层 owner 的已应用查询快照。
+- 列表结果控制由 `references/list-result-controls.md` 读取 `committedKeyword`；不得读取 `inputDraft`、`normalizedDraft` 或 composition 文本来翻页、排序、刷新、写 URL 或更新结果摘要。
 - 移动端虚拟键盘、safe-area、动态 viewport、缩放、断点和触摸目标仍执行 `references/responsive-adaptive.md`。
 
 ## `keywordSearchInputState`
