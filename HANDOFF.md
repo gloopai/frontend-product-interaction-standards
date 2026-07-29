@@ -40,6 +40,7 @@ frontend-product-interaction-standards/
     ├── information-display.md
     ├── navigation-routing.md
     ├── overlays-menus-tooltips.md
+    ├── page-toolbars-actions.md
     ├── permissions-tenancy-visibility.md
     ├── query-filters.md
     ├── record-editing-surfaces.md
@@ -154,6 +155,18 @@ frontend-product-interaction-standards/
 
 - 已定义展示、单行操作与批量操作档位下的查询、列、筛选、排序、页码/游标分页、选择、部分成功、响应式、无障碍与生命周期规则。
 - 详细规则和可执行验收仅维护在 [数据表格交互规范](references/data-tables.md)，本交接不重复其状态模型或检查项。
+
+### 页面操作栏与列表工具栏
+
+- 已定义 page toolbar、action bar、list toolbar、result toolbar、bulk toolbar、view tools、页面操作栏、列表工具栏、结果工具栏、批量操作栏、视图工具、刷新操作、新增操作、列设置、密度和视图切换的首版 owner。
+- `toolbarState` 必须声明 `toolbarOwnerId`、`primaryActionPolicy`、`secondaryActionPolicy`、`resultBinding`、`selectionBinding`、`viewToolsPolicy`、`permissionBoundary` 和 `responsivePolicy`，并明确页面主操作、结果绑定、批量操作栏、视图工具、更多菜单、权限收敛和移动端收纳。
+- 页面主操作只能有一个 primary owner；新增、创建或导入等主入口不得被埋进无标签更多菜单作为唯一入口。
+- 工具栏不得读取筛选草稿、旧结果、旧权限或 Select query；刷新、导出、列设置和视图切换读取当前已提交范围。
+- 批量操作栏只有在 Data Table 的 `resolvedTier=bulk-action` 且存在有效选择时才出现；只读报表、row-action 列表、无选择状态或选择失效时不得渲染空批量条。
+- 更多菜单、Tooltip、Toast 或浏览器提示不得作为唯一错误恢复、权限原因、主操作入口或导出回执。
+- 权限、租户/工作区、能力开关或结果 owner 变化后，工具栏必须原子重算可见操作、禁用原因、批量条、导出入口和视图工具。
+- 移动端不得删除新增、刷新、错误恢复、已选摘要、批量入口、导出恢复或主要视图工具；低频工具可进入更多菜单、Action Sheet、Drawer 或独立页，但必须保持可访问名称、分组、范围、禁用原因和焦点返回。
+- 详细规则和可执行验收仅维护在 [页面操作栏与列表工具栏交互规范](references/page-toolbars-actions.md)，本交接不重复其状态模型或检查项。
 
 ### 查询条件与筛选
 
