@@ -26,6 +26,7 @@ frontend-product-interaction-standards/
 └── references/
     ├── admin-console.md
     ├── buttons.md
+    ├── charts-visualization.md
     ├── data-tables.md
     ├── date-time-ranges.md
     ├── dialogs.md
@@ -114,6 +115,15 @@ frontend-product-interaction-standards/
 - 指标卡必须声明指标名、口径、单位、时间范围、数据延迟、刷新时间和权限范围；复制、导出、跳转、编辑和危险操作必须绑定当前展示快照与权限版本。
 - 移动端不得删除字段 label、单位、状态说明、错误/权限说明、复制/恢复路径或审计入口。
 - 详细规则和可执行验收仅维护在 [信息展示与详情页交互规范](references/information-display.md)，本交接不重复其状态模型或检查项。
+
+### 图表与可视化
+
+- 已定义图表、可视化、报表图形、趋势图、折线图、柱状图、饼图、散点图、漏斗图、排行图、热力图、图例、坐标轴、tooltip、钻取、联动和导出的首版 owner。
+- 每个图表必须声明 `chartState.dataSnapshot` 与 `metricBinding`，并展示或可达地说明指标名、口径、单位、时间范围、时区、数据延迟、刷新时间和权限范围。
+- 颜色不得作为唯一语义来源；图表 tooltip 不能承载唯一必读信息；非零基线、截断轴、对数轴、双轴、百分比堆叠和归一化必须显式标注。
+- Hover/highlight、legend toggle、drilldown、brush、zoom、联动筛选、导出和查看明细必须在 `interactionPolicy` 中声明；图表必须区分 loading、empty、zero-results、partial、stale、refresh-error、permission-denied 和 metric-unavailable。
+- 移动端不得删除图表标题、口径、单位、图例/series 含义、状态说明、错误/权限说明、数据延迟、刷新时间、导出/明细入口和恢复路径。
+- 详细规则和可执行验收仅维护在 [图表与可视化交互规范](references/charts-visualization.md)，本交接不重复其状态模型或检查项。
 
 ### 导航与路由
 
