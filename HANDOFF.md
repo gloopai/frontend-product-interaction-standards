@@ -115,6 +115,15 @@ frontend-product-interaction-standards/
 - 移动端不得删除已选摘要、搜索、候选列表、创建入口、粘贴解析、重复/无效项说明、删除 token、清空、应用/取消、字段错误、权限原因、重试、恢复和离开保护。
 - 详细规则和可执行验收仅维护在 `references/multi-select-tag-inputs.md`，本交接不重复其状态模型或检查项。
 
+### 关键词搜索输入
+
+- 已定义关键词搜索、搜索输入、搜索框、文本搜索、列表搜索、表格搜索、报表搜索、局部搜索、页面内搜索、筛选搜索、即时搜索、防抖搜索、搜索清空、搜索重置、IME 搜索、搜索建议、搜索历史、最近关键词和搜索 URL 的首版 owner。
+- `keywordSearchInputState` 必须声明 `keywordOwnerId`、`surfaceKind`、`inputDraft`、`normalizedDraft`、`committedKeyword`、`compositionState`、`submitPolicy`、`debounceState`、`clearPolicy`、`requestBinding`、`historyBinding`、`permissionBoundary`、`feedbackBinding` 和 `responsivePolicy`。
+- 输入草稿不等于已提交关键词；normalizedDraft 不等于 committedKeyword；composition 未结束时 Enter 不得提交。
+- 清空草稿、清空已提交关键词、重置默认关键词、取消输入必须是不同意图。
+- 移动端不得删除输入、清空、提交、取消/返回、错误说明、权限原因、loading、结果摘要和恢复路径。
+- 详细规则和可执行验收仅维护在 `references/keyword-search-inputs.md`，本交接不重复其状态模型或检查项。
+
 ### 选择控件与开关
 
 - 已定义 Checkbox、Radio Group、Switch、Toggle、Toggle Group、Segmented Control 和三态 checkbox 的首版 owner。
