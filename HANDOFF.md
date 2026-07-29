@@ -52,6 +52,7 @@ frontend-product-interaction-standards/
     ├── selects-comboboxes.md
     ├── status-lifecycle-transitions.md
     ├── tree-hierarchy.md
+    ├── webhooks-integrations-callbacks.md
     ├── wizards-steppers.md
     └── uploads-imports.md
 ```
@@ -238,6 +239,20 @@ frontend-product-interaction-standards/
 - 审计记录不得包含真实密钥、完整 token、可复原片段、下载 URL、签名材料或剪贴板内容。
 - 移动端不得删除 Reveal、复制、下载、轮换、撤销、过期、审计和恢复路径。
 - 详细规则和可执行验收仅维护在 [密钥、令牌与敏感凭证交互规范](references/secrets-credentials.md)，本交接不重复其状态模型或检查项。
+
+### Webhook、集成连接与回调配置
+
+- 已定义 Webhook、集成连接、回调配置、回调 URL、Endpoint、连接测试、测试投递、事件订阅、签名校验、启停/删除、重试投递、事件回放、投递日志和回调日志的 owner。
+- Webhook 不是普通设置项；配置草稿、已保存配置、生效配置、外部连接状态、事件订阅状态、投递状态和审计状态必须分开表达。
+- 测试成功不等于配置已生效，保存成功不等于外部系统可达，启用成功不等于历史投递已恢复。
+- endpoint、事件订阅、环境、租户/工作区、provider 和外部系统身份必须绑定 `configurationVersion`、`integrationIdentity` 和 `permissionBoundary`。
+- 测试连接、测试投递、验证签名和事件回放必须绑定 `testDeliveryIntent`，并说明是否会发送真实请求、是否使用样例 payload、是否创建外部记录、是否可重试、是否进入回调日志。
+- 启用 Webhook、停用 Webhook、删除 Webhook、重置签名 secret、重试投递、事件回放、批量重试和敏感日志导出必须进入 `risk-actions.md`，确认前请求数为 0；不能用 Switch 直接启停 Webhook。
+- 旧 endpoint、旧事件订阅、旧签名 secret、旧测试投递、旧日志入口、旧重试任务、旧复制链接和旧 Toast/Notification 在配置、权限、会话、租户/工作区、环境或外部连接状态变化后必须失效或重算。
+- 回调日志、投递日志、错误明细和审计摘要不得泄露无权限 URL、payload、header、签名、token、secret、客户数据、外部系统对象、内部 ID 或旧缓存。
+- Toast、Notification、Snackbar 或浏览器提示不能作为唯一保存回执、测试回执、投递结果、日志入口、任务入口、审计入口、错误说明或恢复路径。
+- 移动端不得删除 endpoint 状态、事件订阅摘要、测试连接、测试投递、签名校验说明、启停原因、重试/回放、回调日志、错误明细、任务入口、审计入口、权限说明和恢复路径。
+- 详细规则和可执行验收仅维护在 [Webhook、集成连接与回调配置交互规范](references/webhooks-integrations-callbacks.md)，本交接不重复其状态模型或检查项。
 
 ### 图表与可视化
 
