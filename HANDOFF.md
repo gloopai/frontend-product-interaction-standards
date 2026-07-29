@@ -47,6 +47,7 @@ frontend-product-interaction-standards/
     ├── risk-actions.md
     ├── responsive-adaptive.md
     ├── search-command-palette.md
+    ├── settings-preferences-configuration.md
     ├── selection-controls.md
     ├── selects-comboboxes.md
     ├── status-lifecycle-transitions.md
@@ -222,6 +223,18 @@ frontend-product-interaction-standards/
 - 部分成功、未知、过期、无权限和文件不可用不得伪装成成功。
 - 移动端不得删除导出范围、文件状态、格式、有效期、权限说明、敏感字段说明、错误明细、重新生成、任务详情、审计入口或恢复路径。
 - 详细规则和可执行验收仅维护在 [导出、下载与结果产物交付交互规范](references/exports-downloads-artifacts.md)，本交接不重复其状态模型或检查项。
+
+### 设置、偏好与配置页
+
+- 已定义 settings、preferences、configuration、设置、偏好、配置页、设置页、偏好页、配置项、策略配置、通知设置、集成设置、默认设置、保存设置、重置默认和继承默认的首版 owner。
+- `settingsState` 必须声明 `settingsOwnerId`、`settingsScope`、`draftSettings`、`savedSettings`、`effectiveSettings`、`defaultSettings`、`applyMode`、`dirtyState`、`resetPolicy`、`permissionBoundary` 和 `resultReceipt`。
+- 设置项必须声明作用域和生效模式；用户偏好、租户配置、工作区配置、项目配置、环境配置、角色配置、对象配置和集成配置不得混用同一含糊状态。
+- `draftSettings` 不得伪装成 `effectiveSettings`；显式保存模式下编辑只改变草稿，保存成功和服务端确认后才更新保存值或生效值。
+- 保存、取消、恢复保存值、重置默认、继承默认和清空自定义是不同意图，不得都写成“重置默认”。
+- 高风险设置必须进入 `risk-actions.md`，保存前请求数为 0；部分成功、失败、冲突和未知结果不得伪装成成功。
+- 权限、租户/工作区、角色、对象状态或配置版本变化后，旧草稿、旧默认值、旧禁用原因、旧保存按钮和旧集成状态必须原子收敛。
+- 移动端不得删除保存/取消、脏状态、作用域说明、默认值说明、继承说明、危险确认、错误摘要、审计回执或恢复路径。
+- 详细规则和可执行验收仅维护在 [设置、偏好与配置页交互规范](references/settings-preferences-configuration.md)，本交接不重复其状态模型或检查项。
 
 ### 分步流程与配置向导
 
