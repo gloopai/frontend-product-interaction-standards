@@ -40,6 +40,7 @@ frontend-product-interaction-standards/
     ├── forms.md
     ├── global-feedback.md
     ├── information-display.md
+    ├── page-form-action-bars.md
     ├── notifications-message-center-announcements.md
     ├── navigation-routing.md
     ├── overlays-menus-tooltips.md
@@ -181,6 +182,17 @@ frontend-product-interaction-standards/
 
 - 已定义字段与表单的状态、校验时机、提交快照、错误归属、失败恢复、未保存更改确认及可访问错误反馈。
 - 详细规则和可执行验收仅维护在 [表单状态、校验与错误交互规范](references/forms.md)，本交接不重复其状态模型或检查项。
+
+### 页面级表单操作栏与保存区
+
+- 已定义页面表单操作栏、表单操作栏、保存栏、保存区、底部操作区、固定保存栏、sticky footer、保存并返回、保存并继续、保存并新建、取消编辑、放弃更改、重置更改、脏状态条和未保存提示条的首版 owner。
+- `formActionBarState` 必须声明 `actionBarOwnerId`、`formBinding`、`saveIntentPolicy`、`cancelIntentPolicy`、`buttonPolicy`、`layoutBoundary`、`permissionBoundary`、`feedbackBinding`、`focusReturnPolicy` 和 `responsivePolicy`。
+- 保存、提交、应用、确认、取消、返回、关闭、放弃更改、重置、保存并返回、保存并继续和保存并新建必须是不同意图；多个保存入口必须共享同一个 Form owner、同一个 `submitSnapshot`、同一个提交门禁、同一个防重复策略和同一个结果回执。
+- sticky / fixed 保存栏必须提供底部避让，最后一个字段、字段错误、帮助文本、错误摘要、上传进度、表格分页、审计回执和恢复入口不得被保存栏遮挡。
+- 保存栏 dirty 状态必须来自 Forms owner；取消、返回、关闭、浏览器 Back、Tab 切换、面包屑、菜单导航和外链必须进入 Navigation owner 的同一离开保护。
+- 无权或未启用时保存按钮的 DOM、state、handler、request 和快捷键入口为 0；权限、租户/工作区、对象状态、表单版本或会话状态变化后旧保存入口、旧快捷键、旧 loading、旧错误、旧 Toast、旧 focus target 和旧回调必须失效或重新证明安全。
+- 移动端不得删除保存、取消/返回、错误摘要、权限原因、脏状态说明和恢复路径；虚拟键盘出现后当前聚焦字段、字段错误、错误摘要、保存按钮、取消/返回、提交中状态和恢复入口仍必须可见或可滚动到达。
+- 详细规则和可执行验收仅维护在 [页面级表单操作栏与保存区交互规范](references/page-form-action-bars.md)，本交接不重复其状态模型或检查项。
 
 ### 数据表格
 
