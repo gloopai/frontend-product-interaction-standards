@@ -27,6 +27,7 @@ frontend-product-interaction-standards/
     ├── admin-console.md
     ├── buttons.md
     ├── data-tables.md
+    ├── date-time-ranges.md
     ├── dialogs.md
     ├── drawers.md
     ├── feedback-states.md
@@ -95,6 +96,14 @@ frontend-product-interaction-standards/
 - `filterDraft` 与 `appliedFilters` 必须分离；字段内部草稿、Select query 和 active option 不得进入结果、URL 或已应用摘要。
 - 重置恢复 `defaultFilters`，清空只移除可清空条件；敏感条件不得进入 URL；移动端不得删除筛选、应用、重置/清空、已应用摘要或错误恢复能力。
 - 详细规则和可执行验收仅维护在 [查询条件与筛选交互规范](references/query-filters.md)，本交接不重复其状态模型或检查项。
+
+### 日期时间与时区
+
+- 已定义日期、时间、日期范围、时间范围、日期时间、快捷范围、相对范围和时区的首版 owner。
+- 日期时间值必须声明展示时区、存储/请求时区、边界语义和粒度；不得使用含糊本地字符串，范围推荐使用 `[start, end)`。
+- 快捷范围必须冻结应用时的 `relativeAnchor`；报表、导出和审计必须携带范围快照、时区、数据延迟和刷新时间。
+- 移动端可以把复杂日期时间 Dialog 转换为 Bottom Drawer、Bottom Sheet 或独立页，但不得删除清空、重置、快捷范围、错误说明或时区说明。
+- 详细规则和可执行验收仅维护在 [日期时间与时区交互规范](references/date-time-ranges.md)，本交接不重复其状态模型或检查项。
 
 ### 导航与路由
 
