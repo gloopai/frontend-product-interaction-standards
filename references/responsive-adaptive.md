@@ -13,6 +13,8 @@
 
 移动端列表结果、分页、页大小、排序、刷新、自动刷新、结果摘要、过期数据和错误恢复必须同时执行 `references/list-result-controls.md`；断点、底部分页、固定工具栏、虚拟键盘和 safe-area 不得删除或完全遮挡排序、分页、刷新、结果摘要、错误说明、权限原因、过期说明和恢复路径。
 
+移动端 Tabs、标签页、页面内视图切换、横向滚动标签、Segmented Control 承载、Select 承载、Action Sheet 承载或 Drawer 承载必须同时执行 `references/tab-view-navigation.md`；断点转换不得改变 `activeTabId`、URL、权限、dirty 语义、panelState、未保存保护或焦点返回。
+
 ## 跨端形态与状态延续
 
 0. 承载面决策必须输出最终形态、触发条件、状态延续策略、关闭路径和验证边界。不得把所有移动端 Dialog 一刀切改成 Bottom Sheet，不得把所有 Select 一刀切改成 Drawer，也不得把需要稳定路由、刷新恢复、深链、多人协作或长时间编辑的任务塞进 Dialog 或 Bottom Sheet。合理形态应随任务复杂度、风险、内容长度、输入方式、视口高度、虚拟键盘、安全区域、底部操作、权限/审计回执和恢复路径共同决定。

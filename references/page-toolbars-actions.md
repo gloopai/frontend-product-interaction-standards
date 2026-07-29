@@ -4,6 +4,8 @@
 
 按钮本体继续执行 [按钮交互规范](buttons.md)。表格能力档位、选择快照、批量操作结果继续执行 [数据表格交互规范](data-tables.md)。筛选草稿、已应用条件、URL 恢复继续执行 [查询条件与筛选交互规范](query-filters.md)。刷新、导出、视图工具、结果范围和结果摘要必须读取 `references/list-result-controls.md` 的当前范围、`querySnapshot` 和结果控制状态，不得读取筛选草稿、搜索输入草稿或旧结果。导出、下载和结果产物继续执行 [导出、下载与结果产物交付交互规范](exports-downloads-artifacts.md)。权限、租户/工作区、能力开关和无泄露继续执行 [权限、租户与可见性交互规范](permissions-tenancy-visibility.md)。移动端收纳和断点切换继续执行 [响应式与自适应交互规范](responsive-adaptive.md)。更多菜单、Action Sheet、Popover 和 Tooltip 继续执行 [浮层菜单与提示交互规范](overlays-menus-tooltips.md)。风险操作继续执行 [危险操作与恢复交互规范](risk-actions.md)。
 
+Tab 上方或 TabPanel 内工具栏必须同时执行 `references/tab-view-navigation.md`；工具栏只读取当前 `activeTabId`、已提交 panel 状态和合法范围，不得从隐藏 tab、旧 panel、未确认 pendingTabIntent 或无权限 panel 推导操作。
+
 ## 范围与非目标
 
 本 owner 覆盖页面标题右侧操作区、列表工具栏、结果工具栏、批量操作栏、视图工具栏、移动端更多操作、Action Sheet、工具栏 Drawer 和结果区恢复入口；覆盖新增、导入、刷新、导出、下载、列显示、列固定、密度、视图切换、批量操作入口、更多操作、权限说明和错误恢复的编排关系。

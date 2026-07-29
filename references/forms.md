@@ -6,6 +6,8 @@
 
 关键词搜索输入作为表单字段时必须执行 `references/keyword-search-inputs.md`；表单只接收已提交的 `committedKeyword`，不得把 `inputDraft`、`normalizedDraft` 或 `compositionState` 当作字段业务值、dirty 或 submit payload。
 
+TabPanel 内表单的 dirty、提交、错误摘要和字段焦点仍归本文件；页面内 Tabs 执行 `references/tab-view-navigation.md`，tab owner 只能读取 `dirtyBoundary`，不得把激活 tab 当作提交表单、保存视图或清空表单草稿。
+
 ## 范围与首版排除项
 
 本规范覆盖单一编辑会话中的字段值、校验、提交、错误与焦点。首版不定义详细上传、富文本、日期、树/级联、多步骤向导、业务特定复合字段、跨页草稿持久化、离线队列/自动重试、协同编辑合并或产品特有的离开确认文案；这些控件只保留向表单提交**已提交业务值**的一般值提交边界，内部草稿、呈现与专属交互由各自 owner 定义。它们接入时仍不得绕过本文件的值版本、错误归属和 live-session 判断。

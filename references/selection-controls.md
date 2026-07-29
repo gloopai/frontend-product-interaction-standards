@@ -6,6 +6,8 @@
 
 多选 Select、标签输入、Tokenized Input、可创建选项、收件人 chips、批量粘贴和多值远程检索必须执行 `references/multi-select-tag-inputs.md`；本文件继续负责少量固定 Checkbox Group、Radio Group、Toggle Group 和 Segmented Control。
 
+当 Segmented Control 作为移动端 Tabs、页面内视图切换或 TabList 的承载形态时，必须执行 `references/tab-view-navigation.md`；它保持 tab view 语义，不得把 `activeTabId` 当作字段值提交，也不得绕过 URL、权限或未保存保护。
+
 ## 范围与边界
 
 本 owner 覆盖：
