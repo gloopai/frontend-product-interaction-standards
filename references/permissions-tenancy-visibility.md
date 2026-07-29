@@ -6,6 +6,8 @@
 
 权限空态、无权限无结果、只读空态、能力未启用空态和租户/工作区切换后的空态必须同时执行 `references/empty-first-run-zero-results.md`。权限 owner 负责权限解析、无泄露和旧缓存收敛；空态 owner 负责 `emptyStateDecision`、permissionBoundary、capabilityPolicy、CTA 可见性和恢复路径。
 
+条件字段、依赖输入、条件必填、条件隐藏、条件禁用、下游候选和隐藏字段提交必须同时执行 `references/conditional-fields-dependent-inputs.md`。权限 owner 负责字段、候选、错误、默认值和旧缓存的权限边界；条件字段 owner 负责 `fieldDependencyState`、visibilityPolicy、valueRetentionPolicy、candidatePolicy、submitSnapshotPolicy 和权限变化后的联动收敛。
+
 按钮入口、禁用、loading 和动作对象继续执行 [按钮交互规范](buttons.md)。表格行、列、选择、批量和跨页范围继续执行 [数据表格交互规范](data-tables.md)。字段、表单错误和未保存离开继续执行 [表单状态、校验与错误交互规范](forms.md)。字段 label、placeholder、帮助文本、空值说明、权限原因、只读原因和禁用原因必须同时执行 `references/field-guidance-help-text.md`；权限 owner 负责证明说明文案无泄露，`field-guidance-help-text.md` 负责说明身份、可访问描述和旧引用清理。Page Header、页面标题区、页面标题、副标题、对象标题、状态摘要、标题区主操作、标题区权限说明和浏览器标题必须同时执行 `references/page-header-title-area.md`；权限 owner 负责证明标题区无泄露，`page-header-title-area.md` 负责标题快照、操作槽和旧标题/旧 DOM/ARIA 引用收敛。导航、返回和路由恢复继续执行 [导航与路由交互规范](navigation-routing.md)。App Shell、全局导航、侧边导航、顶部导航、用户菜单、工作区/租户切换、全局搜索入口和通知入口必须同时执行 `references/app-shell-navigation.md`；权限 owner 负责证明入口和标签安全，`app-shell-navigation.md` 负责外框级菜单、入口、badge、快捷键和旧 DOM/ARIA 引用收敛。页面内 tab 可见性、禁用、隐藏、无权限、安全占位和旧 panel 清理必须同时执行 `references/tab-view-navigation.md`，并按本文件证明权限、租户/工作区和旧缓存无泄露。异步任务、下载产物和任务中心继续执行 [异步任务与任务中心交互规范](async-jobs-task-center.md)。上传、导入、模板和错误明细继续执行 [上传与导入交互规范](uploads-imports.md)。风险确认、权限变更和敏感导出继续执行 [危险操作与恢复交互规范](risk-actions.md)。Toast、Notification 和页面消息继续执行 [全局反馈与通知交互规范](global-feedback.md)。管理台跨页面治理继续执行 [管理台完整治理交互规范](admin-console.md)。
 
 折叠标题、摘要、数量、图标、展开状态、旧内容和子项关系必须同时执行 `references/disclosure-accordions.md`；无权限或未启用时不得通过收起标题、旧摘要、旧 ARIA label 或旧缓存泄露内部对象。

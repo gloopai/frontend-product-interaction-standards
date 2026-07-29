@@ -4,6 +4,8 @@
 
 字段状态、校验、错误摘要和表单提交继续执行 [表单状态、校验与错误交互规范](forms.md)。Switch、Radio、Checkbox、Toggle 和 Segmented Control 继续执行 [选择控件与开关交互规范](selection-controls.md)。按钮语义、loading 和防重复继续执行 [按钮交互规范](buttons.md)。危险配置、强确认和不可逆影响继续执行 [危险操作与恢复交互规范](risk-actions.md)。权限、租户/工作区和无泄露继续执行 [权限、租户与可见性交互规范](permissions-tenancy-visibility.md)。离开页面和未保存保护继续执行 [导航与路由交互规范](navigation-routing.md)。移动端承载继续执行 [响应式与自适应交互规范](responsive-adaptive.md)。审计回执继续执行 [审计日志与操作历史交互规范](audit-log-activity-history.md)。
 
+条件设置项、依赖配置、继承默认影响下游、上游配置切换、条件必填、自动填充和隐藏配置值清理必须同时执行 `references/conditional-fields-dependent-inputs.md`。设置 owner 负责 draftSettings、savedSettings、effectiveSettings、defaultSettings、applyMode 和 resultReceipt；条件字段 owner 负责 `fieldDependencyState`、upstreamSnapshot、downstreamPolicy、valueRetentionPolicy 和 submitSnapshotPolicy。
+
 ## 范围与非目标
 
 本 owner 覆盖用户偏好、租户配置、工作区配置、项目配置、环境配置、角色配置、对象配置、通知设置、功能开关、策略配置、外部集成配置、默认值、继承默认、保存设置、重置默认、恢复保存值、清空自定义、配置保存结果和配置审计回执。

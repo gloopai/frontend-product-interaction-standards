@@ -8,6 +8,8 @@
 
 筛选无结果、搜索无结果、清空筛选、重置筛选、恢复默认条件和 zero results empty CTA 必须同时执行 `references/empty-first-run-zero-results.md`。查询筛选 owner 负责草稿/已应用条件、queryIntent、URL 和默认条件；空态 owner 负责 `emptyStateDecision`、zeroResults 恢复优先级、CTA 和权限安全。
 
+条件筛选、联动筛选、上游筛选项、下游筛选项、条件必填筛选和隐藏筛选值清理必须同时执行 `references/conditional-fields-dependent-inputs.md`。查询筛选 owner 负责 filterDraft、appliedFilters、queryIntent、URL、重置和应用边界；条件字段 owner 负责 `fieldDependencyState`、dependencyGraph、upstreamSnapshot、downstreamPolicy 和 submitSnapshotPolicy。
+
 ## 与组件 owner 的关系
 
 表格、分页、排序、结果、选择和批量操作读取 `data-tables.md`；筛选字段的 label、校验、错误和字段状态读取 `forms.md`；自绘 Select / Combobox 的 `query`、active option、popup 状态和已提交值读取 `selects-comboboxes.md`；应用、重置、清空、移除、打开更多筛选和移动端筛选按钮读取 `buttons.md`；高级筛选 Dialog 或筛选 Drawer 读取 `dialogs.md` / `drawers.md`；管理台权限、租户/工作区、导出、审计和批量范围读取 `admin-console.md`；断点、触摸、虚拟键盘和安全区域读取 `responsive-adaptive.md`。当本文件与组件 owner 都适用时，两者都执行；冲突时停止并请用户裁决。

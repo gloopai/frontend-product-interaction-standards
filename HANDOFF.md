@@ -36,6 +36,7 @@ frontend-product-interaction-standards/
     ├── chart-visualization-builders.md
     ├── charts-visualization.md
     ├── complex-editors-builders.md
+    ├── conditional-fields-dependent-inputs.md
     ├── copy-clipboard.md
     ├── data-tables.md
     ├── date-time-ranges.md
@@ -238,6 +239,13 @@ frontend-product-interaction-standards/
 
 - 已定义字段与表单的状态、校验时机、提交快照、错误归属、失败恢复、未保存更改确认及可访问错误反馈。
 - 详细规则和可执行验收仅维护在 [表单状态、校验与错误交互规范](references/forms.md)，本交接不重复其状态模型或检查项。
+
+### 条件字段与依赖输入
+
+- 已定义 `fieldDependencyState`，覆盖条件字段、依赖字段、字段联动、条件显示/隐藏、条件必填、条件禁用/只读、上游字段、下游字段、动态字段、派生字段、计算字段和自动填充。
+- 字段联动不是 `if value then show field` 的临时 UI 逻辑；必须声明 `dependencyGraph`、`upstreamSnapshot`、`downstreamPolicy`、`valueRetentionPolicy`、`candidatePolicy` 和 `submitSnapshotPolicy`。
+- 隐藏字段的旧值不得静默提交；上游变化后，下游字段必须原子进入保留、清空、失效、重算、禁用、只读或隐藏状态。
+- 详细规则和可执行验收维护在 `references/conditional-fields-dependent-inputs.md`。
 
 ### 字段说明、帮助文本与占位提示
 

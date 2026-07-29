@@ -4,6 +4,8 @@
 
 多选 Select、标签输入、Tokenized Input、可创建选项、收件人 chips、批量粘贴和多值远程检索必须执行 `references/multi-select-tag-inputs.md`；本文件继续只负责单选且业务值必须来自已有选项的 Select / Combobox。
 
+作为上游或下游字段参与条件字段、依赖字段、字段联动、级联字段、联动筛选或自动填充时，必须同时执行 `references/conditional-fields-dependent-inputs.md`。Select owner 负责 query、active option、popup、候选和 selectedValue 会话；条件字段 owner 负责 `fieldDependencyState`、upstreamSnapshot、downstreamPolicy、candidatePolicy、孤儿值和隐藏值提交策略。
+
 响应式转换同时执行 [响应式与自适应交互规范](responsive-adaptive.md)；最终形态为 Drawer 时同时执行 [Drawer 交互规范](drawers.md)。兼容规则全部执行。
 
 ## 状态、不变量与会话

@@ -4,6 +4,8 @@
 
 本文件是字段说明、帮助文本与占位提示 owner。它负责说明信息的身份、语义分层、可访问关联、移动端等价路径、权限安全、错误关系、语言/断点变化和生命周期清理。字段业务值、dirty、校验和提交读取 `references/forms.md`；只读字段和值展示读取 `references/information-display.md`；Tooltip、Popover、Action Sheet 和 Drawer 的触发/定位/关闭读取 `references/overlays-menus-tooltips.md`；权限和无泄露读取 `references/permissions-tenancy-visibility.md`；响应式和输入方式读取 `references/responsive-adaptive.md`。
 
+条件字段、依赖字段、字段联动、条件必填、条件隐藏、条件禁用、条件只读和自动填充说明必须同时执行 `references/conditional-fields-dependent-inputs.md`。字段说明 owner 负责 label、帮助文本、placeholder、必填说明和错误描述；条件字段 owner 负责 `fieldDependencyState`、requirementPolicy、visibilityPolicy、valueRetentionPolicy 和条件变化后的说明引用清理。
+
 长 label、长帮助、长 placeholder、长错误、长权限原因、截断、省略号、查看全文和 hover-only 全文说明必须同时执行 `references/text-overflow-truncation.md`；本文件继续负责说明语义和可访问关联，`text-overflow-truncation.md` 负责截断策略、全文恢复、移动端替代、复制全文和旧全文引用清理。
 
 ## 范围与边界

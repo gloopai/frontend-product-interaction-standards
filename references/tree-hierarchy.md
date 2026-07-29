@@ -4,6 +4,8 @@
 
 基础 Checkbox、Radio、Switch、Toggle 和 Segmented Control 继续执行 [选择控件与开关交互规范](selection-controls.md)。普通 Select / Combobox、异步选项搜索和自绘 listbox 继续执行 [可搜索单选 Select / Combobox 交互规范](selects-comboboxes.md)。表格树列、表格行选择、表头全选、跨页选择和批量范围继续执行 [数据表格交互规范](data-tables.md)。字段提交、错误摘要和未保存离开继续执行 [表单状态、校验与错误交互规范](forms.md)。危险权限变更、删除、发布、启停和不可逆操作必须进入 [危险操作与恢复交互规范](risk-actions.md)。
 
+树形选择、级联选择、父子字段和层级条件作为上游或下游字段参与字段联动时，必须同时执行 `references/conditional-fields-dependent-inputs.md`。树形 owner 负责节点身份、展开、选择、半选和懒加载；条件字段 owner 负责 `fieldDependencyState`、upstreamSnapshot、downstreamPolicy、candidatePolicy 和隐藏/失效后的提交策略。
+
 普通内容折叠、设置分组折叠和错误详情折叠执行 `references/disclosure-accordions.md`；不得用 Accordion 伪装可选择 Tree、Tree Select、Cascader、懒加载树节点或半选层级关系。
 
 ## 范围与边界

@@ -11,6 +11,7 @@
 - 单选且业务值必须来自已有选项的 Select / Combobox 继续由 `references/selects-comboboxes.md` 负责；一旦允许多选、创建、自由文本 token、收件人 chips 或批量粘贴，就必须执行本文件。
 - 少量固定 Checkbox Group、Radio Group、Toggle Group 和 Segmented Control 继续由 `references/selection-controls.md` 负责；选项很多、需要搜索、异步、创建或 chip 承载时进入本文件。
 - 多值筛选、标签筛选、成员筛选和批量粘贴筛选值同时执行 `references/query-filters.md`；本文件负责字段内部多值输入，筛选 owner 负责 `filterDraft`、`appliedFilters`、URL、重置和应用边界。
+- 多选、标签、成员、角色、token 或批量粘贴作为条件字段上游/下游时必须同时执行 `references/conditional-fields-dependent-inputs.md`；本文件负责多值输入内部 committedValues、draftTokens、query 和候选，条件字段 owner 负责 `fieldDependencyState`、upstreamSnapshot、downstreamPolicy、candidatePolicy 和隐藏/失效后的提交策略。
 - 成员、角色、邀请和访问管理业务动作同时执行 `references/members-invitations-access.md`；本文件只约束成员候选如何被选择、创建、粘贴、删除和提交到草稿。
 - 权限可见性、无权限入口、旧权限缓存和租户/工作区切换同时执行 `references/permissions-tenancy-visibility.md`。
 - 移动端承载、断点、虚拟键盘、安全区域、触摸目标和底部抽屉转换同时执行 `references/responsive-adaptive.md`。
