@@ -12,6 +12,8 @@
 
 详情页标题、对象标题、页面标题区、状态摘要、标题区权限说明和移动端标题区必须同时执行 `references/page-header-title-area.md`；本文件继续负责字段和值展示，`page-header-title-area.md` 负责页面级标题身份、标题快照、主状态摘要、标题区操作槽和旧标题清理。
 
+详情页主内容区、信息卡、只读字段分组、Section/Card 布局、主滚动、Sticky/fixed 避让和移动端单列必须同时执行 `references/page-content-layout-sections.md`；本文件继续负责字段语义、展示快照和值安全，`page-content-layout-sections.md` 负责页面正文 owner、Section 注册、布局重排和滚动遮挡边界。
+
 概览页、仪表盘首页、管理台首页、运营看板、业务看板、指标总览、报表总览和 dashboard landing 的 KPI、摘要卡、指标卡和状态摘要必须同时执行 `references/overview-dashboard-pages.md`；本文件负责字段口径和只读展示，`overview-dashboard-pages.md` 负责页面级 `dataSnapshot`、`timeRangeSnapshot`、模块一致性和移动端总览保留。
 
 ## 状态模型

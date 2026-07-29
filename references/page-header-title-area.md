@@ -2,7 +2,7 @@
 
 适用于 Page Header、页面标题区、页面头部、标题栏、页面标题、副标题、对象标题、详情标题、列表标题、设置页标题、报表标题、审批页标题、任务页标题、状态摘要、标题区主操作、标题区次要操作、标题区返回区域、标题区权限说明、标题区刷新状态、移动端标题区、page header、page title、title area、header actions、header primary action、object title、status summary 和 mobile page header。
 
-本文件是页面标题区与 Page Header owner。它负责当前页面身份、标题/副标题、对象上下文、状态摘要、标题区操作槽、导航绑定、权限收敛、焦点公告、移动端压缩和生命周期清理。App Shell、全局导航和外框读取 `references/app-shell-navigation.md`；面包屑、返回、URL 和路由来源读取 `references/navigation-routing.md`；标题区按钮本体读取 `references/buttons.md`；页面操作栏和列表工具栏读取 `references/page-toolbars-actions.md`；信息展示和只读字段读取 `references/information-display.md`；权限与无泄露读取 `references/permissions-tenancy-visibility.md`；响应式读取 `references/responsive-adaptive.md`；管理台跨页面治理读取 `references/admin-console.md`。
+本文件是页面标题区与 Page Header owner。它负责当前页面身份、标题/副标题、对象上下文、状态摘要、标题区操作槽、导航绑定、权限收敛、焦点公告、移动端压缩和生命周期清理。App Shell、全局导航和外框读取 `references/app-shell-navigation.md`；页面内容区、主内容区、Section/Card 布局、主滚动和 Sticky/fixed 避让读取 `references/page-content-layout-sections.md`；面包屑、返回、URL 和路由来源读取 `references/navigation-routing.md`；标题区按钮本体读取 `references/buttons.md`；页面操作栏和列表工具栏读取 `references/page-toolbars-actions.md`；信息展示和只读字段读取 `references/information-display.md`；权限与无泄露读取 `references/permissions-tenancy-visibility.md`；响应式读取 `references/responsive-adaptive.md`；管理台跨页面治理读取 `references/admin-console.md`。
 
 ## 范围与边界
 

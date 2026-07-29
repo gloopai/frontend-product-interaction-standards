@@ -8,7 +8,7 @@
 
 ## 与组件 owner 的关系
 
-表格结果区的查询、排序、分页、选择和批量操作读取 `data-tables.md`；结果 loading、refresh-error、stale、empty、zero-results、invalid-page 和结果摘要的状态来源必须来自 `references/list-result-controls.md`，本文件只负责反馈承载、文案、恢复入口和公告去重；TabPanel 的 loading、error、stale、empty、permission-denied 和 URL 恢复状态必须同时执行 `references/tab-view-navigation.md`，本文件负责反馈承载，tab owner 负责状态归属、保活和清理；筛选无结果、清空筛选和恢复默认条件读取 `query-filters.md`；字段/表单错误读取 `forms.md`；重试、刷新、清空筛选、申请权限、返回、创建和导入按钮读取 `buttons.md`；上传/导入部分成功、错误明细和未知结果读取 `uploads-imports.md`；管理台权限、租户、审计、任务中心和全局反馈读取 `admin-console.md`；移动端、缩放、虚拟键盘和安全区域读取 `responsive-adaptive.md`。当本文件与组件 owner 都适用时，两者都执行；冲突时停止并请用户裁决。
+表格结果区的查询、排序、分页、选择和批量操作读取 `data-tables.md`；结果 loading、refresh-error、stale、empty、zero-results、invalid-page 和结果摘要的状态来源必须来自 `references/list-result-controls.md`，本文件只负责反馈承载、文案、恢复入口和公告去重；页面内容区、Section/Card 内的 loading、error、stale、empty、permission-denied、partial 和 recovery 必须同时执行 `references/page-content-layout-sections.md`，本文件负责反馈承载，内容区 owner 负责 Section 注册、主滚动、Sticky/fixed 避让和状态转交；TabPanel 的 loading、error、stale、empty、permission-denied 和 URL 恢复状态必须同时执行 `references/tab-view-navigation.md`，本文件负责反馈承载，tab owner 负责状态归属、保活和清理；筛选无结果、清空筛选和恢复默认条件读取 `query-filters.md`；字段/表单错误读取 `forms.md`；重试、刷新、清空筛选、申请权限、返回、创建和导入按钮读取 `buttons.md`；上传/导入部分成功、错误明细和未知结果读取 `uploads-imports.md`；管理台权限、租户、审计、任务中心和全局反馈读取 `admin-console.md`；移动端、缩放、虚拟键盘和安全区域读取 `responsive-adaptive.md`。当本文件与组件 owner 都适用时，两者都执行；冲突时停止并请用户裁决。
 
 折叠内容里的 loading、error、stale、empty、permission-denied 和恢复入口必须同时执行 `references/disclosure-accordions.md`；本文件负责反馈承载和公告去重，折叠 owner 负责收起状态下的标题外显、自动展开和迟到内容清理。
 

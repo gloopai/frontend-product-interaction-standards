@@ -12,6 +12,8 @@ TabPanel 内表单的 dirty、提交、错误摘要和字段焦点仍归本文�
 
 表单分组、可折叠字段区、隐藏高级设置和错误详情折叠必须同时执行 `references/disclosure-accordions.md`；折叠 owner 负责外显收起内容中的字段错误、必填缺失和恢复入口，Forms owner 继续负责 dirty、submit、字段错误和错误摘要。
 
+页面正文中的表单 Section、字段分组卡片、主滚动、Sticky/fixed 保存区避让、移动端单列和内容密度必须同时执行 `references/page-content-layout-sections.md`；Forms owner 继续负责字段值、dirty、校验、错误和提交生命周期，`page-content-layout-sections.md` 负责表单所在 Section 的注册、布局、滚动和遮挡边界。
+
 ## 范围与首版排除项
 
 本规范覆盖单一编辑会话中的字段值、校验、提交、错误与焦点。首版不定义详细上传、富文本、日期、树/级联、多步骤向导、业务特定复合字段、跨页草稿持久化、离线队列/自动重试、协同编辑合并或产品特有的离开确认文案；这些控件只保留向表单提交**已提交业务值**的一般值提交边界，内部草稿、呈现与专属交互由各自 owner 定义。它们接入时仍不得绕过本文件的值版本、错误归属和 live-session 判断。

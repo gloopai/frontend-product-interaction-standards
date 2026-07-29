@@ -50,6 +50,7 @@ frontend-product-interaction-standards/
     ├── page-form-action-bars.md
     ├── notifications-message-center-announcements.md
     ├── overview-dashboard-pages.md
+    ├── page-content-layout-sections.md
     ├── page-header-title-area.md
     ├── navigation-routing.md
     ├── overlays-menus-tooltips.md
@@ -480,6 +481,14 @@ frontend-product-interaction-standards/
 - 页面标题区不是装饰，也不是 App Shell 的一部分；标题、对象名、状态、数量、时间范围、租户/工作区和权限说明必须来自同一有效快照。
 - 标题区主操作只能作为入口，必须转交按钮、工具栏、表单、记录编辑、风险操作、审批、导出、异步任务或对应业务 owner。
 - 详细规则和可执行验收仅维护在 [页面标题区与 Page Header 交互规范](references/page-header-title-area.md)，本交接不重复其状态模型或检查项。
+
+### 页面内容区与 Section 布局
+
+- 已定义页面内容区、页面正文、主内容区、Section、区块、卡片区块、内容卡片、分栏布局、栅格布局、主滚动、嵌套滚动、Sticky/fixed 避让、内容密度和移动端单列的首版 owner。
+- `pageContentLayoutState` 必须声明 `contentOwnerId`、`contentSurface`、`pageBinding`、`sectionRegistry`、`layoutGridPolicy`、`scrollBoundary`、`stickyBoundary`、`densityPolicy`、`contentPriority`、`emptyLoadingErrorBinding`、`ownerHandoff`、`permissionBoundary`、`responsivePolicy`、`focusAnnouncementPolicy`、`lifecycleDisposal` 和 `runtimeVerification`。
+- 页面内容区不是随意堆卡片，也不是 CSS 网格细节；页面正文必须绑定当前页面 owner、标题区、工具栏、权限版本和主内容区域。
+- 每个 Section、Card、分栏、列表区、表单区、图表区和信息区必须有明确 ownerHandoff；主滚动只能有一个可解释 owner。
+- 详细规则和可执行验收仅维护在 [页面内容区与 Section 布局交互规范](references/page-content-layout-sections.md)，本交接不重复其状态模型或检查项。
 
 ### 管理台 App Shell 与导航外框
 

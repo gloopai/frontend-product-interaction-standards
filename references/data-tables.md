@@ -10,6 +10,8 @@
 
 列表、表格和报表的分页、页大小、排序提交、刷新、自动刷新、结果摘要、迟到响应、数据版本和总数可信度必须同时执行 `references/list-result-controls.md`；Data Table owner 继续负责列、行、选择、全选、批量操作和 ARIA Grid，不得直接读取筛选草稿或搜索输入草稿来改写结果控制。
 
+页面正文中的表格 Section、报表区域、结果区卡片、主滚动、局部滚动、Sticky/fixed 表头/分页/工具栏避让和移动端单列必须同时执行 `references/page-content-layout-sections.md`；Data Table owner 继续负责表格能力、查询、列、行、选择和批量操作，`page-content-layout-sections.md` 负责表格所在 Section 的注册、布局、主滚动身份和遮挡边界。
+
 从表格、卡片列表、搜索结果或报表明细打开详情预览、侧边预览、行预览、记录预览、快速查看、只读预览或 Master-Detail 时，必须同时执行 `references/preview-pane.md`；表格 owner 只提供来源快照、稳定记录 ID、焦点和能力档位，预览目标、预览请求、预览关闭、权限无泄露、移动端预览承载和迟到响应门禁归 `preview-pane.md`。预览目标不等于表格选择、hover、focus 或 active row。
 
 以卡片作为主要结果形态的卡片列表、卡片式结果、资源卡片、模板卡片、应用卡片、项目卡片、卡片网格、移动端结果卡片和 Kanban-lite 必须执行 `references/card-list-results.md`；表格转卡片仍由本文件负责等价转换、选择、批量和单实例约束，`card-list-results.md` 负责卡片结构、字段映射、交互区域、大链接禁止、卡片内编辑禁止和移动端结果卡片可达性。
