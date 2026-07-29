@@ -33,6 +33,7 @@ frontend-product-interaction-standards/
     ├── forms.md
     ├── global-feedback.md
     ├── navigation-routing.md
+    ├── overlays-menus-tooltips.md
     ├── query-filters.md
     ├── record-editing-surfaces.md
     ├── risk-actions.md
@@ -115,6 +116,14 @@ frontend-product-interaction-standards/
 - 按钮必须具备明确动作语义、文案对象、主次层级、可访问名称、禁用原因、loading 名称、防重复门禁、危险操作确认和响应式可达性。
 - 图标按钮、更多菜单、批量按钮、导出按钮和任务按钮均需保留动作对象、权限边界、请求身份和结果 owner。
 - 详细规则和可执行验收仅维护在 [按钮交互规范](references/buttons.md)，本交接不重复其状态模型或检查项。
+
+### 浮层菜单与提示
+
+- 已定义 Tooltip、Popover、Dropdown Menu、Context Menu、更多菜单、Action Sheet 和移动端菜单 Drawer 的首版 owner。
+- 重要信息不得仅依赖 Hover、Tooltip、Popover 临时可见状态或 Context Menu；Tooltip / Popover 不得承载唯一必读权限原因、错误、确认后果、危险操作、结果回执、审计凭证或恢复入口。
+- 菜单项必须有动作对象、权限状态、可访问名称、禁用原因、请求身份和结果 owner；危险菜单项必须进入 `risk-actions.md`。
+- 非模态浮层不得被父容器、滚动区、固定列、固定页脚、`overflow` 或 `transform` 裁切；移动端 hover-only 内容必须有触摸和键盘等价路径。
+- 详细规则和可执行验收仅维护在 [浮层菜单与提示交互规范](references/overlays-menus-tooltips.md)，本交接不重复其状态模型或检查项。
 
 ### 危险操作与恢复
 

@@ -4,7 +4,7 @@
 
 ## 当前规范
 
-本 Skill 当前包含以下 Dialog、四向抽屉、可搜索单选 Select、表单、数据表格、查询条件与筛选、导航与路由、记录新增/编辑承载面、按钮、危险操作与恢复、上传与导入、反馈状态、全局反馈、跨端适配和管理台治理核心要求：
+本 Skill 当前包含以下 Dialog、四向抽屉、可搜索单选 Select、表单、数据表格、查询条件与筛选、导航与路由、记录新增/编辑承载面、按钮、浮层菜单与提示、危险操作与恢复、上传与导入、反馈状态、全局反馈、跨端适配和管理台治理核心要求：
 
 - PC、平板和移动端保持核心能力一致；低频能力可以折叠或收纳，但不能删除，且必须保持可发现、可访问。
 
@@ -22,13 +22,14 @@
 - 导航与路由规范约束导航入口、返回策略、来源上下文恢复、面包屑、Tabs、浏览器历史、路由离开保护、权限重校验和移动端返回可达性。
 - 记录新增/编辑承载面禁止列表内嵌表单、常驻可编辑列表、单元格编辑、行内保存按钮和 spreadsheet-like 编辑矩阵；新增、编辑、复制创建和批量配置必须按场景进入 Dialog、Drawer 或独立页。
 - 按钮规范首版聚焦管理台和业务操作按钮，约束按钮语义、文案、主次层级、禁用、loading、防重复、危险操作、图标按钮、按钮组和响应式可达性。
+- 浮层菜单与提示规范约束 Tooltip、Popover、Dropdown Menu、Context Menu、更多菜单、Action Sheet 和移动端菜单 Drawer 的触发、可达性、关键内容边界、菜单项动作、Portal、碰撞、权限收敛和生命周期清理。
 - 危险操作与恢复规范约束风险分级、影响范围、二次确认、输入确认、撤销窗口、取消边界、未知结果、批量快照、权限收敛、审计回执和移动端恢复可达性。
 - 上传与导入规范覆盖文件选择、拖拽、本地校验、上传队列、进度、取消、重试、表单内文件字段、导入预检、字段映射、部分成功、错误明细和下载权限复核。
 - 反馈状态与状态承载规范区分 loading、skeleton、empty、zero-results、error、refresh-error、stale、permission、partial 和 recovery，约束旧内容保留、Toast 边界、敏感信息和恢复入口。
 - 全局反馈与通知规范约束 Toast、Alert、Banner、Notification 和 Inline Feedback 的通道选择、结果绑定、自动关闭、去重堆叠、恢复入口、移动端遮挡和敏感信息边界。
 - 管理台完整治理覆盖导航、权限/租户、危险操作、审计、导入导出、异步任务、报表口径和全局反馈，并规定报表默认只读、能力显式声明、Toast 不得作为唯一回执。
 
-完整规则、验收标准与完成前检查见 [Dialog 交互规范](references/dialogs.md)、[Drawer 交互规范](references/drawers.md)、[可搜索单选 Select / Combobox 交互规范](references/selects-comboboxes.md)、[表单状态、校验与错误交互规范](references/forms.md)、[数据表格交互规范](references/data-tables.md)、[查询条件与筛选交互规范](references/query-filters.md)、[导航与路由交互规范](references/navigation-routing.md)、[记录新增/编辑承载面交互规范](references/record-editing-surfaces.md)、[按钮交互规范](references/buttons.md)、[危险操作与恢复交互规范](references/risk-actions.md)、[上传与导入交互规范](references/uploads-imports.md)、[反馈状态与状态承载规范](references/feedback-states.md)、[全局反馈与通知交互规范](references/global-feedback.md)、[响应式与自适应交互规范](references/responsive-adaptive.md) 和 [管理台完整治理交互规范](references/admin-console.md)。
+完整规则、验收标准与完成前检查见 [Dialog 交互规范](references/dialogs.md)、[Drawer 交互规范](references/drawers.md)、[可搜索单选 Select / Combobox 交互规范](references/selects-comboboxes.md)、[表单状态、校验与错误交互规范](references/forms.md)、[数据表格交互规范](references/data-tables.md)、[查询条件与筛选交互规范](references/query-filters.md)、[导航与路由交互规范](references/navigation-routing.md)、[记录新增/编辑承载面交互规范](references/record-editing-surfaces.md)、[按钮交互规范](references/buttons.md)、[浮层菜单与提示交互规范](references/overlays-menus-tooltips.md)、[危险操作与恢复交互规范](references/risk-actions.md)、[上传与导入交互规范](references/uploads-imports.md)、[反馈状态与状态承载规范](references/feedback-states.md)、[全局反馈与通知交互规范](references/global-feedback.md)、[响应式与自适应交互规范](references/responsive-adaptive.md) 和 [管理台完整治理交互规范](references/admin-console.md)。
 
 ## 系统要求
 
@@ -97,6 +98,7 @@ frontend-product-interaction-standards/
     ├── forms.md
     ├── global-feedback.md
     ├── navigation-routing.md
+    ├── overlays-menus-tooltips.md
     ├── query-filters.md
     ├── record-editing-surfaces.md
     ├── risk-actions.md
