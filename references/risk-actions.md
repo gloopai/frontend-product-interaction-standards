@@ -12,6 +12,8 @@
 
 删除后恢复、软删除、回收站、已删除列表、已归档列表、撤销删除、永久删除、清空回收站、保留期到期、法律保留和恢复审计必须同时执行 `references/trash-restore-retention.md`。风险 owner 负责确认前风险、影响范围和请求前门禁；回收站 owner 负责 `trashRestoreState`、retentionPolicy、restorePolicy、purgePolicy、resultReceipt、auditBinding 和旧入口清理。
 
+权限分配、资源授权、菜单授权、角色授权、成员分组、数据范围授权、批量添加授权、批量移除授权和影响访问能力的穿梭框保存必须同时执行 `references/transfer-assignment-lists.md`，并声明 `assignmentTransferState`。风险 owner 负责确认强度、影响范围、未知结果和恢复；分配列表 owner 负责左右集合、移动意图、diff 摘要、保存边界和旧候选/旧已分配状态失效。
+
 本文件是风险动作生命周期的唯一事实来源。它定义风险分级、影响范围、确认策略、确认前请求边界、请求身份、撤销窗口、取消语义、未知结果、批量快照、权限收敛、审计回执、恢复入口、可访问性和移动端可达性。它不定义具体按钮视觉、Dialog 焦点陷阱、服务端事务或审计存储实现。
 
 ## 与组件 owner 的关系

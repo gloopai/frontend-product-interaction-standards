@@ -154,6 +154,16 @@ frontend-product-interaction-standards/
 - 移动端不得删除搜索、候选、已选摘要、删除、清空、应用、取消、错误说明、权限原因、不可绑定原因、加载失败、重试和焦点返回。
 - 详细规则和可执行验收仅维护在 [对象、资源与成员选择器交互规范](references/entity-resource-pickers.md)，本交接不重复其状态模型或检查项。
 
+### 穿梭框、分配列表与授权资源选择
+
+- 已定义穿梭框、双列表选择、左右列表分配、资源分配、权限分配、菜单授权、角色授权、成员分组、项目/工作区分配、数据范围授权和关联资源批量绑定的首版 owner。
+- `assignmentTransferState` 必须声明 `transferOwnerId`、`assignmentSurface`、`subjectBinding`、`candidateScope`、`initialAssignedSet`、`draftAssignedSet`、`sourceVisibleSet`、`targetVisibleSet`、`selectionBuckets`、`moveIntent`、`eligibilityMap`、`permissionBoundary`、`requestIdentity`、`diffSummary`、`validationBinding`、`savePolicy`、`feedbackBinding`、`responsivePolicy`、`focusAnnouncementPolicy`、`lifecycleDisposal` 和 `runtimeVerification`。
+- 穿梭框不是两个普通 Select，也不是两个表格加左右按钮；移动不等于保存，勾选不等于移动，搜索命中不等于已分配。
+- 当前页全选、全部筛选结果、全部候选、跨页选择和排除项必须分层；不得用一个 `selectedKeys`、`targetKeys`、`checkedKeys` 或两个数组表达完整授权会话。
+- 无权限、只读、锁定、继承、已删除、失效、重复和未知必须分开表达；无权限状态不得泄露资源名称、路径、父级、子级数量、授权关系、内部 ID、旧候选、旧已分配摘要、旧 tooltip 或旧 aria-label。
+- 移动端不得删除候选搜索、已分配摘要、待保存差异、单项移动、批量移动、移除、清空/重置、应用/取消、不可移动原因、权限原因、错误和重试。
+- 详细规则和可执行验收仅维护在 [穿梭框、分配列表与授权资源选择交互规范](references/transfer-assignment-lists.md)，本交接不重复其状态模型或检查项。
+
 ### 关键词搜索输入
 
 - 已定义关键词搜索、搜索输入、搜索框、文本搜索、列表搜索、表格搜索、报表搜索、局部搜索、页面内搜索、筛选搜索、即时搜索、防抖搜索、搜索清空、搜索重置、IME 搜索、搜索建议、搜索历史、最近关键词和搜索 URL 的首版 owner。

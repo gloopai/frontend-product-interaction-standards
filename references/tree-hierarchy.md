@@ -8,6 +8,8 @@
 
 树形资源选择、组织成员选择、部门成员选择、项目/工作区层级选择、父级对象选择、关联资源选择和 Tree Select / Cascader 承载业务对象绑定时，必须同时执行 `references/entity-resource-pickers.md`，并声明 `entityResourcePickerState`。树形 owner 负责节点展开、层级、半选、懒加载和路径；对象资源 owner 负责候选实体身份、scope、可绑定性、权限无泄露、最近/推荐和提交边界。
 
+权限树授权、菜单树授权、部门树成员分组、资源目录授权、树形穿梭框和 Tree Transfer 必须同时执行 `references/transfer-assignment-lists.md`，并声明 `assignmentTransferState`。树形 owner 负责节点展开、半选、懒加载和路径；分配列表 owner 负责初始/草稿已分配集合、左右可见集合、移动意图、全选范围、diff 摘要和保存边界。
+
 普通内容折叠、设置分组折叠和错误详情折叠执行 `references/disclosure-accordions.md`；不得用 Accordion 伪装可选择 Tree、Tree Select、Cascader、懒加载树节点或半选层级关系。
 
 ## 范围与边界

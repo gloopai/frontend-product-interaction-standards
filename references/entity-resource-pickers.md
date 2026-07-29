@@ -4,6 +4,8 @@
 
 对象选择器不是普通 Select，也不是把 `label/value` 塞进下拉框。普通 Select / Combobox 的键盘、popup、定位、搜索输入和 ARIA 机制继续执行 `references/selects-comboboxes.md`；多选 chips、批量粘贴、自由文本 token 和标签删除继续执行 `references/multi-select-tag-inputs.md`；字段提交、校验和脏状态继续执行 `references/forms.md`；成员邀请、角色生命周期和成员危险动作继续执行 `references/members-invitations-access.md`；审批候选人和审批节点继续执行 `references/approval-workflows.md`；权限、租户、工作区和无泄露证明继续执行 `references/permissions-tenancy-visibility.md`；层级资源或级联资源继续执行 `references/tree-hierarchy.md`；从列表行操作进入选择器时继续执行 `references/row-contextual-actions.md`。
 
+当对象、资源、成员、账号、项目、工作区或关联记录在候选集合与已分配集合之间移动，形成穿梭框、双列表、资源分配、权限分配、菜单授权、角色授权、成员分组或数据范围授权时，必须同时执行 `references/transfer-assignment-lists.md`，并声明 `assignmentTransferState`。对象资源 owner 负责实体身份和可绑定性；分配列表 owner 负责初始集合、草稿集合、左右可见集合、选中桶、移动意图、diff 摘要和保存边界。
+
 ## 范围与边界
 
 本 owner 覆盖：

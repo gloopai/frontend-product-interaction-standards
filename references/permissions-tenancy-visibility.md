@@ -22,6 +22,8 @@
 
 对象选择器、资源选择器、成员选择器、用户选择器、负责人选择、审批人选择、角色主体选择、账号选择器、项目选择器、工作区选择器、关联对象和关联资源必须同时执行 `references/entity-resource-pickers.md`，并声明 `entityResourcePickerState`。权限 owner 负责无泄露和能力证明；对象资源 owner 负责候选身份、scope 绑定、可见且可绑定证明、最近/收藏/推荐、迟到请求和提交边界。
 
+穿梭框、资源分配、权限分配、菜单授权、角色授权、成员分组、项目/工作区分配和数据范围授权必须同时执行 `references/transfer-assignment-lists.md`，并声明 `assignmentTransferState`。权限 owner 负责无泄露、权限收敛和能力证明；分配列表 owner 负责左右集合、选中桶、移动意图、全选范围、diff 摘要、保存边界和旧已分配摘要清理。
+
 详情预览、侧边预览、行预览、记录预览、快速查看、只读预览和 Master-Detail 必须同时执行 `references/preview-pane.md`；权限 owner 负责证明预览目标、字段、标题、数量、文件名、内部 ID、复制内容、错误明细和旧缓存安全，`preview-pane.md` 负责在预览切换、关闭、迟到响应和移动端转换中应用这些权限边界。
 
 卡片列表、卡片式结果、资源卡片、模板卡片、应用卡片、项目卡片、卡片网格、移动端结果卡片和 Kanban-lite 必须同时执行 `references/card-list-results.md`；权限 owner 负责证明卡片标题、封面、缩略图、标签、状态、数量、文件名、菜单项、错误、复制内容和旧 ARIA label 安全，`card-list-results.md` 负责卡片 owner 中的无泄露应用和旧状态清理。

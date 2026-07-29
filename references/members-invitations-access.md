@@ -8,6 +8,8 @@
 
 成员选择器、用户选择器、负责人选择、处理人选择、审核人选择、审批人选择、角色主体选择、成员多选和用户多选必须同时执行 `references/entity-resource-pickers.md`，并声明 `entityResourcePickerState`。成员 owner 负责成员生命周期、邀请、角色和访问管理；对象资源 owner 负责候选成员身份、作用域、可绑定性、最近/推荐、权限无泄露和旧候选失效。
 
+成员分组、成员批量分配、角色成员授权、用户组成员维护和左右列表分配成员必须同时执行 `references/transfer-assignment-lists.md`，并声明 `assignmentTransferState`。成员 owner 负责成员状态、邀请、角色和访问管理；分配列表 owner 负责初始成员集合、草稿集合、移动意图、diff 摘要、保存边界、部分成功和移动端分配承载。
+
 ## 范围
 
 - 成员列表、团队成员、工作区成员、组织成员、外部成员、访客、管理员、Owner 和账号管理。

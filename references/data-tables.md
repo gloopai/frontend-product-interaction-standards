@@ -4,6 +4,8 @@
 
 批量操作、批处理动作、全部筛选结果操作、跨页批量、批量确认、部分成功和批量回执必须同时执行 `references/bulk-actions-batch-operations.md`。数据表格 owner 负责行选择、全选、分页、排序、列、虚拟滚动和表格语义；批量 owner 负责 `bulkActionState`、选择快照转请求、范围绑定、可执行性、结果拆分、恢复和权限无泄露。
 
+表格穿梭框、Table Transfer、左右表格分配、资源分配、权限分配、成员分组、角色授权和数据范围授权必须同时执行 `references/transfer-assignment-lists.md`，并声明 `assignmentTransferState`。数据表格 owner 负责行、列、分页、排序、虚拟滚动和可见行语义；分配列表 owner 负责初始/草稿已分配集合、左右可见集合、选中桶、全选范围、移动意图、diff 摘要和保存边界。
+
 表格空态、无结果、首次使用、筛选无结果、只读报表空态和 empty CTA 必须同时执行 `references/empty-first-run-zero-results.md`。数据表格 owner 负责表格结构、列、行、选择和结果请求；空态 owner 负责 `emptyStateDecision`、emptyReason、CTA、清空/重置筛选、权限空态和移动端保真。
 
 列表行审批、待办审批列表、批量审批、审批历史表格和审批任务结果必须同时执行 `references/approval-workflows.md`；本文件继续负责表格能力、选择快照、筛选/分页/排序和批量结果结构，`approval-workflows.md` 负责审批实例、节点、意见/附件、审批人、通知和审计边界。
