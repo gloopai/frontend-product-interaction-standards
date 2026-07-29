@@ -25,6 +25,7 @@ frontend-product-interaction-standards/
 │       └── 2026-07-25-existing-standards-hardening.md
 └── references/
     ├── admin-console.md
+    ├── async-jobs-task-center.md
     ├── buttons.md
     ├── charts-visualization.md
     ├── data-tables.md
@@ -105,6 +106,17 @@ frontend-product-interaction-standards/
 - 无权限节点不得泄露节点名称、数量、路径、父子关系、图标、类型、内部 ID、排序位置、子节点是否存在或旧缓存。
 - 移动端不得删除搜索、展开、返回上级、路径摘要、已选摘要、清空、应用、错误说明、权限说明或恢复路径。
 - 详细规则和可执行验收仅维护在 [树形结构与级联交互规范](references/tree-hierarchy.md)，本交接不重复其状态模型或检查项。
+
+### 异步任务与任务中心
+
+- 已定义 async job、导入导出任务、批量任务、报表生成、AI 生成、同步任务、任务取消、重跑任务和任务中心的首版 owner。
+- 覆盖任务身份、进度、取消/重试、未知结果、任务中心恢复、结果产物、权限复核和移动端承载。
+- 关闭 Dialog、Drawer、Toast、Notification、来源页面、浏览器 Tab 或移动端系统返回，只能表达客户端关闭或停止等待，不得伪装成服务端任务已取消。
+- 取消请求已发送不等于任务已取消；未知结果不得伪装成成功或失败。
+- Toast 和 Notification 只能辅助提醒，不能作为唯一状态、唯一错误、唯一下载入口或唯一恢复路径。
+- 领取、下载、复制、重试和分享前必须复核任务身份、权限版本、租户/工作区、有效期和请求身份。
+- 移动端不得删除任务中心入口、任务状态、进度、取消中、重试、结果领取、错误明细、未知结果说明、权限说明或恢复路径。
+- 详细规则和可执行验收仅维护在 [异步任务与任务中心交互规范](references/async-jobs-task-center.md)，本交接不重复其状态模型或检查项。
 
 ### 表单
 

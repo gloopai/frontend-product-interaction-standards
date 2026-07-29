@@ -64,7 +64,7 @@ Use `apply_patch` to create `references/async-jobs-task-center.md` with this ope
 Add a paragraph that routes:
 
 ```markdown
-文件选择、上传队列、导入预检、字段映射和文件级错误继续执行 [上传与导入交互规范](uploads-imports.md)。危险操作确认、风险分级、撤销窗口、取消任务和重跑任务的风险确认继续执行 [危险操作与恢复交互规范](risk-actions.md)。Toast、Notification、Alert、Banner 和消息去重继续执行 [全局反馈与通知交互规范](global-feedback.md)。表格选择和批量范围继续执行 [数据表格交互规范](data-tables.md)。管理台跨页面权限、审计和治理继续执行 [管理台完整治理交互规范](admin-console.md)。
+文件选择、上传队列、导入预检、字段映射和文件级错误继续执行 [上传与导入交互规范](../../../references/uploads-imports.md)。危险操作确认、风险分级、撤销窗口、取消任务和重跑任务的风险确认继续执行 [危险操作与恢复交互规范](../../../references/risk-actions.md)。Toast、Notification、Alert、Banner 和消息去重继续执行 [全局反馈与通知交互规范](../../../references/global-feedback.md)。表格选择和批量范围继续执行 [数据表格交互规范](../../../references/data-tables.md)。管理台跨页面权限、审计和治理继续执行 [管理台完整治理交互规范](../../../references/admin-console.md)。
 ```
 
 - [ ] **Step 3: Add `asyncJobState` table**
@@ -149,7 +149,7 @@ Add summary bullet:
 Add link:
 
 ```markdown
-[异步任务与任务中心交互规范](references/async-jobs-task-center.md)
+[异步任务与任务中心交互规范](../../../references/async-jobs-task-center.md)
 ```
 
 Add `async-jobs-task-center.md` to the references directory tree.
@@ -169,7 +169,7 @@ Add a section:
 - Toast 和 Notification 只能辅助提醒，不能作为唯一状态、唯一错误、唯一下载入口或唯一恢复路径。
 - 领取、下载、复制、重试和分享前必须复核任务身份、权限版本、租户/工作区、有效期和请求身份。
 - 移动端不得删除任务中心入口、任务状态、进度、取消中、重试、结果领取、错误明细、未知结果说明、权限说明或恢复路径。
-- 详细规则和可执行验收仅维护在 [异步任务与任务中心交互规范](references/async-jobs-task-center.md)，本交接不重复其状态模型或检查项。
+- 详细规则和可执行验收仅维护在 [异步任务与任务中心交互规范](../../../references/async-jobs-task-center.md)，本交接不重复其状态模型或检查项。
 ```
 
 - [ ] **Step 4: Run routing sanity check**
