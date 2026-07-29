@@ -46,6 +46,7 @@ frontend-product-interaction-standards/
     ├── information-display.md
     ├── page-form-action-bars.md
     ├── notifications-message-center-announcements.md
+    ├── overview-dashboard-pages.md
     ├── navigation-routing.md
     ├── overlays-menus-tooltips.md
     ├── page-toolbars-actions.md
@@ -398,6 +399,15 @@ frontend-product-interaction-standards/
 - Hover/highlight、legend toggle、drilldown、brush、zoom、联动筛选、导出和查看明细必须在 `interactionPolicy` 中声明；图表必须区分 loading、empty、zero-results、partial、stale、refresh-error、permission-denied 和 metric-unavailable。
 - 移动端不得删除图表标题、口径、单位、图例/series 含义、状态说明、错误/权限说明、数据延迟、刷新时间、导出/明细入口和恢复路径。
 - 详细规则和可执行验收仅维护在 [图表与可视化交互规范](references/charts-visualization.md)，本交接不重复其状态模型或检查项。
+
+### 概览页与仪表盘首页
+
+- 已定义概览页、仪表盘首页、管理台首页、运营看板、业务看板、指标总览、报表总览和 dashboard landing 的首版 owner。
+- `overviewDashboardState` 必须声明 `dashboardOwnerId`、`consoleSurface`、`layoutRegistry`、`globalFilterBinding`、`timeRangeSnapshot`、`dataSnapshot`、`moduleRegistry`、`metricCardsBinding`、`chartBinding`、`detailBinding`、`refreshPolicy`、`alertPriority`、`actionBoundary`、`permissionBoundary`、`feedbackBinding`、`responsivePolicy`、`focusAnnouncementPolicy` 和 `runtimeVerification`。
+- 概览页和仪表盘首页默认只读展示；选择、行操作、批量、编辑、订阅、钻取、导出、查看明细和跳转都必须显式声明。
+- KPI、图表、明细表、导出任务、页面摘要和刷新状态共享同一业务范围时，必须引用同一 `dataSnapshot`、`timeRangeSnapshot`、权限范围和数据延迟；不同范围必须可见说明。
+- 页面布局不能使用营销式 hero 或纯装饰大卡片承载主要工作区。
+- 详细规则和可执行验收仅维护在 [概览页与仪表盘首页交互规范](references/overview-dashboard-pages.md)，本交接不重复其状态模型或检查项。
 
 ### 图表与可视化创作配置
 

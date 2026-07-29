@@ -6,6 +6,8 @@
 
 图表创建、编辑、配置、指标/维度/聚合配置、图形类型切换、图表预览、保存图表、发布图表、加入仪表盘和图表构建器场景还必须执行 `references/chart-visualization-builders.md`；本文件继续负责预览图表和已发布图表的展示语义。
 
+概览页、仪表盘首页、管理台首页、运营看板、业务看板、指标总览、报表总览和 dashboard landing 中的图表必须同时执行 `references/overview-dashboard-pages.md`；本文件负责单个图表的图形语义，`overview-dashboard-pages.md` 负责图表与 KPI、明细、导出、筛选、时间范围和刷新状态共享页面级快照。
+
 ## 状态模型
 
 每个图表必须声明 `chartState`，至少包含：

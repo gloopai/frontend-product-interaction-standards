@@ -10,6 +10,8 @@
 
 管理台规范是跨页面 owner，不重新定义上述组件的局部交互、数据表格、表单、Dialog、Drawer、Select 或响应式细节；它定义页面能力边界、跨页面状态和安全收敛要求。
 
+概览页、仪表盘首页、管理台首页、运营看板、业务看板、指标总览、报表总览和 dashboard landing 必须同时执行 `references/overview-dashboard-pages.md`；本文件继续负责管理台跨页面治理，`overview-dashboard-pages.md` 负责页面级共享快照、模块一致性、告警优先级、移动端总览和局部 owner 转交。
+
 ## 场景与状态模型
 
 每个页面声明一个或多个 `consoleSurface`：`overview-dashboard`、`report`、`record-list`、`record-detail`、`record-editor`、`settings`、`job-center`、`audit-log`。页面级状态至少包含 `navigationState`、`permissionState`、`surfaceState`、`riskState`、`auditState`、`taskState`、`feedbackState`；组件 owner 的局部状态不得替代这些页面级 owner。

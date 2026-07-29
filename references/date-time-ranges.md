@@ -6,6 +6,8 @@
 
 本规范不替代表单、查询条件、管理台、浮层或响应式规范；当这些规范涉及日期时间语义时，本文件提供更严格的横切约束。
 
+概览页、仪表盘首页、管理台首页、运营看板、业务看板、指标总览、报表总览和 dashboard landing 的时间范围必须同时执行 `references/overview-dashboard-pages.md`；本文件负责日期时间快照、时区、粒度和 relativeAnchor，`overview-dashboard-pages.md` 负责同一 `timeRangeSnapshot` 在 KPI、图表、明细、页面摘要和导出间的一致应用。
+
 ## 状态模型
 
 每个日期时间控件必须声明 `dateTimeState`，至少包含：

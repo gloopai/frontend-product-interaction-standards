@@ -8,6 +8,8 @@
 
 从列表、表格、卡片列表、搜索结果或报表明细进入的详情预览、侧边预览、行预览、记录预览、快速查看、只读预览和 Master-Detail 必须同时执行 `references/preview-pane.md`；本文件负责预览内字段 label/value、空值、状态、复制和长文本展示，`preview-pane.md` 负责预览目标、来源绑定、关闭返回、迟到响应、权限无泄露和移动端承载边界。
 
+概览页、仪表盘首页、管理台首页、运营看板、业务看板、指标总览、报表总览和 dashboard landing 的 KPI、摘要卡、指标卡和状态摘要必须同时执行 `references/overview-dashboard-pages.md`；本文件负责字段口径和只读展示，`overview-dashboard-pages.md` 负责页面级 `dataSnapshot`、`timeRangeSnapshot`、模块一致性和移动端总览保留。
+
 ## 状态模型
 
 每个详情页或信息展示区域必须声明 `informationDisplayState`，至少包含：

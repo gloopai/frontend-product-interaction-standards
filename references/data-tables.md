@@ -4,6 +4,8 @@
 
 表格工具栏、列表顶部或报表区域里的关键词搜索输入必须执行 `references/keyword-search-inputs.md`；表格结果、分页、排序、选择和批量范围只能读取上层 owner 的已应用查询快照，不得直接读取 `inputDraft`。
 
+概览页、仪表盘首页、管理台首页、运营看板、业务看板、指标总览、报表总览和 dashboard landing 中的明细表、摘要表或报表明细必须同时执行 `references/overview-dashboard-pages.md`；本文件负责表格能力和结果语义，`overview-dashboard-pages.md` 负责页面级共享快照、只读默认、模块状态一致和移动端总览保留。
+
 列表、表格和报表的分页、页大小、排序提交、刷新、自动刷新、结果摘要、迟到响应、数据版本和总数可信度必须同时执行 `references/list-result-controls.md`；Data Table owner 继续负责列、行、选择、全选、批量操作和 ARIA Grid，不得直接读取筛选草稿或搜索输入草稿来改写结果控制。
 
 从表格、卡片列表、搜索结果或报表明细打开详情预览、侧边预览、行预览、记录预览、快速查看、只读预览或 Master-Detail 时，必须同时执行 `references/preview-pane.md`；表格 owner 只提供来源快照、稳定记录 ID、焦点和能力档位，预览目标、预览请求、预览关闭、权限无泄露、移动端预览承载和迟到响应门禁归 `preview-pane.md`。预览目标不等于表格选择、hover、focus 或 active row。

@@ -10,6 +10,8 @@
 
 卡片列表、卡片式结果、资源卡片、模板卡片、应用卡片、项目卡片、卡片网格、移动端结果卡片和 Kanban-lite 必须同时执行 `references/card-list-results.md`；权限 owner 负责证明卡片标题、封面、缩略图、标签、状态、数量、文件名、菜单项、错误、复制内容和旧 ARIA label 安全，`card-list-results.md` 负责卡片 owner 中的无泄露应用和旧状态清理。
 
+概览页、仪表盘首页、管理台首页、运营看板、业务看板、指标总览、报表总览和 dashboard landing 必须同时执行 `references/overview-dashboard-pages.md`；权限 owner 负责证明 KPI 名称和值、图表 series、明细数量、导出范围、告警标题、菜单项和旧 ARIA label 安全，`overview-dashboard-pages.md` 负责页面级模块收敛和旧快照清理。
+
 ## 范围与边界
 
 本 owner 覆盖：
