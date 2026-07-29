@@ -89,6 +89,10 @@ PC `inline` 在无其他 popup 控件时 Tab 关闭并继续页面。`inline` �
 
 PC `inline` 弹层锚定主 Combobox，`panel` 锚定 disclosure button，`none` 锚定 Select-only Combobox；至少锚点宽、可上下翻转、不得被 overflow 裁切，必要时 Portal 到应用根。非模态 PC 弹层无全屏遮罩；存在搜索时搜索/状态固定，只有 options 滚动。初次 PC 弹层打开 `150ms ease-out` 淡入小位移，关闭 `100ms ease-in`，完成后卸载；reduced motion 不位移且淡入淡出最多 `50ms`。
 
+Dialog、Drawer 或其他模态容器内的 PC Select popup 不得被容器内容区、外框、固定页脚、局部容器、`overflow` 或 `transform` 裁切。popup 应 Portal 到应用根或当前模态层专用 popup root，并锚定原 trigger；层级高于当前 Dialog 内容和固定页脚，低于更上层 Dialog/Drawer。空间不足时必须向上翻转、限制最大高度并仅让 options 区滚动，或按 `resolvedPlacement` 转换为 `drawer`；不得要求 Dialog 外框滚动，不得遮挡主要确认按钮。
+
+移动端、窄屏、低高度、虚拟键盘明显影响布局、触控需要更大选项目标、Dialog 内 popup 会被裁切或选项/搜索内容较多时，`auto` 应优先解析为 `drawer`。转换为 Select Drawer 后，搜索区固定可见，options 区滚动，外层 trigger 保留为最终关闭后的焦点返回目标；`selectedValue`、会话 `query`、`activeOption`、loading、error、orphaned invalid 和请求身份必须保持，不得触发值变化回调、重复请求或重复动画。
+
 大量结果可虚拟化，但 active 引用的 option 必须实际在 DOM 并滚入可视区；播报结果数量/位置。远程分页不得重复 options、丢失提交值或意外移动 active。
 
 ## 验收与报告
@@ -104,6 +108,7 @@ PC `inline` 弹层锚定主 Combobox，`panel` 锚定 disclosure button，`none`
 5. 对每个非 `drawer` 来源进入 `drawer`，分别记录遮罩、背景隔离、页面滚动锁和焦点陷阱的取得计数及 Drawer 内层搜索 Combobox 的 `focus` 事件；四项计数都必须从 0 变为 1 且先于焦点进入，最终背景不可交互、只有一套 Drawer 模态基础设施和有效 Dialog ARIA。
 6. 从 `drawer` 分别转换到 `inline`、`panel`、`none`，记录四项 Drawer 专属基础设施的释放计数、关闭/取消/值变化回调和每一帧的背景/模态状态；每项只能释放一次，三个关闭类回调均不得触发，业务与草稿状态保持，且最终没有残留遮罩、`inert`、滚动锁、焦点陷阱、Drawer DOM 或 Dialog 专属 ARIA。全过程不得出现旧 Drawer 仍可见但背景可交互的状态，目标 placement 的焦点与 ARIA 必须有效。
 7. 在 query 请求、重试/防抖和结果/选择回调待处理时触发路由变化及拥有组件卸载；确认这些工作全部取消或失效，旧回调不能改变新实例或触发值变化，Select 自己的 popup/Listbox/option 与 ARIA 引用全部拆除，只释放自己持有的基础设施，且焦点不返回将被移除的旧 trigger。
+8. 在 Dialog 内打开 Select popup，确认 popup 未被 Dialog 内容区、外框、固定页脚、局部容器、`overflow` 或 `transform` 裁切；PC 空间不足时向上翻转、限高且仅 options 区滚动；移动端或虚拟键盘场景转换为 Select Drawer 后，`selectedValue`、`query`、`activeOption`、loading、error 和请求身份保持，且没有重复遮罩、焦点陷阱、滚动锁、请求或动画。
 
 未实际检查必须报告为**未验证**并写明所需检查。
 
