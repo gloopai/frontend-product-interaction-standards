@@ -4,6 +4,8 @@
 
 表单放在 [Dialog](dialogs.md) 或 [Drawer](drawers.md) 中时，容器的打开、关闭、焦点陷阱、退出动画与 disposal 仍由对应 owner 负责；表单仅提供 `dirty`、`submitting`、错误摘要和可聚焦目标。Select / Combobox 的 `query`、`activeOption` 与 popup 会话仍由 [Select / Combobox](selects-comboboxes.md) owner 负责，只有已提交的 `selectedValue` 才是表单字段值。断点切换、跨端呈现和 route/unmount disposal 同时遵循 [响应式与自适应交互规范](responsive-adaptive.md)，不得重置同一表单会话。
 
+关键词搜索输入作为表单字段时必须执行 `references/keyword-search-inputs.md`；表单只接收已提交的 `committedKeyword`，不得把 `inputDraft`、`normalizedDraft` 或 `compositionState` 当作字段业务值、dirty 或 submit payload。
+
 ## 范围与首版排除项
 
 本规范覆盖单一编辑会话中的字段值、校验、提交、错误与焦点。首版不定义详细上传、富文本、日期、树/级联、多步骤向导、业务特定复合字段、跨页草稿持久化、离线队列/自动重试、协同编辑合并或产品特有的离开确认文案；这些控件只保留向表单提交**已提交业务值**的一般值提交边界，内部草稿、呈现与专属交互由各自 owner 定义。它们接入时仍不得绕过本文件的值版本、错误归属和 live-session 判断。
