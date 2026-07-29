@@ -50,6 +50,7 @@ frontend-product-interaction-standards/
     ├── page-form-action-bars.md
     ├── notifications-message-center-announcements.md
     ├── ordering-reordering.md
+    ├── optimistic-update-undo.md
     ├── text-overflow-truncation.md
     ├── overview-dashboard-pages.md
     ├── page-content-layout-sections.md
@@ -531,6 +532,14 @@ frontend-product-interaction-standards/
 - 文本截断不是内容删除，也不是 hover tooltip 的同义词；省略号、line clamp、max-width、title 属性或 Tooltip 不得作为查看完整内容的唯一方式。
 - 被截断内容必须声明 `fullTextAccessPolicy`；重要身份、状态、错误、金额、权限原因、主操作文案和恢复路径不得只显示省略号。
 - 详细规则和可执行验收仅维护在 [文本溢出与截断交互规范](references/text-overflow-truncation.md)，本交接不重复其状态模型或检查项。
+
+### 乐观更新、撤销与回滚
+
+- 已定义乐观更新、乐观 UI、先改界面、pending mutation、syncing、撤销、回滚、失败回滚、离线队列、自动重试、迟到响应、幂等和冲突恢复的首版 owner。
+- `optimisticMutationState` 必须声明 `mutationOwnerId`、`mutationSurface`、`sourceSnapshot`、`targetIdentity`、`visibleProjection`、`pendingMutation`、`commitSnapshot`、`idempotencyPolicy`、`optimisticPolicy`、`undoPolicy`、`rollbackPolicy`、`reconciliationPolicy`、`permissionBoundary`、`feedbackBinding`、`responsivePolicy`、`focusAnnouncementPolicy`、`lifecycleDisposal` 和 `runtimeVerification`。
+- 乐观更新不是成功回执；未得到权威确认前必须标记为 pending、syncing、undoable 或 queued，不得绕过确认、权限、审计或服务端权威状态。
+- 撤销入口不得只存在于自动消失 Toast；失败回滚必须基于 `sourceSnapshot`、权威刷新或 conflict payload。
+- 详细规则和可执行验收仅维护在 [乐观更新、撤销与回滚交互规范](references/optimistic-update-undo.md)，本交接不重复其状态模型或检查项。
 
 ### 卡片列表与卡片式结果
 

@@ -18,6 +18,8 @@
 
 长错误、错误详情、空态长说明、权限原因、恢复路径文案、截断、省略号、查看全文、展开全文和复制全文必须同时执行 `references/text-overflow-truncation.md`；本文件继续负责反馈承载、状态优先级、文案和恢复入口，`text-overflow-truncation.md` 负责长文本截断策略、完整错误可达、移动端等价路径和旧全文清理。
 
+pending、syncing、undo-window、queued、retrying、乐观更新结果、撤销、失败回滚、冲突恢复、未知结果和离线恢复反馈必须同时执行 `references/optimistic-update-undo.md`；本文件继续负责页面/区域级反馈承载和公告去重，`optimistic-update-undo.md` 负责 mutation 投影、撤销窗口、回滚依据、权威结果合并和旧投影清理。
+
 概览页、仪表盘首页、管理台首页、运营看板、业务看板、指标总览、报表总览和 dashboard landing 的 loading、partial、stale、refresh-error、permission-denied、metric-unavailable、unknown、告警和恢复入口必须同时执行 `references/overview-dashboard-pages.md`；本文件负责反馈承载和公告去重，`overview-dashboard-pages.md` 负责页面级状态是否可声明正常、哪些模块阻断以及移动端状态保留。
 
 Feedback States owner 不重新定义字段错误、表格查询、上传任务、按钮语义或管理台审计；它统一页面/区域级 loading、empty、error、stale、permission、partial 和 recovery 的状态承载。
