@@ -91,7 +91,11 @@ PC `inline` 弹层锚定主 Combobox，`panel` 锚定 disclosure button，`none`
 
 Dialog、Drawer 或其他模态容器内的 PC Select popup 不得被容器内容区、外框、固定页脚、局部容器、`overflow` 或 `transform` 裁切。popup 应 Portal 到应用根或当前模态层专用 popup root，并锚定原 trigger；层级高于当前 Dialog 内容和固定页脚，低于更上层 Dialog/Drawer。空间不足时必须向上翻转、限制最大高度并仅让 options 区滚动，或按 `resolvedPlacement` 转换为 `drawer`；不得要求 Dialog 外框滚动，不得遮挡主要确认按钮。
 
+模态容器内 popup 的定位、碰撞和生命周期必须绑定当前 Select 会话与当前最上层模态实例。打开、输入筛选、选项高度变化、Dialog 内容滚动、窗口缩放、动态视口变化、虚拟键盘出现和字体缩放后，必须重新计算锚点、可用空间、页脚避让和最大高度；无法安全定位时关闭 popup 或转换为 `drawer`，不得留下悬空 popup。不得用一次性 `z-index` 覆盖截图问题；popup 不能穿透更上层模态，不能被当前固定页脚盖住，也不能覆盖 Dialog 的主要确认按钮而没有翻转、限高或 Drawer 转换。关闭、取消、提交、路由卸载或来源 trigger 移除时，必须同步移除 popup DOM、定位任务和 `aria-controls` / `aria-activedescendant` 引用。
+
 移动端、窄屏、低高度、虚拟键盘明显影响布局、触控需要更大选项目标、Dialog 内 popup 会被裁切或选项/搜索内容较多时，`auto` 应优先解析为 `drawer`。转换为 Select Drawer 后，搜索区固定可见，options 区滚动，外层 trigger 保留为最终关闭后的焦点返回目标；`selectedValue`、会话 `query`、`activeOption`、loading、error、orphaned invalid 和请求身份必须保持，不得触发值变化回调、重复请求或重复动画。
+
+当 Select 位于移动端 Bottom Sheet Dialog 内时，若弹出 options 会挤压、遮挡或覆盖底部确认区，默认不得继续使用非模态 popup；应把该 Select 自身转换为 Select Drawer，或由产品明确把整个任务升级为全屏 Drawer/独立页。转换过程中，外层 Dialog/Sheet 的提交按钮、取消/关闭路径、错误状态和脏状态保持，不得因为打开 Select 而改变表单提交边界。
 
 大量结果可虚拟化，但 active 引用的 option 必须实际在 DOM 并滚入可视区；播报结果数量/位置。远程分页不得重复 options、丢失提交值或意外移动 active。
 
@@ -109,6 +113,7 @@ Dialog、Drawer 或其他模态容器内的 PC Select popup 不得被容器内�
 6. 从 `drawer` 分别转换到 `inline`、`panel`、`none`，记录四项 Drawer 专属基础设施的释放计数、关闭/取消/值变化回调和每一帧的背景/模态状态；每项只能释放一次，三个关闭类回调均不得触发，业务与草稿状态保持，且最终没有残留遮罩、`inert`、滚动锁、焦点陷阱、Drawer DOM 或 Dialog 专属 ARIA。全过程不得出现旧 Drawer 仍可见但背景可交互的状态，目标 placement 的焦点与 ARIA 必须有效。
 7. 在 query 请求、重试/防抖和结果/选择回调待处理时触发路由变化及拥有组件卸载；确认这些工作全部取消或失效，旧回调不能改变新实例或触发值变化，Select 自己的 popup/Listbox/option 与 ARIA 引用全部拆除，只释放自己持有的基础设施，且焦点不返回将被移除的旧 trigger。
 8. 在 Dialog 内打开 Select popup，确认 popup 未被 Dialog 内容区、外框、固定页脚、局部容器、`overflow` 或 `transform` 裁切；PC 空间不足时向上翻转、限高且仅 options 区滚动；移动端或虚拟键盘场景转换为 Select Drawer 后，`selectedValue`、`query`、`activeOption`、loading、error 和请求身份保持，且没有重复遮罩、焦点陷阱、滚动锁、请求或动画。
+9. 在 Dialog 内容滚动、固定页脚遮挡、锚点移除、窗口缩放、字体放大、虚拟键盘出现和更上层模态打开时检查 popup 定位与层级：必须重算或安全关闭，不能穿透更上层模态，不能留下悬空 popup，ARIA 引用不能指向已卸载节点。
 
 未实际检查必须报告为**未验证**并写明所需检查。
 

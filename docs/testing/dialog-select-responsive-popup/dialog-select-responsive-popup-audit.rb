@@ -12,6 +12,9 @@ DIALOG_TERMS = [
   "Dialog 内 Select / Combobox / Dropdown popup 不得被 Dialog 内容滚动区、Dialog 外框、固定页脚、局部容器、`overflow` 或 `transform` 裁切",
   "不得为了 Select popup 展开而让 Dialog 外框滚动",
   "popup 不得遮挡 Dialog 主要确认按钮",
+  "不得只通过临时提高 `z-index` 解决截图式遮挡",
+  "锚点滚出当前内容视窗、Dialog 关闭、路由卸载或更上层模态打开时，该 popup 必须关闭或转换为合法承载形态",
+  "确认按钮不得被 Select popup、键盘、Toast 或系统安全区域遮挡",
   "底部 Drawer / Bottom Sheet",
   "左右边距、顶部圆角或底部安全区域",
   "遮罩点击不关闭、拖拽不关闭",
@@ -21,6 +24,10 @@ DIALOG_TERMS = [
 SELECT_TERMS = [
   "Portal 到应用根或当前模态层专用 popup root",
   "空间不足时必须向上翻转、限制最大高度并仅让 options 区滚动",
+  "打开、输入筛选、选项高度变化、Dialog 内容滚动、窗口缩放、动态视口变化、虚拟键盘出现和字体缩放后，必须重新计算锚点、可用空间、页脚避让和最大高度",
+  "不得用一次性 `z-index` 覆盖截图问题",
+  "必须同步移除 popup DOM、定位任务和 `aria-controls` / `aria-activedescendant` 引用",
+  "默认不得继续使用非模态 popup",
   "不得要求 Dialog 外框滚动",
   "移动端、窄屏、低高度、虚拟键盘明显影响布局",
   "`auto` 应优先解析为 `drawer`",
@@ -33,6 +40,9 @@ RESPONSIVE_TERMS = [
   "这些视觉差异不改变它的模态 Drawer 语义",
   "Dialog 内 Select / Combobox / Dropdown popup",
   "应转换为 Select Drawer",
+  "任务承载层可从 Dialog 转为 Bottom Sheet，字段选项层可从 popup 转为 Select Drawer",
+  "两者不得各自创建互相竞争的遮罩、滚动锁或焦点陷阱",
+  "若 Bottom Sheet 内继续使用非模态 Select popup 会遮挡确认按钮或被虚拟键盘挤压，必须优先转 Select Drawer",
   "不得改变已提交值、提交草稿、重置搜索、重复请求、重复遮罩、重复焦点陷阱、重复滚动锁或重复动画"
 ].freeze
 
@@ -43,6 +53,11 @@ EVIDENCE_TERMS = [
   "向上翻转",
   "options 区滚动",
   "Bottom Drawer",
+  "Select Drawer",
+  "z-index",
+  "锚点",
+  "确认按钮",
+  "虚拟键盘",
   "左右边距",
   "圆角",
   "Drawer 语义",
@@ -106,6 +121,23 @@ if ARGV.include?("--mutations")
   expect_failure("portal-root-rule") do
     audit(dialogs: dialogs, selects: selects.gsub("Portal 到应用根或当前模态层专用 popup root", ""),
           responsive: responsive, green: green, red: red)
+  end
+
+  expect_failure("z-index-only-workaround") do
+    audit(dialogs: dialogs.gsub("不得只通过临时提高 `z-index` 解决截图式遮挡", ""),
+          selects: selects, responsive: responsive, green: green, red: red)
+  end
+
+  expect_failure("anchor-repositioning-rule") do
+    audit(dialogs: dialogs,
+          selects: selects.gsub("打开、输入筛选、选项高度变化、Dialog 内容滚动、窗口缩放、动态视口变化、虚拟键盘出现和字体缩放后，必须重新计算锚点、可用空间、页脚避让和最大高度", ""),
+          responsive: responsive, green: green, red: red)
+  end
+
+  expect_failure("mobile-select-drawer-priority") do
+    audit(dialogs: dialogs, selects: selects,
+          responsive: responsive.gsub("若 Bottom Sheet 内继续使用非模态 Select popup 会遮挡确认按钮或被虚拟键盘挤压，必须优先转 Select Drawer", ""),
+          green: green, red: red)
   end
 
   expect_failure("flip-max-height-options-scroll") do

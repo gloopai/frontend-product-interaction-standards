@@ -58,12 +58,14 @@ frontend-product-interaction-standards/
 - 普通可退出 Dialog 必须保留右上角关闭按钮。
 - 已定义打开/关闭动画、焦点管理、Escape、焦点陷阱、多层弹窗、异步状态、错误反馈、清理和 reduced motion。
 - 普通关闭固定遵循“退出完成 → DOM 移除 → 本实例保护释放 → 恰好一次焦点恢复”；路由变化或卸载走立即 disposal。
+- Dialog 内 Select / Combobox / Dropdown popup 必须归属当前模态实例；通过 portal、锚点重算、collision、页脚避让、限高和 options 区滚动解决遮挡，不能只靠临时 `z-index`、Dialog 外框滚动或覆盖主要确认按钮。
 
 ### Drawer
 
 - 支持上、下、左、右四个方向。
 - 已定义遮罩、关闭路径、滚动区域、焦点、层级、动画、异步状态和响应式规则。
 - PC 与移动端核心能力保持一致；低频能力可以折叠，但不能彻底删除。
+- 移动端 Bottom Sheet 可以保留左右边距、顶部圆角和安全区域视觉，但仍执行完整 Drawer 语义；其内部 Select 若会遮挡确认按钮或被虚拟键盘挤压，应优先转 Select Drawer，任务承载不足时再升级为全屏 Drawer 或独立页。
 - 从 Drawer 转为非模态形态时，Drawer 专属模态基础设施必须释放；进入 Drawer 时必须由其取得，并且每项只处理一次。
 - 普通关闭固定遵循“退出完成 → DOM 移除 → 本实例保护释放 → 恰好一次焦点恢复”；路由变化或 owner 卸载立即执行幂等 disposal。
 
@@ -79,6 +81,7 @@ frontend-product-interaction-standards/
 - 搜索位置支持 `auto`、`inline`、`panel`、`drawer`、`none`。
 - `auto` 必须按照稳定条件确定性解析，不能由 Agent 临时猜测，也不能因过滤结果数量在打开期间跳变。
 - PC 可以使用行内输入或非模态面板；受限空间和移动端场景可以使用 Drawer。
+- 位于 Dialog/Bottom Sheet 内的 Select popup 必须跟随锚点、滚动、视口、虚拟键盘和上层模态变化重算或安全关闭；关闭/卸载/trigger 移除时同步清理 popup DOM、定位任务和 ARIA 引用。
 - `none` 仅使用 Select-only Combobox，不再允许 button + Listbox 的替代模型。
 - 已定义草稿查询与已提交值、失效值、异步搜索、状态播报、焦点、Tab、Space/Enter、Home/End 和 ARIA 所有权。
 - `resolvedPlacement` 转换保留逻辑 ID；目标焦点和 ARIA 必须在焦点移动前或同一 committed render 更新，来源专属属性随之移除，且转换不提交值或草稿。
