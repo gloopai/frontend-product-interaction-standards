@@ -6,6 +6,8 @@
 
 Tab 上方或 TabPanel 内工具栏必须同时执行 `references/tab-view-navigation.md`；工具栏只读取当前 `activeTabId`、已提交 panel 状态和合法范围，不得从隐藏 tab、旧 panel、未确认 pendingTabIntent 或无权限 panel 推导操作。
 
+列设置入口、列密度入口、重置列、恢复默认列、保存列布局和列配置 Drawer 入口必须同时执行 `references/table-column-layout-density.md`；工具栏 owner 负责入口编排、分组、收纳和权限可见，列布局 owner 负责 `tableColumnLayoutState`、draftLayout、appliedLayout、persistedLayout、densityPolicy、resetPolicy 和移动端列配置承载。
+
 ## 范围与非目标
 
 本 owner 覆盖页面标题右侧操作区、列表工具栏、结果工具栏、批量操作栏、视图工具栏、移动端更多操作、Action Sheet、工具栏 Drawer 和结果区恢复入口；覆盖新增、导入、刷新、导出、下载、列显示、列固定、密度、视图切换、批量操作入口、更多操作、权限说明和错误恢复的编排关系。

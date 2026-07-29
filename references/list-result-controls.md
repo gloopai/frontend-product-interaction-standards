@@ -10,6 +10,8 @@
 
 已删除列表、已归档列表、回收站结果、包含已删除筛选、恢复后返回原列表、永久删除后的结果刷新和保留期到期清理必须同时执行 `references/trash-restore-retention.md`；列表结果 owner 负责查询快照、分页、排序、刷新和摘要，回收站 owner 负责 `trashRestoreState`、visibilityPolicy、retentionPolicy、restorePolicy、purgePolicy 和旧结果清理。
 
+表格列设置、列密度、列宽、固定列、保存列布局和恢复默认列必须同时执行 `references/table-column-layout-density.md`；列表结果 owner 负责结果查询、分页、排序、刷新和摘要，列布局 owner 负责 `tableColumnLayoutState`、appliedLayout、densityPolicy、widthPolicy、pinningPolicy 和布局变化不得改变查询快照。
+
 ## 范围与非目标
 
 本 owner 覆盖列表、表格、卡片列表、报表结果、审计日志、任务中心、文件库、成员列表和设置项列表中的结果位置、排序、分页、刷新、自动刷新、结果摘要、请求快照、迟到响应、总数可信度、URL 恢复、权限和移动端承载。

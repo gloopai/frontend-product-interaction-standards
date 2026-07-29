@@ -14,6 +14,8 @@
 
 已删除对象、回收站、归档恢复、恢复入口、永久删除、保留期、legal hold、删除原因、操作者和删除审计必须同时执行 `references/trash-restore-retention.md`。权限 owner 负责证明已删除对象、数量、字段、文件名、路径、删除原因、操作者、保留期和旧缓存无泄露；回收站 owner 负责 `trashRestoreState`、permissionBoundary、availabilityMap、旧入口清理和恢复/永久删除权限收敛。
 
+表格列设置、列显示/隐藏、列顺序、列宽、固定列、密度、保存列布局和列配置缓存必须同时执行 `references/table-column-layout-density.md`。权限 owner 负责证明字段、列名、列数量、列值、旧布局、URL、ARIA 和缓存无泄露；列布局 owner 负责 `tableColumnLayoutState`、columnRegistry、permissionBoundary、旧列配置清理和权限降级后的布局重算。
+
 按钮入口、禁用、loading 和动作对象继续执行 [按钮交互规范](buttons.md)。表格行、列、选择、批量和跨页范围继续执行 [数据表格交互规范](data-tables.md)。字段、表单错误和未保存离开继续执行 [表单状态、校验与错误交互规范](forms.md)。字段 label、placeholder、帮助文本、空值说明、权限原因、只读原因和禁用原因必须同时执行 `references/field-guidance-help-text.md`；权限 owner 负责证明说明文案无泄露，`field-guidance-help-text.md` 负责说明身份、可访问描述和旧引用清理。Page Header、页面标题区、页面标题、副标题、对象标题、状态摘要、标题区主操作、标题区权限说明和浏览器标题必须同时执行 `references/page-header-title-area.md`；权限 owner 负责证明标题区无泄露，`page-header-title-area.md` 负责标题快照、操作槽和旧标题/旧 DOM/ARIA 引用收敛。导航、返回和路由恢复继续执行 [导航与路由交互规范](navigation-routing.md)。App Shell、全局导航、侧边导航、顶部导航、用户菜单、工作区/租户切换、全局搜索入口和通知入口必须同时执行 `references/app-shell-navigation.md`；权限 owner 负责证明入口和标签安全，`app-shell-navigation.md` 负责外框级菜单、入口、badge、快捷键和旧 DOM/ARIA 引用收敛。页面内 tab 可见性、禁用、隐藏、无权限、安全占位和旧 panel 清理必须同时执行 `references/tab-view-navigation.md`，并按本文件证明权限、租户/工作区和旧缓存无泄露。异步任务、下载产物和任务中心继续执行 [异步任务与任务中心交互规范](async-jobs-task-center.md)。上传、导入、模板和错误明细继续执行 [上传与导入交互规范](uploads-imports.md)。风险确认、权限变更和敏感导出继续执行 [危险操作与恢复交互规范](risk-actions.md)。Toast、Notification 和页面消息继续执行 [全局反馈与通知交互规范](global-feedback.md)。管理台跨页面治理继续执行 [管理台完整治理交互规范](admin-console.md)。
 
 折叠标题、摘要、数量、图标、展开状态、旧内容和子项关系必须同时执行 `references/disclosure-accordions.md`；无权限或未启用时不得通过收起标题、旧摘要、旧 ARIA label 或旧缓存泄露内部对象。

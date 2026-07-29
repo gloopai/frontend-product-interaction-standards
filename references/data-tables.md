@@ -14,6 +14,8 @@
 
 列表、表格和报表的分页、页大小、排序提交、刷新、自动刷新、结果摘要、迟到响应、数据版本和总数可信度必须同时执行 `references/list-result-controls.md`；Data Table owner 继续负责列、行、选择、全选、批量操作和 ARIA Grid，不得直接读取筛选草稿或搜索输入草稿来改写结果控制。
 
+列设置、列显示/隐藏、列顺序、列宽调整、固定列、列密度、重置列、恢复默认列和保存列布局必须同时执行 `references/table-column-layout-density.md`；Data Table owner 负责表格能力、结果、选择、分页、排序和批量边界，列布局 owner 负责 `tableColumnLayoutState`、columnRegistry、draftLayout、appliedLayout、persistedLayout、densityPolicy、widthPolicy、pinningPolicy 和权限收敛。
+
 人工排序、拖拽重排、上移/下移、置顶/置底、排序模式、保存顺序和顺序冲突必须同时执行 `references/ordering-reordering.md`；Data Table owner 继续负责表头查询排序、结果排序参数、分页和行语义，`ordering-reordering.md` 负责会改变业务展示顺序的草稿、提交、冲突、拖拽替代和保存回执。
 
 表格单元格、列标题、固定列、长 ID、长状态、长错误、URL、邮箱、文件名、路径、截断、省略号、查看全文、展开全文和复制全文必须同时执行 `references/text-overflow-truncation.md`；Data Table owner 继续负责列、行、选择、分页和 ARIA Grid，`text-overflow-truncation.md` 负责截断策略、完整内容恢复、复制权限、hover-only 禁止和移动端等价路径。
@@ -34,7 +36,7 @@
 
 第一版覆盖数据表格结构、能力档位、状态分组、筛选、排序、页码分页、上一页/下一页游标分页、加载与错误状态、列显示/固定/受限宽度、当前页与全部筛选结果选择、批量终态和恢复、原生 Table / ARIA Grid 选择条件、键盘模型、焦点恢复、响应式等价、无障碍与 disposal。
 
-第一版排除行内编辑、树形表格、拖拽行排序、透视表、加载更多、无限滚动、用户拖拽改变列顺序和个人布局持久化。
+第一版排除行内编辑、树形表格、拖拽行排序、透视表、加载更多和无限滚动；用户拖拽改变列顺序、列显隐、列宽、固定列、密度和个人布局持久化转交 `references/table-column-layout-density.md`。
 
 下表和后续各表中的“规则”列是本文件硬规则全集。每条规则都具有稳定 ID，并在“验收”列映射到本文件末尾的可执行检查；新增硬规则时要同时新增或扩展对应验收。
 

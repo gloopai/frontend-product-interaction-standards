@@ -6,6 +6,8 @@
 
 保存视图可以持久化 `references/tab-view-navigation.md` 中已提交且安全的 `activeTabId`，但不得保存 TabPanel 草稿、未确认 pendingTabIntent、旧权限、无权限 tab、隐藏 tab 或旧 panel 缓存来冒充视图状态。
 
+表格列设置、列显示/隐藏、列顺序、列宽、固定列、密度和列布局预设必须同时执行 `references/table-column-layout-density.md`；保存视图 owner 负责视图身份、共享、默认、保存和审计，列布局 owner 负责 `tableColumnLayoutState`、appliedLayout、persistedLayout、persistencePolicy、resetPolicy、权限无泄露和未应用草稿不得静默保存。
+
 ## 范围与非目标
 
 本 owner 覆盖保存视图对象的身份、作用域、快照、应用、覆盖、删除、共享、取消共享、设为默认、恢复默认、复制视图、收藏视图、视图列表、权限收敛、结果回执、审计绑定和移动端承载。

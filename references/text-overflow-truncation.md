@@ -2,7 +2,7 @@
 
 适用于文本溢出、文本截断、省略号、截断、折行、换行、自动换行、多行截断、单行截断、查看全文、展开全文、收起全文、复制全文、长文本、长标题、长字段、长状态、长错误、长按钮文案、代码换行、JSON 展示、URL 换行、文件名截断、路径截断、text overflow、text truncation、ellipsis、truncate、line clamp、line-clamp、wrap text、word break、show more、read more、full text、long text、long title、long label、long error 和 copy full text。
 
-本文件是文本溢出、截断、省略号与全文恢复路径的 owner。它负责内容身份、展示策略、截断策略、全文访问、复制全文、Tooltip/Popover 边界、换行测量、权限安全、断点转换和生命周期清理。详情字段和值语义读取 `references/information-display.md`；字段 label、帮助文本、placeholder 和错误说明读取 `references/field-guidance-help-text.md`；Tooltip、Popover、Dropdown 和移动端浮层触发/定位/关闭读取 `references/overlays-menus-tooltips.md`；表格单元格和列宽读取 `references/data-tables.md`；卡片标题、字段区和操作区读取 `references/card-list-results.md`；按钮语义与操作层级读取 `references/buttons.md`；错误、空态和恢复反馈读取 `references/feedback-states.md`；移动端、缩放、字体放大和安全区域读取 `references/responsive-adaptive.md`。
+本文件是文本溢出、截断、省略号与全文恢复路径的 owner。它负责内容身份、展示策略、截断策略、全文访问、复制全文、Tooltip/Popover 边界、换行测量、权限安全、断点转换和生命周期清理。详情字段和值语义读取 `references/information-display.md`；字段 label、帮助文本、placeholder 和错误说明读取 `references/field-guidance-help-text.md`；Tooltip、Popover、Dropdown 和移动端浮层触发/定位/关闭读取 `references/overlays-menus-tooltips.md`；表格单元格和列宽读取 `references/data-tables.md`；表格列宽、列显隐、固定列、密度、横向滚动、列标题截断和单元格截断必须同时执行 `references/table-column-layout-density.md`，文本溢出 owner 负责截断和全文恢复，列布局 owner 负责 `tableColumnLayoutState`、widthPolicy、pinningPolicy、densityPolicy、列宽边界和固定列遮挡防护；卡片标题、字段区和操作区读取 `references/card-list-results.md`；按钮语义与操作层级读取 `references/buttons.md`；错误、空态和恢复反馈读取 `references/feedback-states.md`；移动端、缩放、字体放大和安全区域读取 `references/responsive-adaptive.md`。
 
 文本截断不是内容删除，也不是 hover tooltip 的同义词。截断只是一种空间受限时的展示策略；只要内容仍影响用户判断、操作、审计或恢复，就必须提供可发现、可访问、可复制或可展开的完整内容路径。
 

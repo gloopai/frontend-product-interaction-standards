@@ -77,6 +77,7 @@ frontend-product-interaction-standards/
     ├── selects-comboboxes.md
     ├── status-lifecycle-transitions.md
     ├── trash-restore-retention.md
+    ├── table-column-layout-density.md
     ├── tree-hierarchy.md
     ├── user-attachment-submission.md
     ├── webhooks-integrations-callbacks.md
@@ -290,6 +291,14 @@ frontend-product-interaction-standards/
 
 - 已定义展示、单行操作与批量操作档位下的查询、列、筛选、排序、页码/游标分页、选择、部分成功、响应式、无障碍与生命周期规则。
 - 详细规则和可执行验收仅维护在 [数据表格交互规范](references/data-tables.md)，本交接不重复其状态模型或检查项。
+
+### 表格列设置、列布局与密度
+
+- 已定义 `tableColumnLayoutState`，覆盖列设置、列显示、列隐藏、列顺序、列宽调整、固定列、冻结列、列分组、列密度、紧凑模式、舒适模式、重置列、恢复默认列、保存列布局和列配置抽屉。
+- 表格列配置不是“把列数组存到 localStorage”；必须分离 `draftLayout`、`appliedLayout` 和 `persistedLayout`。
+- 用户隐藏列、权限隐藏列和必显列不是同一件事；无权限列不得出现在列设置、列数量、已隐藏列表、保存视图、导出字段、ARIA、Tooltip、旧布局、URL 或缓存。
+- 列顺序、宽度、固定和权限必须基于稳定列 ID；紧凑模式不得删除状态、错误、单位、禁用原因、行操作、选择摘要或恢复入口。
+- 详细规则和可执行验收仅维护在 [表格列设置、列布局与密度交互规范](references/table-column-layout-density.md)，本交接不重复其状态模型或检查项。
 
 ### 批量操作与批处理动作
 
