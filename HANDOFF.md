@@ -144,6 +144,16 @@ frontend-product-interaction-standards/
 - 移动端不得删除已选摘要、搜索、候选列表、创建入口、粘贴解析、重复/无效项说明、删除 token、清空、应用/取消、字段错误、权限原因、重试、恢复和离开保护。
 - 详细规则和可执行验收仅维护在 `references/multi-select-tag-inputs.md`，本交接不重复其状态模型或检查项。
 
+### 对象、资源与成员选择器
+
+- 已定义对象选择器、资源选择器、成员/用户选择器、负责人、处理人、审核人、审批人、角色主体、账号、项目、工作区、关联对象和关联资源选择器的首版 owner。
+- `entityResourcePickerState` 必须声明 `pickerOwnerId`、`pickerSurface`、`entityKind`、`selectionMode`、`committedSelection`、`draftSelection`、`queryState`、`candidateResults`、`recentAndSuggested`、`identityResolution`、`availabilityMap`、`permissionBoundary`、`scopeBinding`、`bindingPolicy`、`validationBinding`、`requestIdentity`、`feedbackBinding`、`responsivePolicy`、`focusAnnouncementPolicy`、`lifecycleDisposal` 和 `runtimeVerification`。
+- 对象选择器不是普通 Select；display label、头像、邮箱、路径、tooltip 和 aria-label 不是对象身份。提交和请求必须绑定稳定 ID、实体类型、作用域、版本和权限快照。
+- 已提交选择、选择草稿、搜索 query、active option、候选结果、最近/收藏/推荐和展示快照必须分层；旧搜索结果、旧最近项、旧推荐项、旧缓存、旧 tooltip 和旧 aria-label 不得继续泄露或提交。
+- 跨租户、跨工作区、跨账号、跨项目或跨权限边界选择必须证明可见且可绑定；已失效、已删除、无权限、不可绑定、重复、只读和未知对象不能合并。
+- 移动端不得删除搜索、候选、已选摘要、删除、清空、应用、取消、错误说明、权限原因、不可绑定原因、加载失败、重试和焦点返回。
+- 详细规则和可执行验收仅维护在 [对象、资源与成员选择器交互规范](references/entity-resource-pickers.md)，本交接不重复其状态模型或检查项。
+
 ### 关键词搜索输入
 
 - 已定义关键词搜索、搜索输入、搜索框、文本搜索、列表搜索、表格搜索、报表搜索、局部搜索、页面内搜索、筛选搜索、即时搜索、防抖搜索、搜索清空、搜索重置、IME 搜索、搜索建议、搜索历史、最近关键词和搜索 URL 的首版 owner。

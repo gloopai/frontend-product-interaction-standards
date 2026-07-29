@@ -6,6 +6,8 @@
 
 树形选择、级联选择、父子字段和层级条件作为上游或下游字段参与字段联动时，必须同时执行 `references/conditional-fields-dependent-inputs.md`。树形 owner 负责节点身份、展开、选择、半选和懒加载；条件字段 owner 负责 `fieldDependencyState`、upstreamSnapshot、downstreamPolicy、candidatePolicy 和隐藏/失效后的提交策略。
 
+树形资源选择、组织成员选择、部门成员选择、项目/工作区层级选择、父级对象选择、关联资源选择和 Tree Select / Cascader 承载业务对象绑定时，必须同时执行 `references/entity-resource-pickers.md`，并声明 `entityResourcePickerState`。树形 owner 负责节点展开、层级、半选、懒加载和路径；对象资源 owner 负责候选实体身份、scope、可绑定性、权限无泄露、最近/推荐和提交边界。
+
 普通内容折叠、设置分组折叠和错误详情折叠执行 `references/disclosure-accordions.md`；不得用 Accordion 伪装可选择 Tree、Tree Select、Cascader、懒加载树节点或半选层级关系。
 
 ## 范围与边界

@@ -6,6 +6,8 @@
 
 关键词搜索输入作为表单字段时必须执行 `references/keyword-search-inputs.md`；表单只接收已提交的 `committedKeyword`，不得把 `inputDraft`、`normalizedDraft` 或 `compositionState` 当作字段业务值、dirty 或 submit payload。
 
+对象、资源、成员、用户、负责人、审批人、角色主体、账号、项目、工作区、关联对象和关联资源选择字段必须同时执行 `references/entity-resource-pickers.md`，并声明 `entityResourcePickerState`；表单只接收目标 owner 确认后的 `committedSelection`，不得把 display label、搜索 query、active option、最近项或候选缓存当作字段业务值、dirty 或 submit payload。
+
 字段 label、字段标题、必填/选填、条件必填、placeholder、字段说明、帮助文本、单位、格式示例、来源说明、权限原因、只读原因和禁用原因必须同时执行 `references/field-guidance-help-text.md`；本文件继续负责字段值、dirty、校验、错误 owner 和提交生命周期，`field-guidance-help-text.md` 负责说明信息、可访问描述、移动端等价路径和旧说明引用清理。
 
 数字输入、金额输入、百分比、比例、费率、数量、排序序号、权重、阈值、配额、额度、余额、预算、时长、容量和单价必须同时执行 `references/numeric-amount-inputs.md`；Forms owner 只接收数字 owner 提交的 `committedValue`，数字 owner 负责 `numericInputState`、draftText、parsedValue、unitBinding、precisionPolicy、rangePolicy、submitSnapshotPolicy 和输入法/粘贴/移动端键盘边界。

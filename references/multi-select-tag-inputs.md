@@ -13,6 +13,7 @@
 - 多值筛选、标签筛选、成员筛选和批量粘贴筛选值同时执行 `references/query-filters.md`；本文件负责字段内部多值输入，筛选 owner 负责 `filterDraft`、`appliedFilters`、URL、重置和应用边界。
 - 多选、标签、成员、角色、token 或批量粘贴作为条件字段上游/下游时必须同时执行 `references/conditional-fields-dependent-inputs.md`；本文件负责多值输入内部 committedValues、draftTokens、query 和候选，条件字段 owner 负责 `fieldDependencyState`、upstreamSnapshot、downstreamPolicy、candidatePolicy 和隐藏/失效后的提交策略。
 - 成员、角色、邀请和访问管理业务动作同时执行 `references/members-invitations-access.md`；本文件只约束成员候选如何被选择、创建、粘贴、删除和提交到草稿。
+- 对象、资源、成员、用户、负责人、审批人、角色主体、账号、项目、工作区、关联对象和关联资源的多值候选必须同时执行 `references/entity-resource-pickers.md`，并声明 `entityResourcePickerState`；本文件负责多值 token/chip、粘贴、创建和提交节奏，对象资源 owner 负责稳定身份、作用域、权限、可绑定性、最近/收藏/推荐和旧候选无泄露。
 - 权限可见性、无权限入口、旧权限缓存和租户/工作区切换同时执行 `references/permissions-tenancy-visibility.md`。
 - 移动端承载、断点、虚拟键盘、安全区域、触摸目标和底部抽屉转换同时执行 `references/responsive-adaptive.md`。
 - 字段 label、必填、错误摘要、dirty/touched、提交和未保存离开继续执行 `references/forms.md`；本 owner 的 committedValues 只是交给表单或筛选 owner 的合法业务候选。
