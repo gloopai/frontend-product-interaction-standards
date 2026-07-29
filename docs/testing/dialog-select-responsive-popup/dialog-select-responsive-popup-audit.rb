@@ -16,7 +16,9 @@ DIALOG_TERMS = [
   "锚点滚出当前内容视窗、Dialog 关闭、路由卸载或更上层模态打开时，该 popup 必须关闭或转换为合法承载形态",
   "确认按钮不得被 Select popup、键盘、Toast 或系统安全区域遮挡",
   "底部 Drawer / Bottom Sheet",
-  "左右边距、顶部圆角或底部安全区域",
+  "左右边距、右边距、顶部圆角或底部安全区域",
+  "左右边距或右边距只是视觉外框",
+  "截图型问题表现为 Dialog 内 Select options 向下展开后与固定页脚或确认按钮贴边、压盖、被截断",
   "遮罩点击不关闭、拖拽不关闭",
   "未验证"
 ].freeze
@@ -28,6 +30,10 @@ SELECT_TERMS = [
   "不得用一次性 `z-index` 覆盖截图问题",
   "必须同步移除 popup DOM、定位任务和 `aria-controls` / `aria-activedescendant` 引用",
   "默认不得继续使用非模态 popup",
+  "Select Drawer 是字段选项层，不是外层任务承载层的替代提交",
+  "不得因为 Select Drawer 打开而隐藏外层任务的关闭路径、提前提交外层表单、重置外层错误、释放外层滚动锁，或让外层确认按钮在视觉上被当作当前 Select 的提交按钮",
+  "不得只在原 Dialog 内部铺开 options",
+  "不得让 options 与外层固定页脚共享滚动容器",
   "不得要求 Dialog 外框滚动",
   "移动端、窄屏、低高度、虚拟键盘明显影响布局",
   "`auto` 应优先解析为 `drawer`",
@@ -43,6 +49,10 @@ RESPONSIVE_TERMS = [
   "任务承载层可从 Dialog 转为 Bottom Sheet，字段选项层可从 popup 转为 Select Drawer",
   "两者不得各自创建互相竞争的遮罩、滚动锁或焦点陷阱",
   "若 Bottom Sheet 内继续使用非模态 Select popup 会遮挡确认按钮或被虚拟键盘挤压，必须优先转 Select Drawer",
+  "Bottom Sheet 保留右边距、左右边距、顶部圆角或底部安全区域时",
+  "字段选项层的 Select Drawer 不能复用外层底部确认按钮作为选择提交",
+  "不能把 options 直接铺在外层 Dialog 内容滚动区中",
+  "外层任务承载层的确认、取消、关闭、错误、脏状态和底部操作不被覆盖、不被复用、不被重置",
   "不得改变已提交值、提交草稿、重置搜索、重复请求、重复遮罩、重复焦点陷阱、重复滚动锁或重复动画"
 ].freeze
 
@@ -58,9 +68,12 @@ EVIDENCE_TERMS = [
   "锚点",
   "确认按钮",
   "虚拟键盘",
+  "右边距",
   "左右边距",
   "圆角",
   "Drawer 语义",
+  "字段选项层",
+  "外层确认按钮",
   "selectedValue",
   "query",
   "activeOption",
@@ -154,6 +167,32 @@ if ARGV.include?("--mutations")
   expect_failure("drawer-semantics-despite-visual-shape") do
     audit(dialogs: dialogs, selects: selects,
           responsive: responsive.gsub("这些视觉差异不改变它的模态 Drawer 语义", ""),
+          green: green, red: red)
+  end
+
+  expect_failure("right-margin-visual-frame-not-semantics") do
+    audit(dialogs: dialogs.gsub("左右边距或右边距只是视觉外框", ""),
+          selects: selects,
+          responsive: responsive.gsub("Bottom Sheet 保留右边距、左右边距、顶部圆角或底部安全区域时", ""),
+          green: green, red: red)
+  end
+
+  expect_failure("screenshot-shaped-footer-clipping") do
+    audit(dialogs: dialogs.gsub("截图型问题表现为 Dialog 内 Select options 向下展开后与固定页脚或确认按钮贴边、压盖、被截断", ""),
+          selects: selects, responsive: responsive, green: green, red: red)
+  end
+
+  expect_failure("select-drawer-field-option-layer") do
+    audit(dialogs: dialogs,
+          selects: selects.gsub("Select Drawer 是字段选项层，不是外层任务承载层的替代提交", ""),
+          responsive: responsive.gsub("字段选项层的 Select Drawer 不能复用外层底部确认按钮作为选择提交", ""),
+          green: green, red: red)
+  end
+
+  expect_failure("do-not-spread-options-inside-dialog") do
+    audit(dialogs: dialogs,
+          selects: selects.gsub("不得只在原 Dialog 内部铺开 options", ""),
+          responsive: responsive.gsub("不能把 options 直接铺在外层 Dialog 内容滚动区中", ""),
           green: green, red: red)
   end
 

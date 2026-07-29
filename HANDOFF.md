@@ -25,6 +25,7 @@ frontend-product-interaction-standards/
 │       └── 2026-07-25-existing-standards-hardening.md
 └── references/
     ├── admin-console.md
+    ├── audit-log-activity-history.md
     ├── async-jobs-task-center.md
     ├── buttons.md
     ├── charts-visualization.md
@@ -129,6 +130,18 @@ frontend-product-interaction-standards/
 - 无权限状态不得泄露对象名称、数量、字段、文件名、路径、父子关系、导出范围、错误明细、任务结果、搜索摘要、内部 ID、图标、排序位置、旧缓存或旧可访问名称。
 - 移动端不得删除权限说明、只读原因、禁用原因、申请权限、切换租户/工作区、安全占位、重新认证或恢复路径。
 - 详细规则和可执行验收仅维护在 [权限、租户与可见性交互规范](references/permissions-tenancy-visibility.md)，本交接不重复其状态模型或检查项。
+
+### 审计日志与操作历史
+
+- 已定义 audit log、activity log、operation history、event log、change history、timeline、审计日志、操作历史、活动记录、事件日志、变更记录、时间线和追溯链路的首版 owner。
+- 覆盖证据身份、主体/目标/动作快照、时间语义、完整性状态、权限无泄露、审计导出复核和移动端追溯。
+- 审计记录不是普通列表行，也不是 Toast 成功文案；缺少证据身份的操作历史只能作为普通活动提示，不能写成审计日志。
+- 审计日志必须区分事件发生时间、审计写入时间、展示时区、存储时区、筛选范围、数据延迟和刷新时间。
+- 无权限审计不得泄露主体名称、目标名称、字段名、旧值、新值、数量、文件名、IP、设备、地理位置、错误明细、内部 ID、请求参数、导出范围、任务结果或旧缓存。
+- 审计缺口、延迟、重复、顺序未决、来源不可用和修正记录必须明确说明，不能伪装成完整日志。
+- 审计导出、复制、跳转、查看详情、查看关联任务、查看风险回执和追溯链路必须复核权限、租户/工作区、筛选快照、时间范围、敏感字段和请求身份。
+- 移动端不得删除筛选、时间范围、时区说明、数据延迟、审计详情、追溯路径、导出权限说明、无权限说明或恢复路径。
+- 详细规则和可执行验收仅维护在 [审计日志与操作历史交互规范](references/audit-log-activity-history.md)，本交接不重复其状态模型或检查项。
 
 ### 表单
 

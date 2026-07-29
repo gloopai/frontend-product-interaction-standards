@@ -97,6 +97,10 @@ Dialog、Drawer 或其他模态容器内的 PC Select popup 不得被容器内�
 
 当 Select 位于移动端 Bottom Sheet Dialog 内时，若弹出 options 会挤压、遮挡或覆盖底部确认区，默认不得继续使用非模态 popup；应把该 Select 自身转换为 Select Drawer，或由产品明确把整个任务升级为全屏 Drawer/独立页。转换过程中，外层 Dialog/Sheet 的提交按钮、取消/关闭路径、错误状态和脏状态保持，不得因为打开 Select 而改变表单提交边界。
 
+Dialog 或 Bottom Sheet 内的 Select Drawer 是字段选项层，不是外层任务承载层的替代提交。打开 Select Drawer 时，当前最上层交互切换到字段选项层；关闭 Select Drawer 后焦点返回原 Select trigger，外层 Dialog/Bottom Sheet 的确认、取消、关闭、脏状态、错误摘要和底部操作继续存在并保持原状态。不得因为 Select Drawer 打开而隐藏外层任务的关闭路径、提前提交外层表单、重置外层错误、释放外层滚动锁，或让外层确认按钮在视觉上被当作当前 Select 的提交按钮。
+
+若移动端视觉方案要求 Bottom Sheet 保留右边距、左右边距或顶部圆角，Select Drawer 仍必须独立满足 Drawer 语义和 Select 会话语义。它可以采用符合设计系统的下方弹出样式，但不得只在原 Dialog 内部铺开 options；不得让 options 与外层固定页脚共享滚动容器；不得以缩小字号、压缩行高或覆盖确认按钮来避免转换。
+
 大量结果可虚拟化，但 active 引用的 option 必须实际在 DOM 并滚入可视区；播报结果数量/位置。远程分页不得重复 options、丢失提交值或意外移动 active。
 
 ## 验收与报告
@@ -114,6 +118,7 @@ Dialog、Drawer 或其他模态容器内的 PC Select popup 不得被容器内�
 7. 在 query 请求、重试/防抖和结果/选择回调待处理时触发路由变化及拥有组件卸载；确认这些工作全部取消或失效，旧回调不能改变新实例或触发值变化，Select 自己的 popup/Listbox/option 与 ARIA 引用全部拆除，只释放自己持有的基础设施，且焦点不返回将被移除的旧 trigger。
 8. 在 Dialog 内打开 Select popup，确认 popup 未被 Dialog 内容区、外框、固定页脚、局部容器、`overflow` 或 `transform` 裁切；PC 空间不足时向上翻转、限高且仅 options 区滚动；移动端或虚拟键盘场景转换为 Select Drawer 后，`selectedValue`、`query`、`activeOption`、loading、error 和请求身份保持，且没有重复遮罩、焦点陷阱、滚动锁、请求或动画。
 9. 在 Dialog 内容滚动、固定页脚遮挡、锚点移除、窗口缩放、字体放大、虚拟键盘出现和更上层模态打开时检查 popup 定位与层级：必须重算或安全关闭，不能穿透更上层模态，不能留下悬空 popup，ARIA 引用不能指向已卸载节点。
+10. 在移动端 Bottom Sheet 内打开 Select，验证 Select Drawer 是字段选项层：外层 Dialog/Bottom Sheet 的确认、取消、关闭、脏状态、错误摘要、底部操作和滚动锁保持；Select Drawer 关闭后焦点只返回原 Select trigger，不提交外层表单、不重置外层错误、不把外层确认按钮当作 Select 提交按钮。
 
 未实际检查必须报告为**未验证**并写明所需检查。
 
