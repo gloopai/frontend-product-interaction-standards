@@ -10,6 +10,8 @@
 
 表格、分页、排序、结果、选择和批量操作读取 `data-tables.md`；筛选字段的 label、校验、错误和字段状态读取 `forms.md`；自绘 Select / Combobox 的 `query`、active option、popup 状态和已提交值读取 `selects-comboboxes.md`；应用、重置、清空、移除、打开更多筛选和移动端筛选按钮读取 `buttons.md`；高级筛选 Dialog 或筛选 Drawer 读取 `dialogs.md` / `drawers.md`；管理台权限、租户/工作区、导出、审计和批量范围读取 `admin-console.md`；断点、触摸、虚拟键盘和安全区域读取 `responsive-adaptive.md`。当本文件与组件 owner 都适用时，两者都执行；冲突时停止并请用户裁决。
 
+多值筛选、标签筛选、可创建标签筛选、收件人/成员筛选和批量粘贴筛选值必须同时执行 `references/multi-select-tag-inputs.md`；本文件继续负责筛选草稿、已应用条件、URL 安全、重置和应用边界。
+
 Query Filter owner 不重新定义字段内部交互、表格请求结果、排序分页、Dialog/Drawer 关闭或管理台审计。它只负责把用户编辑的条件变成明确、可解释、可复现且安全的 `queryIntent`。
 
 ## 场景与状态模型

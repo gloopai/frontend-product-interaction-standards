@@ -4,6 +4,8 @@
 
 本规范不定义后端组织架构、账号体系、身份提供商、目录同步、SCIM、SSO provider、邮件发送服务、权限 DSL、品牌视觉 token、图标、颜色、角色名称或业务项目具体权限矩阵。权限解析读取 `permissions-tenancy-visibility.md`；重新认证读取 `auth-session-reauth.md`；风险确认读取 `risk-actions.md`；审计证据读取 `audit-log-activity-history.md`；成员列表、行操作和批量操作读取 `data-tables.md`；全局反馈读取 `global-feedback.md`；状态承载读取 `feedback-states.md`。
 
+成员多选、用户多选、角色多选、收件人 chips 和批量粘贴成员候选必须同时执行 `references/multi-select-tag-inputs.md`；本文件继续负责邀请、角色变更、成员生命周期和访问管理业务动作。
+
 ## 范围
 
 - 成员列表、团队成员、工作区成员、组织成员、外部成员、访客、管理员、Owner 和账号管理。

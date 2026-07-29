@@ -2,6 +2,8 @@
 
 适用于自绘、单选且业务值必须来自已有选项的 Select。本文件是搜索位置、状态、提交、键盘、ARIA、PC 弹层、Drawer 与验收的唯一事实来源。多选、标签输入、自由文本创建、树/级联/日期选择，以及含独立交互控件的复杂 option 不在范围内。
 
+多选 Select、标签输入、Tokenized Input、可创建选项、收件人 chips、批量粘贴和多值远程检索必须执行 `references/multi-select-tag-inputs.md`；本文件继续只负责单选且业务值必须来自已有选项的 Select / Combobox。
+
 响应式转换同时执行 [响应式与自适应交互规范](responsive-adaptive.md)；最终形态为 Drawer 时同时执行 [Drawer 交互规范](drawers.md)。兼容规则全部执行。
 
 ## 状态、不变量与会话

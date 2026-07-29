@@ -4,6 +4,8 @@
 
 表格行选择、表头全选、全部筛选结果选择和批量范围继续执行 [数据表格交互规范](data-tables.md)。字段提交、dirty/touched、错误摘要和未保存离开继续执行 [表单状态、校验与错误交互规范](forms.md)。选项很多、需要搜索、需要异步检索或自绘 listbox 的选择入口继续执行 [可搜索单选 Select / Combobox 交互规范](selects-comboboxes.md)。危险启停、权限变更、敏感导出、任务取消/重跑、密钥、外部系统影响和不可逆状态必须进入 [危险操作与恢复交互规范](risk-actions.md)。
 
+多选 Select、标签输入、Tokenized Input、可创建选项、收件人 chips、批量粘贴和多值远程检索必须执行 `references/multi-select-tag-inputs.md`；本文件继续负责少量固定 Checkbox Group、Radio Group、Toggle Group 和 Segmented Control。
+
 ## 范围与边界
 
 本 owner 覆盖：
