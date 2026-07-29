@@ -4,6 +4,8 @@
 
 App Shell 用户菜单、账号菜单、工作区/租户切换菜单、全局导航更多菜单、帮助菜单和移动端菜单 Drawer 必须同时执行 `references/app-shell-navigation.md`；本文件负责浮层触发、定位、键盘、关闭和 Portal 清理，`app-shell-navigation.md` 负责外框 owner、全局入口、上下文切换、当前项和权限收敛。
 
+字段说明、帮助文本、辅助说明、placeholder、字段 label、必填/选填、单位、格式示例、空值说明、权限原因、只读原因和禁用原因使用 Tooltip、Popover、Disclosure、Action Sheet 或 Drawer 承载时，必须同时执行 `references/field-guidance-help-text.md`；本文件负责浮层触发、定位、关闭和清理，`field-guidance-help-text.md` 负责说明是否可作为关键内容、移动端等价路径和 ARIA 描述关系。
+
 ## 范围
 
 适用于 Tooltip、Popover、Dropdown、Dropdown Menu、Menu、Context Menu、更多菜单、操作菜单、悬浮说明、Hover 帮助、非模态浮层、Action Sheet 和移动端菜单 Drawer。本文件是非模态浮层、菜单和提示的触发、承载、定位、焦点、关闭、权限、移动端转换和清理规则的唯一事实来源。

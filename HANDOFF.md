@@ -42,6 +42,7 @@ frontend-product-interaction-standards/
     ├── drawers.md
     ├── exports-downloads-artifacts.md
     ├── feedback-states.md
+    ├── field-guidance-help-text.md
     ├── files-media-assets.md
     ├── forms.md
     ├── global-feedback.md
@@ -229,6 +230,14 @@ frontend-product-interaction-standards/
 
 - 已定义字段与表单的状态、校验时机、提交快照、错误归属、失败恢复、未保存更改确认及可访问错误反馈。
 - 详细规则和可执行验收仅维护在 [表单状态、校验与错误交互规范](references/forms.md)，本交接不重复其状态模型或检查项。
+
+### 字段说明、帮助文本与占位提示
+
+- 已定义字段 label、字段标题、必填、选填、条件必填、placeholder、帮助文本、辅助说明、单位、格式示例、来源说明、空值说明、权限原因、只读原因、禁用原因和 Tooltip 帮助的首版 owner。
+- `fieldGuidanceState` 必须声明 `guidanceOwnerId`、`guidanceSurface`、`fieldIdentity`、`labelPolicy`、`requirementPolicy`、`descriptionPolicy`、`placeholderPolicy`、`helpDisclosurePolicy`、`unitAndFormatPolicy`、`emptyValuePolicy`、`permissionReasonPolicy`、`errorRelationship`、`responsivePolicy`、`lifecycleDisposal` 和 `runtimeVerification`。
+- 字段说明不是 Tooltip，也不是 placeholder；placeholder 不能替代 label、默认值、帮助说明、错误说明或空值状态。
+- Hover-only 帮助在移动端、触摸、键盘和读屏下必须有等价路径；错误文本不得覆盖帮助文本的唯一含义。
+- 详细规则和可执行验收仅维护在 [字段说明、帮助文本与占位提示交互规范](references/field-guidance-help-text.md)，本交接不重复其状态模型或检查项。
 
 ### 页面级表单操作栏与保存区
 

@@ -11,6 +11,8 @@
 
 移动端 App Shell、应用外框、管理台外框、全局导航、侧边导航、顶部导航、用户菜单、工作区/租户切换、全局搜索入口、通知入口和移动端导航 Drawer 必须同时执行 `references/app-shell-navigation.md`；本文件负责断点、触控、安全区域和形态转换，`app-shell-navigation.md` 负责外框级 owner、当前位置、全局入口和上下文切换不丢失。
 
+移动端字段说明、帮助文本、placeholder、字段 label、必填/选填、单位、格式示例、空值说明、权限原因、只读原因和禁用原因必须同时执行 `references/field-guidance-help-text.md`；本文件负责断点、触摸、虚拟键盘、安全区域和布局可达性，`field-guidance-help-text.md` 负责说明语义、hover-only 替代路径和旧描述引用清理。
+
 移动端关键词搜索输入、搜索框、筛选搜索、防抖搜索和 IME 搜索必须同时执行 `references/keyword-search-inputs.md`；虚拟键盘、safe-area、动态 viewport、缩放和断点转换不得删除或遮挡输入、清空、提交、取消/返回、错误说明、权限原因、loading、结果摘要和恢复路径。
 
 移动端列表结果、分页、页大小、排序、刷新、自动刷新、结果摘要、过期数据和错误恢复必须同时执行 `references/list-result-controls.md`；断点、底部分页、固定工具栏、虚拟键盘和 safe-area 不得删除或完全遮挡排序、分页、刷新、结果摘要、错误说明、权限原因、过期说明和恢复路径。

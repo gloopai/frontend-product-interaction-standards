@@ -6,6 +6,8 @@
 
 关键词搜索输入作为表单字段时必须执行 `references/keyword-search-inputs.md`；表单只接收已提交的 `committedKeyword`，不得把 `inputDraft`、`normalizedDraft` 或 `compositionState` 当作字段业务值、dirty 或 submit payload。
 
+字段 label、字段标题、必填/选填、条件必填、placeholder、字段说明、帮助文本、单位、格式示例、来源说明、权限原因、只读原因和禁用原因必须同时执行 `references/field-guidance-help-text.md`；本文件继续负责字段值、dirty、校验、错误 owner 和提交生命周期，`field-guidance-help-text.md` 负责说明信息、可访问描述、移动端等价路径和旧说明引用清理。
+
 TabPanel 内表单的 dirty、提交、错误摘要和字段焦点仍归本文件；页面内 Tabs 执行 `references/tab-view-navigation.md`，tab owner 只能读取 `dirtyBoundary`，不得把激活 tab 当作提交表单、保存视图或清空表单草稿。
 
 表单分组、可折叠字段区、隐藏高级设置和错误详情折叠必须同时执行 `references/disclosure-accordions.md`；折叠 owner 负责外显收起内容中的字段错误、必填缺失和恢复入口，Forms owner 继续负责 dirty、submit、字段错误和错误摘要。
