@@ -23,6 +23,8 @@
 
 移动端人工排序、拖拽排序、重排、上移/下移、置顶/置底、保存顺序和顺序冲突必须同时执行 `references/ordering-reordering.md`；本文件负责触摸、低高度、虚拟键盘、200% 缩放和安全区域，`ordering-reordering.md` 负责排序范围、草稿顺序、拖拽替代、冲突和保存回执。
 
+移动端长文本、文本溢出、文本截断、省略号、line clamp、查看全文、展开全文、复制全文、长标题、长状态、长错误、长按钮文案、代码、JSON、URL、文件名和路径必须同时执行 `references/text-overflow-truncation.md`；本文件负责断点、触摸、低高度、虚拟键盘、200% 缩放和安全区域，`text-overflow-truncation.md` 负责全文恢复、hover-only 禁止、复制权限和旧全文清理。
+
 移动端 Tabs、标签页、页面内视图切换、横向滚动标签、Segmented Control 承载、Select 承载、Action Sheet 承载或 Drawer 承载必须同时执行 `references/tab-view-navigation.md`；断点转换不得改变 `activeTabId`、URL、权限、dirty 语义、panelState、未保存保护或焦点返回。
 
 移动端 Accordion、Collapse、Disclosure、折叠面板、展开收起和嵌套折叠必须同时执行 `references/disclosure-accordions.md`；断点转换不得删除标题、当前展开状态、错误摘要、权限原因、恢复入口、核心操作、未保存保护或焦点返回。

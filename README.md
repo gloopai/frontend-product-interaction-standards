@@ -28,6 +28,7 @@
 - 复杂编辑器和构建器规范约束 editorBuilderState、草稿/预览/保存/发布分层、完整结构校验、错误定位、预览可信边界、版本冲突、权限清理、自动保存、AI 生成、导入导出和移动端触摸承载，避免草稿污染正式配置、预览即保存、只校验可见区域、Toast-only 回执和权限幽灵入口。
 - 数据表格以显式能力档位覆盖展示、单行与批量场景，并约束筛选、排序、页码/游标分页、列与固定列、选择、批量操作和部分成功的交互。
 - 排序与重排规范：见 `references/ordering-reordering.md`。约束 orderingReorderingState、人工排序范围、草稿顺序、提交快照、拖拽替代、分页/筛选/权限冲突、列表内排序输入禁止、移动端可达和运行时未验证边界。
+- 文本溢出与截断规范：见 `references/text-overflow-truncation.md`。约束 textOverflowState、省略号/line clamp/fullTextAccessPolicy、hover-only 禁止、长 ID/代码/JSON/URL/文件名/路径恢复路径、权限无泄露、移动端查看全文和运行时未验证边界。
 - 查询条件与筛选规范约束草稿/已应用分离、应用模式、默认值、重置/清空、已应用摘要、URL 安全同步、权限收敛和移动端筛选可达性。
 - 关键词搜索输入规范：见 `references/keyword-search-inputs.md`。约束 keywordSearchInputState、输入草稿/normalizedDraft/已提交关键词分离、IME composition Enter 边界、防抖提交、最小长度、迟到请求、清空草稿/清空已提交关键词/重置默认关键词/取消输入意图区分、URL/历史敏感边界、单 owner 播报和移动端虚拟键盘承载。
 - 列表结果控制规范：见 `references/list-result-controls.md`。约束 listResultControlsState、分页、页大小、排序、刷新、自动刷新、结果摘要、请求快照、迟到响应、总数可信度、URL 恢复、权限和移动端承载。
@@ -161,6 +162,7 @@ frontend-product-interaction-standards/
     ├── navigation-routing.md
     ├── notifications-message-center-announcements.md
     ├── ordering-reordering.md
+    ├── text-overflow-truncation.md
     ├── overview-dashboard-pages.md
     ├── page-content-layout-sections.md
     ├── page-header-title-area.md

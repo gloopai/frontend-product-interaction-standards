@@ -50,6 +50,7 @@ frontend-product-interaction-standards/
     ├── page-form-action-bars.md
     ├── notifications-message-center-announcements.md
     ├── ordering-reordering.md
+    ├── text-overflow-truncation.md
     ├── overview-dashboard-pages.md
     ├── page-content-layout-sections.md
     ├── page-header-title-area.md
@@ -522,6 +523,14 @@ frontend-product-interaction-standards/
 - 排序与重排不是列表内编辑，也不是查询排序；列表、表格或卡片中不得常驻排序输入、每行保存按钮或 spreadsheet-like 排序矩阵。
 - 拖拽不能是唯一排序方式；当前页局部重排不得伪装成全部结果、全部分组或全局顺序已更新。
 - 详细规则和可执行验收仅维护在 [排序与重排交互规范](references/ordering-reordering.md)，本交接不重复其状态模型或检查项。
+
+### 文本溢出与截断
+
+- 已定义文本溢出、文本截断、省略号、line clamp、查看全文、展开全文、复制全文、长文本、长标题、长状态、长错误、长按钮文案、代码、JSON、URL、文件名和路径展示的首版 owner。
+- `textOverflowState` 必须声明 `textOwnerId`、`textSurface`、`sourceBinding`、`contentIdentity`、`displayPolicy`、`truncationPolicy`、`fullTextAccessPolicy`、`copyPolicy`、`tooltipPopoverBoundary`、`lineWrapPolicy`、`measurementPolicy`、`permissionBoundary`、`responsivePolicy`、`focusAnnouncementPolicy`、`lifecycleDisposal` 和 `runtimeVerification`。
+- 文本截断不是内容删除，也不是 hover tooltip 的同义词；省略号、line clamp、max-width、title 属性或 Tooltip 不得作为查看完整内容的唯一方式。
+- 被截断内容必须声明 `fullTextAccessPolicy`；重要身份、状态、错误、金额、权限原因、主操作文案和恢复路径不得只显示省略号。
+- 详细规则和可执行验收仅维护在 [文本溢出与截断交互规范](references/text-overflow-truncation.md)，本交接不重复其状态模型或检查项。
 
 ### 卡片列表与卡片式结果
 

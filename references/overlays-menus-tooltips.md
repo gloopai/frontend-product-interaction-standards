@@ -6,6 +6,8 @@ App Shell 用户菜单、账号菜单、工作区/租户切换菜单、全局导
 
 字段说明、帮助文本、辅助说明、placeholder、字段 label、必填/选填、单位、格式示例、空值说明、权限原因、只读原因和禁用原因使用 Tooltip、Popover、Disclosure、Action Sheet 或 Drawer 承载时，必须同时执行 `references/field-guidance-help-text.md`；本文件负责浮层触发、定位、关闭和清理，`field-guidance-help-text.md` 负责说明是否可作为关键内容、移动端等价路径和 ARIA 描述关系。
 
+Tooltip 或 Popover 用于辅助展示被截断全文、长标题、长状态、长错误、长字段、代码、JSON、URL、文件名或路径时，必须同时执行 `references/text-overflow-truncation.md`；本文件负责触发、定位、关闭、Portal 和浮层生命周期，`text-overflow-truncation.md` 负责是否允许截断、是否允许 Tooltip 辅助、完整内容恢复、移动端替代和旧全文清理。
+
 ## 范围
 
 适用于 Tooltip、Popover、Dropdown、Dropdown Menu、Menu、Context Menu、更多菜单、操作菜单、悬浮说明、Hover 帮助、非模态浮层、Action Sheet 和移动端菜单 Drawer。本文件是非模态浮层、菜单和提示的触发、承载、定位、焦点、关闭、权限、移动端转换和清理规则的唯一事实来源。

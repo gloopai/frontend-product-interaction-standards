@@ -10,6 +10,8 @@
 
 只读字段 label、详情字段说明、单位、格式示例、来源说明、空值说明、权限原因、只读原因、禁用原因和 Tooltip 帮助必须同时执行 `references/field-guidance-help-text.md`；本文件继续负责展示对象、字段值、展示快照和只读布局，`field-guidance-help-text.md` 负责说明语义、placeholder 禁止替代、帮助可达性和旧描述引用清理。
 
+长文本、长字段、长标题、状态文本、代码、JSON、URL、邮箱、文件名、路径、截断、省略号、查看全文、展开全文和复制全文必须同时执行 `references/text-overflow-truncation.md`；本文件继续负责字段语义、展示快照和值安全，`text-overflow-truncation.md` 负责截断策略、全文恢复、复制全文、移动端等价路径和旧全文清理。
+
 详情页标题、对象标题、页面标题区、状态摘要、标题区权限说明和移动端标题区必须同时执行 `references/page-header-title-area.md`；本文件继续负责字段和值展示，`page-header-title-area.md` 负责页面级标题身份、标题快照、主状态摘要、标题区操作槽和旧标题清理。
 
 详情页主内容区、信息卡、只读字段分组、Section/Card 布局、主滚动、Sticky/fixed 避让和移动端单列必须同时执行 `references/page-content-layout-sections.md`；本文件继续负责字段语义、展示快照和值安全，`page-content-layout-sections.md` 负责页面正文 owner、Section 注册、布局重排和滚动遮挡边界。
