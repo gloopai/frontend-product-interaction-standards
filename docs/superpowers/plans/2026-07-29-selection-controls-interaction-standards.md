@@ -122,7 +122,7 @@ Expected: `rg` 找到对应术语；`git diff --check` 无输出且 exit 0。
 并在完整规则链接列表中加入纯文本计划提示：
 
 ```markdown
-搜索与命令面板交互规范后加入：`[选择控件与开关交互规范](references/selection-controls.md)`
+搜索与命令面板交互规范后加入：选择控件与开关交互规范，路径为 `references/selection-controls.md`
 ```
 
 - [ ] **Step 3: 更新 `HANDOFF.md`**

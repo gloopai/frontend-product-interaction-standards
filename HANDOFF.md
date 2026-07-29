@@ -42,6 +42,7 @@ frontend-product-interaction-standards/
     ├── risk-actions.md
     ├── responsive-adaptive.md
     ├── search-command-palette.md
+    ├── selection-controls.md
     ├── selects-comboboxes.md
     ├── wizards-steppers.md
     └── uploads-imports.md
@@ -86,6 +87,14 @@ frontend-product-interaction-standards/
 - `none` 仅使用 Select-only Combobox，不再允许 button + Listbox 的替代模型。
 - 已定义草稿查询与已提交值、失效值、异步搜索、状态播报、焦点、Tab、Space/Enter、Home/End 和 ARIA 所有权。
 - `resolvedPlacement` 转换保留逻辑 ID；目标焦点和 ARIA 必须在焦点移动前或同一 committed render 更新，来源专属属性随之移除，且转换不提交值或草稿。
+
+### 选择控件与开关
+
+- 已定义 Checkbox、Radio Group、Switch、Toggle、Toggle Group、Segmented Control 和三态 checkbox 的首版 owner。
+- 草稿/提交分离要求下，`draftValue` 与 `committedValue` 必须分离；hover、focus、active、pressed visual、disabled、indeterminate 和 optimistic preview 不得伪装成已提交业务值。
+- 风险转交要求下，危险启停、权限变更、敏感导出、任务取消/重跑、密钥、外部系统影响和不可逆状态必须进入 `risk-actions.md`；确认完成前请求数为 0。
+- 三态 checkbox 的 `indeterminateState` 不能作为可提交业务值；移动端不得删除选项、禁用原因、错误说明、保存/取消、恢复路径或当前已选摘要。
+- 详细规则和可执行验收仅维护在 [选择控件与开关交互规范](references/selection-controls.md)，本交接不重复其状态模型或检查项。
 
 ### 表单
 

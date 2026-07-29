@@ -22,6 +22,7 @@ description: 用于创建、修改、重构、评审或测试前端页面、组�
 - 涉及 Dialog、Modal、弹窗或对话框时，必须完整读取 `references/dialogs.md`。
 - 涉及 Drawer、Sheet、抽屉、侧滑面板或上下滑出面板时，必须完整读取 `references/drawers.md`。
 - 涉及 Select、Combobox、下拉选择、可搜索选择器、Autocomplete、Dropdown Select、Searchable Select、单选选择器，或 select、combobox、dropdown、autocomplete、searchable select、single-select 时，必须完整读取 `references/selects-comboboxes.md`。
+- 涉及 Checkbox、Checkbox Group、Radio、Radio Group、Switch、Toggle、Toggle Group、Segmented Control、三态 checkbox、复选框、复选组、多选、单选组、单选按钮、开关、切换、分段控件、选择控件、布尔设置、偏好开关，或 checkbox、checkbox group、radio、radio group、switch、toggle、toggle group、segmented control、tri-state checkbox、boolean setting、preference toggle 时，必须完整读取 `references/selection-controls.md`。
 - 涉及表单、字段、校验、必填/选填、错误摘要、提交、脏状态/已修改状态、已触碰状态、dirty/touched、未保存更改或错误恢复，或 form、field、validation、required/optional、error summary、submit、dirty/touched、unsaved changes、error recovery 时，必须完整读取 `references/forms.md`。
 - 涉及表格、数据表格、报表、列、固定列、筛选、排序、分页、游标分页、行选择、全选、批量操作或部分成功，或 table、data table、report、column、pinned column、filter、sort、pagination、cursor pagination、row selection、select all、bulk action、partial success 时，必须完整读取 `references/data-tables.md`。
 - 涉及查询条件、筛选、过滤、搜索、关键词搜索、高级筛选、更多筛选、筛选条件、查询条件区、筛选区、重置筛选、清空筛选、已应用条件、筛选标签、URL 筛选，或 query filter、filters、filter bar、search filter、keyword search、advanced filters、filter drawer、applied filters、filter chips、reset filters、clear filters、URL filters 时，必须完整读取 `references/query-filters.md`。
