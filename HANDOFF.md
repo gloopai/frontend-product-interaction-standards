@@ -135,6 +135,18 @@ frontend-product-interaction-standards/
 - 移动端不得删除权限说明、只读原因、禁用原因、申请权限、切换租户/工作区、安全占位、重新认证或恢复路径。
 - 详细规则和可执行验收仅维护在 [权限、租户与可见性交互规范](references/permissions-tenancy-visibility.md)，本交接不重复其状态模型或检查项。
 
+### 会话、认证与重新认证
+
+- 已定义登录、登出、会话过期、登录过期、认证失败、重新认证、二次认证、MFA、SSO/MFA callback、账号切换、身份切换和授权回调的 owner。
+- 认证状态、权限状态、租户/工作区状态、对象状态、表单脏状态、请求状态和敏感动作意图必须分层表达，不能合并成一个普通 loading/error。
+- 登录过期不得直接清空页面并无条件跳登录页；必须冻结或失效不安全请求，保存安全 `returnContext`，清理敏感草稿、旧下载链接、旧任务入口、旧权限菜单和旧确认面板，再提供恢复路径。
+- 重新认证不是普通确认 Dialog；挑战完成前敏感请求发送数为 0，完成后只有当前用户、租户/工作区、权限版本、目标状态和幂等键仍匹配时才可恢复动作。
+- SSO/MFA callback 必须绑定 `state`、`nonce`、`authOwnerId`、`returnContext`、租户/工作区和过期时间；旧、重复、过期、错误租户和已退出 callback 只能进入安全说明或重新开始。
+- 退出登录、账号切换、身份切换和租户/工作区切换后，旧页面数据、菜单、按钮、下载、任务、弹层、消息、焦点和 ARIA 引用原子失效或重算。
+- Toast-only、裸 401/403、provider-code-only、灰色按钮、锁图标和 hover-only 都不能作为认证失败或重新认证恢复的唯一说明。
+- 移动端不得删除重新登录、重新认证、返回安全页、切换租户/工作区、放弃草稿、重试 callback 和查看原因。
+- 详细规则和可执行验收仅维护在 [会话、认证与重新认证交互规范](references/auth-session-reauth.md)，本交接不重复其状态模型或检查项。
+
 ### 审计日志与操作历史
 
 - 已定义 audit log、activity log、operation history、event log、change history、timeline、审计日志、操作历史、活动记录、事件日志、变更记录、时间线和追溯链路的首版 owner。
