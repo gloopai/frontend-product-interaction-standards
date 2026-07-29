@@ -41,6 +41,7 @@ frontend-product-interaction-standards/
     ├── record-editing-surfaces.md
     ├── risk-actions.md
     ├── responsive-adaptive.md
+    ├── search-command-palette.md
     ├── selects-comboboxes.md
     ├── wizards-steppers.md
     └── uploads-imports.md
@@ -102,6 +103,14 @@ frontend-product-interaction-standards/
 - `filterDraft` 与 `appliedFilters` 必须分离；字段内部草稿、Select query 和 active option 不得进入结果、URL 或已应用摘要。
 - 重置恢复 `defaultFilters`，清空只移除可清空条件；敏感条件不得进入 URL；移动端不得删除筛选、应用、重置/清空、已应用摘要或错误恢复能力。
 - 详细规则和可执行验收仅维护在 [查询条件与筛选交互规范](references/query-filters.md)，本交接不重复其状态模型或检查项。
+
+### 搜索与命令面板
+
+- 已定义全局搜索、站内搜索、命令面板、快速跳转、动作搜索、搜索建议、最近/保存搜索、结果分组、命令执行和 AI 搜索边界。
+- 搜索草稿、active result、hover suggestion 和最近搜索高亮不得触发导航、命令执行或请求副作用；只有明确提交搜索或激活结果后才能改变导航或执行命令。
+- 会修改数据、权限、导出、任务、密钥或外部系统的命令必须进入 `risk-actions.md`；权限无泄露要求下，无权限结果不得泄露对象名称、数量、字段、摘要片段、文件名、内部 ID 或旧缓存。
+- 移动端不得删除查询输入、提交、清空、结果分组、错误/权限说明、最近/保存搜索入口或恢复路径。
+- 详细规则和可执行验收仅维护在 [搜索与命令面板交互规范](references/search-command-palette.md)，本交接不重复其状态模型或检查项。
 
 ### 日期时间与时区
 

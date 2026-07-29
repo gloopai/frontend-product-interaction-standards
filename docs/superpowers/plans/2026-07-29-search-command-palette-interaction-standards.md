@@ -50,7 +50,7 @@
 
 适用于全局搜索、全站搜索、站内搜索、命令面板、快速跳转、快捷搜索、动作搜索、对象搜索、搜索建议、最近搜索、保存搜索、搜索结果、结果分组、搜索预览、AI 搜索和自然语言搜索入口。本文件是搜索与命令面板交互、权限、安全、命令执行和验收的唯一事实来源。
 
-列表、表格、报表或审计日志中的查询条件和筛选继续执行 [查询条件与筛选交互规范](query-filters.md)。字段 Select / Combobox 的内部搜索继续执行 [可搜索单选 Select / Combobox 交互规范](selects-comboboxes.md)。会修改数据、权限、导出、任务、密钥或外部系统的命令必须进入 [危险操作与恢复交互规范](risk-actions.md)。
+列表、表格、报表或审计日志中的查询条件和筛选继续执行 `query-filters.md`。字段 Select / Combobox 的内部搜索继续执行 `selects-comboboxes.md`。会修改数据、权限、导出、任务、密钥或外部系统的命令必须进入 `risk-actions.md`。
 ```
 
 - [ ] **Step 2: 写入 `searchCommandState`**
@@ -123,7 +123,7 @@ Expected: `rg` 找到对应术语；`git diff --check` 无输出且 exit 0。
 并在完整规则链接列表中加入：
 
 ```markdown
-[搜索与命令面板交互规范](references/search-command-palette.md)
+搜索与命令面板交互规范：`references/search-command-palette.md`
 ```
 
 - [ ] **Step 3: 更新 `HANDOFF.md`**

@@ -4,7 +4,7 @@
 
 ## 当前规范
 
-本 Skill 当前包含以下 Dialog、四向抽屉、可搜索单选 Select、表单、数据表格、查询条件与筛选、日期时间与时区、信息展示与详情页、图表与可视化、分步流程与配置向导、导航与路由、记录新增/编辑承载面、按钮、浮层菜单与提示、危险操作与恢复、上传与导入、反馈状态、全局反馈、跨端适配和管理台治理核心要求：
+本 Skill 当前包含以下 Dialog、四向抽屉、可搜索单选 Select、表单、数据表格、查询条件与筛选、搜索与命令面板、日期时间与时区、信息展示与详情页、图表与可视化、分步流程与配置向导、导航与路由、记录新增/编辑承载面、按钮、浮层菜单与提示、危险操作与恢复、上传与导入、反馈状态、全局反馈、跨端适配和管理台治理核心要求：
 
 - PC、平板和移动端保持核心能力一致；低频能力可以折叠或收纳，但不能删除，且必须保持可发现、可访问。
 
@@ -21,6 +21,7 @@
 - 表单以明确的字段状态、校验与提交生命周期管理错误、恢复、未保存更改和可访问错误反馈。
 - 数据表格以显式能力档位覆盖展示、单行与批量场景，并约束筛选、排序、页码/游标分页、列与固定列、选择、批量操作和部分成功的交互。
 - 查询条件与筛选规范约束草稿/已应用分离、应用模式、默认值、重置/清空、已应用摘要、URL 安全同步、权限收敛和移动端筛选可达性。
+- 搜索与命令面板规范约束全局搜索、站内搜索、命令面板、快速跳转、动作搜索、结果分组、命令执行、权限无泄露、最近/保存搜索、快捷键、移动端承载和 AI 搜索边界。
 - 日期时间与时区规范约束日期、时间、时间范围、快捷范围、时区、范围边界、URL 恢复、报表/导出/审计快照和移动端承载转换。
 - 信息展示与详情页规范约束详情页、描述列表、只读字段、信息卡、状态标签、指标卡、字段语义、脱敏复制、权限收敛、审计摘要和移动端折叠。
 - 图表与可视化规范约束图表数据快照、指标口径、维度编码、坐标轴、图例、tooltip、交互能力、空态错误、权限安全、导出明细、可访问性和移动端替代表达。
@@ -35,7 +36,7 @@
 - 全局反馈与通知规范约束 Toast、Alert、Banner、Notification 和 Inline Feedback 的通道选择、结果绑定、自动关闭、去重堆叠、恢复入口、移动端遮挡和敏感信息边界。
 - 管理台完整治理覆盖导航、权限/租户、危险操作、审计、导入导出、异步任务、报表口径和全局反馈，并规定报表默认只读、能力显式声明、Toast 不得作为唯一回执。
 
-完整规则、验收标准与完成前检查见 [Dialog 交互规范](references/dialogs.md)、[Drawer 交互规范](references/drawers.md)、[可搜索单选 Select / Combobox 交互规范](references/selects-comboboxes.md)、[表单状态、校验与错误交互规范](references/forms.md)、[数据表格交互规范](references/data-tables.md)、[查询条件与筛选交互规范](references/query-filters.md)、[日期时间与时区交互规范](references/date-time-ranges.md)、[信息展示与详情页交互规范](references/information-display.md)、[图表与可视化交互规范](references/charts-visualization.md)、[分步流程与配置向导交互规范](references/wizards-steppers.md)、[导航与路由交互规范](references/navigation-routing.md)、[记录新增/编辑承载面交互规范](references/record-editing-surfaces.md)、[按钮交互规范](references/buttons.md)、[浮层菜单与提示交互规范](references/overlays-menus-tooltips.md)、[危险操作与恢复交互规范](references/risk-actions.md)、[上传与导入交互规范](references/uploads-imports.md)、[反馈状态与状态承载规范](references/feedback-states.md)、[全局反馈与通知交互规范](references/global-feedback.md)、[响应式与自适应交互规范](references/responsive-adaptive.md) 和 [管理台完整治理交互规范](references/admin-console.md)。
+完整规则、验收标准与完成前检查见 [Dialog 交互规范](references/dialogs.md)、[Drawer 交互规范](references/drawers.md)、[可搜索单选 Select / Combobox 交互规范](references/selects-comboboxes.md)、[表单状态、校验与错误交互规范](references/forms.md)、[数据表格交互规范](references/data-tables.md)、[查询条件与筛选交互规范](references/query-filters.md)、[搜索与命令面板交互规范](references/search-command-palette.md)、[日期时间与时区交互规范](references/date-time-ranges.md)、[信息展示与详情页交互规范](references/information-display.md)、[图表与可视化交互规范](references/charts-visualization.md)、[分步流程与配置向导交互规范](references/wizards-steppers.md)、[导航与路由交互规范](references/navigation-routing.md)、[记录新增/编辑承载面交互规范](references/record-editing-surfaces.md)、[按钮交互规范](references/buttons.md)、[浮层菜单与提示交互规范](references/overlays-menus-tooltips.md)、[危险操作与恢复交互规范](references/risk-actions.md)、[上传与导入交互规范](references/uploads-imports.md)、[反馈状态与状态承载规范](references/feedback-states.md)、[全局反馈与通知交互规范](references/global-feedback.md)、[响应式与自适应交互规范](references/responsive-adaptive.md) 和 [管理台完整治理交互规范](references/admin-console.md)。
 
 ## 系统要求
 
